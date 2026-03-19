@@ -1497,7 +1497,6 @@ main { max-width:760px; margin:0 auto; padding:0 1rem 6rem; }
     res.textContent = '';
   }
 
-  /*
   // ── AI Grammar checker via Claude API ──────────────────────────────
   async function sbDone(id) {
     const tokens = sbState[id];
@@ -1505,7 +1504,7 @@ main { max-width:760px; margin:0 auto; padding:0 1rem 6rem; }
 
     if (tokens.length === 0) {
       res.className = 'sb-result show-hint';
-      res.innerHTML = '\u{1F446} Tap some words first!';
+      res.innerHTML = '👆 Tap some words first!';
       return;
     }
 
