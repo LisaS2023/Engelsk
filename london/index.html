@@ -1,0 +1,3689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>London English Tasks 🇬🇧</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Outfit:wght@400;600;700;800&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ═══ LANDING PAGE STYLES ═══ -->
+<style>
+/* SHARED BASE */
+:root {
+  --ink:#0a0e1a; --panel:#111827; --card:#1a2235; --border:#2a3a55;
+  --neon:#00e5ff; --gold:#ffd046; --red:#ff3e5e; --green:#00e096;
+  --purple:#b57bff; --muted:#8899bb; --text:#dce8ff; --white:#ffffff;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Outfit',sans-serif; background:var(--ink); color:var(--text); min-height:100vh; overflow-x:hidden; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);
+  pointer-events:none; z-index:9999;
+}
+
+/* ═══ APP SWITCHING ═══ */
+#landing, #app-a1, #app-a2 { display:none; }
+#landing.active, #app-a1.active, #app-a2.active { display:block; }
+
+/* ═══ LANDING PAGE ═══ */
+.landing-wrap {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:2rem 1rem; gap:2rem;
+}
+.landing-header { text-align:center; }
+.landing-classified {
+  font-family:'Special Elite',cursive; font-size:0.75rem; letter-spacing:6px;
+  color:var(--red); margin-bottom:0.6rem; animation:blink 2s step-end infinite;
+}
+@keyframes blink { 50%{opacity:0.3;} }
+.landing-title {
+  font-size:clamp(2.2rem,7vw,4rem); font-weight:800; color:var(--white);
+  letter-spacing:2px; line-height:1.1;
+}
+.landing-title span { color:var(--neon); }
+.landing-sub {
+  font-family:'Special Elite',cursive; color:var(--muted);
+  font-size:1rem; margin-top:0.5rem; letter-spacing:2px;
+}
+.flag { font-size:3rem; margin-bottom:0.5rem; display:block; }
+
+/* ═══ LEVEL CARDS ═══ */
+.level-cards { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; width:100%; max-width:680px; }
+.level-card {
+  flex:1; min-width:260px; max-width:300px;
+  background:var(--card); border:2px solid var(--border); border-radius:20px;
+  padding:2rem 1.6rem; text-align:center; cursor:pointer;
+  transition:all 0.2s; position:relative; overflow:hidden;
+}
+.level-card::before {
+  content:''; position:absolute; inset:0; opacity:0;
+  transition:opacity 0.2s;
+}
+.level-card.a1::before { background:radial-gradient(circle at 50% 0%,rgba(0,224,150,0.15),transparent 70%); }
+.level-card.a2::before { background:radial-gradient(circle at 50% 0%,rgba(0,229,255,0.15),transparent 70%); }
+.level-card:hover { transform:translateY(-4px); }
+.level-card.a1:hover { border-color:var(--green); box-shadow:0 8px 40px rgba(0,224,150,0.25); }
+.level-card.a2:hover { border-color:var(--neon);  box-shadow:0 8px 40px rgba(0,229,255,0.25); }
+.level-card:hover::before { opacity:1; }
+
+.card-emoji { font-size:3rem; margin-bottom:0.8rem; display:block; }
+.card-level {
+  font-family:'Special Elite',cursive; font-size:0.7rem; letter-spacing:4px;
+  margin-bottom:0.4rem;
+}
+.level-card.a1 .card-level { color:var(--green); }
+.level-card.a2 .card-level { color:var(--neon); }
+.card-title { font-size:1.4rem; font-weight:800; color:var(--white); margin-bottom:0.5rem; }
+.card-desc { font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:1.2rem; }
+.card-tags { display:flex; flex-wrap:wrap; gap:0.4rem; justify-content:center; margin-bottom:1.4rem; }
+.tag {
+  font-size:0.72rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:20px;
+  background:rgba(255,255,255,0.07); border:1px solid var(--border); color:var(--muted);
+}
+.level-card.a1 .tag { border-color:rgba(0,224,150,0.3); color:var(--green); background:rgba(0,224,150,0.08); }
+.level-card.a2 .tag { border-color:rgba(0,229,255,0.3); color:var(--neon);  background:rgba(0,229,255,0.08); }
+
+.start-btn {
+  display:block; width:100%; padding:0.75rem; border-radius:10px;
+  font-weight:800; font-size:1rem; border:none; cursor:pointer;
+  font-family:'Outfit',sans-serif; transition:all 0.15s; position:relative; z-index:1;
+}
+.level-card.a1 .start-btn { background:var(--green); color:var(--ink); }
+.level-card.a1 .start-btn:hover { background:#33ffb8; box-shadow:0 0 25px rgba(0,224,150,0.5); }
+.level-card.a2 .start-btn { background:var(--neon); color:var(--ink); }
+.level-card.a2 .start-btn:hover { background:#33eeff; box-shadow:0 0 25px rgba(0,229,255,0.5); }
+
+/* back button */
+.back-btn {
+  position:fixed; top:1rem; left:1rem; z-index:10000;
+  background:var(--card); border:1px solid var(--border); border-radius:8px;
+  padding:0.4rem 0.9rem; font-size:0.85rem; font-weight:700; color:var(--muted);
+  cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.15s;
+  display:none;
+}
+.back-btn.show { display:block; }
+.back-btn:hover { color:var(--white); border-color:var(--neon); }
+</style>
+
+<!-- ═══ PRE-A1 STYLES ═══ -->
+<style id="styles-a1">
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --red: #e8192c;
+  --yellow: #FFD700;
+  --blue: #1a3f8f;
+  --green: #22a855;
+  --bg: #fff8f0;
+  --text: #1a1a1a;
+}
+
+body {
+  font-family: 'Baloo 2', cursive;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 18px;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--red);
+  padding: 1.6rem 1rem 1.2rem;
+  text-align: center;
+  position: relative;
+}
+.flag-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--blue) 33%, white 33%, white 66%, var(--red) 66%);
+}
+.bus-anim {
+  font-size: 3.8rem;
+  display: inline-block;
+  animation: drive 4s ease-in-out infinite;
+}
+@keyframes drive {
+  0%,100% { transform: translateX(-6px); }
+  50%      { transform: translateX(6px); }
+}
+header h1 {
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.25);
+  margin-top: 0.2rem;
+}
+.header-sub {
+  color: rgba(255,255,255,0.92);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+}
+.level-badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 0.3rem 1.1rem;
+  border-radius: 20px;
+  margin-top: 0.7rem;
+  letter-spacing: 0.5px;
+}
+
+/* ── MAIN ── */
+main { max-width: 680px; margin: 0 auto; padding: 1.6rem 1rem 5rem; }
+
+/* ── HOW TO BOX ── */
+.how-box {
+  background: var(--blue);
+  color: white;
+  border-radius: 22px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+.how-box .how-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: rgba(255,255,255,0.13);
+  border-radius: 14px;
+  padding: 0.65rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.step-emoji { font-size: 1.9rem; flex-shrink: 0; }
+
+/* ── WORD WALL ── */
+.word-wall {
+  background: white;
+  border: 3px solid var(--yellow);
+  border-radius: 22px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+.ww-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 0.9rem;
+}
+.ww-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: center;
+}
+.word-card {
+  background: var(--yellow);
+  color: var(--blue);
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 0.45rem 1.1rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── PROGRESS ── */
+.prog-section { margin-bottom: 1.6rem; }
+.prog-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.prog-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.star {
+  font-size: 2rem;
+  opacity: 0.25;
+  transition: opacity 0.35s, transform 0.35s;
+}
+.star.lit {
+  opacity: 1;
+  transform: scale(1.2) rotate(-5deg);
+}
+
+/* ── STOP CARD ── */
+.stop {
+  border-radius: 26px;
+  overflow: hidden;
+  margin-bottom: 2.2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  background: white;
+  border: 3px solid transparent;
+}
+.stop.s1 { border-color: #1a3f8f; }
+.stop.s2 { border-color: #7c3aed; }
+.stop.s3 { border-color: #0f766e; }
+.stop.s4 { border-color: #b45309; }
+.stop.s5 { border-color: #be123c; }
+
+.stop-head {
+  padding: 1.2rem 1.4rem 1rem;
+  color: white;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.s1 .stop-head { background: linear-gradient(135deg,#1a3f8f,#3b6fd4); }
+.s2 .stop-head { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+.s3 .stop-head { background: linear-gradient(135deg,#0f766e,#2dd4bf); }
+.s4 .stop-head { background: linear-gradient(135deg,#b45309,#fbbf24); }
+.s5 .stop-head { background: linear-gradient(135deg,#be123c,#f87171); }
+
+.stop-num-badge {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.25);
+  border: 3px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.stop-head-text h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.stop-place {
+  font-size: 0.88rem;
+  opacity: 0.85;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+/* ── OPEN BUTTON ── */
+.open-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+  border-radius: 18px;
+  padding: 1.1rem 1.4rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 1.2rem 1.2rem 0;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 5px 18px rgba(232,25,44,0.35);
+  text-align: center;
+}
+.open-btn:hover, .open-btn:active {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(232,25,44,0.45);
+}
+.open-btn .btn-icon { font-size: 1.8rem; }
+
+/* ── TASKS SECTION ── */
+.tasks-section { padding: 1.2rem 1.2rem 1.4rem; }
+
+.section-label {
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #94a3b8;
+  margin-bottom: 0.9rem;
+}
+
+/* ── SENTENCE BUILDER ── */
+.sentence-builder {
+  background: #fdf4ff;
+  border: 2px solid #d8b4fe;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+}
+.sb-prompt {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #6b21a8;
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+}
+.sb-starter {
+  font-size: 0.88rem;
+  color: #7e22ce;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
+.sb-display {
+  min-height: 52px;
+  background: white;
+  border: 2.5px dashed #c084fc;
+  border-radius: 12px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+.sb-display:empty::before {
+  content: 'Tap words below ↓';
+  color: #c4b5fd;
+  font-style: italic;
+  font-size: 0.92rem;
+}
+.sb-word-used {
+  background: #7c3aed;
+  color: white;
+  border-radius: 8px;
+  padding: 0.25rem 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.sb-word-used:hover { opacity: 0.75; }
+.sb-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.sb-chip {
+  background: white;
+  border: 2.5px solid #a855f7;
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6b21a8;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.sb-chip:hover { background: #f3e8ff; }
+.sb-chip.used { opacity: 0.28; pointer-events: none; }
+.sb-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.sb-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0.45rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Baloo 2', cursive;
+  transition: all 0.15s;
+}
+.sb-btn-clear { background: #fee2e2; color: #991b1b; }
+.sb-btn-clear:hover { background: #fca5a5; }
+.sb-btn-done  { background: #7c3aed; color: white; }
+.sb-btn-done:hover  { background: #6d28d9; }
+.sb-result {
+  margin-top: 0.7rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  display: none;
+}
+.sb-result.show-good  { background: #dcfce7; color: #15803d; display: block; }
+.sb-result.show-saved { background: #ede9fe; color: #5b21b6; display: block; }
+.sb-result.show-hint  { background: #fff7ed; color: #9a3412; border: 2px solid #fed7aa; display: block; }
+
+/* LOOK AND FIND */
+.look-find {
+  background: #f0fdf4;
+  border: 2px dashed #4ade80;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.3rem;
+}
+.lf-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #15803d;
+  margin-bottom: 0.4rem;
+}
+.lf-subtitle {
+  font-size: 0.88rem;
+  color: #166534;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  opacity: 0.85;
+}
+.lf-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.lf-item {
+  background: white;
+  border: 2.5px solid #93c5fd;
+  border-radius: 50px;
+  padding: 0.45rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.lf-item.found-yes {
+  background: #4ade80;
+  border-color: #16a34a;
+  color: white;
+  transform: scale(1.06);
+}
+.lf-item.found-no {
+  background: #fca5a5;
+  border-color: #ef4444;
+  color: white;
+  animation: shake 0.3s;
+}
+.lf-item.found-yes::after { content: ' ✅'; }
+.lf-item.found-no::after  { content: ' ❌'; }
+
+/* QUESTION TASKS */
+.q-task {
+  background: #eff6ff;
+  border: 2px solid #bfdbfe;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.9rem;
+}
+.q-question {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 0.7rem;
+  line-height: 1.35;
+}
+.q-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.choice-btn {
+  background: white;
+  border: 2.5px solid #93c5fd;
+  border-radius: 14px;
+  padding: 0.55rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'Baloo 2', cursive;
+}
+.choice-btn:hover { background: #eff6ff; }
+.choice-btn.correct {
+  background: #4ade80;
+  border-color: #16a34a;
+  color: white;
+}
+.choice-btn.wrong {
+  background: #fca5a5;
+  border-color: #ef4444;
+  color: white;
+  animation: shake 0.3s;
+}
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+}
+.feedback {
+  margin-top: 0.65rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: none;
+}
+.feedback.show { display: block; }
+.feedback.ok { color: #15803d; }
+.feedback.no { color: #b91c1c; }
+
+/* ── FINISH CARD ── */
+.finish-card {
+  background: linear-gradient(135deg, var(--red), #b91c1c);
+  color: white;
+  border-radius: 28px;
+  padding: 2.4rem 1.8rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  box-shadow: 0 12px 40px rgba(232,25,44,0.3);
+  display: none;
+}
+.finish-card .party { font-size: 4rem; display: block; animation: pop 0.6s ease; }
+@keyframes pop { 0%{transform:scale(0)} 80%{transform:scale(1.2)} 100%{transform:scale(1)} }
+.finish-card h2 { font-size: 2.2rem; font-weight: 800; margin: 0.4rem 0; }
+.finish-card p { font-size: 1.15rem; opacity: 0.92; }
+.finish-stars { font-size: 2.2rem; margin-top: 0.6rem; letter-spacing: 5px; }
+
+@media(max-width:420px){
+  .step { font-size: 1rem; }
+  .open-btn { font-size: 1.1rem; }
+  .q-question { font-size: 1.1rem; }
+}
+
+</style>
+
+<!-- ═══ A2 STYLES ═══ -->
+<style id="styles-a2">
+
+:root {
+  --ink:    #0a0e1a;
+  --panel:  #111827;
+  --card:   #1a2235;
+  --border: #2a3a55;
+  --neon:   #00e5ff;
+  --gold:   #ffd046;
+  --red:    #ff3e5e;
+  --green:  #00e096;
+  --purple: #b57bff;
+  --muted:  #8899bb;
+  --text:   #dce8ff;
+  --white:  #ffffff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family:'Outfit',sans-serif; background:var(--ink); color:var(--text); min-height:100vh; overflow-x:hidden; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);
+  pointer-events:none; z-index:9999;
+}
+
+/* ═══ HEADER ═══ */
+header {
+  background:linear-gradient(180deg,#000510 0%,#0a0e1a 100%);
+  border-bottom:2px solid var(--neon);
+  padding:2rem 1rem 1.8rem; text-align:center; position:relative; overflow:hidden;
+}
+header::after {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:60%; height:1px;
+  background:radial-gradient(ellipse,var(--neon) 0%,transparent 70%); filter:blur(2px);
+}
+.header-classified { font-family:'Special Elite',cursive; font-size:0.75rem; letter-spacing:6px; color:var(--red); margin-bottom:0.5rem; animation:blink 2s step-end infinite; }
+@keyframes blink { 50%{opacity:0.3;} }
+.header-title { font-size:clamp(2rem,6vw,3.5rem); font-weight:800; color:var(--white); letter-spacing:2px; line-height:1.1; }
+.header-title span { color:var(--neon); }
+.header-sub { font-family:'Special Elite',cursive; color:var(--muted); font-size:0.95rem; margin-top:0.4rem; letter-spacing:2px; }
+.level-chip { display:inline-block; background:var(--gold); color:var(--ink); font-weight:800; font-size:0.8rem; padding:0.25rem 1rem; border-radius:20px; margin-top:0.7rem; letter-spacing:1px; }
+
+/* ═══ MISSION MAP ═══ */
+.mission-map-wrap { max-width:760px; margin:1.5rem auto 0; padding:0 1rem; }
+.mission-map {
+  background:var(--card); border:1px solid var(--border); border-radius:14px;
+  padding:1rem 1.2rem; overflow-x:auto;
+}
+.mission-map-title { font-family:'Special Elite',cursive; font-size:0.7rem; letter-spacing:3px; color:var(--muted); margin-bottom:0.8rem; }
+.map-stops { display:flex; align-items:center; gap:0; min-width:420px; }
+.map-stop {
+  display:flex; flex-direction:column; align-items:center; gap:0.3rem; flex:1; position:relative; cursor:default;
+}
+.map-stop::after {
+  content:''; position:absolute; top:18px; left:50%; right:-50%; width:100%; height:2px;
+  background:var(--border); z-index:0;
+}
+.map-stop:last-child::after { display:none; }
+.map-dot {
+  width:36px; height:36px; border-radius:50%; border:2px solid var(--border);
+  background:var(--panel); display:flex; align-items:center; justify-content:center;
+  font-size:1rem; z-index:1; transition:all 0.3s;
+}
+.map-stop.done .map-dot   { border-color:var(--green); background:rgba(0,224,150,0.15); }
+.map-stop.active .map-dot { border-color:var(--neon);  background:rgba(0,229,255,0.12); box-shadow:0 0 12px rgba(0,229,255,0.4); animation:mapPulse 1.5s ease-in-out infinite; }
+.map-stop.perfect .map-dot { border-color:var(--gold); background:rgba(255,208,70,0.15); }
+@keyframes mapPulse { 0%,100%{box-shadow:0 0 8px rgba(0,229,255,0.3)} 50%{box-shadow:0 0 20px rgba(0,229,255,0.7)} }
+.map-stop-label { font-size:0.62rem; color:var(--muted); font-weight:700; letter-spacing:0.5px; text-align:center; line-height:1.2; max-width:52px; }
+.map-stop.done   .map-stop-label { color:var(--green); }
+.map-stop.active .map-stop-label { color:var(--neon); }
+.map-stop.perfect .map-stop-label { color:var(--gold); }
+.map-stop::before { content:''; position:absolute; top:18px; right:50%; left:-50%; height:2px; background:var(--border); z-index:0; transition:background 0.3s; }
+.map-stop:first-child::before { display:none; }
+.map-stop.done::before { background:var(--green); }
+
+/* ═══ BRIEFING / SCORE ═══ */
+.briefing { max-width:760px; margin:1.5rem auto 0; padding:0 1rem; }
+.briefing-card {
+  background:var(--card); border:1px solid var(--border); border-left:4px solid var(--neon);
+  border-radius:12px; padding:1.4rem 1.6rem; margin-bottom:1.2rem;
+  font-size:1rem; line-height:1.7; color:var(--text);
+}
+.briefing-card h2 { font-family:'Special Elite',cursive; color:var(--neon); font-size:1rem; letter-spacing:3px; margin-bottom:0.7rem; }
+.briefing-card p { margin-bottom:0.5rem; } .briefing-card p:last-child { margin-bottom:0; }
+.briefing-card strong { color:var(--gold); }
+
+/* score bar */
+.score-bar {
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  padding:1rem 1.4rem; margin-bottom:1.2rem; display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;
+}
+.score-main { display:flex; align-items:baseline; gap:0.3rem; }
+.score-num { font-size:2.4rem; font-weight:800; color:var(--gold); line-height:1; }
+.score-num.pop { animation:scorePop 0.35s ease; }
+@keyframes scorePop { 0%{transform:scale(1)} 50%{transform:scale(1.5);color:var(--neon)} 100%{transform:scale(1)} }
+.score-label { color:var(--muted); font-size:0.85rem; font-weight:600; }
+.rank-wrap { flex:1; min-width:160px; }
+.rank-label { font-size:0.75rem; color:var(--muted); margin-bottom:0.3rem; letter-spacing:1px; }
+.rank-bar-bg { background:var(--border); border-radius:99px; height:8px; overflow:hidden; }
+.rank-bar-fill { height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--gold)); border-radius:99px; transition:width 0.6s cubic-bezier(.4,0,.2,1); }
+.rank-name { font-size:0.8rem; font-weight:700; color:var(--neon); margin-top:0.25rem; letter-spacing:1px; font-family:'Special Elite',cursive; }
+.stops-done { font-size:0.85rem; color:var(--muted); font-weight:600; margin-left:auto; }
+
+/* streak widget */
+.streak-wrap { display:flex; align-items:center; gap:0.5rem; }
+.streak-fire { font-size:1.4rem; transition:transform 0.2s; }
+.streak-fire.lit { animation:firePop 0.4s ease; }
+@keyframes firePop { 0%{transform:scale(1)} 50%{transform:scale(1.5) rotate(-5deg)} 100%{transform:scale(1)} }
+.streak-count { font-size:1rem; font-weight:800; color:var(--gold); }
+.streak-label { font-size:0.72rem; color:var(--muted); font-family:'Special Elite',cursive; letter-spacing:1px; }
+.multiplier-badge {
+  display:none; background:linear-gradient(135deg,var(--gold),#ff9a3c);
+  color:var(--ink); font-size:0.72rem; font-weight:800; padding:0.15rem 0.5rem; border-radius:6px;
+  animation:popIn 0.3s ease;
+}
+.multiplier-badge.show { display:inline-block; }
+
+/* ═══ FLOATING SCORE POPUP ═══ */
+#floatScore {
+  position:fixed; top:30%; left:50%; transform:translateX(-50%) scale(0);
+  background:var(--gold); color:var(--ink); font-weight:800; font-size:1.6rem;
+  padding:0.4rem 1.2rem; border-radius:12px; z-index:10000; pointer-events:none;
+  transition:transform 0.15s,opacity 0.4s;
+  white-space:nowrap;
+}
+#floatScore.show { transform:translateX(-50%) scale(1); }
+#floatScore.hide { opacity:0; transform:translateX(-50%) translateY(-40px) scale(1.1); }
+
+/* ═══ STOP CARDS ═══ */
+main { max-width:760px; margin:0 auto; padding:0 1rem 6rem; }
+.stop-card {
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  margin-bottom:2rem; overflow:hidden; transition:box-shadow 0.3s;
+}
+.stop-card:hover { box-shadow:0 0 30px rgba(0,229,255,0.08); }
+.stop-card.locked { opacity:0.45; pointer-events:none; }
+.stop-card.locked .lock-notice { display:flex; }
+.lock-notice {
+  display:none; align-items:center; justify-content:center; gap:0.6rem;
+  background:rgba(0,0,0,0.5); border-top:1px solid var(--border); padding:0.75rem;
+  font-size:0.9rem; color:var(--muted); font-family:'Special Elite',cursive; letter-spacing:2px;
+}
+.stop-header { padding:1rem 1.4rem; display:flex; gap:1rem; align-items:center; border-bottom:1px solid var(--border); }
+.stop-num {
+  width:44px; height:44px; border-radius:50%; border:2px solid var(--neon);
+  color:var(--neon); font-weight:800; font-size:1.1rem; display:flex; align-items:center;
+  justify-content:center; flex-shrink:0; font-family:'Special Elite',cursive;
+}
+.stop-title-area h2 { font-weight:800; font-size:1.15rem; color:var(--white); line-height:1.2; }
+.stop-title-area .stop-loc { font-size:0.78rem; color:var(--muted); letter-spacing:1px; margin-top:0.15rem; }
+.pts-badge {
+  margin-left:auto; background:rgba(255,208,70,0.12); border:1px solid var(--gold);
+  color:var(--gold); font-size:0.78rem; font-weight:700; padding:0.2rem 0.7rem;
+  border-radius:20px; white-space:nowrap;
+}
+.perfect-badge {
+  display:none; background:linear-gradient(135deg,var(--gold),#ffaa00);
+  color:var(--ink); font-size:0.72rem; font-weight:800; padding:0.2rem 0.7rem;
+  border-radius:20px; white-space:nowrap; margin-left:0.4rem;
+  animation:popIn 0.4s ease;
+}
+.perfect-badge.show { display:inline-block; }
+
+.open-btn {
+  display:flex; align-items:center; justify-content:center; gap:0.7rem;
+  background:var(--neon); color:var(--ink); text-decoration:none; border-radius:10px;
+  padding:0.85rem 1.3rem; font-weight:800; font-size:1rem; margin:1.2rem 1.4rem 0;
+  transition:all 0.15s; box-shadow:0 0 20px rgba(0,229,255,0.25);
+}
+.open-btn:hover { background:#33eeff; box-shadow:0 0 30px rgba(0,229,255,0.45); }
+
+.stop-body { padding:1.2rem 1.4rem; }
+
+.sh {
+  font-family:'Special Elite',cursive; font-size:0.72rem; letter-spacing:3px;
+  text-transform:uppercase; color:var(--muted); margin:1.3rem 0 0.7rem;
+}
+.sh:first-child { margin-top:0; }
+
+/* ── intel box ── */
+.intel-box {
+  background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.2); border-left:3px solid var(--neon);
+  border-radius:10px; padding:1rem 1.2rem; font-size:0.95rem; line-height:1.8; color:var(--text); margin-bottom:0.5rem;
+}
+.intel-box strong { color:var(--neon); } .intel-box em { color:var(--gold); font-style:normal; font-weight:700; }
+
+/* ── speed timer ── */
+.speed-timer {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  background:rgba(181,123,255,0.12); border:1px solid rgba(181,123,255,0.3);
+  border-radius:8px; padding:0.25rem 0.7rem; font-size:0.8rem; font-weight:700;
+  color:var(--purple); margin-bottom:0.6rem;
+}
+.speed-timer .timer-num { font-family:'Special Elite',cursive; font-size:1rem; min-width:1.2em; }
+.speed-timer.danger { color:var(--red); border-color:rgba(255,62,94,0.4); background:rgba(255,62,94,0.1); animation:blink 0.5s step-end infinite; }
+
+/* ── find grid ── */
+.find-grid { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem; }
+.fi {
+  background:var(--panel); border:1.5px solid var(--border); border-radius:8px;
+  padding:0.4rem 0.9rem; font-size:0.92rem; font-weight:600; color:var(--text);
+  cursor:pointer; transition:all 0.18s; user-select:none;
+}
+.fi:hover { border-color:var(--neon); color:var(--neon); }
+.fi.yes { background:rgba(0,224,150,0.15); border-color:var(--green); color:var(--green); }
+.fi.yes::after { content:' ✓'; }
+.fi.no  { background:rgba(255,62,94,0.15); border-color:var(--red); color:var(--red); animation:shk .3s; }
+@keyframes shk { 0%,100%{transform:translateX(0)} 30%{transform:translateX(-5px)} 70%{transform:translateX(5px)} }
+
+/* ── MC questions ── */
+.mc-question { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:1rem 1.1rem; margin-bottom:0.7rem; position:relative; }
+.mc-q { font-size:0.97rem; font-weight:600; color:var(--white); margin-bottom:0.7rem; line-height:1.45; }
+.mc-opts { display:flex; flex-wrap:wrap; gap:0.45rem; }
+.mc-btn {
+  background:var(--card); border:1.5px solid var(--border); border-radius:8px;
+  padding:0.45rem 1rem; font-size:0.9rem; font-weight:600; color:var(--text);
+  cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.15s;
+}
+.mc-btn:hover:not(:disabled) { border-color:var(--neon); color:var(--neon); }
+.mc-btn.correct { background:rgba(0,224,150,0.15); border-color:var(--green); color:var(--green); }
+.mc-btn.wrong   { background:rgba(255,62,94,0.12);  border-color:var(--red);   color:var(--red); animation:shk .3s; }
+.mc-feedback { margin-top:0.6rem; font-size:0.88rem; font-weight:600; display:none; }
+.mc-feedback.show { display:block; } .mc-feedback.ok { color:var(--green); } .mc-feedback.no { color:var(--red); }
+
+.bonus-pop {
+  display:inline-block; background:var(--gold); color:var(--ink); font-size:0.75rem; font-weight:800;
+  padding:0.1rem 0.5rem; border-radius:6px; margin-left:0.4rem; animation:popIn 0.3s ease;
+}
+@keyframes popIn { 0%{transform:scale(0)} 80%{transform:scale(1.15)} 100%{transform:scale(1)} }
+
+/* ── VOCAB TASK ── */
+.vocab-task { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:1.1rem; margin-bottom:0.7rem; }
+.vocab-instructions { font-size:0.83rem; color:var(--muted); margin-bottom:0.9rem; line-height:1.5; }
+.vocab-pairs { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+.vocab-col-label { font-size:0.68rem; font-family:'Special Elite',cursive; letter-spacing:2px; color:var(--muted); margin-bottom:0.3rem; }
+.vocab-words, .vocab-defs { display:flex; flex-direction:column; gap:0.4rem; }
+.vocab-word, .vocab-def {
+  background:var(--card); border:1.5px solid var(--border); border-radius:8px;
+  padding:0.45rem 0.8rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+  transition:all 0.18s; user-select:none; text-align:left; color:var(--text);
+  line-height:1.3;
+}
+.vocab-word:hover:not(.matched):not(.selected), 
+.vocab-def:hover:not(.matched):not(.selected)  { border-color:var(--purple); color:var(--purple); }
+.vocab-word.selected, .vocab-def.selected { border-color:var(--neon); color:var(--neon); background:rgba(0,229,255,0.08); }
+.vocab-word.matched,  .vocab-def.matched  { border-color:var(--green); color:var(--green); background:rgba(0,224,150,0.12); cursor:default; pointer-events:none; }
+.vocab-word.matched::after, .vocab-def.matched::after { content:' ✓'; }
+.vocab-word.wrong-flash, .vocab-def.wrong-flash { border-color:var(--red); color:var(--red); animation:shk 0.3s; }
+.vocab-score { margin-top:0.7rem; font-size:0.85rem; color:var(--muted); font-weight:600; }
+.vocab-score .vocab-correct { color:var(--green); }
+
+/* ── write box ── */
+.write-box { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:1rem 1.1rem; margin-bottom:0.7rem; }
+.write-prompt { font-size:0.95rem; font-weight:600; color:var(--white); margin-bottom:0.5rem; line-height:1.45; }
+.write-hint   { font-size:0.8rem; color:var(--muted); margin-bottom:0.6rem; }
+.write-input {
+  width:100%; background:var(--card); border:1.5px solid var(--border); border-radius:8px;
+  padding:0.6rem 0.9rem; font-family:'Outfit',sans-serif; font-size:0.97rem; color:var(--white);
+  outline:none; transition:border-color 0.15s; resize:vertical; min-height:56px;
+}
+.write-input:focus { border-color:var(--neon); }
+.write-input::placeholder { color:var(--muted); }
+.write-submit {
+  margin-top:0.6rem; background:var(--neon); color:var(--ink); border:none; border-radius:8px;
+  padding:0.5rem 1.2rem; font-weight:800; font-size:0.92rem; cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.15s;
+}
+.write-submit:hover { background:#33eeff; }
+.write-feedback { margin-top:0.5rem; font-size:0.88rem; font-weight:600; padding:0.5rem 0.8rem; border-radius:8px; display:none; }
+.write-feedback.show-ok   { display:block; background:rgba(0,224,150,0.12); color:var(--green); border:1px solid rgba(0,224,150,0.3); }
+.write-feedback.show-hint { display:block; background:rgba(255,208,70,0.1); color:var(--gold); border:1px solid rgba(255,208,70,0.3); }
+
+/* ── stop complete banner ── */
+.stop-complete {
+  display:none; align-items:center; gap:0.7rem;
+  background:rgba(0,224,150,0.1); border-top:1px solid rgba(0,224,150,0.25);
+  padding:0.9rem 1.4rem; font-weight:700; color:var(--green); font-size:0.95rem;
+}
+.stop-complete.show { display:flex; }
+.stop-complete .sc-pts { margin-left:auto; background:var(--gold); color:var(--ink); font-weight:800; font-size:0.8rem; padding:0.2rem 0.7rem; border-radius:6px; }
+
+/* ── MISSION COMPLETE ── */
+.mission-complete {
+  display:none; background:var(--card); border:2px solid var(--gold); border-radius:20px;
+  padding:2.4rem 2rem; text-align:center; margin-top:1rem; box-shadow:0 0 60px rgba(255,208,70,0.2);
+}
+.mission-complete.show { display:block; }
+.mc-title { font-family:'Special Elite',cursive; font-size:2rem; color:var(--gold); letter-spacing:3px; margin-bottom:0.5rem; }
+.mc-score-big { font-size:3.5rem; font-weight:800; color:var(--white); margin:0.5rem 0; }
+.mc-rank-final { font-family:'Special Elite',cursive; font-size:1.1rem; color:var(--neon); letter-spacing:3px; margin-bottom:0.8rem; }
+.mc-msg { color:var(--muted); font-size:0.97rem; line-height:1.6; }
+.mc-stats { display:flex; justify-content:center; gap:2rem; margin:1.2rem 0; flex-wrap:wrap; }
+.mc-stat { text-align:center; }
+.mc-stat-num { font-size:1.6rem; font-weight:800; color:var(--neon); }
+.mc-stat-lbl { font-size:0.75rem; color:var(--muted); font-family:'Special Elite',cursive; letter-spacing:1px; }
+.perfect-stops-list { margin-top:1rem; font-size:0.85rem; color:var(--gold); }
+
+@media(max-width:480px){
+  .score-bar{flex-direction:column;align-items:flex-start}
+  .stops-done{margin-left:0}
+  .vocab-pairs{grid-template-columns:1fr 1fr}
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACK BUTTON -->
+<button class="back-btn" id="backBtn" onclick="goLanding()">← Choose level</button>
+
+<!-- ═══ LANDING ═══ -->
+<div id="landing" class="active">
+  <div class="landing-wrap">
+    <div class="landing-header">
+      <span class="flag">🇬🇧</span>
+      <div class="landing-classified">🔴 intelligence operations — london bureau</div>
+      <div class="landing-title">LONDON <span>STREET</span> TASKS</div>
+      <div class="landing-sub">// choose your mission level //</div>
+    </div>
+
+    <div class="level-cards">
+
+      <div class="level-card a1" onclick="startApp('a1')">
+        <span class="card-emoji">🌟</span>
+        <div class="card-level">LEVEL · PRE-A1 · BEGINNER</div>
+        <div class="card-title">London Explorer</div>
+        <div class="card-desc">Explore 5 London landmarks. Find things, tap words and build simple sentences.</div>
+        <div class="card-tags">
+          <span class="tag">🔍 Find items</span>
+          <span class="tag">🧩 Word chips</span>
+          <span class="tag">✍️ Sentences</span>
+          <span class="tag">5 stops</span>
+        </div>
+        <button class="start-btn">Start mission →</button>
+      </div>
+
+      <div class="level-card a2" onclick="startApp('a2')">
+        <span class="card-emoji">🕵️</span>
+        <div class="card-level">LEVEL · A2 · INTERMEDIATE</div>
+        <div class="card-title">Field Agent</div>
+        <div class="card-desc">7 secret missions across London. Read intel, answer questions, decode vocabulary and write reports.</div>
+        <div class="card-tags">
+          <span class="tag">📡 Reading</span>
+          <span class="tag">🔤 Vocabulary</span>
+          <span class="tag">⚡ Speed bonus</span>
+          <span class="tag">🔥 Streaks</span>
+          <span class="tag">7 missions</span>
+        </div>
+        <button class="start-btn">Start mission →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRE-A1 APP ═══ -->
+<div id="app-a1">
+
+
+<header>
+  <div class="flag-stripe"></div>
+  <span class="bus-anim">🚌</span>
+  <h1>Hello, London!</h1>
+  <p class="header-sub">Look at London on the computer 👀</p>
+  <span class="level-badge">⭐ Pre-A1 English</span>
+</header>
+
+<main>
+
+  <!-- HOW TO -->
+  <div class="how-box">
+    <div class="how-title">📋 How to do this task</div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-emoji">1️⃣</span>
+        <span>Click the <strong>red button</strong> to open the map</span>
+      </div>
+      <div class="step">
+        <span class="step-emoji">👀</span>
+        <span>Look at the picture. Look left. Look right.</span>
+      </div>
+      <div class="step">
+        <span class="step-emoji">☑️</span>
+        <span>Tap the words you <strong>can see</strong>. ✅ green = YES! 🔴 red = NOT there!</span>
+      </div>
+      <div class="step">
+        <span class="step-emoji">❓</span>
+        <span>Answer the questions. Tap the right answer.</span>
+      </div>
+      <div class="step">
+        <span class="step-emoji">✏️</span>
+        <span>Tap words to <strong>make a sentence</strong>. Then tap <strong>Done!</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORD WALL -->
+  <div class="word-wall">
+    <div class="ww-title">📚 Important words</div>
+    <div class="ww-grid">
+      <div class="word-card">🔴 red</div>
+      <div class="word-card">🔵 blue</div>
+      <div class="word-card">⚪ white</div>
+      <div class="word-card">📏 big</div>
+      <div class="word-card">🔹 small</div>
+      <div class="word-card">🏛️ old</div>
+      <div class="word-card">📐 tall</div>
+      <div class="word-card">💧 water</div>
+      <div class="word-card">👥 people</div>
+      <div class="word-card">🚗 car</div>
+      <div class="word-card">🌳 tree</div>
+      <div class="word-card">🏠 building</div>
+      <div class="word-card">🌤️ sky</div>
+      <div class="word-card">🛣️ road</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS STARS -->
+  <div class="prog-section">
+    <div class="prog-label">⭐ Your stars</div>
+    <div class="prog-stars" id="stars">
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+      <span class="star">⭐</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STOP 1 – TRAFALGAR SQUARE
+  ══════════════════════════════ -->
+  <div class="stop s1">
+    <div class="stop-head">
+      <div class="stop-num-badge">1</div>
+      <div class="stop-head-text">
+        <h2>🦁 Trafalgar Square</h2>
+        <div class="stop-place">📍 Central London</div>
+      </div>
+    </div>
+
+    <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5080758,-0.1280946&heading=18&pitch=-5&fov=80" target="_blank">
+      <span class="btn-icon">🌐</span> Open Street View – Stop 1
+    </a>
+
+    <div class="tasks-section">
+      <div class="section-label">👀 Look and find – tap what you see!</div>
+      <div class="look-find">
+        <div class="lf-title">🔍 What can you see?</div>
+        <div class="lf-subtitle">Tap YES if you can see it. Tap NO if you cannot!</div>
+        <div class="lf-items">
+          <div class="lf-item" onclick="findItem(this,'s1','yes')">🚌 red bus</div>
+          <div class="lf-item" onclick="findItem(this,'s1','yes')">🦁 lion</div>
+          <div class="lf-item" onclick="findItem(this,'s1','yes')">👥 people</div>
+          <div class="lf-item" onclick="findItem(this,'s1','no')">🌊 sea</div>
+          <div class="lf-item" onclick="findItem(this,'s1','yes')">⛲ fountain</div>
+          <div class="lf-item" onclick="findItem(this,'s1','no')">🐄 cow</div>
+          <div class="lf-item" onclick="findItem(this,'s1','no')">⛷️ snow</div>
+          <div class="lf-item" onclick="findItem(this,'s1','yes')">🏛️ big building</div>
+        </div>
+      </div>
+
+      <div class="section-label">❓ Answer the question</div>
+
+      <div class="q-task">
+        <div class="q-question">Is Trafalgar Square <strong>big</strong> or <strong>small</strong>? 🤔</div>
+        <div class="q-choices">
+          <button class="choice-btn" onclick="answer(this,'correct','s1q1')">📏 Big</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s1q1')">🔹 Small</button>
+        </div>
+        <div class="feedback" id="s1q1">✅ Yes! Trafalgar Square is <strong>big</strong>!</div>
+      </div>
+
+      <div class="section-label">✏️ Write a sentence</div>
+      <div class="sentence-builder">
+        <div class="sb-prompt">✏️ Make a sentence! Tap the words.</div>
+        <div class="sb-starter">Example: <em>I can see a big lion.</em></div>
+        <div class="sb-display" id="sb1-display"></div>
+        <div class="sb-bank" id="sb1-bank">
+          <span class="sb-chip" onclick="sbTap('sb1','I')">I</span>
+          <span class="sb-chip" onclick="sbTap('sb1','can see')">can see</span>
+          <span class="sb-chip" onclick="sbTap('sb1','a')">a</span>
+          <span class="sb-chip" onclick="sbTap('sb1','big')">big</span>
+          <span class="sb-chip" onclick="sbTap('sb1','lion')">🦁 lion</span>
+          <span class="sb-chip" onclick="sbTap('sb1','fountain')">⛲ fountain</span>
+          <span class="sb-chip" onclick="sbTap('sb1','red bus')">🚌 red bus</span>
+          <span class="sb-chip" onclick="sbTap('sb1','building')">🏛️ building</span>
+          <span class="sb-chip" onclick="sbTap('sb1','.')">.</span>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn sb-btn-clear" onclick="sbClear('sb1')">🗑️ Clear</button>
+          <button class="sb-btn sb-btn-done"  onclick="sbDone('sb1')">✅ Done!</button>
+        </div>
+        <div class="sb-result" id="sb1-result"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STOP 2 – BIG BEN
+  ══════════════════════════════ -->
+  <div class="stop s2">
+    <div class="stop-head">
+      <div class="stop-num-badge">2</div>
+      <div class="stop-head-text">
+        <h2>🕰️ Big Ben</h2>
+        <div class="stop-place">📍 Westminster, London</div>
+      </div>
+    </div>
+
+    <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5007292,-0.1246254&heading=263&pitch=-5&fov=80" target="_blank">
+      <span class="btn-icon">🌐</span> Open Street View – Stop 2
+    </a>
+
+    <div class="tasks-section">
+      <div class="section-label">👀 Look and find – tap what you see!</div>
+      <div class="look-find">
+        <div class="lf-title">🔍 What can you see?</div>
+        <div class="lf-subtitle">Tap YES if you can see it. Tap NO if you cannot!</div>
+        <div class="lf-items">
+          <div class="lf-item" onclick="findItem(this,'s2','yes')">🕰️ clock</div>
+          <div class="lf-item" onclick="findItem(this,'s2','yes')">🚌 red bus</div>
+          <div class="lf-item" onclick="findItem(this,'s2','no')">🌴 palm tree</div>
+          <div class="lf-item" onclick="findItem(this,'s2','yes')">🌁 bridge</div>
+          <div class="lf-item" onclick="findItem(this,'s2','no')">⛵ boat</div>
+          <div class="lf-item" onclick="findItem(this,'s2','yes')">👥 people</div>
+          <div class="lf-item" onclick="findItem(this,'s2','no')">🐘 elephant</div>
+          <div class="lf-item" onclick="findItem(this,'s2','yes')">☁️ sky</div>
+        </div>
+      </div>
+
+      <div class="section-label">❓ Answer the question</div>
+
+      <div class="q-task">
+        <div class="q-question">Big Ben is a <strong>clock</strong>. Is it <strong>tall</strong> or <strong>small</strong>? 🕰️</div>
+        <div class="q-choices">
+          <button class="choice-btn" onclick="answer(this,'correct','s2q1')">📐 Tall</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s2q1')">🔹 Small</button>
+        </div>
+        <div class="feedback" id="s2q1">✅ Yes! Big Ben is very <strong>tall</strong>!</div>
+      </div>
+
+      <div class="section-label">✏️ Write a sentence</div>
+      <div class="sentence-builder">
+        <div class="sb-prompt">✏️ Make a sentence about Big Ben!</div>
+        <div class="sb-starter">Example: <em>Big Ben is tall and old.</em></div>
+        <div class="sb-display" id="sb2-display"></div>
+        <div class="sb-bank" id="sb2-bank">
+          <span class="sb-chip" onclick="sbTap('sb2','Big Ben')">🕰️ Big Ben</span>
+          <span class="sb-chip" onclick="sbTap('sb2','is')">is</span>
+          <span class="sb-chip" onclick="sbTap('sb2','tall')">tall</span>
+          <span class="sb-chip" onclick="sbTap('sb2','old')">old</span>
+          <span class="sb-chip" onclick="sbTap('sb2','and')">and</span>
+          <span class="sb-chip" onclick="sbTap('sb2','big')">big</span>
+          <span class="sb-chip" onclick="sbTap('sb2','I can see')">I can see</span>
+          <span class="sb-chip" onclick="sbTap('sb2','a clock')">⏰ a clock</span>
+          <span class="sb-chip" onclick="sbTap('sb2','.')">.</span>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn sb-btn-clear" onclick="sbClear('sb2')">🗑️ Clear</button>
+          <button class="sb-btn sb-btn-done"  onclick="sbDone('sb2')">✅ Done!</button>
+        </div>
+        <div class="sb-result" id="sb2-result"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STOP 3 – TOWER BRIDGE
+  ══════════════════════════════ -->
+  <div class="stop s3">
+    <div class="stop-head">
+      <div class="stop-num-badge">3</div>
+      <div class="stop-head-text">
+        <h2>🌉 Tower Bridge</h2>
+        <div class="stop-place">📍 River Thames, London</div>
+      </div>
+    </div>
+
+    <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5054564,-0.0754553&heading=310&pitch=-5&fov=80" target="_blank">
+      <span class="btn-icon">🌐</span> Open Street View – Stop 3
+    </a>
+
+    <div class="tasks-section">
+      <div class="section-label">👀 Look and find – tap what you see!</div>
+      <div class="look-find">
+        <div class="lf-title">🔍 What can you see?</div>
+        <div class="lf-subtitle">Tap YES if you can see it. Tap NO if you cannot!</div>
+        <div class="lf-items">
+          <div class="lf-item" onclick="findItem(this,'s3','yes')">💧 water</div>
+          <div class="lf-item" onclick="findItem(this,'s3','yes')">🌉 bridge</div>
+          <div class="lf-item" onclick="findItem(this,'s3','no')">🚂 train</div>
+          <div class="lf-item" onclick="findItem(this,'s3','yes')">👥 people</div>
+          <div class="lf-item" onclick="findItem(this,'s3','no')">🌵 cactus</div>
+          <div class="lf-item" onclick="findItem(this,'s3','yes')">🏙️ building</div>
+          <div class="lf-item" onclick="findItem(this,'s3','yes')">💡 lamp post</div>
+          <div class="lf-item" onclick="findItem(this,'s3','no')">🦁 lion</div>
+        </div>
+      </div>
+
+      <div class="section-label">❓ Answer the question</div>
+
+      <div class="q-task">
+        <div class="q-question">What colour is Tower Bridge? 🎨</div>
+        <div class="q-choices">
+          <button class="choice-btn" onclick="answer(this,'correct','s3q1')">🔵 Blue</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s3q1')">🔴 Red</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s3q1')">🟡 Yellow</button>
+        </div>
+        <div class="feedback" id="s3q1">✅ Yes! Tower Bridge is <strong>blue</strong> and white!</div>
+      </div>
+
+      <div class="section-label">✏️ Write a sentence</div>
+      <div class="sentence-builder">
+        <div class="sb-prompt">✏️ Make a sentence about Tower Bridge!</div>
+        <div class="sb-starter">Example: <em>Tower Bridge is big and blue.</em></div>
+        <div class="sb-display" id="sb3-display"></div>
+        <div class="sb-bank" id="sb3-bank">
+          <span class="sb-chip" onclick="sbTap('sb3','Tower Bridge')">🌉 Tower Bridge</span>
+          <span class="sb-chip" onclick="sbTap('sb3','is')">is</span>
+          <span class="sb-chip" onclick="sbTap('sb3','big')">big</span>
+          <span class="sb-chip" onclick="sbTap('sb3','blue')">blue</span>
+          <span class="sb-chip" onclick="sbTap('sb3','old')">old</span>
+          <span class="sb-chip" onclick="sbTap('sb3','and')">and</span>
+          <span class="sb-chip" onclick="sbTap('sb3','I can see')">I can see</span>
+          <span class="sb-chip" onclick="sbTap('sb3','water')">💧 water</span>
+          <span class="sb-chip" onclick="sbTap('sb3','.')">.</span>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn sb-btn-clear" onclick="sbClear('sb3')">🗑️ Clear</button>
+          <button class="sb-btn sb-btn-done"  onclick="sbDone('sb3')">✅ Done!</button>
+        </div>
+        <div class="sb-result" id="sb3-result"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STOP 4 – BUCKINGHAM PALACE
+  ══════════════════════════════ -->
+  <div class="stop s4">
+    <div class="stop-head">
+      <div class="stop-num-badge">4</div>
+      <div class="stop-head-text">
+        <h2>👑 Buckingham Palace</h2>
+        <div class="stop-place">📍 Westminster, London</div>
+      </div>
+    </div>
+
+    <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5014767,-0.1418831&heading=65&pitch=-5&fov=80" target="_blank">
+      <span class="btn-icon">🌐</span> Open Street View – Stop 4
+    </a>
+
+    <div class="tasks-section">
+      <div class="section-label">👀 Look and find – tap what you see!</div>
+      <div class="look-find">
+        <div class="lf-title">🔍 What can you see?</div>
+        <div class="lf-subtitle">Tap YES if you can see it. Tap NO if you cannot!</div>
+        <div class="lf-items">
+          <div class="lf-item" onclick="findItem(this,'s4','yes')">🏠 big building</div>
+          <div class="lf-item" onclick="findItem(this,'s4','yes')">🚪 gate</div>
+          <div class="lf-item" onclick="findItem(this,'s4','no')">🌊 sea</div>
+          <div class="lf-item" onclick="findItem(this,'s4','yes')">🌳 tree</div>
+          <div class="lf-item" onclick="findItem(this,'s4','no')">🎡 big wheel</div>
+          <div class="lf-item" onclick="findItem(this,'s4','yes')">🚗 car</div>
+          <div class="lf-item" onclick="findItem(this,'s4','no')">🐧 penguin</div>
+          <div class="lf-item" onclick="findItem(this,'s4','yes')">👥 people</div>
+        </div>
+      </div>
+
+      <div class="section-label">❓ Answer the question</div>
+
+      <div class="q-task">
+        <div class="q-question">The palace is <strong>old</strong> or <strong>new</strong>? 🏛️</div>
+        <div class="q-choices">
+          <button class="choice-btn" onclick="answer(this,'correct','s4q1')">🏛️ Old</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s4q1')">🏗️ New</button>
+        </div>
+        <div class="feedback" id="s4q1">✅ Yes! Buckingham Palace is very <strong>old</strong>!</div>
+      </div>
+
+      <div class="section-label">✏️ Write a sentence</div>
+      <div class="sentence-builder">
+        <div class="sb-prompt">✏️ Make a sentence about Buckingham Palace!</div>
+        <div class="sb-starter">Example: <em>The palace is big and old.</em></div>
+        <div class="sb-display" id="sb4-display"></div>
+        <div class="sb-bank" id="sb4-bank">
+          <span class="sb-chip" onclick="sbTap('sb4','The palace')">👑 The palace</span>
+          <span class="sb-chip" onclick="sbTap('sb4','is')">is</span>
+          <span class="sb-chip" onclick="sbTap('sb4','big')">big</span>
+          <span class="sb-chip" onclick="sbTap('sb4','old')">old</span>
+          <span class="sb-chip" onclick="sbTap('sb4','white')">white</span>
+          <span class="sb-chip" onclick="sbTap('sb4','and')">and</span>
+          <span class="sb-chip" onclick="sbTap('sb4','I can see')">I can see</span>
+          <span class="sb-chip" onclick="sbTap('sb4','a gate')">🚪 a gate</span>
+          <span class="sb-chip" onclick="sbTap('sb4','trees')">🌳 trees</span>
+          <span class="sb-chip" onclick="sbTap('sb4','.')">.</span>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn sb-btn-clear" onclick="sbClear('sb4')">🗑️ Clear</button>
+          <button class="sb-btn sb-btn-done"  onclick="sbDone('sb4')">✅ Done!</button>
+        </div>
+        <div class="sb-result" id="sb4-result"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       STOP 5 – LONDON EYE
+  ══════════════════════════════ -->
+  <div class="stop s5">
+    <div class="stop-head">
+      <div class="stop-num-badge">5</div>
+      <div class="stop-head-text">
+        <h2>🎡 The London Eye</h2>
+        <div class="stop-place">📍 South Bank, London</div>
+      </div>
+    </div>
+
+    <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.503365,-0.1195537&heading=331&pitch=-5&fov=80" target="_blank">
+      <span class="btn-icon">🌐</span> Open Street View – Stop 5
+    </a>
+
+    <div class="tasks-section">
+      <div class="section-label">👀 Look and find – tap what you see!</div>
+      <div class="look-find">
+        <div class="lf-title">🔍 What can you see?</div>
+        <div class="lf-subtitle">Tap YES if you can see it. Tap NO if you cannot!</div>
+        <div class="lf-items">
+          <div class="lf-item" onclick="findItem(this,'s5','yes')">🎡 big wheel</div>
+          <div class="lf-item" onclick="findItem(this,'s5','yes')">💧 water</div>
+          <div class="lf-item" onclick="findItem(this,'s5','no')">🦁 lion</div>
+          <div class="lf-item" onclick="findItem(this,'s5','yes')">👥 people</div>
+          <div class="lf-item" onclick="findItem(this,'s5','no')">🌴 palm tree</div>
+          <div class="lf-item" onclick="findItem(this,'s5','yes')">🏙️ building</div>
+          <div class="lf-item" onclick="findItem(this,'s5','no')">🐊 crocodile</div>
+          <div class="lf-item" onclick="findItem(this,'s5','yes')">🌤️ sky</div>
+        </div>
+      </div>
+
+      <div class="section-label">❓ Answer the question</div>
+
+      <div class="q-task">
+        <div class="q-question">The London Eye is <strong>big</strong> or <strong>small</strong>? 🎡</div>
+        <div class="q-choices">
+          <button class="choice-btn" onclick="answer(this,'correct','s5q1')">📏 Very big!</button>
+          <button class="choice-btn" onclick="answer(this,'wrong','s5q1')">🔹 Small</button>
+        </div>
+        <div class="feedback" id="s5q1">✅ Yes! The London Eye is <strong>very big</strong>!</div>
+      </div>
+
+      <div class="section-label">✏️ Write a sentence</div>
+      <div class="sentence-builder">
+        <div class="sb-prompt">✏️ Make a sentence about the London Eye!</div>
+        <div class="sb-starter">Example: <em>The London Eye is very big.</em></div>
+        <div class="sb-display" id="sb5-display"></div>
+        <div class="sb-bank" id="sb5-bank">
+          <span class="sb-chip" onclick="sbTap('sb5','The London Eye')">🎡 The London Eye</span>
+          <span class="sb-chip" onclick="sbTap('sb5','is')">is</span>
+          <span class="sb-chip" onclick="sbTap('sb5','very big')">very big</span>
+          <span class="sb-chip" onclick="sbTap('sb5','tall')">tall</span>
+          <span class="sb-chip" onclick="sbTap('sb5','and')">and</span>
+          <span class="sb-chip" onclick="sbTap('sb5','I can see')">I can see</span>
+          <span class="sb-chip" onclick="sbTap('sb5','water')">💧 water</span>
+          <span class="sb-chip" onclick="sbTap('sb5','people')">👥 people</span>
+          <span class="sb-chip" onclick="sbTap('sb5','.')">.</span>
+        </div>
+        <div class="sb-actions">
+          <button class="sb-btn sb-btn-clear" onclick="sbClear('sb5')">🗑️ Clear</button>
+          <button class="sb-btn sb-btn-done"  onclick="sbDone('sb5')">✅ Done!</button>
+        </div>
+        <div class="sb-result" id="sb5-result"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FINISH -->
+  <div class="finish-card" id="finishCard">
+    <span class="party">🎉</span>
+    <h2>GREAT JOB! 🇬🇧</h2>
+    <p>You visited 5 places in London!<br>Show your teacher! 🌟</p>
+    <div class="finish-stars">⭐⭐⭐⭐⭐</div>
+  </div>
+
+</main>
+
+<script>
+  let points = 0;
+  const TOTAL_POINTS = 15; // 5 finds + 5 answers + 5 sentences
+  const correctAnswers = {};
+  const sentenceDone = { sb1:false, sb2:false, sb3:false, sb4:false, sb5:false };
+  const correctFindsPerStop = { s1:0, s2:0, s3:0, s4:0, s5:0 };
+  const stopStarGiven = { s1:false, s2:false, s3:false, s4:false, s5:false };
+
+  // Per-builder state: array of word tokens
+  const sbState = { sb1:[], sb2:[], sb3:[], sb4:[], sb5:[] };
+
+  function addPoint() {
+    points = Math.min(points + 1, TOTAL_POINTS);
+    updateStars();
+    if (points >= TOTAL_POINTS) {
+      setTimeout(() => {
+        document.getElementById('finishCard').style.display = 'block';
+        document.getElementById('finishCard').scrollIntoView({ behavior: 'smooth' });
+      }, 600);
+    }
+  }
+
+  function updateStars() {
+    const stars = document.querySelectorAll('#stars .star');
+    stars.forEach((s, i) => s.classList.toggle('lit', i < points));
+  }
+
+  function findItem(el, stop, visible) {
+    if (el.classList.contains('found-yes') || el.classList.contains('found-no')) return;
+    if (visible === 'yes') {
+      el.classList.add('found-yes');
+      correctFindsPerStop[stop]++;
+      if (correctFindsPerStop[stop] === 1 && !stopStarGiven[stop]) {
+        stopStarGiven[stop] = true;
+        addPoint();
+      }
+    } else {
+      el.classList.add('found-no');
+      setTimeout(() => el.classList.remove('found-no'), 1500);
+    }
+  }
+
+  function answer(btn, result, qid) {
+    if (correctAnswers[qid]) return;
+    const parent = btn.closest('.q-task');
+    const allBtns = parent.querySelectorAll('.choice-btn');
+    const fb = document.getElementById(qid);
+    if (result === 'correct') {
+      btn.classList.add('correct');
+      allBtns.forEach(b => b.disabled = true);
+      fb.classList.add('show','ok');
+      if (!correctAnswers[qid]) {
+        correctAnswers[qid] = true;
+        addPoint();
+      }
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Try again!';
+      fb.classList.add('show','no');
+      setTimeout(() => {
+        btn.classList.remove('wrong');
+        fb.classList.remove('show','no');
+        fb.textContent = '';
+      }, 1200);
+    }
+  }
+
+  /* ── SENTENCE BUILDER ── */
+  function sbRender(id) {
+    const display = document.getElementById(id + '-display');
+    display.innerHTML = '';
+    sbState[id].forEach((word, i) => {
+      const el = document.createElement('span');
+      el.className = 'sb-word-used';
+      el.textContent = word;
+      el.title = 'Tap to remove';
+      el.onclick = () => sbRemove(id, i);
+      display.appendChild(el);
+    });
+    // Sync chip used state
+    const bank = document.getElementById(id + '-bank');
+    if (!bank) return;
+    bank.querySelectorAll('.sb-chip').forEach(chip => {
+      const word = chip.getAttribute('onclick').match(/'([^']+)'\)$/)[1];
+      // Mark used only if ALL occurrences are used (count in state vs chips)
+      const countInBank = [...bank.querySelectorAll('.sb-chip')].filter(c =>
+        c.getAttribute('onclick').match(/'([^']+)'\)$/)[1] === word).length;
+      const countUsed = sbState[id].filter(w => w === word).length;
+      chip.classList.toggle('used', countUsed >= countInBank);
+    });
+  }
+
+  function sbTap(id, word) {
+    sbState[id].push(word);
+    sbRender(id);
+  }
+
+  function sbRemove(id, index) {
+    sbState[id].splice(index, 1);
+    sbRender(id);
+  }
+
+  function sbClear(id) {
+    sbState[id] = [];
+    sbRender(id);
+    const res = document.getElementById(id + '-result');
+    res.className = 'sb-result';
+    res.textContent = '';
+  }
+
+  /*
+   * Grammar checker for sentence builders.
+   *
+   * Valid patterns (all end with '.'):
+   *
+   *  Pattern A  –  "I can see a [adj?] [noun] ."
+   *    e.g.  I can see a lion .
+   *          I can see a big lion .
+   *          I can see a big red bus .   ← adjective + compound noun
+   *
+   *  Pattern B  –  "[Subject] is [adj] ."
+   *    e.g.  Big Ben is tall .
+   *
+   *  Pattern C  –  "[Subject] is [adj] and [adj] ."
+   *    e.g.  Tower Bridge is big and old .
+   *
+   * For stops 2-5 the "I can see" chip is a single token so Pattern A uses
+   * position [0]="I can see", [1]="a"?, [adj?], [noun].
+   */
+
+  // Raw noun labels (with emoji) per builder
+  const NOUNS = {
+    sb1: ['lion','fountain','red bus','building'],
+    sb2: ['a clock'],
+    sb3: ['water'],
+    sb4: ['a gate','trees'],
+    sb5: ['water','people']
+  };
+  // Subject labels per builder (bare, no emoji)
+  const SUBJECTS = {
+    sb1: ['i'],
+    sb2: ['big ben'],
+    sb3: ['tower bridge'],
+    sb4: ['the palace'],
+    sb5: ['the london eye']
+  };
+  const ADJECTIVES = new Set(['big','tall','old','white','very big','blue']);
+
+  // Normalise a token: strip leading emoji, lowercase, trim
+  function norm(w) {
+    return w
+      .replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\uFE0F\u20E3\u200D]+/gu, '')
+      .replace(/[🏛️🌉🎡🕰️🌁👑🌳🚪⛲💧🦁🚌⏰👥]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function isNoun(token, id)    { return NOUNS[id].some(n => norm(token) === n); }
+  function isAdj(token)         { return ADJECTIVES.has(norm(token)); }
+  function isSubject(token, id) { return SUBJECTS[id].includes(norm(token)); }
+
+  function checkGrammar(id, tokens) {
+    // Require final '.'
+    const hasPeriod = tokens.length > 0 && tokens[tokens.length - 1] === '.';
+    if (!hasPeriod) {
+      return { ok:false, hint:'👉 Don\'t forget the <strong>.</strong> at the end!' };
+    }
+    const core = tokens.slice(0, -1);   // everything before the '.'
+    if (core.length === 0) {
+      return { ok:false, hint:'👆 Tap some words first!' };
+    }
+
+    const subjectLabel = SUBJECTS[id][0]; // for feedback messages
+
+    // ─────────────────────────────────────────────
+    // Detect which pattern the student is attempting
+    // based on the first token.
+    // ─────────────────────────────────────────────
+
+    const first = norm(core[0]);
+
+    // ── PATTERN A  ──────────────────────────────
+    // "I can see …"  (sb1: first="i",  sb2-5: first="i can see")
+    const startsICanSee = (id === 'sb1')
+      ? (first === 'i')
+      : (first === 'i can see');
+
+    if (startsICanSee) {
+      let pos = 1; // index after the subject token(s)
+
+      // sb1: next must be "can see"
+      if (id === 'sb1') {
+        if (core.length < 2 || norm(core[1]) !== 'can see') {
+          return { ok:false, hint:'👉 After <strong>I</strong> use <strong>can see</strong>.' };
+        }
+        pos = 2;
+      }
+
+      // Optional "a"
+      const hasArticle = core[pos] && norm(core[pos]) === 'a';
+      if (hasArticle) pos++;
+
+      // Optional adjective(s) — allow one or two stacked adjectives
+      let adjCount = 0;
+      while (core[pos] && isAdj(core[pos]) && adjCount < 2) {
+        pos++;
+        adjCount++;
+      }
+
+      // Must now have a noun
+      if (!core[pos]) {
+        if (!hasArticle) {
+          return { ok:false, hint:'👉 Almost! Add <strong>a</strong> and a noun: <em>lion</em>, <em>fountain</em>…' };
+        }
+        return { ok:false, hint:'👉 What can you see? Add a noun after <strong>a' + (adjCount ? ' ' + norm(core[pos-1]) : '') + '</strong>.' };
+      }
+
+      if (!isNoun(core[pos], id)) {
+        // Could be an adjective they forgot to follow with a noun
+        if (isAdj(core[pos])) {
+          return { ok:false, hint:'👉 <strong>' + norm(core[pos]) + '</strong> is a describing word. Add a noun after it: <em>' + NOUNS[id][0] + '</em>.' };
+        }
+        return { ok:false, hint:'👉 <strong>' + norm(core[pos]) + '</strong> is not a noun here. Try: <em>' + NOUNS[id].join('</em>, <em>') + '</em>.' };
+      }
+
+      pos++; // past the noun
+
+      // Warn: article missing but everything else ok
+      if (!hasArticle) {
+        return { ok:false, hint:'👉 Almost! Add <strong>a</strong> before the noun: <em>I can see <u>a</u> ' + norm(core[pos-1]) + '.</em>' };
+      }
+
+      // Anything left over?
+      if (pos < core.length) {
+        return { ok:false, hint:'👉 Too many words after the noun. Your sentence looks good up to <em>' + core.slice(0, pos).join(' ') + '</em>.' };
+      }
+
+      return { ok:true };
+    }
+
+    // ── PATTERNS B & C  ─────────────────────────
+    // "[Subject] is [adj] ."   or   "[Subject] is [adj] and [adj] ."
+    if (isSubject(core[0], id)) {
+      if (core.length < 2) {
+        return { ok:false, hint:'👉 Add <strong>is</strong> after the subject.' };
+      }
+      if (norm(core[1]) !== 'is') {
+        return { ok:false, hint:'👉 Use <strong>is</strong> after <strong>' + norm(core[0]) + '</strong>.' };
+      }
+      if (core.length < 3) {
+        return { ok:false, hint:'👉 Add a describing word: <em>big</em>, <em>tall</em>, <em>old</em>…' };
+      }
+      if (!isAdj(core[2])) {
+        // Noun placed after "is" — common mistake
+        if (isNoun(core[2], id)) {
+          return { ok:false, hint:'👉 After <strong>is</strong> use a describing word like <em>big</em> or <em>old</em>, not a noun.' };
+        }
+        return { ok:false, hint:'👉 <strong>' + norm(core[2]) + '</strong> is not a describing word. Try: <em>big</em>, <em>tall</em>, <em>old</em>, <em>blue</em>.' };
+      }
+
+      // Pattern B: "[Subject] is [adj] ."
+      if (core.length === 3) return { ok:true };
+
+      // Pattern C: "[Subject] is [adj] and [adj] ."
+      if (norm(core[3]) === 'and') {
+        if (core.length === 4) {
+          return { ok:false, hint:'👉 Add another describing word after <strong>and</strong>.' };
+        }
+        if (!isAdj(core[4])) {
+          return { ok:false, hint:'👉 After <strong>and</strong> use a describing word: <em>old</em>, <em>big</em>, <em>tall</em>…' };
+        }
+        if (norm(core[2]) === norm(core[4])) {
+          return { ok:false, hint:'👉 Use two <em>different</em> words! e.g. <em>big and old</em>.' };
+        }
+        if (core.length === 5) return { ok:true };
+        return { ok:false, hint:'👉 Too many words. End the sentence after the second describing word.' };
+      }
+
+      // Extra word after first adjective but not "and"
+      return { ok:false, hint:'👉 Almost! Use <strong>and</strong> to add another word: <em>' + norm(core[0]) + ' is ' + norm(core[2]) + ' <u>and</u> old.</em>' };
+    }
+
+    // ── Didn't start with a recognised word ─────
+    const goodStarts = id === 'sb1'
+      ? '<strong>I</strong>'
+      : '<strong>I can see</strong> or <strong>' + subjectLabel + '</strong>';
+    return { ok:false, hint:'👉 Start your sentence with ' + goodStarts + '.' };
+  }
+
+  function sbDone(id) {
+    const tokens = sbState[id];
+    const res = document.getElementById(id + '-result');
+
+    if (tokens.length === 0) {
+      res.className = 'sb-result show-hint';
+      res.innerHTML = '👆 Tap some words first!';
+      return;
+    }
+
+    const { ok, hint } = checkGrammar(id, tokens);
+    const sentence = tokens.join(' ');
+
+    if (ok) {
+      res.className = 'sb-result show-good';
+      res.innerHTML = '⭐ <strong>Great sentence!</strong> "' + sentence + '" 🎉';
+      if (!sentenceDone[id]) {
+        sentenceDone[id] = true;
+        addPoint();
+      }
+    } else {
+      res.className = 'sb-result show-hint';
+      res.innerHTML = hint;
+    }
+  }
+</script>
+
+</div>
+
+<!-- ═══ A2 APP ═══ -->
+<div id="app-a2">
+
+
+<!-- FLOAT SCORE -->
+<div id="floatScore">+5 pts</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-classified">🔴 classified mission — eyes only</div>
+  <div class="header-title">LONDON <span>FIELD AGENT</span></div>
+  <div class="header-sub">// street intelligence operation //</div>
+  <div class="level-chip">🎯 English A2 · 7 Missions</div>
+</header>
+
+<!-- MISSION MAP -->
+<div class="mission-map-wrap">
+  <div class="mission-map">
+    <div class="mission-map-title">📍 MISSION PROGRESS MAP</div>
+    <div class="map-stops">
+      <div class="map-stop active" id="mmap1"><div class="map-dot">🦁</div><div class="map-stop-label">Trafalgar</div></div>
+      <div class="map-stop" id="mmap2"><div class="map-dot">🕰️</div><div class="map-stop-label">Big Ben</div></div>
+      <div class="map-stop" id="mmap3"><div class="map-dot">🌉</div><div class="map-stop-label">Tower Bridge</div></div>
+      <div class="map-stop" id="mmap4"><div class="map-dot">👑</div><div class="map-stop-label">Palace</div></div>
+      <div class="map-stop" id="mmap5"><div class="map-dot">🎡</div><div class="map-stop-label">London Eye</div></div>
+      <div class="map-stop" id="mmap6"><div class="map-dot">🛍️</div><div class="map-stop-label">Oxford St</div></div>
+      <div class="map-stop" id="mmap7"><div class="map-dot">⛪</div><div class="map-stop-label">St Paul's</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="briefing">
+
+  <div class="briefing-card">
+    <h2>📋 Mission Briefing</h2>
+    <p>Welcome, Agent. Explore <strong>7 locations in London</strong> using Street View. At each stop: <strong>find evidence · read intel · answer questions · decode vocabulary · write your report</strong>.</p>
+    <p>⚡ <strong>Speed Bonus:</strong> Answer MC questions within 10 seconds for +2 extra points! &nbsp; 🔥 <strong>Streak Bonus:</strong> 3 correct in a row = ×1.5 multiplier. 5 in a row = ×2! &nbsp; 🏅 <strong>Perfect Stop:</strong> No mistakes on a mission = gold badge.</p>
+  </div>
+
+  <!-- SCORE BAR -->
+  <div class="score-bar">
+    <div class="score-main">
+      <div class="score-num" id="scoreNum">0</div>
+      <div class="score-label">pts</div>
+    </div>
+    <div class="rank-wrap">
+      <div class="rank-label">AGENT RANK</div>
+      <div class="rank-bar-bg"><div class="rank-bar-fill" id="rankBar"></div></div>
+      <div class="rank-name" id="rankName">RECRUIT</div>
+    </div>
+    <div class="streak-wrap">
+      <div class="streak-fire" id="streakFire">🔥</div>
+      <div>
+        <div style="display:flex;align-items:center;gap:0.4rem">
+          <div class="streak-count" id="streakCount">0</div>
+          <div class="multiplier-badge" id="multiBadge">×1</div>
+        </div>
+        <div class="streak-label">STREAK</div>
+      </div>
+    </div>
+    <div class="stops-done" id="stopsDone">0 / 7 missions</div>
+  </div>
+
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+  MISSION 1 — TRAFALGAR SQUARE
+══════════════════════════════════════════ -->
+<div class="stop-card" id="stop1">
+  <div class="stop-header">
+    <div class="stop-num">01</div>
+    <div class="stop-title-area">
+      <h2>🦁 Trafalgar Square</h2>
+      <div class="stop-loc">📍 WC2N 5DN · CENTRAL LONDON</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb1">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5080758,-0.1280946&heading=18&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      Trafalgar Square is one of London's most famous <em>public spaces</em>. It was built in the <strong>1840s</strong> to <em>celebrate</em> the Battle of Trafalgar. In the centre stands <em>Nelson's Column</em> — a statue of Admiral Nelson on top of a <strong>52-metre</strong> tall column. Four large stone <strong>lions</strong> <em>guard</em> the base. The square also has two <em>fountains</em> and is a popular <em>meeting place</em> for tourists and locals. Every year on New Year's Eve, <strong>thousands of people</strong> gather here to <em>celebrate</em>.
+    </div>
+
+    <div class="sh">🔍 evidence collection — tap what you can see</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s1','y')">🦁 stone lion</div>
+      <div class="fi" onclick="find(this,'s1','y')">⛲ fountain</div>
+      <div class="fi" onclick="find(this,'s1','y')">🚌 red double-decker bus</div>
+      <div class="fi" onclick="find(this,'s1','n')">🌊 the sea</div>
+      <div class="fi" onclick="find(this,'s1','y')">🏛️ large building</div>
+      <div class="fi" onclick="find(this,'s1','n')">🎡 a Ferris wheel</div>
+      <div class="fi" onclick="find(this,'s1','y')">🗿 tall column</div>
+      <div class="fi" onclick="find(this,'s1','n')">🌴 palm trees</div>
+    </div>
+
+    <div class="sh">❓ comprehension — answer quickly for speed bonus!</div>
+    <div class="speed-timer" id="spd1">⚡ Speed Bonus Active: <span class="timer-num" id="t1">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">How tall is Nelson's Column?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q1',1)">25 metres</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m1q1',1,5)">52 metres</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q1',1)">100 metres</button>
+      </div>
+      <div class="mc-feedback" id="m1q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What event does Trafalgar Square celebrate?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q2',1)">The Battle of London</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m1q2',1,5)">The Battle of Trafalgar</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q2',1)">The Great Fire of London</button>
+      </div>
+      <div class="mc-feedback" id="m1q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How many fountains does Trafalgar Square have?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q3',1)">One</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m1q3',1,5)">Two</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q3',1)">Four</button>
+      </div>
+      <div class="mc-feedback" id="m1q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">When do thousands of people gather at Trafalgar Square?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q4',1)">Every Monday morning</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m1q4',1)">On the King's birthday</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m1q4',1,5)">New Year's Eve</button>
+      </div>
+      <div class="mc-feedback" id="m1q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission — match the words to their meanings</div>
+    <div class="vocab-task" id="vt1">
+      <div class="vocab-instructions">💡 Click a <strong style="color:var(--neon)">word</strong>, then click its <strong style="color:var(--purple)">meaning</strong>. Each correct match = +3 pts. No penalty for wrong clicks!</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw1">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','1')">celebrate</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','1')">guard</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','1')">public space</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','1')">gather</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd1">
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','1')">protect or watch over something</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','1')">come together in one place</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','1')">do something special for a happy event</div>
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','1')">an area anyone can visit freely</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc1">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report — write your observation</div>
+    <div class="write-box">
+      <div class="write-prompt">Describe what you can see at Trafalgar Square. Write <strong>2–3 sentences</strong>.</div>
+      <div class="write-hint">💡 Use words like: <em>column, fountain, lion, statue, tourists, busy, impressive</em></div>
+      <textarea class="write-input" id="w1" placeholder="I can see... The square has... It looks..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w1','fb1',1)">Submit report ➜</button>
+      <div class="write-feedback" id="fb1"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc1">✅ Mission 1 complete! <span class="sc-pts" id="scp1">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 2 — BIG BEN
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop2">
+  <div class="stop-header">
+    <div class="stop-num">02</div>
+    <div class="stop-title-area">
+      <h2>🕰️ Big Ben & Parliament</h2>
+      <div class="stop-loc">📍 SW1A 0AA · WESTMINSTER</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb2">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5007292,-0.1246254&heading=263&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      "Big Ben" is actually the <em>nickname</em> for the <strong>Great Bell</strong> inside the Elizabeth Tower. The tower is part of the <em>Palace of Westminster</em>, where the UK <strong>Parliament</strong> meets. The clock has four faces, each <strong>7 metres</strong> wide. The tower was <em>completed</em> in <strong>1859</strong> and stands <em>96 metres</em> tall. After <em>restoration</em> work completed in <strong>2022</strong>, the tower is now painted in its <em>original</em> <strong>green and gold</strong> colours. The bell itself weighs over <strong>13 tonnes</strong>.
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s2','y')">🕰️ clock tower</div>
+      <div class="fi" onclick="find(this,'s2','y')">🌊 River Thames</div>
+      <div class="fi" onclick="find(this,'s2','y')">🚌 red bus</div>
+      <div class="fi" onclick="find(this,'s2','n')">🌴 palm tree</div>
+      <div class="fi" onclick="find(this,'s2','y')">🌁 bridge</div>
+      <div class="fi" onclick="find(this,'s2','n')">🐘 elephant</div>
+      <div class="fi" onclick="find(this,'s2','y')">🏛️ Parliament building</div>
+      <div class="fi" onclick="find(this,'s2','n')">⛵ sailing boat</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd2">⚡ Speed Bonus Active: <span class="timer-num" id="t2">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">What is "Big Ben" actually the name of?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q1',2)">The clock tower</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m2q1',2,5)">The Great Bell</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q1',2)">The Parliament building</button>
+      </div>
+      <div class="mc-feedback" id="m2q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What colours is the tower painted after the 2022 restoration?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q2',2)">Red and white</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q2',2)">Black and silver</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m2q2',2,5)">Green and gold</button>
+      </div>
+      <div class="mc-feedback" id="m2q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How wide is each clock face?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q3',2)">3 metres</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m2q3',2,5)">7 metres</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q3',2)">12 metres</button>
+      </div>
+      <div class="mc-feedback" id="m2q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How much does the bell weigh?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q4',2)">3 tonnes</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m2q4',2)">7 tonnes</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m2q4',2,5)">Over 13 tonnes</button>
+      </div>
+      <div class="mc-feedback" id="m2q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt2">
+      <div class="vocab-instructions">💡 Click a <strong style="color:var(--neon)">word</strong>, then its <strong style="color:var(--purple)">meaning</strong>. Each match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw2">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','2')">nickname</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','2')">Parliament</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','2')">restoration</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','2')">original</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd2">
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','2')">repairing something to its old condition</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','2')">an informal name people use instead of the real one</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','2')">the first or earliest version of something</div>
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','2')">the group of people who make a country's laws</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc2">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report</div>
+    <div class="write-box">
+      <div class="write-prompt">Imagine you are standing next to the River Thames looking at Big Ben. Describe the scene in <strong>2–3 sentences</strong>.</div>
+      <div class="write-hint">💡 Use: <em>impressive, tall, historic, river, clock, tower, Parliament, gothic</em></div>
+      <textarea class="write-input" id="w2" placeholder="Standing by the river, I can see... The tower looks... In the background..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w2','fb2',2)">Submit report ➜</button>
+      <div class="write-feedback" id="fb2"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc2">✅ Mission 2 complete! <span class="sc-pts" id="scp2">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 3 — TOWER BRIDGE
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop3">
+  <div class="stop-header">
+    <div class="stop-num">03</div>
+    <div class="stop-title-area">
+      <h2>🌉 Tower Bridge</h2>
+      <div class="stop-loc">📍 SE1 2UP · SOUTHWARK</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb3">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5054564,-0.0754553&heading=310&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      Tower Bridge is one of the world's most <em>recognisable</em> bridges. It was built between <strong>1886 and 1894</strong> and crosses the <strong>River Thames</strong> near the Tower of London. The bridge is a <em>bascule bridge</em> — its two central sections can <strong>lift up</strong> to allow tall ships to pass through. This happens about <strong>800 times per year</strong>. The bridge is painted in <em>blue and white</em> and has two tall <strong>Victorian Gothic towers</strong>. There is also a high-level <em>glass walkway</em> where visitors can walk <strong>42 metres</strong> above the river.
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s3','y')">🌊 River Thames</div>
+      <div class="fi" onclick="find(this,'s3','y')">🏰 Gothic tower</div>
+      <div class="fi" onclick="find(this,'s3','n')">🚂 train</div>
+      <div class="fi" onclick="find(this,'s3','y')">👥 tourists</div>
+      <div class="fi" onclick="find(this,'s3','y')">💡 decorative lamp post</div>
+      <div class="fi" onclick="find(this,'s3','n')">🌵 cactus</div>
+      <div class="fi" onclick="find(this,'s3','y')">🏙️ city skyline</div>
+      <div class="fi" onclick="find(this,'s3','n')">⛷️ skiers</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd3">⚡ Speed Bonus Active: <span class="timer-num" id="t3">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">What type of bridge is Tower Bridge?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q1',3)">Suspension bridge</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m3q1',3,5)">Bascule bridge</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q1',3)">Swing bridge</button>
+      </div>
+      <div class="mc-feedback" id="m3q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">Approximately how many times per year does the bridge open?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q2',3)">100 times</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q2',3)">200 times</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m3q2',3,5)">800 times</button>
+      </div>
+      <div class="mc-feedback" id="m3q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">Why does the bridge lift up?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q3',3)">For tourists to take photos</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m3q3',3,5)">To let tall ships pass through</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q3',3)">For cleaning and maintenance</button>
+      </div>
+      <div class="mc-feedback" id="m3q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How high is the glass walkway above the river?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q4',3)">20 metres</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m3q4',3,5)">42 metres</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m3q4',3)">96 metres</button>
+      </div>
+      <div class="mc-feedback" id="m3q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt3">
+      <div class="vocab-instructions">💡 Match the words to their meanings. Each correct match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw3">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','3')">recognisable</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','3')">Victorian</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','3')">walkway</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','3')">central</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd3">
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','3')">a path for people to walk along</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','3')">easy to identify because it is well-known</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','3')">in the middle of something</div>
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','3')">from the time of Queen Victoria (1837–1901)</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc3">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report</div>
+    <div class="write-box">
+      <div class="write-prompt">Compare Tower Bridge to a bridge in your home country. Write <strong>2–3 sentences</strong>.</div>
+      <div class="write-hint">💡 Use: <em>similar, different, bigger, older, more modern, both, however, while</em></div>
+      <textarea class="write-input" id="w3" placeholder="Tower Bridge is... In my country... The difference is..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w3','fb3',3)">Submit report ➜</button>
+      <div class="write-feedback" id="fb3"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc3">✅ Mission 3 complete! <span class="sc-pts" id="scp3">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 4 — BUCKINGHAM PALACE
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop4">
+  <div class="stop-header">
+    <div class="stop-num">04</div>
+    <div class="stop-title-area">
+      <h2>👑 Buckingham Palace</h2>
+      <div class="stop-loc">📍 SW1A 1AA · WESTMINSTER</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb4">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5014767,-0.1418831&heading=65&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      Buckingham Palace has been the official London <em>residence</em> of the British <em>monarch</em> since <strong>1837</strong>. The palace has <strong>775 rooms</strong>, including 19 State rooms and 52 royal bedrooms. The building is made from <em>Bath stone</em>, giving it a distinctive <strong>cream colour</strong>. When the monarch is at home, the <strong>Royal Standard flag</strong> flies above the palace. The famous <em>Changing the Guard</em> <em>ceremony</em> takes place in front of the palace most mornings, with soldiers in <strong>red uniforms</strong> and tall black hats.
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s4','y')">🏛️ large cream building</div>
+      <div class="fi" onclick="find(this,'s4','y')">🚪 iron gates</div>
+      <div class="fi" onclick="find(this,'s4','y')">🌳 trees</div>
+      <div class="fi" onclick="find(this,'s4','n')">🌊 a lake</div>
+      <div class="fi" onclick="find(this,'s4','y')">🚗 cars on the road</div>
+      <div class="fi" onclick="find(this,'s4','n')">🎡 London Eye</div>
+      <div class="fi" onclick="find(this,'s4','y')">👥 tourists</div>
+      <div class="fi" onclick="find(this,'s4','n')">🐧 penguins</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd4">⚡ Speed Bonus Active: <span class="timer-num" id="t4">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">How many rooms does Buckingham Palace have in total?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q1',4)">52 rooms</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q1',4)">200 rooms</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m4q1',4,5)">775 rooms</button>
+      </div>
+      <div class="mc-feedback" id="m4q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How can you tell if the King is at home?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q2',4)">The lights are on</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m4q2',4,5)">The Royal Standard flag is flying</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q2',4)">The gates are open</button>
+      </div>
+      <div class="mc-feedback" id="m4q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What colour are the palace walls?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q3',4)">Bright white</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m4q3',4,5)">Cream</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q3',4)">Grey stone</button>
+      </div>
+      <div class="mc-feedback" id="m4q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What do the guards wear in the Changing the Guard ceremony?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q4',4)">Blue uniforms and silver helmets</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m4q4',4,5)">Red uniforms and tall black hats</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m4q4',4)">White uniforms and gold crowns</button>
+      </div>
+      <div class="mc-feedback" id="m4q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt4">
+      <div class="vocab-instructions">💡 Match the words to their meanings. Each correct match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw4">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','4')">residence</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','4')">monarch</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','4')">ceremony</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','4')">distinctive</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd4">
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','4')">a king or queen</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','4')">easy to recognise, clearly different from others</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','4')">the place where someone lives</div>
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','4')">a formal event done in a traditional way</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc4">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report</div>
+    <div class="write-box">
+      <div class="write-prompt">Would you like to live in Buckingham Palace? Give <strong>2 reasons</strong> for your opinion.</div>
+      <div class="write-hint">💡 Use: <em>I would / wouldn't because... It would be... On the other hand... However...</em></div>
+      <textarea class="write-input" id="w4" placeholder="I would / would not like to live there because..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w4','fb4',4)">Submit report ➜</button>
+      <div class="write-feedback" id="fb4"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc4">✅ Mission 4 complete! <span class="sc-pts" id="scp4">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 5 — LONDON EYE
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop5">
+  <div class="stop-header">
+    <div class="stop-num">05</div>
+    <div class="stop-title-area">
+      <h2>🎡 The London Eye</h2>
+      <div class="stop-loc">📍 SE1 7PB · SOUTH BANK</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb5">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.503365,-0.1195537&heading=331&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      The London Eye is a giant <em>observation</em> wheel on the South Bank of the River Thames. It was built to <em>mark</em> the year 2000 and opened on <strong>31 December 1999</strong>. The wheel is <em>135 metres</em> tall and has <strong>32 capsules</strong>, each holding up to <em>25 people</em>. One full <em>rotation</em> takes <strong>30 minutes</strong>. On a clear day, you can see up to <strong>40 kilometres</strong> in every direction. It is one of the most visited <em>tourist attractions</em> in the world, with over <strong>3.5 million visitors</strong> per year.
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s5','y')">🎡 observation wheel</div>
+      <div class="fi" onclick="find(this,'s5','y')">🌊 River Thames</div>
+      <div class="fi" onclick="find(this,'s5','n')">🦁 stone lion</div>
+      <div class="fi" onclick="find(this,'s5','y')">👥 tourists</div>
+      <div class="fi" onclick="find(this,'s5','y')">🏙️ city skyline</div>
+      <div class="fi" onclick="find(this,'s5','n')">🌴 palm trees</div>
+      <div class="fi" onclick="find(this,'s5','y')">🌉 bridge in background</div>
+      <div class="fi" onclick="find(this,'s5','n')">🐊 crocodile</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd5">⚡ Speed Bonus Active: <span class="timer-num" id="t5">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">How long does one full rotation take?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q1',5)">10 minutes</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m5q1',5,5)">30 minutes</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q1',5)">60 minutes</button>
+      </div>
+      <div class="mc-feedback" id="m5q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How many capsules does the London Eye have?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q2',5)">20 capsules</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m5q2',5,5)">32 capsules</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q2',5)">50 capsules</button>
+      </div>
+      <div class="mc-feedback" id="m5q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How many visitors does the London Eye receive each year?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q3',5)">1 million</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m5q3',5,5)">3.5 million</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q3',5)">10 million</button>
+      </div>
+      <div class="mc-feedback" id="m5q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">Why was the London Eye built?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q4',5)">As a permanent transport link</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m5q4',5)">To replace Big Ben</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m5q4',5,5)">To mark / celebrate the year 2000</button>
+      </div>
+      <div class="mc-feedback" id="m5q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt5">
+      <div class="vocab-instructions">💡 Match the words to their meanings. Each correct match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw5">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','5')">observation</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','5')">rotation</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','5')">attraction</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','5')">mark</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd5">
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','5')">one complete turn around a central point</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','5')">to recognise or celebrate a special moment</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','5')">the activity of watching and looking carefully</div>
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','5')">a place or thing that people want to visit</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc5">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report</div>
+    <div class="write-box">
+      <div class="write-prompt">You are at the top of the London Eye. Describe what you can see in <strong>2–3 sentences</strong>.</div>
+      <div class="write-hint">💡 Use: <em>below, across, in the distance, the whole city, the river, buildings, amazing, spectacular</em></div>
+      <textarea class="write-input" id="w5" placeholder="From the top, I can see... Below me... In the distance..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w5','fb5',5)">Submit report ➜</button>
+      <div class="write-feedback" id="fb5"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc5">✅ Mission 5 complete! <span class="sc-pts" id="scp5">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 6 — OXFORD STREET
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop6">
+  <div class="stop-header">
+    <div class="stop-num">06</div>
+    <div class="stop-title-area">
+      <h2>🛍️ Oxford Street</h2>
+      <div class="stop-loc">📍 W1C 1JN · WEST END</div>
+    </div>
+    <div class="pts-badge">up to 45 pts</div>
+    <div class="perfect-badge" id="pb6">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5150906,-0.1421337&heading=90&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      Oxford Street is Europe's <strong>busiest shopping street</strong>, with around <em>500,000 visitors</em> every day. It is <strong>1.9 kilometres</strong> long and has over <em>300 shops</em>. The street is home to famous <em>department stores</em> including <strong>Selfridges</strong> and <em>John Lewis</em>. Every year at Christmas, the street is decorated with <em>spectacular</em> lights that <em>attract</em> millions of visitors. The street gets its name from the <em>Earl of Oxford</em>, who owned land in the area in the <strong>1700s</strong>. In 2026, part of Oxford Street is being <em>pedestrianised</em> — cars will no longer be allowed.
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s6','y')">🚌 red double-decker bus</div>
+      <div class="fi" onclick="find(this,'s6','y')">🏪 shops</div>
+      <div class="fi" onclick="find(this,'s6','y')">👥 many people</div>
+      <div class="fi" onclick="find(this,'s6','n')">🌊 a river</div>
+      <div class="fi" onclick="find(this,'s6','y')">🚦 traffic lights</div>
+      <div class="fi" onclick="find(this,'s6','n')">🏰 a castle</div>
+      <div class="fi" onclick="find(this,'s6','y')">🏙️ tall buildings</div>
+      <div class="fi" onclick="find(this,'s6','n')">🐄 cows</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd6">⚡ Speed Bonus Active: <span class="timer-num" id="t6">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">How many visitors does Oxford Street receive every day?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q1',6)">50,000</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m6q1',6,5)">500,000</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q1',6)">5 million</button>
+      </div>
+      <div class="mc-feedback" id="m6q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">Where does the name "Oxford Street" come from?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q2',6)">Oxford University</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m6q2',6,5)">The Earl of Oxford</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q2',6)">A famous architect named Oxford</button>
+      </div>
+      <div class="mc-feedback" id="m6q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What happens on Oxford Street every Christmas?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q3',6)">All the shops close</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q3',6)">A big parade with music</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m6q3',6,5)">Spectacular lights are put up</button>
+      </div>
+      <div class="mc-feedback" id="m6q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What does "pedestrianised" mean in the context of the text?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q4',6)">Made bigger for more cars</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m6q4',6,5)">Cars are not allowed — only people on foot</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m6q4',6)">Open only for pedestrians on Sundays</button>
+      </div>
+      <div class="mc-feedback" id="m6q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt6">
+      <div class="vocab-instructions">💡 Match the words to their meanings. Each correct match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw6">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','6')">department store</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','6')">spectacular</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','6')">attract</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','6')">pedestrianised</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd6">
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','6')">to make people want to come to a place</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','6')">a large shop selling many different types of products</div>
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','6')">changed so only people on foot can use it</div>
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','6')">very impressive and exciting to look at</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc6">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ field report</div>
+    <div class="write-box">
+      <div class="write-prompt">Look at Oxford Street and describe the atmosphere. Is it similar to a busy street in your home country? Write <strong>2–3 sentences</strong>.</div>
+      <div class="write-hint">💡 Use: <em>crowded, noisy, colourful, similar to, different from, reminds me of, however</em></div>
+      <textarea class="write-input" id="w6" placeholder="Oxford Street looks... It reminds me of... The difference is..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w6','fb6',6)">Submit report ➜</button>
+      <div class="write-feedback" id="fb6"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc6">✅ Mission 6 complete! <span class="sc-pts" id="scp6">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+  MISSION 7 — ST PAUL'S CATHEDRAL
+══════════════════════════════════════════ -->
+<div class="stop-card locked" id="stop7">
+  <div class="stop-header">
+    <div class="stop-num">07</div>
+    <div class="stop-title-area">
+      <h2>⛪ St Paul's Cathedral</h2>
+      <div class="stop-loc">📍 EC4M 8AD · CITY OF LONDON</div>
+    </div>
+    <div class="pts-badge">up to 45 pts + 🏆 BONUS</div>
+    <div class="perfect-badge" id="pb7">🏅 PERFECT</div>
+  </div>
+  <a class="open-btn" href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=51.5138454,-0.0983506&heading=191&pitch=-5&fov=80" target="_blank">🌐 Open Street View Intelligence Feed</a>
+  <div class="stop-body">
+
+    <div class="sh">📡 intel report — read carefully</div>
+    <div class="intel-box">
+      St Paul's Cathedral is one of the most <em>iconic</em> buildings in London. Designed by the <em>architect</em> <strong>Sir Christopher Wren</strong>, it was built between <strong>1675 and 1710</strong> after the original was destroyed in the <em>Great Fire of London</em> in 1666. The dome is <strong>111 metres</strong> high and was the <em>tallest building in London</em> for over 250 years. Inside, the famous <em>Whispering Gallery</em> allows you to hear someone whisper from 34 metres away. Famous events here include the <strong>funeral of Winston Churchill</strong> (1965) and the <em>wedding of Prince Charles and Lady Diana</em> (1981).
+    </div>
+
+    <div class="sh">🔍 evidence collection</div>
+    <div class="find-grid">
+      <div class="fi" onclick="find(this,'s7','y')">⛪ large dome</div>
+      <div class="fi" onclick="find(this,'s7','y')">🏛️ stone columns</div>
+      <div class="fi" onclick="find(this,'s7','n')">🌊 river</div>
+      <div class="fi" onclick="find(this,'s7','y')">👥 people / tourists</div>
+      <div class="fi" onclick="find(this,'s7','y')">🏙️ modern buildings nearby</div>
+      <div class="fi" onclick="find(this,'s7','n')">🎡 Ferris wheel</div>
+      <div class="fi" onclick="find(this,'s7','y')">🚶 steps leading up</div>
+      <div class="fi" onclick="find(this,'s7','n')">🌴 tropical trees</div>
+    </div>
+
+    <div class="sh">❓ comprehension</div>
+    <div class="speed-timer" id="spd7">⚡ Speed Bonus Active: <span class="timer-num" id="t7">10</span>s remaining</div>
+
+    <div class="mc-question">
+      <div class="mc-q">Why was the current St Paul's Cathedral built?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q1',7)">The old one was too small</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m7q1',7,5)">The original was destroyed in the Great Fire</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q1',7)">The King wanted a new cathedral</button>
+      </div>
+      <div class="mc-feedback" id="m7q1"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">Who designed St Paul's Cathedral?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q2',7)">Sir Isaac Newton</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q2',7)">Winston Churchill</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m7q2',7,5)">Sir Christopher Wren</button>
+      </div>
+      <div class="mc-feedback" id="m7q2"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">What is special about the Whispering Gallery?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q3',7)">It shows paintings of famous people</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m7q3',7,5)">You can hear a whisper from 34 metres away</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q3',7)">It has the best view of London</button>
+      </div>
+      <div class="mc-feedback" id="m7q3"></div>
+    </div>
+    <div class="mc-question">
+      <div class="mc-q">How long was St Paul's dome the tallest structure in London?</div>
+      <div class="mc-opts">
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q4',7)">About 50 years</button>
+        <button class="mc-btn" onclick="mc(this,'wrong','m7q4',7)">About 100 years</button>
+        <button class="mc-btn" onclick="mc(this,'correct','m7q4',7,5)">Over 250 years</button>
+      </div>
+      <div class="mc-feedback" id="m7q4"></div>
+    </div>
+
+    <div class="sh">🔤 vocabulary mission</div>
+    <div class="vocab-task" id="vt7">
+      <div class="vocab-instructions">💡 Match the words to their meanings. Each correct match = +3 pts.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+        <div>
+          <div class="vocab-col-label">WORDS FROM TEXT</div>
+          <div class="vocab-words" id="vw7">
+            <div class="vocab-word" data-id="a" onclick="vocabClick(this,'vw','7')">iconic</div>
+            <div class="vocab-word" data-id="b" onclick="vocabClick(this,'vw','7')">architect</div>
+            <div class="vocab-word" data-id="c" onclick="vocabClick(this,'vw','7')">funeral</div>
+            <div class="vocab-word" data-id="d" onclick="vocabClick(this,'vw','7')">dome</div>
+          </div>
+        </div>
+        <div>
+          <div class="vocab-col-label">MEANINGS</div>
+          <div class="vocab-defs" id="vd7">
+            <div class="vocab-def" data-id="d" onclick="vocabClick(this,'vd','7')">a round curved roof, shaped like half a sphere</div>
+            <div class="vocab-def" data-id="b" onclick="vocabClick(this,'vd','7')">a person who designs buildings</div>
+            <div class="vocab-def" data-id="a" onclick="vocabClick(this,'vd','7')">very famous and widely recognised as a symbol</div>
+            <div class="vocab-def" data-id="c" onclick="vocabClick(this,'vd','7')">a ceremony held when someone dies</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-score">Matched: <span class="vocab-correct" id="vc7">0</span> / 4</div>
+    </div>
+
+    <div class="sh">✍️ 🏆 bonus mission — final field report</div>
+    <div class="write-box" style="border-color:var(--gold)">
+      <div class="write-prompt" style="color:var(--gold)">🏆 BONUS: Choose <strong>one</strong> location from your missions today. Write a short paragraph (<strong>3–4 sentences</strong>) explaining why a tourist should visit it. Use a variety of adjectives and linking words.</div>
+      <div class="write-hint">💡 Use: <em>You should visit... because... Not only is it... but it also... I would recommend... One of the most... fascinating / spectacular / historic / unique</em></div>
+      <textarea class="write-input" id="w7" style="min-height:90px" placeholder="I recommend visiting... because... Not only is it... It is also... You will..."></textarea>
+      <button class="write-submit" onclick="checkWrite('w7','fb7',7)">Submit final report ➜</button>
+      <div class="write-feedback" id="fb7"></div>
+    </div>
+
+  </div>
+  <div class="stop-complete" id="sc7">✅ Mission 7 complete! <span class="sc-pts" id="scp7">0 pts</span></div>
+  <div class="lock-notice">🔒 LOCKED — complete previous mission first</div>
+</div>
+
+<!-- MISSION COMPLETE -->
+<div class="mission-complete" id="missionComplete">
+  <div class="mc-title">🎖️ MISSION COMPLETE</div>
+  <div style="color:var(--muted);font-size:0.85rem;letter-spacing:2px;font-family:'Special Elite',cursive;">FINAL SCORE</div>
+  <div class="mc-score-big" id="finalScore">0</div>
+  <div class="mc-rank-final" id="finalRank">RECRUIT</div>
+  <div class="mc-stats">
+    <div class="mc-stat"><div class="mc-stat-num" id="finalPerfect">0</div><div class="mc-stat-lbl">PERFECT STOPS</div></div>
+    <div class="mc-stat"><div class="mc-stat-num" id="finalStreak">0</div><div class="mc-stat-lbl">BEST STREAK</div></div>
+    <div class="mc-stat"><div class="mc-stat-num" id="finalVocab">0</div><div class="mc-stat-lbl">VOCAB MATCHED</div></div>
+  </div>
+  <div class="mc-msg" id="finalMsg">Well done, agent.</div>
+  <div class="perfect-stops-list" id="perfectList"></div>
+</div>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let totalScore   = 0;
+let streak       = 0;
+let bestStreak   = 0;
+let currentStop  = 1;
+let totalVocab   = 0;
+
+const stopScores  = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+const stopDone    = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+const stopErrors  = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};  // track mistakes per stop
+const mcDone      = {};
+const writeDone   = {};
+const findCorrect = {s1:0,s2:0,s3:0,s4:0,s5:0,s6:0,s7:0};
+const findScored  = {s1:false,s2:false,s3:false,s4:false,s5:false,s6:false,s7:false};
+const vocabMatched= {1:0,2:0,3:0,4:0,5:0,6:0,7:0};  // count per stop
+const vocabDone   = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+
+// Speed timers
+const timers = {};
+const timerActive = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+const timerVal    = {1:10,2:10,3:10,4:10,5:10,6:10,7:10};
+
+// Vocab state
+let vocabSelected = { word: null, def: null };
+
+/* ═══════════════════════════════════════
+   RANKS
+═══════════════════════════════════════ */
+const RANKS = [
+  { min:0,   name:'RECRUIT',         msg:'Keep exploring! Every mission builds your English skills.' },
+  { min:50,  name:'FIELD OPERATIVE', msg:'Good work. You have sharp eyes and a solid report.' },
+  { min:110, name:'SPECIAL AGENT',   msg:'Impressive fieldwork. London holds few secrets from you.' },
+  { min:175, name:'SENIOR AGENT',    msg:'Outstanding intelligence gathering. A model field agent.' },
+  { min:240, name:'ELITE AGENT 🏆',  msg:'Exceptional! You have mastered every mission. Top of your class.' },
+];
+function getRank(s) { let r=RANKS[0]; for(const x of RANKS){if(s>=x.min)r=x;} return r; }
+
+/* ═══════════════════════════════════════
+   FLOAT SCORE POPUP
+═══════════════════════════════════════ */
+let floatTimeout;
+function floatPop(text) {
+  const el = document.getElementById('floatScore');
+  el.textContent = text;
+  clearTimeout(floatTimeout);
+  el.className = 'show';
+  floatTimeout = setTimeout(() => {
+    el.classList.add('hide');
+    setTimeout(() => el.className = '', 500);
+  }, 900);
+}
+
+/* ═══════════════════════════════════════
+   ADD SCORE + UI UPDATE
+═══════════════════════════════════════ */
+function addScore(pts, stopNum, showFloat=true) {
+  if (pts <= 0) return;
+  totalScore += pts;
+  stopScores[stopNum] = (stopScores[stopNum]||0) + pts;
+
+  const el = document.getElementById('scoreNum');
+  el.textContent = totalScore;
+  el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+
+  const pct = Math.min(100, Math.round(totalScore / 300 * 100));
+  document.getElementById('rankBar').style.width = pct + '%';
+  document.getElementById('rankName').textContent = getRank(totalScore).name;
+
+  if (showFloat) floatPop('+' + pts + ' pts' + (pts > 5 ? ' 🔥' : ''));
+}
+
+/* ═══════════════════════════════════════
+   STREAK
+═══════════════════════════════════════ */
+function getMultiplier() {
+  if (streak >= 5) return 2;
+  if (streak >= 3) return 1.5;
+  return 1;
+}
+function updateStreakUI() {
+  document.getElementById('streakCount').textContent = streak;
+  const fire = document.getElementById('streakFire');
+  fire.classList.remove('lit'); void fire.offsetWidth; fire.classList.add('lit');
+  const mb = document.getElementById('multiBadge');
+  const mult = getMultiplier();
+  if (mult > 1) {
+    mb.textContent = '×' + mult;
+    mb.classList.add('show');
+  } else {
+    mb.classList.remove('show');
+  }
+  if (streak > bestStreak) bestStreak = streak;
+}
+function breakStreak() {
+  streak = 0;
+  document.getElementById('streakCount').textContent = 0;
+  document.getElementById('multiBadge').classList.remove('show');
+}
+
+/* ═══════════════════════════════════════
+   SPEED TIMER
+═══════════════════════════════════════ */
+function startTimer(stopNum) {
+  if (timerActive[stopNum]) return;
+  timerActive[stopNum] = true;
+  const tid = 't' + stopNum;
+  const sid = 'spd' + stopNum;
+  timers[stopNum] = setInterval(() => {
+    timerVal[stopNum]--;
+    const el = document.getElementById(tid);
+    if (el) el.textContent = timerVal[stopNum];
+    const spd = document.getElementById(sid);
+    if (timerVal[stopNum] <= 3 && spd) spd.classList.add('danger');
+    if (timerVal[stopNum] <= 0) {
+      clearInterval(timers[stopNum]);
+      if (spd) { spd.style.opacity = '0.4'; spd.innerHTML = '⏱️ Speed bonus expired'; }
+    }
+  }, 1000);
+}
+
+/* ═══════════════════════════════════════
+   FIND ITEMS
+═══════════════════════════════════════ */
+function find(el, stop, correct) {
+  if (el.classList.contains('yes') || el.classList.contains('no')) return;
+  const stopNum = parseInt(stop.replace('s',''));
+  if (correct === 'y') {
+    el.classList.add('yes');
+    findCorrect[stop]++;
+    if (!findScored[stop]) {
+      findScored[stop] = true;
+      streak++;
+      updateStreakUI();
+      const pts = Math.round(5 * getMultiplier());
+      addScore(pts, stopNum);
+    }
+    checkStopComplete(stopNum);
+  } else {
+    el.classList.add('no');
+    stopErrors[stopNum]++;
+    breakStreak();
+    setTimeout(() => el.classList.remove('no'), 1400);
+  }
+}
+
+/* ═══════════════════════════════════════
+   MULTIPLE CHOICE
+═══════════════════════════════════════ */
+function mc(btn, result, qid, stopNum, basePts) {
+  if (mcDone[qid]) return;
+  // start timer when first MC answered
+  startTimer(stopNum);
+
+  const parent = btn.closest('.mc-question');
+  const fb     = document.getElementById(qid);
+
+  if (result === 'correct') {
+    btn.classList.add('correct');
+    parent.querySelectorAll('.mc-btn').forEach(b => b.disabled = true);
+    fb.classList.add('show','ok');
+
+    // speed bonus?
+    let pts = Math.round(basePts * getMultiplier());
+    const speedBonus = timerVal[stopNum] > 0 ? 2 : 0;
+    pts += speedBonus;
+
+    const speedNote = speedBonus > 0 ? ' ⚡+' + speedBonus + ' speed!' : '';
+    fb.innerHTML = '✅ Correct! <span class="bonus-pop">+' + pts + ' pts' + speedNote + '</span>';
+    mcDone[qid] = true;
+    streak++;
+    updateStreakUI();
+    addScore(pts, stopNum);
+    checkStopComplete(stopNum);
+  } else {
+    btn.classList.add('wrong');
+    stopErrors[stopNum]++;
+    breakStreak();
+    fb.classList.add('show','no');
+    fb.textContent = '❌ Not quite — read the intel report again.';
+    setTimeout(() => {
+      btn.classList.remove('wrong');
+      btn.disabled = true;
+      fb.classList.remove('show','no');
+    }, 1600);
+  }
+}
+
+/* ═══════════════════════════════════════
+   VOCAB MATCHING
+═══════════════════════════════════════ */
+function vocabClick(el, type, stopStr) {
+  const stopNum = parseInt(stopStr);
+  if (el.classList.contains('matched')) return;
+
+  if (type === 'vw') {
+    // selecting a word
+    if (vocabSelected.word) vocabSelected.word.classList.remove('selected');
+    vocabSelected.word = el;
+    el.classList.add('selected');
+  } else {
+    // selecting a def
+    if (vocabSelected.def) vocabSelected.def.classList.remove('selected');
+    vocabSelected.def = el;
+    el.classList.add('selected');
+  }
+
+  // if both selected, check match
+  if (vocabSelected.word && vocabSelected.def) {
+    const wid = vocabSelected.word.dataset.id;
+    const did = vocabSelected.def.dataset.id;
+
+    if (wid === did) {
+      // CORRECT
+      vocabSelected.word.classList.remove('selected');
+      vocabSelected.def.classList.remove('selected');
+      vocabSelected.word.classList.add('matched');
+      vocabSelected.def.classList.add('matched');
+      vocabSelected = { word: null, def: null };
+
+      vocabMatched[stopNum]++;
+      totalVocab++;
+      document.getElementById('vc' + stopNum).textContent = vocabMatched[stopNum];
+
+      streak++;
+      updateStreakUI();
+      const pts = Math.round(3 * getMultiplier());
+      addScore(pts, stopNum);
+
+      if (vocabMatched[stopNum] === 4) {
+        vocabDone[stopNum] = true;
+        checkStopComplete(stopNum);
+      }
+    } else {
+      // WRONG — flash red briefly
+      stopErrors[stopNum]++;
+      breakStreak();
+      const w = vocabSelected.word;
+      const d = vocabSelected.def;
+      w.classList.remove('selected'); w.classList.add('wrong-flash');
+      d.classList.remove('selected'); d.classList.add('wrong-flash');
+      vocabSelected = { word: null, def: null };
+      setTimeout(() => { w.classList.remove('wrong-flash'); d.classList.remove('wrong-flash'); }, 600);
+    }
+  }
+}
+
+/* ═══════════════════════════════════════
+   WRITE CHECK
+═══════════════════════════════════════ */
+const WRITE_KEYS = {
+  1: ['see','column','lion','fountain','square','tourists','statue','building','busy','impressive','stone'],
+  2: ['river','tower','clock','tall','parliament','historic','building','thames','bridge','impressive','gothic'],
+  3: ['bridge','different','country','similar','river','old','tower','gothic','however','both','compared'],
+  4: ['would','because','palace','big','room','historic','live','reason','however','first','secondly'],
+  5: ['see','top','below','city','river','building','distance','across','spectacular','amazing','whole'],
+  6: ['street','busy','shops','crowd','similar','different','reminds','country','however','people','crowded'],
+  7: ['visit','because','not only','also','recommend','historic','beautiful','famous','should','fascinating','spectacular'],
+};
+
+function checkWrite(inputId, fbId, stopNum) {
+  if (writeDone[stopNum]) return;
+  const val = document.getElementById(inputId).value.trim();
+  const fb  = document.getElementById(fbId);
+  const lower = val.toLowerCase();
+
+  if (val.length < 30) {
+    fb.className = 'write-feedback show-hint';
+    fb.textContent = '👉 Write a bit more — aim for 2–3 full sentences!';
+    return;
+  }
+  const sentences = val.split(/[.!?]+/).filter(s => s.trim().length > 3);
+  if (sentences.length < 2) {
+    fb.className = 'write-feedback show-hint';
+    fb.textContent = '👉 Try to write at least 2 sentences. End each one with a full stop (.)';
+    return;
+  }
+
+  const keys = WRITE_KEYS[stopNum] || [];
+  const matches = keys.filter(k => lower.includes(k)).length;
+  const mult = getMultiplier();
+  let basePts = matches >= 5 ? 10 : matches >= 3 ? 8 : matches >= 2 ? 6 : 5;
+  let pts = Math.round(basePts * mult);
+  const bonus = basePts >= 10;
+
+  writeDone[stopNum] = true;
+  addScore(pts, stopNum);
+  streak++;
+  updateStreakUI();
+
+  fb.className = 'write-feedback show-ok';
+  if (bonus) {
+    fb.innerHTML = '🏆 <strong>Excellent report!</strong> Great vocabulary use! <span class="bonus-pop">+' + pts + ' pts BONUS</span>';
+  } else {
+    fb.innerHTML = '✅ Good work! Report submitted. <span class="bonus-pop">+' + pts + ' pts</span> — use more vocab words next time for a bonus!';
+  }
+  checkStopComplete(stopNum);
+}
+
+/* ═══════════════════════════════════════
+   STOP COMPLETION
+═══════════════════════════════════════ */
+function checkStopComplete(stopNum) {
+  if (stopDone[stopNum]) return;
+  const s = 's' + stopNum;
+
+  // Check all 4 MC questions done
+  const allMC = ['q1','q2','q3','q4'].every(q => mcDone['m' + stopNum + q] || (stopNum <= 2 && q === 'q4' ? mcDone['m' + stopNum + 'q4'] : false));
+  // Simpler: count done MCs for this stop
+  const mcCount = ['q1','q2','q3','q4'].filter(q => mcDone['m'+stopNum+q]).length;
+  const needMC  = (stopNum <= 2) ? 4 : 4; // all stops now have 4
+
+  const ok = findCorrect[s] >= 1 && mcCount >= needMC && writeDone[stopNum] && vocabDone[stopNum];
+  if (!ok) return;
+
+  stopDone[stopNum] = true;
+
+  // Perfect stop?
+  if (stopErrors[stopNum] === 0) {
+    document.getElementById('pb' + stopNum).classList.add('show');
+    document.getElementById('mmap' + stopNum).classList.add('perfect');
+    floatPop('🏅 PERFECT STOP! +bonus');
+    addScore(5, stopNum, false); // silent bonus
+  } else {
+    document.getElementById('mmap' + stopNum).classList.add('done');
+  }
+  // clear active from map
+  document.getElementById('mmap' + stopNum).classList.remove('active');
+
+  const banner = document.getElementById('sc' + stopNum);
+  banner.classList.add('show');
+  banner.querySelector('.sc-pts').textContent = stopScores[stopNum] + ' pts';
+
+  const done = Object.values(stopDone).filter(Boolean).length;
+  document.getElementById('stopsDone').textContent = done + ' / 7 missions';
+
+  if (stopNum < 7) {
+    const next = document.getElementById('stop' + (stopNum+1));
+    next.classList.remove('locked');
+    document.getElementById('mmap' + (stopNum+1)).classList.add('active');
+    setTimeout(() => next.scrollIntoView({ behavior:'smooth', block:'start' }), 300);
+    // stop timer
+    if (timers[stopNum]) clearInterval(timers[stopNum]);
+    // start speed timer for next automatically when they scroll (we'll start on first MC click instead)
+  }
+
+  if (stopNum === 7) {
+    if (timers[7]) clearInterval(timers[7]);
+    setTimeout(showMissionComplete, 900);
+  }
+}
+
+/* ═══════════════════════════════════════
+   MISSION COMPLETE
+═══════════════════════════════════════ */
+function showMissionComplete() {
+  const el   = document.getElementById('missionComplete');
+  const rank = getRank(totalScore);
+  document.getElementById('finalScore').textContent  = totalScore;
+  document.getElementById('finalRank').textContent   = rank.name;
+  document.getElementById('finalMsg').textContent    = rank.msg;
+  document.getElementById('finalStreak').textContent = bestStreak;
+  document.getElementById('finalVocab').textContent  = totalVocab;
+
+  const perfects = Object.keys(stopDone).filter(k => stopErrors[k] === 0 && stopDone[k]);
+  document.getElementById('finalPerfect').textContent = perfects.length;
+  if (perfects.length > 0) {
+    document.getElementById('perfectList').textContent =
+      '🏅 Perfect stops: ' + perfects.map(k => 'Mission ' + k).join(', ');
+  }
+
+  el.classList.add('show');
+  el.scrollIntoView({ behavior:'smooth' });
+}
+</script>
+
+</div>
+
+<!-- ═══ PRE-A1 SCRIPT ═══ -->
+<script>
+
+  let points = 0;
+  const TOTAL_POINTS = 15; // 5 finds + 5 answers + 5 sentences
+  const correctAnswers = {};
+  const sentenceDone = { sb1:false, sb2:false, sb3:false, sb4:false, sb5:false };
+  const correctFindsPerStop = { s1:0, s2:0, s3:0, s4:0, s5:0 };
+  const stopStarGiven = { s1:false, s2:false, s3:false, s4:false, s5:false };
+
+  // Per-builder state: array of word tokens
+  const sbState = { sb1:[], sb2:[], sb3:[], sb4:[], sb5:[] };
+
+  function addPoint() {
+    points = Math.min(points + 1, TOTAL_POINTS);
+    updateStars();
+    if (points >= TOTAL_POINTS) {
+      setTimeout(() => {
+        document.getElementById('finishCard').style.display = 'block';
+        document.getElementById('finishCard').scrollIntoView({ behavior: 'smooth' });
+      }, 600);
+    }
+  }
+
+  function updateStars() {
+    const stars = document.querySelectorAll('#stars .star');
+    stars.forEach((s, i) => s.classList.toggle('lit', i < points));
+  }
+
+  function findItem(el, stop, visible) {
+    if (el.classList.contains('found-yes') || el.classList.contains('found-no')) return;
+    if (visible === 'yes') {
+      el.classList.add('found-yes');
+      correctFindsPerStop[stop]++;
+      if (correctFindsPerStop[stop] === 1 && !stopStarGiven[stop]) {
+        stopStarGiven[stop] = true;
+        addPoint();
+      }
+    } else {
+      el.classList.add('found-no');
+      setTimeout(() => el.classList.remove('found-no'), 1500);
+    }
+  }
+
+  function answer(btn, result, qid) {
+    if (correctAnswers[qid]) return;
+    const parent = btn.closest('.q-task');
+    const allBtns = parent.querySelectorAll('.choice-btn');
+    const fb = document.getElementById(qid);
+    if (result === 'correct') {
+      btn.classList.add('correct');
+      allBtns.forEach(b => b.disabled = true);
+      fb.classList.add('show','ok');
+      if (!correctAnswers[qid]) {
+        correctAnswers[qid] = true;
+        addPoint();
+      }
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = '❌ Try again!';
+      fb.classList.add('show','no');
+      setTimeout(() => {
+        btn.classList.remove('wrong');
+        fb.classList.remove('show','no');
+        fb.textContent = '';
+      }, 1200);
+    }
+  }
+
+  /* ── SENTENCE BUILDER ── */
+  function sbRender(id) {
+    const display = document.getElementById(id + '-display');
+    display.innerHTML = '';
+    sbState[id].forEach((word, i) => {
+      const el = document.createElement('span');
+      el.className = 'sb-word-used';
+      el.textContent = word;
+      el.title = 'Tap to remove';
+      el.onclick = () => sbRemove(id, i);
+      display.appendChild(el);
+    });
+    // Sync chip used state
+    const bank = document.getElementById(id + '-bank');
+    if (!bank) return;
+    bank.querySelectorAll('.sb-chip').forEach(chip => {
+      const word = chip.getAttribute('onclick').match(/'([^']+)'\)$/)[1];
+      // Mark used only if ALL occurrences are used (count in state vs chips)
+      const countInBank = [...bank.querySelectorAll('.sb-chip')].filter(c =>
+        c.getAttribute('onclick').match(/'([^']+)'\)$/)[1] === word).length;
+      const countUsed = sbState[id].filter(w => w === word).length;
+      chip.classList.toggle('used', countUsed >= countInBank);
+    });
+  }
+
+  function sbTap(id, word) {
+    sbState[id].push(word);
+    sbRender(id);
+  }
+
+  function sbRemove(id, index) {
+    sbState[id].splice(index, 1);
+    sbRender(id);
+  }
+
+  function sbClear(id) {
+    sbState[id] = [];
+    sbRender(id);
+    const res = document.getElementById(id + '-result');
+    res.className = 'sb-result';
+    res.textContent = '';
+  }
+
+  /*
+   * Grammar checker for sentence builders.
+   *
+   * Valid patterns (all end with '.'):
+   *
+   *  Pattern A  –  "I can see a [adj?] [noun] ."
+   *    e.g.  I can see a lion .
+   *          I can see a big lion .
+   *          I can see a big red bus .   ← adjective + compound noun
+   *
+   *  Pattern B  –  "[Subject] is [adj] ."
+   *    e.g.  Big Ben is tall .
+   *
+   *  Pattern C  –  "[Subject] is [adj] and [adj] ."
+   *    e.g.  Tower Bridge is big and old .
+   *
+   * For stops 2-5 the "I can see" chip is a single token so Pattern A uses
+   * position [0]="I can see", [1]="a"?, [adj?], [noun].
+   */
+
+  // Raw noun labels (with emoji) per builder
+  const NOUNS = {
+    sb1: ['lion','fountain','red bus','building'],
+    sb2: ['a clock'],
+    sb3: ['water'],
+    sb4: ['a gate','trees'],
+    sb5: ['water','people']
+  };
+  // Subject labels per builder (bare, no emoji)
+  const SUBJECTS = {
+    sb1: ['i'],
+    sb2: ['big ben'],
+    sb3: ['tower bridge'],
+    sb4: ['the palace'],
+    sb5: ['the london eye']
+  };
+  const ADJECTIVES = new Set(['big','tall','old','white','very big','blue']);
+
+  // Normalise a token: strip leading emoji, lowercase, trim
+  function norm(w) {
+    return w
+      .replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\uFE0F\u20E3\u200D]+/gu, '')
+      .replace(/[🏛️🌉🎡🕰️🌁👑🌳🚪⛲💧🦁🚌⏰👥]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  function isNoun(token, id)    { return NOUNS[id].some(n => norm(token) === n); }
+  function isAdj(token)         { return ADJECTIVES.has(norm(token)); }
+  function isSubject(token, id) { return SUBJECTS[id].includes(norm(token)); }
+
+  function checkGrammar(id, tokens) {
+    // Require final '.'
+    const hasPeriod = tokens.length > 0 && tokens[tokens.length - 1] === '.';
+    if (!hasPeriod) {
+      return { ok:false, hint:'👉 Don\'t forget the <strong>.</strong> at the end!' };
+    }
+    const core = tokens.slice(0, -1);   // everything before the '.'
+    if (core.length === 0) {
+      return { ok:false, hint:'👆 Tap some words first!' };
+    }
+
+    const subjectLabel = SUBJECTS[id][0]; // for feedback messages
+
+    // ─────────────────────────────────────────────
+    // Detect which pattern the student is attempting
+    // based on the first token.
+    // ─────────────────────────────────────────────
+
+    const first = norm(core[0]);
+
+    // ── PATTERN A  ──────────────────────────────
+    // "I can see …"  (sb1: first="i",  sb2-5: first="i can see")
+    const startsICanSee = (id === 'sb1')
+      ? (first === 'i')
+      : (first === 'i can see');
+
+    if (startsICanSee) {
+      let pos = 1; // index after the subject token(s)
+
+      // sb1: next must be "can see"
+      if (id === 'sb1') {
+        if (core.length < 2 || norm(core[1]) !== 'can see') {
+          return { ok:false, hint:'👉 After <strong>I</strong> use <strong>can see</strong>.' };
+        }
+        pos = 2;
+      }
+
+      // Optional "a"
+      const hasArticle = core[pos] && norm(core[pos]) === 'a';
+      if (hasArticle) pos++;
+
+      // Optional adjective(s) — allow one or two stacked adjectives
+      let adjCount = 0;
+      while (core[pos] && isAdj(core[pos]) && adjCount < 2) {
+        pos++;
+        adjCount++;
+      }
+
+      // Must now have a noun
+      if (!core[pos]) {
+        if (!hasArticle) {
+          return { ok:false, hint:'👉 Almost! Add <strong>a</strong> and a noun: <em>lion</em>, <em>fountain</em>…' };
+        }
+        return { ok:false, hint:'👉 What can you see? Add a noun after <strong>a' + (adjCount ? ' ' + norm(core[pos-1]) : '') + '</strong>.' };
+      }
+
+      if (!isNoun(core[pos], id)) {
+        // Could be an adjective they forgot to follow with a noun
+        if (isAdj(core[pos])) {
+          return { ok:false, hint:'👉 <strong>' + norm(core[pos]) + '</strong> is a describing word. Add a noun after it: <em>' + NOUNS[id][0] + '</em>.' };
+        }
+        return { ok:false, hint:'👉 <strong>' + norm(core[pos]) + '</strong> is not a noun here. Try: <em>' + NOUNS[id].join('</em>, <em>') + '</em>.' };
+      }
+
+      pos++; // past the noun
+
+      // Warn: article missing but everything else ok
+      if (!hasArticle) {
+        return { ok:false, hint:'👉 Almost! Add <strong>a</strong> before the noun: <em>I can see <u>a</u> ' + norm(core[pos-1]) + '.</em>' };
+      }
+
+      // Anything left over?
+      if (pos < core.length) {
+        return { ok:false, hint:'👉 Too many words after the noun. Your sentence looks good up to <em>' + core.slice(0, pos).join(' ') + '</em>.' };
+      }
+
+      return { ok:true };
+    }
+
+    // ── PATTERNS B & C  ─────────────────────────
+    // "[Subject] is [adj] ."   or   "[Subject] is [adj] and [adj] ."
+    if (isSubject(core[0], id)) {
+      if (core.length < 2) {
+        return { ok:false, hint:'👉 Add <strong>is</strong> after the subject.' };
+      }
+      if (norm(core[1]) !== 'is') {
+        return { ok:false, hint:'👉 Use <strong>is</strong> after <strong>' + norm(core[0]) + '</strong>.' };
+      }
+      if (core.length < 3) {
+        return { ok:false, hint:'👉 Add a describing word: <em>big</em>, <em>tall</em>, <em>old</em>…' };
+      }
+      if (!isAdj(core[2])) {
+        // Noun placed after "is" — common mistake
+        if (isNoun(core[2], id)) {
+          return { ok:false, hint:'👉 After <strong>is</strong> use a describing word like <em>big</em> or <em>old</em>, not a noun.' };
+        }
+        return { ok:false, hint:'👉 <strong>' + norm(core[2]) + '</strong> is not a describing word. Try: <em>big</em>, <em>tall</em>, <em>old</em>, <em>blue</em>.' };
+      }
+
+      // Pattern B: "[Subject] is [adj] ."
+      if (core.length === 3) return { ok:true };
+
+      // Pattern C: "[Subject] is [adj] and [adj] ."
+      if (norm(core[3]) === 'and') {
+        if (core.length === 4) {
+          return { ok:false, hint:'👉 Add another describing word after <strong>and</strong>.' };
+        }
+        if (!isAdj(core[4])) {
+          return { ok:false, hint:'👉 After <strong>and</strong> use a describing word: <em>old</em>, <em>big</em>, <em>tall</em>…' };
+        }
+        if (norm(core[2]) === norm(core[4])) {
+          return { ok:false, hint:'👉 Use two <em>different</em> words! e.g. <em>big and old</em>.' };
+        }
+        if (core.length === 5) return { ok:true };
+        return { ok:false, hint:'👉 Too many words. End the sentence after the second describing word.' };
+      }
+
+      // Extra word after first adjective but not "and"
+      return { ok:false, hint:'👉 Almost! Use <strong>and</strong> to add another word: <em>' + norm(core[0]) + ' is ' + norm(core[2]) + ' <u>and</u> old.</em>' };
+    }
+
+    // ── Didn't start with a recognised word ─────
+    const goodStarts = id === 'sb1'
+      ? '<strong>I</strong>'
+      : '<strong>I can see</strong> or <strong>' + subjectLabel + '</strong>';
+    return { ok:false, hint:'👉 Start your sentence with ' + goodStarts + '.' };
+  }
+
+  function sbDone(id) {
+    const tokens = sbState[id];
+    const res = document.getElementById(id + '-result');
+
+    if (tokens.length === 0) {
+      res.className = 'sb-result show-hint';
+      res.innerHTML = '👆 Tap some words first!';
+      return;
+    }
+
+    const { ok, hint } = checkGrammar(id, tokens);
+    const sentence = tokens.join(' ');
+
+    if (ok) {
+      res.className = 'sb-result show-good';
+      res.innerHTML = '⭐ <strong>Great sentence!</strong> "' + sentence + '" 🎉';
+      if (!sentenceDone[id]) {
+        sentenceDone[id] = true;
+        addPoint();
+      }
+    } else {
+      res.className = 'sb-result show-hint';
+      res.innerHTML = hint;
+    }
+  }
+
+</script>
+
+<!-- ═══ A2 SCRIPT ═══ -->
+<script>
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let totalScore   = 0;
+let streak       = 0;
+let bestStreak   = 0;
+let currentStop  = 1;
+let totalVocab   = 0;
+
+const stopScores  = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+const stopDone    = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+const stopErrors  = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};  // track mistakes per stop
+const mcDone      = {};
+const writeDone   = {};
+const findCorrect = {s1:0,s2:0,s3:0,s4:0,s5:0,s6:0,s7:0};
+const findScored  = {s1:false,s2:false,s3:false,s4:false,s5:false,s6:false,s7:false};
+const vocabMatched= {1:0,2:0,3:0,4:0,5:0,6:0,7:0};  // count per stop
+const vocabDone   = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+
+// Speed timers
+const timers = {};
+const timerActive = {1:false,2:false,3:false,4:false,5:false,6:false,7:false};
+const timerVal    = {1:10,2:10,3:10,4:10,5:10,6:10,7:10};
+
+// Vocab state
+let vocabSelected = { word: null, def: null };
+
+/* ═══════════════════════════════════════
+   RANKS
+═══════════════════════════════════════ */
+const RANKS = [
+  { min:0,   name:'RECRUIT',         msg:'Keep exploring! Every mission builds your English skills.' },
+  { min:50,  name:'FIELD OPERATIVE', msg:'Good work. You have sharp eyes and a solid report.' },
+  { min:110, name:'SPECIAL AGENT',   msg:'Impressive fieldwork. London holds few secrets from you.' },
+  { min:175, name:'SENIOR AGENT',    msg:'Outstanding intelligence gathering. A model field agent.' },
+  { min:240, name:'ELITE AGENT 🏆',  msg:'Exceptional! You have mastered every mission. Top of your class.' },
+];
+function getRank(s) { let r=RANKS[0]; for(const x of RANKS){if(s>=x.min)r=x;} return r; }
+
+/* ═══════════════════════════════════════
+   FLOAT SCORE POPUP
+═══════════════════════════════════════ */
+let floatTimeout;
+function floatPop(text) {
+  const el = document.getElementById('floatScore');
+  el.textContent = text;
+  clearTimeout(floatTimeout);
+  el.className = 'show';
+  floatTimeout = setTimeout(() => {
+    el.classList.add('hide');
+    setTimeout(() => el.className = '', 500);
+  }, 900);
+}
+
+/* ═══════════════════════════════════════
+   ADD SCORE + UI UPDATE
+═══════════════════════════════════════ */
+function addScore(pts, stopNum, showFloat=true) {
+  if (pts <= 0) return;
+  totalScore += pts;
+  stopScores[stopNum] = (stopScores[stopNum]||0) + pts;
+
+  const el = document.getElementById('scoreNum');
+  el.textContent = totalScore;
+  el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+
+  const pct = Math.min(100, Math.round(totalScore / 300 * 100));
+  document.getElementById('rankBar').style.width = pct + '%';
+  document.getElementById('rankName').textContent = getRank(totalScore).name;
+
+  if (showFloat) floatPop('+' + pts + ' pts' + (pts > 5 ? ' 🔥' : ''));
+}
+
+/* ═══════════════════════════════════════
+   STREAK
+═══════════════════════════════════════ */
+function getMultiplier() {
+  if (streak >= 5) return 2;
+  if (streak >= 3) return 1.5;
+  return 1;
+}
+function updateStreakUI() {
+  document.getElementById('streakCount').textContent = streak;
+  const fire = document.getElementById('streakFire');
+  fire.classList.remove('lit'); void fire.offsetWidth; fire.classList.add('lit');
+  const mb = document.getElementById('multiBadge');
+  const mult = getMultiplier();
+  if (mult > 1) {
+    mb.textContent = '×' + mult;
+    mb.classList.add('show');
+  } else {
+    mb.classList.remove('show');
+  }
+  if (streak > bestStreak) bestStreak = streak;
+}
+function breakStreak() {
+  streak = 0;
+  document.getElementById('streakCount').textContent = 0;
+  document.getElementById('multiBadge').classList.remove('show');
+}
+
+/* ═══════════════════════════════════════
+   SPEED TIMER
+═══════════════════════════════════════ */
+function startTimer(stopNum) {
+  if (timerActive[stopNum]) return;
+  timerActive[stopNum] = true;
+  const tid = 't' + stopNum;
+  const sid = 'spd' + stopNum;
+  timers[stopNum] = setInterval(() => {
+    timerVal[stopNum]--;
+    const el = document.getElementById(tid);
+    if (el) el.textContent = timerVal[stopNum];
+    const spd = document.getElementById(sid);
+    if (timerVal[stopNum] <= 3 && spd) spd.classList.add('danger');
+    if (timerVal[stopNum] <= 0) {
+      clearInterval(timers[stopNum]);
+      if (spd) { spd.style.opacity = '0.4'; spd.innerHTML = '⏱️ Speed bonus expired'; }
+    }
+  }, 1000);
+}
+
+/* ═══════════════════════════════════════
+   FIND ITEMS
+═══════════════════════════════════════ */
+function find(el, stop, correct) {
+  if (el.classList.contains('yes') || el.classList.contains('no')) return;
+  const stopNum = parseInt(stop.replace('s',''));
+  if (correct === 'y') {
+    el.classList.add('yes');
+    findCorrect[stop]++;
+    if (!findScored[stop]) {
+      findScored[stop] = true;
+      streak++;
+      updateStreakUI();
+      const pts = Math.round(5 * getMultiplier());
+      addScore(pts, stopNum);
+    }
+    checkStopComplete(stopNum);
+  } else {
+    el.classList.add('no');
+    stopErrors[stopNum]++;
+    breakStreak();
+    setTimeout(() => el.classList.remove('no'), 1400);
+  }
+}
+
+/* ═══════════════════════════════════════
+   MULTIPLE CHOICE
+═══════════════════════════════════════ */
+function mc(btn, result, qid, stopNum, basePts) {
+  if (mcDone[qid]) return;
+  // start timer when first MC answered
+  startTimer(stopNum);
+
+  const parent = btn.closest('.mc-question');
+  const fb     = document.getElementById(qid);
+
+  if (result === 'correct') {
+    btn.classList.add('correct');
+    parent.querySelectorAll('.mc-btn').forEach(b => b.disabled = true);
+    fb.classList.add('show','ok');
+
+    // speed bonus?
+    let pts = Math.round(basePts * getMultiplier());
+    const speedBonus = timerVal[stopNum] > 0 ? 2 : 0;
+    pts += speedBonus;
+
+    const speedNote = speedBonus > 0 ? ' ⚡+' + speedBonus + ' speed!' : '';
+    fb.innerHTML = '✅ Correct! <span class="bonus-pop">+' + pts + ' pts' + speedNote + '</span>';
+    mcDone[qid] = true;
+    streak++;
+    updateStreakUI();
+    addScore(pts, stopNum);
+    checkStopComplete(stopNum);
+  } else {
+    btn.classList.add('wrong');
+    stopErrors[stopNum]++;
+    breakStreak();
+    fb.classList.add('show','no');
+    fb.textContent = '❌ Not quite — read the intel report again.';
+    setTimeout(() => {
+      btn.classList.remove('wrong');
+      btn.disabled = true;
+      fb.classList.remove('show','no');
+    }, 1600);
+  }
+}
+
+/* ═══════════════════════════════════════
+   VOCAB MATCHING
+═══════════════════════════════════════ */
+function vocabClick(el, type, stopStr) {
+  const stopNum = parseInt(stopStr);
+  if (el.classList.contains('matched')) return;
+
+  if (type === 'vw') {
+    // selecting a word
+    if (vocabSelected.word) vocabSelected.word.classList.remove('selected');
+    vocabSelected.word = el;
+    el.classList.add('selected');
+  } else {
+    // selecting a def
+    if (vocabSelected.def) vocabSelected.def.classList.remove('selected');
+    vocabSelected.def = el;
+    el.classList.add('selected');
+  }
+
+  // if both selected, check match
+  if (vocabSelected.word && vocabSelected.def) {
+    const wid = vocabSelected.word.dataset.id;
+    const did = vocabSelected.def.dataset.id;
+
+    if (wid === did) {
+      // CORRECT
+      vocabSelected.word.classList.remove('selected');
+      vocabSelected.def.classList.remove('selected');
+      vocabSelected.word.classList.add('matched');
+      vocabSelected.def.classList.add('matched');
+      vocabSelected = { word: null, def: null };
+
+      vocabMatched[stopNum]++;
+      totalVocab++;
+      document.getElementById('vc' + stopNum).textContent = vocabMatched[stopNum];
+
+      streak++;
+      updateStreakUI();
+      const pts = Math.round(3 * getMultiplier());
+      addScore(pts, stopNum);
+
+      if (vocabMatched[stopNum] === 4) {
+        vocabDone[stopNum] = true;
+        checkStopComplete(stopNum);
+      }
+    } else {
+      // WRONG — flash red briefly
+      stopErrors[stopNum]++;
+      breakStreak();
+      const w = vocabSelected.word;
+      const d = vocabSelected.def;
+      w.classList.remove('selected'); w.classList.add('wrong-flash');
+      d.classList.remove('selected'); d.classList.add('wrong-flash');
+      vocabSelected = { word: null, def: null };
+      setTimeout(() => { w.classList.remove('wrong-flash'); d.classList.remove('wrong-flash'); }, 600);
+    }
+  }
+}
+
+/* ═══════════════════════════════════════
+   WRITE CHECK
+═══════════════════════════════════════ */
+const WRITE_KEYS = {
+  1: ['see','column','lion','fountain','square','tourists','statue','building','busy','impressive','stone'],
+  2: ['river','tower','clock','tall','parliament','historic','building','thames','bridge','impressive','gothic'],
+  3: ['bridge','different','country','similar','river','old','tower','gothic','however','both','compared'],
+  4: ['would','because','palace','big','room','historic','live','reason','however','first','secondly'],
+  5: ['see','top','below','city','river','building','distance','across','spectacular','amazing','whole'],
+  6: ['street','busy','shops','crowd','similar','different','reminds','country','however','people','crowded'],
+  7: ['visit','because','not only','also','recommend','historic','beautiful','famous','should','fascinating','spectacular'],
+};
+
+function checkWrite(inputId, fbId, stopNum) {
+  if (writeDone[stopNum]) return;
+  const val = document.getElementById(inputId).value.trim();
+  const fb  = document.getElementById(fbId);
+  const lower = val.toLowerCase();
+
+  if (val.length < 30) {
+    fb.className = 'write-feedback show-hint';
+    fb.textContent = '👉 Write a bit more — aim for 2–3 full sentences!';
+    return;
+  }
+  const sentences = val.split(/[.!?]+/).filter(s => s.trim().length > 3);
+  if (sentences.length < 2) {
+    fb.className = 'write-feedback show-hint';
+    fb.textContent = '👉 Try to write at least 2 sentences. End each one with a full stop (.)';
+    return;
+  }
+
+  const keys = WRITE_KEYS[stopNum] || [];
+  const matches = keys.filter(k => lower.includes(k)).length;
+  const mult = getMultiplier();
+  let basePts = matches >= 5 ? 10 : matches >= 3 ? 8 : matches >= 2 ? 6 : 5;
+  let pts = Math.round(basePts * mult);
+  const bonus = basePts >= 10;
+
+  writeDone[stopNum] = true;
+  addScore(pts, stopNum);
+  streak++;
+  updateStreakUI();
+
+  fb.className = 'write-feedback show-ok';
+  if (bonus) {
+    fb.innerHTML = '🏆 <strong>Excellent report!</strong> Great vocabulary use! <span class="bonus-pop">+' + pts + ' pts BONUS</span>';
+  } else {
+    fb.innerHTML = '✅ Good work! Report submitted. <span class="bonus-pop">+' + pts + ' pts</span> — use more vocab words next time for a bonus!';
+  }
+  checkStopComplete(stopNum);
+}
+
+/* ═══════════════════════════════════════
+   STOP COMPLETION
+═══════════════════════════════════════ */
+function checkStopComplete(stopNum) {
+  if (stopDone[stopNum]) return;
+  const s = 's' + stopNum;
+
+  // Check all 4 MC questions done
+  const allMC = ['q1','q2','q3','q4'].every(q => mcDone['m' + stopNum + q] || (stopNum <= 2 && q === 'q4' ? mcDone['m' + stopNum + 'q4'] : false));
+  // Simpler: count done MCs for this stop
+  const mcCount = ['q1','q2','q3','q4'].filter(q => mcDone['m'+stopNum+q]).length;
+  const needMC  = (stopNum <= 2) ? 4 : 4; // all stops now have 4
+
+  const ok = findCorrect[s] >= 1 && mcCount >= needMC && writeDone[stopNum] && vocabDone[stopNum];
+  if (!ok) return;
+
+  stopDone[stopNum] = true;
+
+  // Perfect stop?
+  if (stopErrors[stopNum] === 0) {
+    document.getElementById('pb' + stopNum).classList.add('show');
+    document.getElementById('mmap' + stopNum).classList.add('perfect');
+    floatPop('🏅 PERFECT STOP! +bonus');
+    addScore(5, stopNum, false); // silent bonus
+  } else {
+    document.getElementById('mmap' + stopNum).classList.add('done');
+  }
+  // clear active from map
+  document.getElementById('mmap' + stopNum).classList.remove('active');
+
+  const banner = document.getElementById('sc' + stopNum);
+  banner.classList.add('show');
+  banner.querySelector('.sc-pts').textContent = stopScores[stopNum] + ' pts';
+
+  const done = Object.values(stopDone).filter(Boolean).length;
+  document.getElementById('stopsDone').textContent = done + ' / 7 missions';
+
+  if (stopNum < 7) {
+    const next = document.getElementById('stop' + (stopNum+1));
+    next.classList.remove('locked');
+    document.getElementById('mmap' + (stopNum+1)).classList.add('active');
+    setTimeout(() => next.scrollIntoView({ behavior:'smooth', block:'start' }), 300);
+    // stop timer
+    if (timers[stopNum]) clearInterval(timers[stopNum]);
+    // start speed timer for next automatically when they scroll (we'll start on first MC click instead)
+  }
+
+  if (stopNum === 7) {
+    if (timers[7]) clearInterval(timers[7]);
+    setTimeout(showMissionComplete, 900);
+  }
+}
+
+/* ═══════════════════════════════════════
+   MISSION COMPLETE
+═══════════════════════════════════════ */
+function showMissionComplete() {
+  const el   = document.getElementById('missionComplete');
+  const rank = getRank(totalScore);
+  document.getElementById('finalScore').textContent  = totalScore;
+  document.getElementById('finalRank').textContent   = rank.name;
+  document.getElementById('finalMsg').textContent    = rank.msg;
+  document.getElementById('finalStreak').textContent = bestStreak;
+  document.getElementById('finalVocab').textContent  = totalVocab;
+
+  const perfects = Object.keys(stopDone).filter(k => stopErrors[k] === 0 && stopDone[k]);
+  document.getElementById('finalPerfect').textContent = perfects.length;
+  if (perfects.length > 0) {
+    document.getElementById('perfectList').textContent =
+      '🏅 Perfect stops: ' + perfects.map(k => 'Mission ' + k).join(', ');
+  }
+
+  el.classList.add('show');
+  el.scrollIntoView({ behavior:'smooth' });
+}
+
+</script>
+
+<!-- ═══ NAV SCRIPT ═══ -->
+<script>
+function startApp(level) {
+  document.getElementById('landing').classList.remove('active');
+  document.getElementById('app-a1').classList.remove('active');
+  document.getElementById('app-a2').classList.remove('active');
+  document.getElementById('app-' + level).classList.add('active');
+  document.getElementById('backBtn').classList.add('show');
+  window.scrollTo(0,0);
+}
+function goLanding() {
+  document.getElementById('landing').classList.add('active');
+  document.getElementById('app-a1').classList.remove('active');
+  document.getElementById('app-a2').classList.remove('active');
+  document.getElementById('backBtn').classList.remove('show');
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
