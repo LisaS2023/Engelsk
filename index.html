@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lisa's English Language Lab 🧪</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0d1117;
+  --panel:   #161b24;
+  --card:    #1c2333;
+  --border:  #2a3347;
+  --ink:     #e8edf5;
+  --body:    #9ba8c0;
+  --muted:   #5a6a84;
+
+  /* flask colours — rainbow lab */
+  --pink:    #ff4da6;
+  --red:     #ff4d4d;
+  --orange:  #ff8c42;
+  --yellow:  #ffd700;
+  --green:   #39d98a;
+  --teal:    #00c9b1;
+  --blue:    #4da6ff;
+  --purple:  #a855f7;
+  --white:   #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+
+/* ── subtle grid ── */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ═══ HEADER ═══ */
+.site-header {
+  position: relative; z-index: 10;
+  background: rgba(13,17,23,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem; color: var(--white);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.logo-flask { font-size: 1.3rem; }
+.logo em { font-style: italic; color: var(--teal); }
+.header-tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  position: relative; z-index: 1;
+  padding: 5rem 1rem 4rem; text-align: center; overflow: hidden;
+}
+
+/* glowing orbs — like coloured flask light */
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; opacity: 0.18;
+}
+.orb-1 { width:500px; height:500px; background:var(--teal);   top:-150px; left:-100px; }
+.orb-2 { width:400px; height:400px; background:var(--purple); top:-100px; right:-80px; }
+.orb-3 { width:350px; height:350px; background:var(--orange); bottom:-50px; left:30%; }
+
+.hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  border-radius: 99px; padding: 0.35rem 1.1rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 1.5rem;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+  box-shadow: 0 0 8px var(--teal); animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.4)} }
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  color: var(--white); line-height: 1.05; margin-bottom: 1rem;
+}
+.hero-title .highlight {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--teal), var(--blue), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: 1.05rem; color: var(--body); line-height: 1.7;
+  max-width: 500px; margin: 0 auto 2rem;
+}
+
+/* ── flask row ── */
+.flask-row {
+  display: flex; justify-content: center; align-items: flex-end;
+  gap: 1.2rem; margin: 2.2rem 0; flex-wrap: wrap;
+}
+.flask-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: default;
+}
+.flask {
+  position: relative; width: 44px; height: 60px;
+  filter: drop-shadow(0 0 12px var(--fc));
+  animation: floatFlask 3s ease-in-out infinite;
+}
+.flask-item:nth-child(2) .flask { animation-delay: 0.4s; }
+.flask-item:nth-child(3) .flask { animation-delay: 0.8s; }
+.flask-item:nth-child(4) .flask { animation-delay: 1.2s; }
+.flask-item:nth-child(5) .flask { animation-delay: 1.6s; }
+@keyframes floatFlask { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+.flask svg { width: 100%; height: 100%; }
+.flask-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+}
+.flask-item:hover .flask-label { color: var(--white); }
+
+/* level pills */
+.level-pills { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.lpill {
+  padding: 0.3rem 0.9rem; border-radius: 4px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
+  border: 1px solid; transition: all 0.15s;
+}
+.lpill-prea1 { color:var(--green);  border-color:rgba(57,217,138,0.3);  background:rgba(57,217,138,0.08); }
+.lpill-a1    { color:var(--teal);   border-color:rgba(0,201,177,0.3);   background:rgba(0,201,177,0.08); }
+.lpill-a2    { color:var(--blue);   border-color:rgba(77,166,255,0.3);  background:rgba(77,166,255,0.08); }
+.lpill-b1    { color:var(--orange); border-color:rgba(255,140,66,0.3);  background:rgba(255,140,66,0.08); }
+.lpill-b2    { color:var(--purple); border-color:rgba(168,85,247,0.3);  background:rgba(168,85,247,0.08); }
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar {
+  position: relative; z-index: 1;
+  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem;
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.fbtn {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.4rem 1rem;
+  font-size: 0.8rem; font-weight: 600; color: var(--body);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.fbtn:hover { border-color: var(--teal); color: var(--teal); }
+.fbtn.active { background: rgba(0,201,177,0.12); border-color: var(--teal); color: var(--teal); }
+.fcount { margin-left: auto; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+
+/* ═══ MAIN ═══ */
+main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 2rem 1rem 6rem; }
+
+.section-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem;
+}
+.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 1.2rem; }
+
+/* ── card ── */
+.res-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column; gap: 0.8rem;
+  transition: all 0.2s; position: relative; overflow: hidden;
+}
+.res-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  transition: opacity 0.2s; pointer-events: none; border-radius: 14px;
+}
+.res-card:hover { transform: translateY(-3px); border-color: var(--cc); box-shadow: 0 0 30px rgba(0,0,0,0.4), 0 0 0 1px var(--cc); }
+.res-card:hover::before { opacity: 1; }
+.res-card.coming { opacity: 0.45; pointer-events: none; }
+
+/* glow colour per level */
+.res-card.pre-a1 { --cc: var(--green);  } .res-card.pre-a1::before { background: radial-gradient(ellipse at top, rgba(57,217,138,0.06), transparent 60%); }
+.res-card.a2     { --cc: var(--blue);   } .res-card.a2::before     { background: radial-gradient(ellipse at top, rgba(77,166,255,0.06),  transparent 60%); }
+.res-card.b1     { --cc: var(--orange); } .res-card.b1::before     { background: radial-gradient(ellipse at top, rgba(255,140,66,0.06),  transparent 60%); }
+.res-card.b2     { --cc: var(--purple); } .res-card.b2::before     { background: radial-gradient(ellipse at top, rgba(168,85,247,0.06),  transparent 60%); }
+
+/* coloured top line */
+.res-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, var(--cc), transparent);
+}
+
+.card-head { display: flex; align-items: flex-start; gap: 1rem; }
+.card-icon {
+  width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid var(--border);
+}
+.pre-a1 .card-icon { background: rgba(57,217,138,0.1);  box-shadow: 0 0 12px rgba(57,217,138,0.15); }
+.a2     .card-icon { background: rgba(77,166,255,0.1);  box-shadow: 0 0 12px rgba(77,166,255,0.15); }
+.b1     .card-icon { background: rgba(255,140,66,0.1);  box-shadow: 0 0 12px rgba(255,140,66,0.15); }
+.b2     .card-icon { background: rgba(168,85,247,0.1);  box-shadow: 0 0 12px rgba(168,85,247,0.15); }
+.coming .card-icon { background: rgba(255,255,255,0.04); }
+
+.card-level { font-size: 0.63rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.2rem; color: var(--cc); }
+.coming .card-level { color: var(--muted); }
+.card-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); line-height: 1.25; }
+.card-desc  { font-size: 0.85rem; color: var(--body); line-height: 1.6; flex: 1; }
+
+.card-tags  { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.card-tag {
+  font-size: 0.67rem; font-weight: 600; padding: 0.2rem 0.6rem;
+  border-radius: 4px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04); color: var(--body);
+}
+.pre-a1 .card-tag { border-color: rgba(57,217,138,0.25); color: var(--green); background: rgba(57,217,138,0.06); }
+.a2     .card-tag { border-color: rgba(77,166,255,0.25);  color: var(--blue);  background: rgba(77,166,255,0.06); }
+.b1     .card-tag { border-color: rgba(255,140,66,0.25);  color: var(--orange);background: rgba(255,140,66,0.06); }
+.b2     .card-tag { border-color: rgba(168,85,247,0.25);  color: var(--purple);background: rgba(168,85,247,0.06); }
+
+.card-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.83rem; font-weight: 600; padding: 0.5rem 1rem;
+  border-radius: 7px; border: 1px solid var(--cc);
+  background: transparent; color: var(--cc);
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s; margin-top: 0.2rem; text-decoration: none; width: fit-content;
+}
+.res-card:hover .card-btn { background: var(--cc); color: var(--bg); }
+.coming .card-btn { border-color: var(--border); color: var(--muted); cursor: default; }
+
+/* coming soon badge */
+.coming-badge {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 4px; padding: 0.15rem 0.5rem;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 1.8rem 1rem; text-align: center;
+  font-size: 0.78rem; color: var(--muted); font-weight: 500;
+}
+footer .ft-logo { color: var(--teal); font-weight: 700; }
+
+@media(max-width:520px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .flask-row { gap: 0.8rem; }
+  .hero-title { font-size: 2.4rem; }
+  .site-header { padding: 0.9rem 1rem; }
+  .filter-bar { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-flask">🧪</span>
+    Lisa's <em>&nbsp;English</em>&nbsp;Language Lab
+  </div>
+  <div class="header-tag">Videregående · English</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span> Interactive English Resources</div>
+
+    <h1 class="hero-title">
+      Lisa's English<br><span class="highlight">Language Lab</span> 🧪
+    </h1>
+    <p class="hero-sub">Experiment with English. Open any task directly in your browser — no login, no download required.</p>
+
+    <!-- FLASK ROW — one per level -->
+    <div class="flask-row">
+
+      <div class="flask-item">
+        <div class="flask" style="--fc:var(--green)">
+          <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(57,217,138,0.25)" stroke="rgba(57,217,138,0.6)" stroke-width="1.5"/>
+            <path d="M14 20 L4 52 Q3 58 10 58 H34 Q41 58 40 52 L30 20 Z" fill="rgba(57,217,138,0.18)" stroke="rgba(57,217,138,0.6)" stroke-width="1.5"/>
+            <ellipse cx="22" cy="50" rx="12" ry="5" fill="rgba(57,217,138,0.35)"/>
+            <circle cx="14" cy="42" r="2.5" fill="rgba(57,217,138,0.6)"/>
+            <circle cx="28" cy="46" r="1.8" fill="rgba(57,217,138,0.5)"/>
+            <circle cx="20" cy="38" r="1.5" fill="rgba(57,217,138,0.4)"/>
+          </svg>
+        </div>
+        <div class="flask-label" style="color:var(--green)">Pre-A1</div>
+      </div>
+
+      <div class="flask-item">
+        <div class="flask" style="--fc:var(--teal); height:70px;">
+          <svg viewBox="0 0 44 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(0,201,177,0.2)" stroke="rgba(0,201,177,0.6)" stroke-width="1.5"/>
+            <path d="M14 20 L4 56 Q3 64 10 64 H34 Q41 64 40 56 L30 20 Z" fill="rgba(0,201,177,0.15)" stroke="rgba(0,201,177,0.6)" stroke-width="1.5"/>
+            <ellipse cx="22" cy="56" rx="12" ry="5" fill="rgba(0,201,177,0.3)"/>
+            <circle cx="16" cy="44" r="3" fill="rgba(0,201,177,0.55)"/>
+            <circle cx="29" cy="50" r="2" fill="rgba(0,201,177,0.45)"/>
+          </svg>
+        </div>
+        <div class="flask-label" style="color:var(--teal)">A1</div>
+      </div>
+
+      <div class="flask-item">
+        <div class="flask" style="--fc:var(--blue); width:52px; height:72px;">
+          <svg viewBox="0 0 52 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="2" width="12" height="18" rx="3" fill="rgba(77,166,255,0.2)" stroke="rgba(77,166,255,0.65)" stroke-width="1.5"/>
+            <path d="M16 20 L4 58 Q3 68 12 68 H40 Q49 68 48 58 L36 20 Z" fill="rgba(77,166,255,0.15)" stroke="rgba(77,166,255,0.65)" stroke-width="1.5"/>
+            <ellipse cx="26" cy="60" rx="14" ry="5.5" fill="rgba(77,166,255,0.3)"/>
+            <circle cx="16" cy="48" r="3.5" fill="rgba(77,166,255,0.55)"/>
+            <circle cx="32" cy="54" r="2.5" fill="rgba(77,166,255,0.45)"/>
+            <circle cx="22" cy="40" r="2" fill="rgba(77,166,255,0.4)"/>
+          </svg>
+        </div>
+        <div class="flask-label" style="color:var(--blue)">A2</div>
+      </div>
+
+      <div class="flask-item">
+        <div class="flask" style="--fc:var(--orange); height:65px;">
+          <svg viewBox="0 0 44 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(255,140,66,0.2)" stroke="rgba(255,140,66,0.65)" stroke-width="1.5"/>
+            <path d="M14 20 L4 53 Q3 61 10 61 H34 Q41 61 40 53 L30 20 Z" fill="rgba(255,140,66,0.15)" stroke="rgba(255,140,66,0.65)" stroke-width="1.5"/>
+            <ellipse cx="22" cy="53" rx="12" ry="5" fill="rgba(255,140,66,0.3)"/>
+            <circle cx="17" cy="43" r="3" fill="rgba(255,140,66,0.55)"/>
+            <circle cx="28" cy="49" r="2" fill="rgba(255,140,66,0.45)"/>
+          </svg>
+        </div>
+        <div class="flask-label" style="color:var(--orange)">B1</div>
+      </div>
+
+      <div class="flask-item">
+        <div class="flask" style="--fc:var(--purple);">
+          <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(168,85,247,0.2)" stroke="rgba(168,85,247,0.65)" stroke-width="1.5"/>
+            <path d="M14 20 L4 52 Q3 58 10 58 H34 Q41 58 40 52 L30 20 Z" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,0.65)" stroke-width="1.5"/>
+            <ellipse cx="22" cy="50" rx="12" ry="5" fill="rgba(168,85,247,0.3)"/>
+            <circle cx="15" cy="40" r="2.5" fill="rgba(168,85,247,0.55)"/>
+            <circle cx="29" cy="46" r="2" fill="rgba(168,85,247,0.45)"/>
+          </svg>
+        </div>
+        <div class="flask-label" style="color:var(--purple)">B2</div>
+      </div>
+
+    </div><!-- /flask-row -->
+
+    <div class="level-pills">
+      <span class="lpill lpill-prea1">Pre-A1</span>
+      <span class="lpill lpill-a1">A1</span>
+      <span class="lpill lpill-a2">A2</span>
+      <span class="lpill lpill-b1">B1</span>
+      <span class="lpill lpill-b2">B2</span>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="fbtn active" onclick="filter('all',this)">All levels</button>
+  <button class="fbtn" onclick="filter('pre-a1',this)">Pre-A1</button>
+  <button class="fbtn" onclick="filter('a2',this)">A2</button>
+  <button class="fbtn" onclick="filter('b1',this)">B1</button>
+  <button class="fbtn" onclick="filter('b2',this)">B2</button>
+  <span class="fcount" id="fcount">2 tasks available</span>
+</div>
+
+<!-- CARDS -->
+<main>
+  <div class="section-label">Available now</div>
+  <div class="cards-grid" id="cardsGrid">
+
+    <!-- LONDON -->
+    <a class="res-card a2" href="london/index.html" data-level="a2">
+      <div class="card-head">
+        <div class="card-icon">🇬🇧</div>
+        <div>
+          <div class="card-level">Pre-A1 &amp; A2 · Street View</div>
+          <div class="card-title">London Tasks</div>
+        </div>
+      </div>
+      <div class="card-desc">Explore 7 London landmarks using Street View. Two levels — beginners find items and build sentences, while A2 students read intel, match vocabulary and write field reports.</div>
+      <div class="card-tags">
+        <span class="card-tag">🔍 Find items</span>
+        <span class="card-tag">🔤 Vocabulary</span>
+        <span class="card-tag">✍️ Writing</span>
+        <span class="card-tag">⚡ Speed bonus</span>
+        <span class="card-tag">2 levels</span>
+      </div>
+      <div class="card-btn">Open task →</div>
+    </a>
+
+    <!-- SKABMA -->
+    <a class="res-card pre-a1" href="skabma/index.html" data-level="pre-a1" style="--cc:var(--teal)">
+      <div class="card-head">
+        <div class="card-icon" style="background:rgba(0,201,177,0.1);box-shadow:0 0 12px rgba(0,201,177,0.15);">🥁</div>
+        <div>
+          <div class="card-level" style="color:var(--teal)">Pre-A1 & A2 · Sámi culture</div>
+          <div class="card-title">Skábma – Snowfall</div>
+        </div>
+      </div>
+      <div class="card-desc">Based on the Sámi video game. Learn vocabulary, read the story, fill in gaps, answer questions and write about Áilu's journey.</div>
+      <div class="card-tags">
+        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">🔤 Vocabulary</span>
+        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">📖 Reading</span>
+        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">✍️ Writing</span>
+        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">❤️ Lives</span>
+        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">2 levels</span>
+      </div>
+      <div class="card-btn" style="border-color:var(--teal);color:var(--teal)">Open task →</div>
+    </a>
+
+    <!-- COMING B1 -->
+    <div class="res-card b1 coming" data-level="b1">
+      <div class="coming-badge">Coming soon</div>
+      <div class="card-head">
+        <div class="card-icon">🔒</div>
+        <div>
+          <div class="card-level">B1 · Coming soon</div>
+          <div class="card-title">New York City</div>
+        </div>
+      </div>
+      <div class="card-desc">Explore the streets of Manhattan. Reading, writing and vocabulary tasks.</div>
+      <div class="card-tags">
+        <span class="card-tag">🗽 Street View</span>
+      </div>
+      <div class="card-btn">Coming soon</div>
+    </div>
+
+    <!-- COMING B2 -->
+    <div class="res-card b2 coming" data-level="b2">
+      <div class="coming-badge">Coming soon</div>
+      <div class="card-head">
+        <div class="card-icon">🔒</div>
+        <div>
+          <div class="card-level">B2 · Coming soon</div>
+          <div class="card-title">Dublin & Ireland</div>
+        </div>
+      </div>
+      <div class="card-desc">Explore Irish culture and history through immersive Street View tasks.</div>
+      <div class="card-tags">
+        <span class="card-tag">☘️ Street View</span>
+      </div>
+      <div class="card-btn">Coming soon</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span class="ft-logo">🧪 Lisa's English Language Lab</span> &nbsp;·&nbsp; All tasks open in your browser &nbsp;·&nbsp; No login required
+</footer>
+
+<script>
+function filter(level, btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.res-card');
+  let count = 0;
+  cards.forEach(card => {
+    const match = level === 'all' || card.dataset.level === level;
+    card.style.display = match ? '' : 'none';
+    if (match && !card.classList.contains('coming')) count++;
+  });
+  const total = level === 'all'
+    ? document.querySelectorAll('.res-card:not(.coming)').length : count;
+  document.getElementById('fcount').textContent = total + ' task' + (total !== 1 ? 's' : '') + ' available';
+}
+</script>
+</body>
+</html>
