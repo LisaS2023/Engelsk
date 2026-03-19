@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Skábma – Snowfall | Lessons</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; color: #1a1a1a; min-height: 100vh; }
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+:root {
+  --teal-dark: #085041; --teal-mid: #0F6E56; --teal: #1D9E75; --teal-light: #5DCAA5; --teal-pale: #E1F5EE;
+  --blue-dark: #0C447C; --blue-mid: #185FA5; --blue: #378ADD; --blue-light: #85B7EB; --blue-pale: #E6F1FB;
+  --amber: #BA7517; --amber-light: #faeeda; --amber-pale: #FAC775;
+  --green-light: #EAF3DE; --green: #3B6D11;
+  --red-light: #FCEBEB; --red: #A32D2D;
+  --text: #1a1a1a; --text-muted: #5a5a5a; --text-hint: #8a8a8a;
+  --surface: #ffffff; --border: rgba(0,0,0,0.1); --border-hover: rgba(0,0,0,0.2);
+  --radius: 10px; --radius-lg: 14px;
+}
+
+/* ===== HUB ===== */
+#page-hub { background: #f4f3ef; }
+.hub-hero { background: #04342C; padding: 3rem 1.5rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+.hub-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 90%,rgba(29,158,117,0.3) 0%,transparent 55%),radial-gradient(ellipse at 85% 15%,rgba(93,202,165,0.2) 0%,transparent 50%); pointer-events:none; }
+.hub-icon { font-size:56px; display:block; margin-bottom:1rem; position:relative; }
+.hub-hero h1 { font-family:'Lora',serif; font-size:clamp(26px,6vw,42px); font-weight:700; color:#fff; margin-bottom:0.5rem; position:relative; line-height:1.2; }
+.hub-sub { font-size:15px; color:rgba(255,255,255,0.65); position:relative; margin-bottom:1.5rem; }
+.hub-divider { width:48px; height:2px; background:var(--teal-light); margin:0 auto 1.5rem; border-radius:1px; }
+.hub-desc { font-size:14px; color:rgba(255,255,255,0.55); max-width:480px; margin:0 auto; line-height:1.7; position:relative; }
+.hub-main { max-width:720px; margin:0 auto; padding:2.5rem 1rem; }
+.hub-section-title { font-size:11px; font-weight:500; color:var(--text-hint); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1rem; }
+.hub-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-bottom:2.5rem; }
+.lesson-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; }
+.lesson-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+.card-stripe { height:6px; }
+.card-stripe.blue { background:linear-gradient(90deg,var(--blue-dark),var(--blue)); }
+.card-stripe.teal { background:linear-gradient(90deg,var(--teal-dark),var(--teal)); }
+.card-body { padding:1.5rem; }
+.card-level { font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.4rem; }
+.card-level.blue { color:var(--blue-mid); } .card-level.teal { color:var(--teal-mid); }
+.card-title { font-family:'Lora',serif; font-size:20px; font-weight:600; color:var(--text); margin-bottom:0.5rem; }
+.card-desc { font-size:14px; color:var(--text-muted); line-height:1.65; margin-bottom:1.25rem; }
+.card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1.25rem; }
+.ctag { font-size:12px; padding:3px 10px; border-radius:20px; }
+.ctag.blue { background:var(--blue-pale); color:var(--blue-dark); } .ctag.teal { background:var(--teal-pale); color:var(--teal-dark); }
+.card-activities { border-top:1px solid var(--border); padding-top:1rem; margin-bottom:1.25rem; }
+.card-activities ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.card-activities li { font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:8px; }
+.card-activities li::before { content:''; width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.card-activities li.blue::before { background:var(--blue); } .card-activities li.teal::before { background:var(--teal); }
+.card-cta { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-radius:10px; font-size:14px; font-weight:500; transition:opacity 0.15s; }
+.card-cta:hover { opacity:0.88; }
+.card-cta.blue { background:var(--blue-dark); color:#fff; } .card-cta.teal { background:var(--teal-dark); color:#fff; }
+.hub-info { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem 1.5rem; }
+.info-row { display:flex; gap:1rem; flex-wrap:wrap; }
+.info-item { flex:1; min-width:180px; }
+.info-item .lbl { font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-hint); margin-bottom:3px; font-weight:500; }
+.info-item .val { font-size:13px; color:var(--text-muted); line-height:1.5; }
+.hub-footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--text-hint); }
+
+/* ===== GAMEBAR ===== */
+.gamebar-wrap { padding-bottom:10px; }
+.gamebar-wrap.blue-hero { background:var(--blue-dark); }
+.gamebar-wrap.teal-hero { background:var(--teal-dark); }
+.gamebar { display:flex; align-items:center; gap:14px; padding:10px 1.5rem; max-width:680px; margin:0 auto; }
+.lives { display:flex; gap:4px; align-items:center; flex-shrink:0; }
+.heart { font-size:22px; transition:all 0.2s; display:inline-block; line-height:1; }
+.heart.lost { filter:grayscale(1); opacity:0.3; transform:scale(0.8); }
+.xp-wrap { flex:1; }
+.xp-label { font-size:10px; color:rgba(255,255,255,0.55); margin-bottom:3px; letter-spacing:0.04em; text-transform:uppercase; }
+.xp-track { height:8px; background:rgba(255,255,255,0.15); border-radius:4px; overflow:hidden; }
+.xp-fill { height:100%; border-radius:4px; transition:width 0.5s cubic-bezier(0.22,1,0.36,1); width:0%; }
+.xp-fill.blue { background:linear-gradient(90deg,var(--blue-light),#c8e4ff); }
+.xp-fill.teal { background:linear-gradient(90deg,var(--teal-light),#a8f0d0); }
+.xp-pts { font-size:11px; color:rgba(255,255,255,0.7); text-align:right; margin-top:2px; font-weight:500; }
+
+/* ===== LESSON CHROME ===== */
+.lesson-page { padding-bottom:4rem; }
+.lesson-hero { color:#fff; padding:2rem 1.5rem 1.5rem; text-align:center; position:relative; overflow:hidden; }
+.lesson-hero::before { content:''; position:absolute; inset:0; pointer-events:none; }
+.lesson-hero.blue-hero { background:var(--blue-dark); }
+.lesson-hero.blue-hero::before { background:radial-gradient(ellipse at 30% 80%,rgba(55,138,221,0.2) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(133,183,235,0.15) 0%,transparent 50%); }
+.lesson-hero.teal-hero { background:var(--teal-dark); }
+.lesson-hero.teal-hero::before { background:radial-gradient(ellipse at 30% 80%,rgba(29,158,117,0.25) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(93,202,165,0.15) 0%,transparent 50%); }
+.hero-drum { font-size:40px; margin-bottom:0.5rem; display:block; }
+.lesson-hero h1 { font-family:'Lora',serif; font-size:clamp(20px,5vw,28px); font-weight:600; color:#fff; margin-bottom:4px; position:relative; }
+.hero-sub { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:1rem; position:relative; }
+.hero-tags { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; position:relative; }
+.htag { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:3px 12px; font-size:11px; color:rgba(255,255,255,0.85); }
+.back-bar { padding:0.6rem 1rem 0; max-width:680px; margin:0 auto; }
+.back-btn { background:none; border:none; font-size:13px; cursor:pointer; padding:4px 0; font-family:'DM Sans',sans-serif; }
+.back-btn.blue { color:var(--blue-light); } .back-btn.teal { color:var(--teal-light); }
+.back-btn:hover { text-decoration:underline; }
+.lesson-main { max-width:680px; margin:0 auto; padding:1.25rem 1rem 0; }
+.tabs { display:flex; gap:6px; margin-bottom:1.5rem; flex-wrap:wrap; }
+.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:7px 14px; font-size:13px; font-family:'DM Sans',sans-serif; color:var(--text-muted); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:5px; }
+.tab-btn:hover { border-color:var(--border-hover); color:var(--text); }
+.tab-btn.active-b { background:var(--blue-dark); border-color:var(--blue-dark); color:#fff; }
+.tab-btn.active-t { background:var(--teal-dark); border-color:var(--teal-dark); color:#fff; }
+.tab-btn .tnum { font-size:11px; opacity:0.7; }
+.tab-btn.done-tab::after { content:'✓'; margin-left:3px; font-size:11px; }
+.tab-btn.done-tab:not(.active-b):not(.active-t)::after { color:var(--green); }
+.tab-btn.done-tab.active-b::after,.tab-btn.done-tab.active-t::after { color:rgba(255,255,255,0.7); }
+.tab-btn.locked { opacity:0.38; cursor:not-allowed; pointer-events:none; }
+.tab-btn.locked .tnum::after { content:' 🔒'; font-size:10px; }
+.lpanel { display:none; } .lpanel.active { display:block; }
+.sec-label { font-size:11px; font-weight:500; color:var(--text-hint); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.6rem; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1rem; }
+.nav-row { display:flex; justify-content:flex-end; margin-top:1.25rem; }
+.next-btn { border:none; border-radius:var(--radius); padding:10px 22px; font-size:14px; font-family:'DM Sans',sans-serif; color:#fff; cursor:pointer; transition:background 0.15s; }
+.next-btn.blue { background:var(--blue-dark); } .next-btn.blue:hover { background:var(--blue-mid); }
+.next-btn.teal { background:var(--teal-dark); } .next-btn.teal:hover { background:var(--teal-mid); }
+.check-btn { border:none; border-radius:var(--radius); padding:11px 24px; font-size:14px; font-family:'DM Sans',sans-serif; color:#fff; cursor:pointer; margin-top:1rem; transition:background 0.15s; }
+.check-btn.teal { background:var(--teal-dark); } .check-btn.teal:hover { background:var(--teal-mid); }
+
+/* ===== MATCH ===== */
+.match-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.match-col { display:flex; flex-direction:column; gap:8px; }
+.match-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:11px 13px; font-size:14px; color:var(--text); cursor:pointer; transition:all 0.15s; min-height:46px; display:flex; align-items:center; line-height:1.3; }
+.match-item:hover { border-color:var(--border-hover); }
+.match-item.selected-b { background:var(--blue-pale); border-color:var(--blue); color:var(--blue-dark); }
+.match-item.selected-t { background:var(--teal-pale); border-color:var(--teal); color:var(--teal-dark); }
+.match-item.matched { background:var(--green-light); border-color:#639922; color:var(--green); pointer-events:none; }
+.match-item.wrong { background:var(--red-light); border-color:#E24B4A; color:var(--red); }
+.match-item .wb { font-weight:500; }
+.match-score { font-size:14px; color:var(--text-muted); margin-top:0.75rem; text-align:center; }
+
+/* ===== FEEDBACK ===== */
+.fb-row { font-size:13px; margin-top:6px; padding:7px 12px; border-radius:var(--radius); display:none; line-height:1.5; }
+.fb-row.show { display:block; }
+.fb-row.ok { background:var(--green-light); color:var(--green); }
+.fb-row.no { background:var(--red-light); color:var(--red); }
+
+/* ===== ANSWER BUTTONS ===== */
+.opt-btn,.sent-btn,.pic-btn { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:11px 14px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--text); cursor:pointer; text-align:left; transition:all 0.12s; line-height:1.4; width:100%; }
+.opt-btn:hover:not(:disabled),.sent-btn:hover:not(:disabled),.pic-btn:hover:not(:disabled) { background:#f5f5f2; border-color:var(--border-hover); }
+.opt-btn.correct,.sent-btn.correct,.pic-btn.correct { background:var(--green-light); border-color:#639922; color:var(--green); }
+.opt-btn.wrong,.sent-btn.wrong,.pic-btn.wrong { background:var(--red-light); border-color:#E24B4A; color:var(--red); }
+.options,.sent-opts { display:flex; flex-direction:column; gap:7px; }
+.pic-opts { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.pic-btn { text-align:center; }
+.q-block,.sent-block,.pic-q { margin-bottom:12px; }
+.q-text,.sent-q { font-size:15px; font-weight:500; color:var(--text); margin-bottom:0.65rem; line-height:1.5; }
+.pic-em { font-size:48px; text-align:center; margin-bottom:0.5rem; display:block; }
+.pic-label { font-size:15px; font-weight:500; color:var(--text); margin-bottom:0.6rem; text-align:center; }
+
+/* ===== GAP FILL ===== */
+.word-bank { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1.25rem; }
+.bank-word { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:6px 16px; font-size:13px; color:var(--text); cursor:pointer; transition:all 0.15s; }
+.bank-word:hover:not(.used) { border-color:var(--teal); color:var(--teal-dark); }
+.bank-word.used { opacity:0.3; pointer-events:none; }
+.bank-word.active-bank { background:var(--teal-pale); border-color:var(--teal); color:var(--teal-dark); }
+.gap-text { font-size:15px; line-height:2.4; color:var(--text); }
+.gap-input { border:none; border-bottom:1.5px solid var(--border-hover); background:transparent; font-size:15px; font-family:'DM Sans',sans-serif; color:var(--text); width:140px; outline:none; padding:0 4px; margin:0 2px; }
+.gap-input:focus { border-bottom-color:var(--teal); }
+.gap-input.correct { border-bottom-color:#639922; color:var(--green); }
+.gap-input.wrong { border-bottom-color:#E24B4A; color:var(--red); }
+.gap-hint { font-size:12px; color:var(--text-hint); margin-bottom:1rem; }
+
+/* ===== READING ===== */
+.reading-text { font-size:15px; line-height:1.95; color:var(--text); font-family:'Lora',serif; }
+.reading-text p { margin-bottom:1.1rem; }
+.reading-text p:last-child { margin-bottom:0; }
+.hl { background:var(--amber-light); border-radius:3px; padding:1px 3px; cursor:pointer; border-bottom:1.5px dashed var(--amber); }
+.hl:hover { background:var(--amber-pale); }
+.tooltip-box { display:none; font-size:13px; color:#633806; background:var(--amber-light); border:1px solid var(--amber-pale); border-radius:var(--radius); padding:10px 14px; margin-top:10px; line-height:1.5; }
+.tooltip-box.visible { display:block; }
+
+/* ===== WRITING ===== */
+.writing-prompt { margin-bottom:1.25rem; }
+.prompt-label { font-size:13px; font-weight:500; color:var(--text-muted); margin-bottom:4px; }
+.prompt-q { font-size:15px; font-weight:500; color:var(--text); margin-bottom:6px; line-height:1.5; }
+.prompt-hint { font-size:12px; color:var(--text-hint); margin-bottom:8px; font-style:italic; }
+.starter { font-size:14px; color:var(--teal-dark); background:var(--teal-pale); border-radius:var(--radius); padding:7px 12px; margin-bottom:8px; display:inline-block; font-weight:500; }
+.writing-textarea { width:100%; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--text); background:var(--surface); resize:vertical; min-height:80px; outline:none; line-height:1.6; transition:border-color 0.15s; }
+.writing-textarea:focus { border-color:var(--teal); }
+.word-count { font-size:11px; color:var(--text-hint); text-align:right; margin-top:3px; }
+.model-answer { display:none; background:var(--teal-pale); border:1px solid var(--teal-light); border-radius:var(--radius); padding:10px 14px; font-size:13px; color:var(--teal-dark); margin-top:8px; line-height:1.6; }
+.model-answer.show { display:block; }
+.model-answer strong { font-weight:500; display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--teal-mid); }
+
+/* ===== EMOJI ===== */
+.emoji-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(115px,1fr)); gap:10px; margin-bottom:1rem; }
+.emoji-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:0.9rem 0.6rem; text-align:center; cursor:pointer; transition:all 0.15s; }
+.emoji-card:hover { border-color:var(--border-hover); }
+.emoji-card .em { font-size:28px; margin-bottom:5px; display:block; }
+.emoji-card .enw { font-size:13px; font-weight:500; color:var(--text); }
+.emoji-card .now { font-size:12px; color:var(--text-muted); display:none; margin-top:2px; }
+.emoji-card .tap { font-size:10px; color:var(--text-hint); margin-top:3px; }
+.emoji-card.revealed { background:var(--blue-pale); border-color:var(--blue); }
+.emoji-card.revealed .now { display:block; color:var(--blue-dark); font-weight:500; }
+.emoji-card.revealed .tap { display:none; }
+
+/* ===== SCORE BOXES ===== */
+.score-box-b { background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:var(--radius-lg); padding:1.5rem; text-align:center; margin-top:1.25rem; display:none; }
+.score-box-b.show { display:block; }
+.score-box-t { background:var(--teal-pale); border:1px solid var(--teal-light); border-radius:var(--radius-lg); padding:1.5rem; text-align:center; margin-top:1.25rem; display:none; }
+.score-box-t.show { display:block; }
+.score-num { font-family:'Lora',serif; font-size:36px; font-weight:600; }
+.score-box-b .score-num { color:var(--blue-dark); } .score-box-t .score-num { color:var(--teal-dark); }
+.score-msg { font-size:14px; margin-top:6px; }
+.score-box-b .score-msg { color:var(--blue-mid); } .score-box-t .score-msg { color:var(--teal-mid); }
+.score-stars { font-size:22px; margin-bottom:8px; }
+
+/* ===== MEDAL OVERLAY ===== */
+.medal-overlay { display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; }
+.medal-overlay.show { display:flex; }
+.medal-box { background:var(--surface); border-radius:20px; padding:2.5rem 2rem; text-align:center; max-width:340px; width:90%; animation:popIn 0.4s cubic-bezier(0.22,1,0.36,1); }
+@keyframes popIn { from{transform:scale(0.6);opacity:0} to{transform:scale(1);opacity:1} }
+.medal-icon { font-size:76px; display:block; margin-bottom:0.75rem; animation:medalSpin 0.5s ease 0.15s both; }
+@keyframes medalSpin { from{transform:rotate(-25deg) scale(0.5);opacity:0} to{transform:rotate(0) scale(1);opacity:1} }
+.medal-title { font-family:'Lora',serif; font-size:24px; font-weight:700; margin-bottom:6px; }
+.medal-sub { font-size:14px; color:var(--text-muted); margin-bottom:6px; line-height:1.5; }
+.medal-xp { font-size:13px; font-weight:500; margin-bottom:1.5rem; padding:6px 12px; border-radius:var(--radius); display:inline-block; }
+.medal-xp.blue { background:var(--blue-pale); color:var(--blue-dark); }
+.medal-xp.teal { background:var(--teal-pale); color:var(--teal-dark); }
+.medal-btn { border:none; border-radius:var(--radius); padding:13px 28px; font-size:15px; font-family:'DM Sans',sans-serif; color:#fff; cursor:pointer; width:100%; font-weight:500; }
+.medal-btn.blue { background:var(--blue-dark); } .medal-btn.teal { background:var(--teal-dark); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+.shake { animation:shake 0.35s ease; }
+@keyframes xpPop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
+.xp-pop { animation:xpPop 0.3s ease; }
+
+@media(max-width:480px){.match-grid{grid-template-columns:1fr}.pic-opts{grid-template-columns:1fr}.hub-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ===== MEDAL OVERLAY ===== -->
+<div class="medal-overlay" id="medal-overlay">
+  <div class="medal-box">
+    <span class="medal-icon" id="medal-icon"></span>
+    <div class="medal-title" id="medal-title"></div>
+    <div class="medal-sub" id="medal-sub"></div>
+    <div class="medal-xp" id="medal-xp"></div>
+    <button class="medal-btn" id="medal-btn" onclick="closeMedal()"></button>
+  </div>
+</div>
+
+<!-- ===================== HUB ===================== -->
+<div id="page-hub" class="page active">
+  <div class="hub-hero">
+    <span class="hub-icon">🥁</span>
+    <h1>Skábma – Snowfall</h1>
+    <p class="hub-sub">Engelskundervisning / English lessons</p>
+    <div class="hub-divider"></div>
+    <p class="hub-desc">Choose your level. Each lesson is based on the Sámi story of Áilu — a young reindeer herder who discovers an ancient drum and must save the land.</p>
+  </div>
+  <div class="hub-main">
+    <div class="hub-section-title">Velg oppgave / Choose your lesson</div>
+    <div class="hub-cards">
+      <div class="lesson-card" onclick="goTo('prea1')">
+        <div class="card-stripe blue"></div>
+        <div class="card-body">
+          <div class="card-level blue">Pre-A1 · Nybegynner</div>
+          <div class="card-title">Lær ordene</div>
+          <div class="card-desc">Learn key English words with Norwegian translations. Perfect for beginners.</div>
+          <div class="card-tags"><span class="ctag blue">Vocabulary</span><span class="ctag blue">Norsk støtte</span><span class="ctag blue">15–20 min</span></div>
+          <div class="card-activities"><ul>
+            <li class="blue">❤️ 3 liv — mister liv ved feil</li>
+            <li class="blue">Ord med emoji → norsk</li>
+            <li class="blue">Match engelsk → norsk</li>
+            <li class="blue">Bildeoppgave + setninger</li>
+          </ul></div>
+          <div class="card-cta blue">Start lesson →</div>
+        </div>
+      </div>
+      <div class="lesson-card" onclick="goTo('a2')">
+        <div class="card-stripe teal"></div>
+        <div class="card-body">
+          <div class="card-level teal">A1+ / A2 · Viderekommen</div>
+          <div class="card-title">Les og skriv</div>
+          <div class="card-desc">Read the story, practise vocabulary, fill in gaps, answer questions and write sentences.</div>
+          <div class="card-tags"><span class="ctag teal">Reading</span><span class="ctag teal">Vocabulary</span><span class="ctag teal">Writing</span><span class="ctag teal">20–30 min</span></div>
+          <div class="card-activities"><ul>
+            <li class="teal">❤️ 3 lives — lose one for each mistake</li>
+            <li class="teal">Vocabulary matching + reading</li>
+            <li class="teal">Gap fill + comprehension</li>
+            <li class="teal">Guided writing tasks</li>
+          </ul></div>
+          <div class="card-cta teal">Start lesson →</div>
+        </div>
+      </div>
+    </div>
+    <div class="hub-section-title">About</div>
+    <div class="hub-info">
+      <div class="info-row">
+        <div class="info-item"><div class="lbl">Game</div><div class="val">Skábma – Snowfall (2022) by Red Stage Entertainment</div></div>
+        <div class="info-item"><div class="lbl">Culture</div><div class="val">Based on stories of the Sámi people, indigenous to northern Scandinavia</div></div>
+        <div class="info-item"><div class="lbl">Format</div><div class="val">Single self-contained HTML file — share with students as-is</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hub-footer">Skábma – Snowfall © Red Stage Entertainment · Classroom use</div>
+</div>
+
+<!-- ===================== PRE-A1 ===================== -->
+<div id="page-prea1" class="page lesson-page">
+  <div class="lesson-hero blue-hero">
+    <span class="hero-drum">🥁</span>
+    <h1>Skábma – Snowfall</h1>
+    <p class="hero-sub" style="position:relative;">Lær engelske ord / Learn English words</p>
+    <div class="hero-tags"><span class="htag">Pre-A1</span><span class="htag">Vocabulary</span><span class="htag">15–20 min</span></div>
+  </div>
+  <div class="gamebar-wrap blue-hero">
+    <div class="gamebar">
+      <div class="lives" id="p-lives"></div>
+      <div class="xp-wrap">
+        <div class="xp-label">Fremgang / Progress</div>
+        <div class="xp-track"><div class="xp-fill blue" id="p-xp-fill"></div></div>
+        <div class="xp-pts" id="p-xp-pts">0 XP</div>
+      </div>
+    </div>
+  </div>
+  <div class="back-bar"><button class="back-btn blue" onclick="goTo('hub')">← Tilbake / Back</button></div>
+  <div class="lesson-main">
+    <div class="tabs">
+      <button class="tab-btn active-b" id="ptb-preview" onclick="preaTab('preview')"><span class="tnum">1.</span> Ord</button>
+      <button class="tab-btn" id="ptb-match" onclick="preaTab('match')"><span class="tnum">2.</span> Match</button>
+      <button class="tab-btn" id="ptb-pics" onclick="preaTab('pics')"><span class="tnum">3.</span> Bilder</button>
+      <button class="tab-btn" id="ptb-sents" onclick="preaTab('sents')"><span class="tnum">4.</span> Setninger</button>
+    </div>
+    <div id="ppanel-preview" class="lpanel active">
+      <div class="sec-label">Trykk på hvert ord for å se norsk — Tap to see Norwegian</div>
+      <div class="emoji-grid" id="emoji-grid"></div>
+      <div class="nav-row"><button class="next-btn blue" onclick="preaTab('match')">Next: Match →</button></div>
+    </div>
+    <div id="ppanel-match" class="lpanel">
+      <div class="sec-label">Match the English word to the Norwegian word</div>
+      <div class="card" style="padding:1rem;">
+        <div class="match-grid"><div class="match-col" id="en-col"></div><div class="match-col" id="no-col"></div></div>
+        <div class="match-score" id="match-score">Trykk på et engelsk ord, deretter det norske.</div>
+      </div>
+      <div class="nav-row"><button class="next-btn blue" onclick="preaTab('pics')">Next: Pictures →</button></div>
+    </div>
+    <div id="ppanel-pics" class="lpanel">
+      <div class="sec-label">What is this? Choose the correct English word.</div>
+      <div id="pics-box"></div>
+      <div class="nav-row"><button class="next-btn blue" onclick="preaTab('sents')">Next: Sentences →</button></div>
+    </div>
+    <div id="ppanel-sents" class="lpanel">
+      <div class="sec-label">Choose the correct word to complete each sentence</div>
+      <div id="sents-box"></div>
+      <div class="score-box-b" id="prea1-score">
+        <div class="score-stars" id="prea1-stars"></div>
+        <div class="score-num" id="prea1-num"></div>
+        <div class="score-msg" id="prea1-msg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== A2 ===================== -->
+<div id="page-a2" class="page lesson-page">
+  <div class="lesson-hero teal-hero">
+    <span class="hero-drum">🥁</span>
+    <h1>Skábma – Snowfall</h1>
+    <p class="hero-sub" style="position:relative;">An English lesson based on a Sámi story</p>
+    <div class="hero-tags"><span class="htag">A2</span><span class="htag">Reading &amp; Vocabulary</span><span class="htag">20–30 min</span></div>
+  </div>
+  <div class="gamebar-wrap teal-hero">
+    <div class="gamebar">
+      <div class="lives" id="a-lives"></div>
+      <div class="xp-wrap">
+        <div class="xp-label">Progress</div>
+        <div class="xp-track"><div class="xp-fill teal" id="a-xp-fill"></div></div>
+        <div class="xp-pts" id="a-xp-pts">0 XP</div>
+      </div>
+    </div>
+  </div>
+  <div class="back-bar"><button class="back-btn teal" onclick="goTo('hub')">← Back to menu</button></div>
+  <div class="lesson-main">
+    <div class="tabs">
+      <button class="tab-btn active-t" id="atb-vocab" onclick="a2Tab('vocab')"><span class="tnum">1.</span> Vocabulary</button>
+      <button class="tab-btn" id="atb-reading" onclick="a2Tab('reading')"><span class="tnum">2.</span> Read</button>
+      <button class="tab-btn" id="atb-gap" onclick="a2Tab('gap')"><span class="tnum">3.</span> Gap fill</button>
+      <button class="tab-btn" id="atb-quiz" onclick="a2Tab('quiz')"><span class="tnum">4.</span> Questions</button>
+      <button class="tab-btn" id="atb-writing" onclick="a2Tab('writing')"><span class="tnum">5.</span> Write</button>
+    </div>
+    <div id="apanel-vocab" class="lpanel active">
+      <div class="sec-label">Match each word to its definition</div>
+      <div class="card" style="padding:1rem;">
+        <div class="match-grid"><div class="match-col" id="a2-words-col"></div><div class="match-col" id="a2-defs-col"></div></div>
+        <div class="match-score" id="a2-vocab-score">Tap a word on the left, then its meaning on the right.</div>
+      </div>
+      <div class="nav-row"><button class="next-btn teal" onclick="a2Tab('reading')">Next: Read →</button></div>
+    </div>
+    <div id="apanel-reading" class="lpanel">
+      <div class="sec-label">Read carefully — tap the underlined words for help</div>
+      <div class="card"><div class="reading-text" id="a2-reading-box"></div></div>
+      <div class="tooltip-box" id="a2-tooltip"></div>
+      <div class="nav-row"><button class="next-btn teal" onclick="document.getElementById('atb-reading').classList.add('done-tab');aUnlock('gap');a2Tab('gap');">Next: Gap fill →</button></div>
+    </div>
+    <div id="apanel-gap" class="lpanel">
+      <div class="sec-label">Complete the sentences — choose a word from the bank, then click a gap</div>
+      <div class="word-bank" id="a2-word-bank"></div>
+      <p class="gap-hint">Click a word to select it, then click a gap. You can also type directly.</p>
+      <div class="card"><div class="gap-text" id="a2-gap-text"></div></div>
+      <button class="check-btn teal" onclick="checkGaps()">Check answers</button>
+      <div class="fb-row" id="a2-gap-feedback"></div>
+      <div class="nav-row" style="margin-top:0.5rem;"><button class="next-btn teal" onclick="a2Tab('quiz')">Next: Questions →</button></div>
+    </div>
+    <div id="apanel-quiz" class="lpanel">
+      <div class="sec-label">Choose the best answer for each question</div>
+      <div id="a2-questions-box"></div>
+      <div class="score-box-t" id="a2-score">
+        <div class="score-stars" id="a2-stars"></div>
+        <div class="score-num" id="a2-num"></div>
+        <div class="score-msg" id="a2-msg"></div>
+      </div>
+      <div class="nav-row" style="margin-top:0.5rem;"><button class="next-btn teal" onclick="a2Tab('writing')">Next: Write →</button></div>
+    </div>
+    <div id="apanel-writing" class="lpanel">
+      <div class="sec-label">Write your own sentences — use the story to help you</div>
+      <div id="a2-writing-box"></div>
+      <div class="nav-row" style="margin-top:0.5rem;">
+        <button class="check-btn teal" onclick="checkWriting()">Check my writing</button>
+      </div>
+      <div class="fb-row" id="a2-writing-feedback"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== NAVIGATION ===== */
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* ===== GAME ENGINE ===== */
+const G = { p:{lives:3,xp:0,max:120}, a:{lives:3,xp:0,max:200} };
+
+function initLives(pfx) {
+  const el = document.getElementById(pfx+'-lives'); el.innerHTML='';
+  for (let i=0;i<3;i++) {
+    const h=document.createElement('span'); h.className='heart'; h.id=pfx+'-heart-'+i; h.textContent='❤️';
+    el.appendChild(h);
+  }
+}
+
+function loseLife(pfx) {
+  if (G[pfx].lives<=0) return;
+  G[pfx].lives--;
+  const h=document.getElementById(pfx+'-heart-'+G[pfx].lives);
+  if(h){h.classList.add('lost','shake');setTimeout(()=>h.classList.remove('shake'),400);}
+  if (G[pfx].lives===0) setTimeout(()=>showMedal(pfx,'dead'),700);
+}
+
+function gainXP(pfx, pts) {
+  G[pfx].xp=Math.min(G[pfx].xp+pts, G[pfx].max);
+  const pct=Math.round((G[pfx].xp/G[pfx].max)*100);
+  const fill=document.getElementById(pfx+'-xp-fill');
+  fill.style.width=pct+'%';
+  fill.classList.add('xp-pop'); setTimeout(()=>fill.classList.remove('xp-pop'),350);
+  document.getElementById(pfx+'-xp-pts').textContent=G[pfx].xp+' XP';
+}
+
+const MEDALS={
+  gold:  {icon:'🥇',title:'Gull / Gold!',   sub:'Perfekt! Alle svar var riktige! / Perfect score!'},
+  silver:{icon:'🥈',title:'Sølv / Silver!', sub:'Veldig bra! Nesten perfekt. / Very well done!'},
+  bronze:{icon:'🥉',title:'Bronse / Bronze!',sub:'Bra jobbet! Du fullførte leksjonen. / Good work!'},
+  dead:  {icon:'💔',title:'Ingen liv igjen!',sub:'Du mistet alle livene. Prøv igjen! / You ran out of lives. Try again!'},
+};
+
+function medalType(correct,total) {
+  const p=correct/total; return p===1?'gold':p>=0.7?'silver':'bronze';
+}
+
+function showMedal(pfx,type) {
+  const m=MEDALS[type]; const col=pfx==='p'?'blue':'teal';
+  document.getElementById('medal-icon').textContent=m.icon;
+  document.getElementById('medal-title').textContent=m.title;
+  document.getElementById('medal-sub').textContent=m.sub;
+  const xpEl=document.getElementById('medal-xp');
+  xpEl.textContent=G[pfx].xp+' XP earned!';
+  xpEl.className='medal-xp '+col;
+  if(type==='dead') xpEl.textContent='';
+  const btn=document.getElementById('medal-btn');
+  btn.textContent=type==='dead'?'Prøv igjen / Try again':'Tilbake til menyen / Back to menu';
+  btn.className='medal-btn '+col;
+  btn.dataset.action=type==='dead'?'retry-'+pfx:'hub';
+  document.getElementById('medal-overlay').classList.add('show');
+}
+
+function closeMedal() {
+  const act=document.getElementById('medal-btn').dataset.action;
+  document.getElementById('medal-overlay').classList.remove('show');
+  if(act==='hub') goTo('hub');
+  else if(act==='retry-p'){resetP();goTo('prea1');}
+  else if(act==='retry-a'){resetA();goTo('a2');}
+}
+
+/* ===== PRE-A1 DATA ===== */
+const pWords=[
+  {en:'reindeer',no:'reinsdyr',em:'🦌'},{en:'drum',no:'tromme',em:'🥁'},
+  {en:'village',no:'landsby',em:'🏘️'},{en:'healer',no:'helbreder',em:'💚'},
+  {en:'spirit',no:'ånd',em:'👻'},{en:'forest',no:'skog',em:'🌲'},
+  {en:'snow',no:'snø',em:'❄️'},{en:'fire',no:'ild',em:'🔥'},
+  {en:'animal',no:'dyr',em:'🐾'},{en:'north',no:'nord',em:'🧭'},
+];
+
+/* ===== PRE-A1 BUILD ===== */
+function buildPreview(){
+  const g=document.getElementById('emoji-grid'); g.innerHTML='';
+  pWords.forEach(w=>{
+    const el=document.createElement('div'); el.className='emoji-card';
+    el.innerHTML=`<span class="em">${w.em}</span><div class="enw">${w.en}</div><div class="now">${w.no}</div><div class="tap">trykk / tap</div>`;
+    el.addEventListener('click',()=>{
+      el.classList.toggle('revealed');
+      if(!el.dataset.xp){el.dataset.xp='1';gainXP('p',2);}
+      const allDone=[...document.querySelectorAll('#emoji-grid .emoji-card')].every(c=>c.dataset.xp);
+      if(allDone){document.getElementById('ptb-preview').classList.add('done-tab');pUnlock('match');}
+    });
+    g.appendChild(el);
+  });
+}
+
+let pSelEn=null,pSelNo=null,pMatched=0;
+function buildMatch(){
+  const ec=document.getElementById('en-col'); ec.innerHTML='';
+  const nc=document.getElementById('no-col'); nc.innerHTML='';
+  pSelEn=null;pSelNo=null;pMatched=0;
+  const sh=[...pWords].sort(()=>Math.random()-0.5);
+  pWords.forEach(w=>{
+    const el=document.createElement('div');el.className='match-item';
+    el.innerHTML=`<span class="wb">${w.en}</span>`;el.dataset.key=w.en;el.dataset.type='en';
+    el.addEventListener('click',()=>pMatch(el));ec.appendChild(el);
+  });
+  sh.forEach(w=>{
+    const el=document.createElement('div');el.className='match-item';
+    el.textContent=w.no;el.dataset.key=w.en;el.dataset.type='no';
+    el.addEventListener('click',()=>pMatch(el));nc.appendChild(el);
+  });
+}
+
+function pMatch(el){
+  if(el.classList.contains('matched')||G.p.lives<=0) return;
+  if(el.dataset.type==='en'){if(pSelEn)pSelEn.classList.remove('selected-b');pSelEn=el;el.classList.add('selected-b');}
+  else{if(pSelNo)pSelNo.classList.remove('selected-b');pSelNo=el;el.classList.add('selected-b');}
+  if(pSelEn&&pSelNo){
+    if(pSelEn.dataset.key===pSelNo.dataset.key){
+      pSelEn.classList.remove('selected-b');pSelEn.classList.add('matched');
+      pSelNo.classList.remove('selected-b');pSelNo.classList.add('matched');
+      pMatched++;gainXP('p',5);
+      const sc=document.getElementById('match-score');
+      if(pMatched===pWords.length){sc.textContent='✓ Alle matchet! Bra jobbet!';sc.style.color='var(--green)';document.getElementById('ptb-match').classList.add('done-tab');gainXP('p',10);pUnlock('pics');}
+      else sc.textContent=pMatched+' / '+pWords.length+' matchet';
+    } else {
+      pSelEn.classList.add('wrong');pSelNo.classList.add('wrong');loseLife('p');
+      setTimeout(()=>{pSelEn.classList.remove('wrong','selected-b');pSelNo.classList.remove('wrong','selected-b');pSelEn=null;pSelNo=null;},600);
+      return;
+    }
+    pSelEn=null;pSelNo=null;
+  }
+}
+
+const picQs=[
+  {em:'🦌',label:'What is this animal?',options:['reindeer','bear','fox','owl'],correct:0,hint:'reinsdyr på norsk'},
+  {em:'🥁',label:'What is this?',options:['guitar','drum','piano','bell'],correct:1,hint:'tromme på norsk'},
+  {em:'❄️',label:'What is this?',options:['rain','fog','snow','ice'],correct:2,hint:'snø på norsk'},
+  {em:'🌲',label:'What is this?',options:['flower','bush','forest','rock'],correct:2,hint:'skog på norsk'},
+  {em:'🔥',label:'What is this?',options:['sun','fire','light','heat'],correct:1,hint:'ild på norsk'},
+  {em:'🏘️',label:'What is this?',options:['city','school','village','market'],correct:2,hint:'landsby på norsk'},
+];
+
+let picDone=0;
+function buildPics(){
+  const box=document.getElementById('pics-box');box.innerHTML='';picDone=0;
+  picQs.forEach((q,qi)=>{
+    const b=document.createElement('div');b.className='pic-q card';
+    const opts=q.options.map((o,oi)=>`<button class="pic-btn" onclick="answerPic(this,${qi},${oi})">${o}</button>`).join('');
+    b.innerHTML=`<span class="pic-em">${q.em}</span><div class="pic-label">${q.label}</div><div class="pic-opts">${opts}</div><div class="fb-row" id="pfb-${qi}"></div>`;
+    box.appendChild(b);
+  });
+}
+
+function answerPic(btn,qi,oi){
+  const block=btn.closest('.pic-q');
+  if(block.dataset.done||G.p.lives<=0) return;
+  block.dataset.done='1';
+  const fb=document.getElementById('pfb-'+qi);
+  block.querySelectorAll('.pic-btn').forEach(b=>b.disabled=true);
+  if(oi===picQs[qi].correct){
+    btn.classList.add('correct');fb.textContent='✓ Yes! '+picQs[qi].options[oi]+' = '+picQs[qi].hint;fb.className='fb-row show ok';gainXP('p',8);
+  } else {
+    btn.classList.add('wrong');block.querySelectorAll('.pic-btn')[picQs[qi].correct].classList.add('correct');
+    fb.textContent='✗ The answer is: '+picQs[qi].options[picQs[qi].correct]+' ('+picQs[qi].hint+')';fb.className='fb-row show no';loseLife('p');
+  }
+  picDone++;
+  if(picDone===picQs.length){document.getElementById('ptb-pics').classList.add('done-tab');pUnlock('sents');}
+}
+
+const sents=[
+  {q:'Áilu lives in a small ___ in the north.',options:['village','ocean','mountain','city'],correct:0,fb:'Village = landsby.'},
+  {q:'Áilu finds an old ___. It has special powers.',options:['book','drum','sword','map'],correct:1,fb:'Drum = tromme.'},
+  {q:'There is ___ on the ground. It is very cold.',options:['rain','sand','snow','grass'],correct:2,fb:'Snow = snø.'},
+  {q:'The Noaidi is a ___ — they help sick people.',options:['soldier','healer','teacher','builder'],correct:1,fb:'Healer = helbreder.'},
+  {q:'Áilu can talk to ___. They are not real people.',options:['enemies','strangers','spirits','neighbours'],correct:2,fb:'Spirit = ånd.'},
+  {q:'The ___ runs away into the forest. Áilu must find it.',options:['horse','reindeer','bear','fox'],correct:1,fb:'Reindeer = reinsdyr.'},
+];
+
+let sentAns=0,sentCorr=0;
+function buildSents(){
+  const box=document.getElementById('sents-box');box.innerHTML='';sentAns=0;sentCorr=0;
+  sents.forEach((s,si)=>{
+    const b=document.createElement('div');b.className='sent-block card';
+    const opts=s.options.map((o,oi)=>`<button class="sent-btn" onclick="answerSent(this,${si},${oi})">${o}</button>`).join('');
+    b.innerHTML=`<div class="sent-q">${si+1}. ${s.q}</div><div class="sent-opts">${opts}</div><div class="fb-row" id="sfb-${si}"></div>`;
+    box.appendChild(b);
+  });
+}
+
+function answerSent(btn,si,oi){
+  const block=btn.closest('.sent-block');
+  if(block.dataset.done||G.p.lives<=0) return;
+  block.dataset.done='1';
+  const fb=document.getElementById('sfb-'+si);
+  block.querySelectorAll('.sent-btn').forEach(b=>b.disabled=true);
+  if(oi===sents[si].correct){
+    btn.classList.add('correct');fb.textContent='✓ '+sents[si].fb;fb.className='fb-row show ok';sentCorr++;gainXP('p',8);
+  } else {
+    btn.classList.add('wrong');block.querySelectorAll('.sent-btn')[sents[si].correct].classList.add('correct');
+    fb.textContent='✗ '+sents[si].fb;fb.className='fb-row show no';loseLife('p');
+  }
+  sentAns++;
+  if(sentAns===sents.length){
+    const box=document.getElementById('prea1-score');box.classList.add('show');
+    document.getElementById('prea1-num').textContent=sentCorr+' / '+sents.length;
+    const stars=['','⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐','⭐⭐⭐⭐⭐⭐'];
+    document.getElementById('prea1-stars').textContent=stars[sentCorr]||'';
+    const msgs=['Prøv igjen!','Bra forsøk!','Bra!','Veldig bra!','Flott!','Perfekt!','Perfekt!'];
+    document.getElementById('prea1-msg').textContent=msgs[sentCorr]||'Bra!';
+    document.getElementById('ptb-sents').classList.add('done-tab');
+    gainXP('p',10);
+    if(G.p.lives>0) setTimeout(()=>showMedal('p',medalType(sentCorr,sents.length)),800);
+  }
+}
+
+const pTabs=['preview','match','pics','sents'];
+function preaTab(name){
+  const btn=document.getElementById('ptb-'+name);
+  if(btn.classList.contains('locked')) return;
+  pTabs.forEach(n=>{document.getElementById('ppanel-'+n).classList.remove('active');document.getElementById('ptb-'+n).classList.remove('active-b');});
+  document.getElementById('ppanel-'+name).classList.add('active');
+  document.getElementById('ptb-'+name).classList.add('active-b');
+  window.scrollTo(0,0);
+}
+
+function pUnlock(name){
+  const btn=document.getElementById('ptb-'+name);
+  if(btn) btn.classList.remove('locked');
+}
+
+function resetP(){
+  G.p.lives=3;G.p.xp=0;initLives('p');
+  document.getElementById('p-xp-fill').style.width='0%';
+  document.getElementById('p-xp-pts').textContent='0 XP';
+  document.getElementById('prea1-score').classList.remove('show');
+  pTabs.forEach(n=>{
+    const btn=document.getElementById('ptb-'+n);
+    btn.classList.remove('done-tab');
+    if(n!=='preview') btn.classList.add('locked');
+  });
+  buildPreview();buildMatch();buildPics();buildSents();preaTab('preview');
+}
+
+/* ===== A2 DATA ===== */
+const a2Pairs=[
+  {word:'indigenous',def:'originally from a place; native to a region'},
+  {word:'disorder',def:'a strange sickness spreading through nature'},
+  {word:'ritual',def:'a special action done for cultural or religious reasons'},
+  {word:'ancestor',def:'a family member from many generations ago'},
+  {word:'infect',def:'to spread disease or something harmful to others'},
+  {word:'wilderness',def:'a large wild area with no towns or roads'},
+  {word:'harness',def:'to control and use a power or force'},
+  {word:'guardian',def:'someone who protects another person or place'},
+];
+
+const readHTML=`<p><strong>Áilu</strong> is a young <span class="hl" data-tip="The Sámi are the indigenous people of northern Scandinavia — Norway, Sweden, Finland and Russia.">Sámi</span> reindeer herder living in a remote village in the far north. Life follows the rhythm of the seasons — until one day, a distant explosion at the <span class="hl" data-tip="A place where tar — a dark, sticky substance — is made by burning wood.">Tar Burning Pits</span> sends a strange <span class="hl" data-tip="A disorder is something seriously wrong — a kind of sickness that spreads through nature.">disorder</span> spreading across the land.</p>
+<p>The disorder <span class="hl" data-tip="Infects = spreads into and damages. Like a virus spreading to new places.">infects</span> everything it touches — plants, animals, and people. The natural world falls out of balance. Áilu's village is in danger.</p>
+<p>While searching for a runaway reindeer, Áilu discovers an ancient drum called the <strong>Goavddis</strong>. This drum once belonged to a <span class="hl" data-tip="A Noaidi (noh-AY-dee) is a Sámi healer and spiritual leader who connects the community with the spirit world.">Noaidi</span>. The knowledge of the Noaidi has been <span class="hl" data-tip="Lost for generations = forgotten for a very long time; no one has used this knowledge for over a hundred years.">lost for generations</span>, but it still lives within the drum.</p>
+<p>By learning to use the Goavddis, Áilu can <span class="hl" data-tip="Summon = to call upon; to bring something to you using a special power.">summon</span> four <span class="hl" data-tip="Familiar spirits = spirit animals that help and protect you.">familiar spirits</span>: an owl, a bear, a trout, and a fox. Each spirit gives Áilu different powers to explore the world and the <span class="hl" data-tip="The spirit world is magical and invisible — a Noaidi can travel there.">spirit world</span>.</p>
+<p>Áilu must reconnect with the <span class="hl" data-tip="Ancestors = family members from long ago — grandparents, great-grandparents, and the generations before them.">ancestors</span> and use the power of nature to heal the land — becoming the first Noaidi in over a century.</p>`;
+
+const gapData=[
+  {before:'The Sámi are an ',key:'indigenous',after:' people — they have lived in northern Scandinavia for thousands of years.'},
+  {before:'A strange ',key:'disorder',after:' begins to spread across Sámiland, harming plants, animals and people.'},
+  {before:'Áilu finds an ancient drum and uses it to ',key:'summon',after:' four familiar spirits.'},
+  {before:'Each familiar spirit ',key:'grants',after:' Áilu a different power to explore the world.'},
+  {before:"Áilu's goal is to become a Noaidi and ",key:'heal',after:' the infected land.'},
+  {before:'The knowledge of the ancestors has been ',key:'lost',after:' for many generations — until now.'},
+];
+const bankWords=['indigenous','disorder','summon','grants','heal','lost','infects','ritual'];
+
+const questions=[
+  {q:"Why is Áilu's village in danger?",options:['A storm destroyed the houses','A disorder from the Tar Burning Pits is spreading','The reindeer all ran away','An enemy village attacked them'],correct:1,feedback:'A strange disorder spread from an explosion at the Tar Burning Pits, infecting everything.'},
+  {q:'What is special about the Goavddis drum?',options:['It plays beautiful music','It belonged to a Noaidi and holds ancient healing knowledge','It was made by Áilu\'s father','It can control the weather'],correct:1,feedback:'The Goavddis once belonged to a Noaidi. Its ancient knowledge can help Áilu heal the land.'},
+  {q:'Which word best describes Áilu at the start of the story?',options:['Experienced and powerful','Ordinary and unprepared','Angry and dangerous','Old and wise'],correct:1,feedback:'Áilu begins as an ordinary young herder — the adventure is a journey of growth.'},
+  {q:'What does a Noaidi do?',options:['Leads the village in battle','Heals people and connects the community to the spirit world','Looks after the reindeer herd','Builds houses for the village'],correct:1,feedback:'A Noaidi is a Sámi healer and spiritual leader who connects the community to the spirit world.'},
+  {q:'What must Áilu do to fight the disorder?',options:['Find a new village','Destroy the Tar Burning Pits','Learn to use the ancient drum and reconnect with ancestral knowledge','Ask a neighbouring country for help'],correct:2,feedback:'Áilu must master the Goavddis and draw on the long-lost knowledge of Sámi ancestors.'},
+  {q:"The word 'indigenous' means:",options:['very old and forgotten','originally from a particular place','related to healing and medicine','connected to cold weather'],correct:1,feedback:'Indigenous means originally from or native to a particular place.'},
+];
+
+const writingPs=[
+  {q:'Who is Áilu? Write 2–3 sentences.',hint:'Where does Áilu live? What does Áilu do? What happens?',starter:'Áilu is a young Sámi person who ...',model:'Áilu is a young Sámi person who lives in a remote village in northern Scandinavia. Áilu is a reindeer herder. One day, Áilu finds an ancient drum and begins to learn the old ways of the Noaidi.'},
+  {q:'What is the problem in the story? Write 2 sentences.',hint:'What is spreading? Where did it come from? Why is it dangerous?',starter:'In the story, there is a strange disorder that ...',model:'In the story, there is a strange disorder that spreads across Sámiland after an explosion at the Tar Burning Pits. It infects plants, animals and people, so Áilu\'s village is in danger.'},
+  {q:'What makes a good healer or leader? Write 2–3 sentences.',hint:'Use words like: brave, kind, patient, wise, responsible, connected to nature...',starter:'I think a good healer needs to be ...',model:'I think a good healer needs to be wise, patient and kind. They must listen to other people and understand nature. A healer should also be brave because they face difficult problems.'},
+  {q:"Compare Áilu's world to your own. One similarity and one difference.",hint:'Think about: family, nature, animals, traditions, where you live...',starter:'One similarity is that ... . One difference is that ...',model:'One similarity is that Áilu lives in a community where family is very important, just like in my culture. One difference is that Áilu lives in a cold wilderness with reindeer, but I live in a city.'},
+];
+
+/* ===== A2 BUILD ===== */
+let a2SW=null,a2SD=null,a2VM=0;
+function buildA2Vocab(){
+  const wc=document.getElementById('a2-words-col');wc.innerHTML='';
+  const dc=document.getElementById('a2-defs-col');dc.innerHTML='';
+  a2SW=null;a2SD=null;a2VM=0;
+  const sh=[...a2Pairs].sort(()=>Math.random()-0.5);
+  a2Pairs.forEach(p=>{
+    const el=document.createElement('div');el.className='match-item';
+    el.innerHTML=`<span class="wb">${p.word}</span>`;el.dataset.key=p.word;el.dataset.type='word';
+    el.addEventListener('click',()=>a2VMatch(el));wc.appendChild(el);
+  });
+  sh.forEach(p=>{
+    const el=document.createElement('div');el.className='match-item';
+    el.textContent=p.def;el.dataset.key=p.word;el.dataset.type='def';
+    el.addEventListener('click',()=>a2VMatch(el));dc.appendChild(el);
+  });
+}
+
+function a2VMatch(el){
+  if(el.classList.contains('matched')||G.a.lives<=0) return;
+  if(el.dataset.type==='word'){if(a2SW)a2SW.classList.remove('selected-t');a2SW=el;el.classList.add('selected-t');}
+  else{if(a2SD)a2SD.classList.remove('selected-t');a2SD=el;el.classList.add('selected-t');}
+  if(a2SW&&a2SD){
+    if(a2SW.dataset.key===a2SD.dataset.key){
+      a2SW.classList.remove('selected-t');a2SW.classList.add('matched');
+      a2SD.classList.remove('selected-t');a2SD.classList.add('matched');
+      a2VM++;gainXP('a',8);
+      const sc=document.getElementById('a2-vocab-score');
+      if(a2VM===a2Pairs.length){sc.textContent='✓ All matched! Move to step 2.';sc.style.color='var(--green)';document.getElementById('atb-vocab').classList.add('done-tab');gainXP('a',15);aUnlock('reading');}
+      else sc.textContent=a2VM+' / '+a2Pairs.length+' matched';
+    } else {
+      a2SW.classList.add('wrong');a2SD.classList.add('wrong');loseLife('a');
+      setTimeout(()=>{a2SW.classList.remove('wrong','selected-t');a2SD.classList.remove('wrong','selected-t');a2SW=null;a2SD=null;},600);
+      return;
+    }
+    a2SW=null;a2SD=null;
+  }
+}
+
+function buildA2Reading(){
+  const box=document.getElementById('a2-reading-box');box.innerHTML=readHTML;
+  let active=null;
+  box.querySelectorAll('.hl').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const tip=document.getElementById('a2-tooltip');
+      if(active===el){tip.className='tooltip-box';active=null;return;}
+      tip.textContent=el.dataset.tip;tip.className='tooltip-box visible';active=el;
+    });
+  });
+}
+
+let a2BankEl=null;
+function buildA2Gap(){
+  const bank=document.getElementById('a2-word-bank');bank.innerHTML='';a2BankEl=null;
+  [...bankWords].sort(()=>Math.random()-0.5).forEach(w=>{
+    const el=document.createElement('span');el.className='bank-word';el.textContent=w;el.dataset.word=w;
+    el.addEventListener('click',()=>{if(a2BankEl)a2BankEl.classList.remove('active-bank');a2BankEl=el;el.classList.add('active-bank');});
+    bank.appendChild(el);
+  });
+  const gt=document.getElementById('a2-gap-text');gt.innerHTML='';
+  let html='';
+  gapData.forEach((g,i)=>{html+=`<p style="margin-bottom:1rem;">${g.before}<input class="gap-input" id="agap-${i}" data-answer="${g.key}" placeholder="________" autocomplete="off" spellcheck="false"/>${g.after}</p>`;});
+  gt.innerHTML=html;
+  gt.querySelectorAll('.gap-input').forEach(inp=>{
+    inp.addEventListener('focus',()=>{if(a2BankEl){inp.value=a2BankEl.dataset.word;a2BankEl.classList.add('used');a2BankEl.classList.remove('active-bank');a2BankEl=null;inp.classList.remove('correct','wrong');}});
+    inp.addEventListener('input',()=>inp.classList.remove('correct','wrong'));
+  });
+}
+
+function checkGaps(){
+  if(G.a.lives<=0) return;
+  let corr=0;
+  document.querySelectorAll('.gap-input').forEach(inp=>{
+    if(inp.value.trim().toLowerCase()===inp.dataset.answer){inp.classList.add('correct');inp.classList.remove('wrong');corr++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  const fb=document.getElementById('a2-gap-feedback');
+  if(corr===gapData.length){
+    fb.textContent='✓ '+corr+' / '+gapData.length+' — excellent work!';fb.className='fb-row show ok';
+    document.getElementById('atb-gap').classList.add('done-tab');gainXP('a',20);aUnlock('quiz');
+  } else {
+    fb.textContent=corr+' / '+gapData.length+' correct. Check the red ones and try again.';fb.className='fb-row show no';
+    loseLife('a');
+  }
+}
+
+let qAns=0,qCorr=0;
+function buildA2Quiz(){
+  const box=document.getElementById('a2-questions-box');box.innerHTML='';qAns=0;qCorr=0;
+  questions.forEach((q,qi)=>{
+    const b=document.createElement('div');b.className='q-block card';
+    const opts=q.options.map((o,oi)=>`<button class="opt-btn" onclick="answerQ(this,${qi},${oi})">${o}</button>`).join('');
+    b.innerHTML=`<div class="q-text">${qi+1}. ${q.q}</div><div class="options">${opts}</div><div class="fb-row" id="qfb-${qi}"></div>`;
+    box.appendChild(b);
+  });
+}
+
+function answerQ(btn,qi,oi){
+  const block=btn.closest('.q-block');
+  if(block.dataset.done||G.a.lives<=0) return;
+  block.dataset.done='1';
+  const fb=document.getElementById('qfb-'+qi);
+  block.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  if(oi===questions[qi].correct){
+    btn.classList.add('correct');fb.textContent='✓ '+questions[qi].feedback;fb.className='fb-row show ok';qCorr++;gainXP('a',10);
+  } else {
+    btn.classList.add('wrong');block.querySelectorAll('.opt-btn')[questions[qi].correct].classList.add('correct');
+    fb.textContent='✗ '+questions[qi].feedback;fb.className='fb-row show no';loseLife('a');
+  }
+  qAns++;
+  if(qAns===questions.length){
+    const box=document.getElementById('a2-score');box.classList.add('show');
+    document.getElementById('a2-num').textContent=qCorr+' / '+questions.length;
+    const stars=['','⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐','⭐⭐⭐⭐⭐⭐'];
+    document.getElementById('a2-stars').textContent=stars[qCorr]||'';
+    const msgs=['Keep going!','Read the feedback.','Good effort!','Well done!','Very good!','Excellent!','Perfect!'];
+    document.getElementById('a2-msg').textContent=msgs[qCorr]||'Well done!';
+    document.getElementById('atb-quiz').classList.add('done-tab');gainXP('a',15);aUnlock('writing');
+    if(G.a.lives>0) setTimeout(()=>showMedal('a',medalType(qCorr,questions.length)),800);
+  }
+}
+
+function buildA2Writing(){
+  const box=document.getElementById('a2-writing-box');box.innerHTML='';
+  writingPs.forEach((p,i)=>{
+    const div=document.createElement('div');div.className='writing-prompt card';
+    div.innerHTML=`<div class="prompt-label">Question ${i+1} of ${writingPs.length}</div><div class="prompt-q">${p.q}</div><div class="prompt-hint">${p.hint}</div><div class="starter">✏️ ${p.starter}</div><textarea class="writing-textarea" id="wta-${i}" placeholder="Continue the sentence above, or write your own answer..." rows="3"></textarea><div class="word-count" id="wc-${i}">0 words</div><div class="model-answer" id="wm-${i}"><strong>Example answer</strong>${p.model}</div>`;
+    box.appendChild(div);
+    const ta=div.querySelector('textarea');
+    ta.addEventListener('input',()=>{
+      const w=ta.value.trim().split(/\s+/).filter(x=>x.length>0).length;
+      document.getElementById('wc-'+i).textContent=w+' word'+(w!==1?'s':'');
+    });
+  });
+}
+
+function checkWriting(){
+  let filled=0;
+  writingPs.forEach((p,i)=>{if(document.getElementById('wta-'+i).value.trim().length>10){filled++;document.getElementById('wm-'+i).classList.add('show');}});
+  const fb=document.getElementById('a2-writing-feedback');
+  if(filled===0){fb.textContent='Write at least one answer to see the example responses.';fb.className='fb-row show no';}
+  else{
+    fb.textContent='✓ Example answers are now showing. Compare your writing!';fb.className='fb-row show ok';
+    document.getElementById('atb-writing').classList.add('done-tab');gainXP('a',20);
+    if(G.a.lives>0) setTimeout(()=>showMedal('a','gold'),600);
+  }
+}
+
+const a2Tabs=['vocab','reading','gap','quiz','writing'];
+function a2Tab(name){
+  const btn=document.getElementById('atb-'+name);
+  if(btn.classList.contains('locked')) return;
+  a2Tabs.forEach(n=>{document.getElementById('apanel-'+n).classList.remove('active');document.getElementById('atb-'+n).classList.remove('active-t');});
+  document.getElementById('apanel-'+name).classList.add('active');
+  document.getElementById('atb-'+name).classList.add('active-t');
+  window.scrollTo(0,0);
+}
+
+function aUnlock(name){
+  const btn=document.getElementById('atb-'+name);
+  if(btn) btn.classList.remove('locked');
+}
+
+function resetA(){
+  G.a.lives=3;G.a.xp=0;initLives('a');
+  document.getElementById('a-xp-fill').style.width='0%';
+  document.getElementById('a-xp-pts').textContent='0 XP';
+  document.getElementById('a2-score').classList.remove('show');
+  ['a2-gap-feedback','a2-writing-feedback'].forEach(id=>document.getElementById(id).className='fb-row');
+  a2Tabs.forEach(n=>{
+    const btn=document.getElementById('atb-'+n);
+    btn.classList.remove('done-tab');
+    if(n!=='vocab') btn.classList.add('locked');
+  });
+  buildA2Vocab();buildA2Reading();buildA2Gap();buildA2Quiz();buildA2Writing();a2Tab('vocab');
+}
+
+/* ===== INIT ===== */
+initLives('p');initLives('a');
+// Lock all tabs except first on load
+['match','pics','sents'].forEach(n=>document.getElementById('ptb-'+n).classList.add('locked'));
+['reading','gap','quiz','writing'].forEach(n=>document.getElementById('atb-'+n).classList.add('locked'));
+buildPreview();buildMatch();buildPics();buildSents();
+buildA2Vocab();buildA2Reading();buildA2Gap();buildA2Quiz();buildA2Writing();
+</script>
+</body>
+</html>
