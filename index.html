@@ -139,19 +139,60 @@ body::before {
   padding: 0.3rem 0.9rem; border-radius: 4px;
   font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
   border: 1px solid; transition: all 0.15s;
+  cursor: pointer; opacity: 0.55;
 }
+.lpill:hover { opacity: 1; }
+.lpill.active-pill { opacity: 1; }
 .lpill-prea1 { color:var(--green);  border-color:rgba(57,217,138,0.3);  background:rgba(57,217,138,0.08); }
 .lpill-a1    { color:var(--teal);   border-color:rgba(0,201,177,0.3);   background:rgba(0,201,177,0.08); }
 .lpill-a2    { color:var(--blue);   border-color:rgba(77,166,255,0.3);  background:rgba(77,166,255,0.08); }
 .lpill-b1    { color:var(--orange); border-color:rgba(255,140,66,0.3);  background:rgba(255,140,66,0.08); }
 .lpill-b2    { color:var(--purple); border-color:rgba(168,85,247,0.3);  background:rgba(168,85,247,0.08); }
 
+/* ═══ CATEGORY BAR ═══ */
+.category-bar {
+  position: relative; z-index: 1;
+  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem 0;
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+.cbtn {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.45rem 1.1rem;
+  font-size: 0.8rem; font-weight: 600; color: var(--body);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.cbtn:hover { border-color: var(--blue); color: var(--blue); }
+.cbtn.active { background: rgba(77,166,255,0.12); border-color: var(--blue); color: var(--blue); }
+.cat-divider {
+  max-width: 960px; margin: 0.8rem auto 0;
+  border: none; border-top: 1px solid var(--border);
+}
+
+/* ═══ CATEGORY BAR ═══ */
+.category-bar {
+  position: relative; z-index: 1;
+  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem 0;
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+.cbtn {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.45rem 1.1rem;
+  font-size: 0.8rem; font-weight: 600; color: var(--body);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.cbtn:hover { border-color: var(--blue); color: var(--blue); }
+.cbtn.active { background: rgba(77,166,255,0.12); border-color: var(--blue); color: var(--blue); }
+
 /* ═══ FILTER BAR ═══ */
 .filter-bar {
   position: relative; z-index: 1;
-  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem;
+  max-width: 960px; margin: 0 auto; padding: 0.8rem 1rem 1rem;
   display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
   border-bottom: 1px solid var(--border);
+}
+.filter-label {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); padding-right: 0.25rem;
 }
 .fbtn {
   background: var(--panel); border: 1px solid var(--border);
@@ -162,6 +203,10 @@ body::before {
 .fbtn:hover { border-color: var(--teal); color: var(--teal); }
 .fbtn.active { background: rgba(0,201,177,0.12); border-color: var(--teal); color: var(--teal); }
 .fcount { margin-left: auto; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+
+/* ═══ CATEGORY SECTIONS ═══ */
+.cat-section { margin-bottom: 3rem; }
+.cat-section.hidden { display: none; }
 
 /* ═══ MAIN ═══ */
 main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 2rem 1rem 6rem; }
@@ -246,7 +291,11 @@ main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding
 .res-card:hover .card-btn { background: var(--cc); color: var(--bg); }
 .coming .card-btn { border-color: var(--border); color: var(--muted); cursor: default; }
 
-/* coming soon badge */
+/* multi-level card (pink accent) */
+.res-card.multi { --cc: var(--pink); }
+.res-card.multi::before { background: radial-gradient(ellipse at top, rgba(255,77,166,0.06), transparent 60%); }
+.multi .card-icon { background: rgba(255,77,166,0.1); box-shadow: 0 0 12px rgba(255,77,166,0.15); }
+.multi .card-tag  { border-color: rgba(255,77,166,0.25); color: var(--pink); background: rgba(255,77,166,0.06); }
 .coming-badge {
   position: absolute; top: 1rem; right: 1rem;
   background: var(--panel); border: 1px solid var(--border);
@@ -367,108 +416,162 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
         <div class="flask-label" style="color:var(--purple)">B2</div>
       </div>
 
-    </div><!-- /flask-row -->
-
     <div class="level-pills">
-      <span class="lpill lpill-prea1">Pre-A1</span>
-      <span class="lpill lpill-a1">A1</span>
-      <span class="lpill lpill-a2">A2</span>
-      <span class="lpill lpill-b1">B1</span>
-      <span class="lpill lpill-b2">B2</span>
+      <span class="lpill lpill-prea1 active-pill" onclick="filterLevel('pre-a1',this)">Pre-A1</span>
+      <span class="lpill lpill-a1 active-pill" onclick="filterLevel('a1',this)">A1</span>
+      <span class="lpill lpill-a2 active-pill" onclick="filterLevel('a2',this)">A2</span>
+      <span class="lpill lpill-b1 active-pill" onclick="filterLevel('b1',this)">B1</span>
+      <span class="lpill lpill-b2 active-pill" onclick="filterLevel('b2',this)">B2</span>
     </div>
+
+
   </div>
 </section>
 
-<!-- FILTER -->
+<!-- CATEGORY BAR -->
+<div class="category-bar">
+  <button class="cbtn active" onclick="filterCat('all',this)">All categories</button>
+  <button class="cbtn" onclick="filterCat('explore',this)">🌍 Explore the World</button>
+  <button class="cbtn" onclick="filterCat('topic',this)">📚 Topic Units</button>
+  <button class="cbtn" onclick="filterCat('everyday',this)">💬 Everyday English</button>
+  <button class="cbtn" onclick="filterCat('games',this)">🎮 Games & Puzzles</button>
+</div>
+
 <div class="filter-bar">
-  <button class="fbtn active" onclick="filter('all',this)">All levels</button>
-  <button class="fbtn" onclick="filter('pre-a1',this)">Pre-A1</button>
-  <button class="fbtn" onclick="filter('a2',this)">A2</button>
-  <button class="fbtn" onclick="filter('b1',this)">B1</button>
-  <button class="fbtn" onclick="filter('b2',this)">B2</button>
-  <span class="fcount" id="fcount">2 tasks available</span>
+  <span class="fcount" id="fcount">3 tasks available</span>
 </div>
 
 <!-- CARDS -->
 <main>
-  <div class="section-label">Available now</div>
-  <div class="cards-grid" id="cardsGrid">
 
-    <!-- LONDON -->
-    <a class="res-card a2" href="london/index.html" data-level="a2">
-      <div class="card-head">
-        <div class="card-icon">🇬🇧</div>
-        <div>
-          <div class="card-level">Pre-A1 &amp; A2 · Street View</div>
-          <div class="card-title">London Tasks</div>
-        </div>
-      </div>
-      <div class="card-desc">Explore 7 London landmarks using Street View. Two levels — beginners find items and build sentences, while A2 students read intel, match vocabulary and write field reports.</div>
-      <div class="card-tags">
-        <span class="card-tag">🔍 Find items</span>
-        <span class="card-tag">🔤 Vocabulary</span>
-        <span class="card-tag">✍️ Writing</span>
-        <span class="card-tag">⚡ Speed bonus</span>
-        <span class="card-tag">2 levels</span>
-      </div>
-      <div class="card-btn">Open task →</div>
-    </a>
+  <!-- 🌍 EXPLORE THE WORLD -->
+  <div class="cat-section" id="cat-explore" data-cat="explore">
+    <div class="section-label">🌍 Explore the World</div>
+    <div class="cards-grid">
 
-    <!-- SKABMA -->
-    <a class="res-card pre-a1" href="skabma/index.html" data-level="pre-a1" style="--cc:var(--teal)">
-      <div class="card-head">
-        <div class="card-icon" style="background:rgba(0,201,177,0.1);box-shadow:0 0 12px rgba(0,201,177,0.15);">🥁</div>
-        <div>
-          <div class="card-level" style="color:var(--teal)">Pre-A1 & A2 · Sámi culture</div>
-          <div class="card-title">Skábma – Snowfall</div>
+      <a class="res-card a2" href="london/index.html" data-level="a2" data-cat="explore">
+        <div class="card-head">
+          <div class="card-icon">🇬🇧</div>
+          <div>
+            <div class="card-level">Pre-A1 &amp; A2 · Street View</div>
+            <div class="card-title">London Tasks</div>
+          </div>
         </div>
-      </div>
-      <div class="card-desc">Based on the Sámi video game. Learn vocabulary, read the story, fill in gaps, answer questions and write about Áilu's journey.</div>
-      <div class="card-tags">
-        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">🔤 Vocabulary</span>
-        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">📖 Reading</span>
-        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">✍️ Writing</span>
-        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">❤️ Lives</span>
-        <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">2 levels</span>
-      </div>
-      <div class="card-btn" style="border-color:var(--teal);color:var(--teal)">Open task →</div>
-    </a>
+        <div class="card-desc">Explore 7 London landmarks using Street View. Two levels — beginners find items and build sentences, while A2 students read intel, match vocabulary and write field reports.</div>
+        <div class="card-tags">
+          <span class="card-tag">🔍 Find items</span>
+          <span class="card-tag">🔤 Vocabulary</span>
+          <span class="card-tag">✍️ Writing</span>
+          <span class="card-tag">⚡ Speed bonus</span>
+          <span class="card-tag">2 levels</span>
+        </div>
+        <div class="card-btn">Open task →</div>
+      </a>
 
-    <!-- COMING B1 -->
-    <div class="res-card b1 coming" data-level="b1">
-      <div class="coming-badge">Coming soon</div>
-      <div class="card-head">
-        <div class="card-icon">🔒</div>
-        <div>
-          <div class="card-level">B1 · Coming soon</div>
-          <div class="card-title">New York City</div>
+      <div class="res-card coming" data-level="b1" data-cat="explore">
+        <div class="coming-badge">Coming soon</div>
+        <div class="card-head">
+          <div class="card-icon">🔒</div>
+          <div>
+            <div class="card-level">B1 · Coming soon</div>
+            <div class="card-title">New York City</div>
+          </div>
         </div>
+        <div class="card-desc">Explore the streets of Manhattan. Reading, writing and vocabulary tasks.</div>
+        <div class="card-tags"><span class="card-tag">🗽 Street View</span></div>
+        <div class="card-btn">Coming soon</div>
       </div>
-      <div class="card-desc">Explore the streets of Manhattan. Reading, writing and vocabulary tasks.</div>
-      <div class="card-tags">
-        <span class="card-tag">🗽 Street View</span>
+
+      <div class="res-card coming" data-level="b2" data-cat="explore">
+        <div class="coming-badge">Coming soon</div>
+        <div class="card-head">
+          <div class="card-icon">🔒</div>
+          <div>
+            <div class="card-level">B2 · Coming soon</div>
+            <div class="card-title">Dublin & Ireland</div>
+          </div>
+        </div>
+        <div class="card-desc">Explore Irish culture and history through immersive Street View tasks.</div>
+        <div class="card-tags"><span class="card-tag">☘️ Street View</span></div>
+        <div class="card-btn">Coming soon</div>
       </div>
-      <div class="card-btn">Coming soon</div>
+
     </div>
-
-    <!-- COMING B2 -->
-    <div class="res-card b2 coming" data-level="b2">
-      <div class="coming-badge">Coming soon</div>
-      <div class="card-head">
-        <div class="card-icon">🔒</div>
-        <div>
-          <div class="card-level">B2 · Coming soon</div>
-          <div class="card-title">Dublin & Ireland</div>
-        </div>
-      </div>
-      <div class="card-desc">Explore Irish culture and history through immersive Street View tasks.</div>
-      <div class="card-tags">
-        <span class="card-tag">☘️ Street View</span>
-      </div>
-      <div class="card-btn">Coming soon</div>
-    </div>
-
   </div>
+
+  <!-- 📚 TOPIC UNITS -->
+  <div class="cat-section" id="cat-topic" data-cat="topic">
+    <div class="section-label">📚 Topic Units</div>
+    <div class="cards-grid">
+
+      <a class="res-card" href="skabma/index.html" data-level="pre-a1" data-cat="topic" style="--cc:var(--teal)">
+        <div class="card-head">
+          <div class="card-icon" style="background:rgba(0,201,177,0.1);box-shadow:0 0 12px rgba(0,201,177,0.15);">🥁</div>
+          <div>
+            <div class="card-level" style="color:var(--teal)">Pre-A1 & A2 · Sámi culture</div>
+            <div class="card-title">Skábma – Snowfall</div>
+          </div>
+        </div>
+        <div class="card-desc">Based on the Sámi video game. Learn vocabulary, read the story, fill in gaps, answer questions and write about Áilu's journey.</div>
+        <div class="card-tags">
+          <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">🔤 Vocabulary</span>
+          <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">📖 Reading</span>
+          <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">✍️ Writing</span>
+          <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">❤️ Lives</span>
+          <span class="card-tag" style="border-color:rgba(0,201,177,0.25);color:var(--teal);background:rgba(0,201,177,0.06)">2 levels</span>
+        </div>
+        <div class="card-btn" style="border-color:var(--teal);color:var(--teal)">Open task →</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 💬 EVERYDAY ENGLISH -->
+  <div class="cat-section" id="cat-everyday" data-cat="everyday">
+    <div class="section-label">💬 Everyday English</div>
+    <div class="cards-grid">
+
+      <a class="res-card multi" href="listenup/index.html" data-level="a1" data-cat="everyday">
+        <div class="card-head">
+          <div class="card-icon">🎧</div>
+          <div>
+            <div class="card-level">A1 · A2 · B1 · Listening</div>
+            <div class="card-title">Listen Up!</div>
+          </div>
+        </div>
+        <div class="card-desc">Practise your listening skills with real-life conversations and scenarios. Three levels — from short everyday phrases to longer, more complex dialogues.</div>
+        <div class="card-tags">
+          <span class="card-tag">🎧 Listening</span>
+          <span class="card-tag">💬 Conversations</span>
+          <span class="card-tag">✅ Quiz</span>
+          <span class="card-tag">3 levels</span>
+        </div>
+        <div class="card-btn">Open task →</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- 🎮 GAMES & PUZZLES -->
+  <div class="cat-section" id="cat-games" data-cat="games">
+    <div class="section-label">🎮 Games & Puzzles</div>
+    <div class="cards-grid">
+      <div class="res-card coming" data-level="a1" data-cat="games">
+        <div class="coming-badge">Coming soon</div>
+        <div class="card-head">
+          <div class="card-icon">🔒</div>
+          <div>
+            <div class="card-level">A1+ · Coming soon</div>
+            <div class="card-title">Games & Puzzles</div>
+          </div>
+        </div>
+        <div class="card-desc">Fun vocabulary games, word puzzles and interactive challenges.</div>
+        <div class="card-tags"><span class="card-tag">🎯 Interactive</span></div>
+        <div class="card-btn">Coming soon</div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -476,19 +579,43 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
 </footer>
 
 <script>
-function filter(level, btn) {
-  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+let activeCat = 'all';
+let activeLevel = 'all';
+
+function filterCat(cat, btn) {
+  activeCat = cat;
+  document.querySelectorAll('.cbtn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const cards = document.querySelectorAll('.res-card');
-  let count = 0;
-  cards.forEach(card => {
-    const match = level === 'all' || card.dataset.level === level;
-    card.style.display = match ? '' : 'none';
-    if (match && !card.classList.contains('coming')) count++;
+  applyFilters();
+}
+
+function filterLevel(level, pill) {
+  // Toggle off if already active
+  if (activeLevel === level) {
+    activeLevel = 'all';
+    document.querySelectorAll('.lpill').forEach(p => p.classList.add('active-pill'));
+  } else {
+    activeLevel = level;
+    document.querySelectorAll('.lpill').forEach(p => p.classList.remove('active-pill'));
+    pill.classList.add('active-pill');
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  document.querySelectorAll('.cat-section').forEach(section => {
+    const catMatch = activeCat === 'all' || section.dataset.cat === activeCat;
+    section.classList.toggle('hidden', !catMatch);
   });
-  const total = level === 'all'
-    ? document.querySelectorAll('.res-card:not(.coming)').length : count;
-  document.getElementById('fcount').textContent = total + ' task' + (total !== 1 ? 's' : '') + ' available';
+
+  let available = 0;
+  document.querySelectorAll('.res-card').forEach(card => {
+    const levelMatch = activeLevel === 'all' || card.dataset.level === activeLevel;
+    card.style.display = levelMatch ? '' : 'none';
+    if (levelMatch && !card.classList.contains('coming')) available++;
+  });
+
+  document.getElementById('fcount').textContent = available + ' task' + (available !== 1 ? 's' : '') + ' available';
 }
 </script>
 </body>
