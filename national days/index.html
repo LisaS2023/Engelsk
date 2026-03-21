@@ -2210,449 +2210,322 @@
         <section id="b1" class="level-section">
             <div class="section-header">
                 <span class="level-badge">LEVEL B1</span>
-                <h2>Identity and Belonging</h2>
+                <h2>Traditions and Feelings</h2>
             </div>
 
             <div class="learning-goals">
                 <h3>Learning Goals</h3>
                 <ul>
-                    <li>I can discuss national days and what they mean for identity</li>
-                    <li>I can express and support my opinions</li>
-                    <li>I can reflect on nationalism, traditions, and belonging</li>
+                    <li>I can understand a short text about national days</li>
+                    <li>I can describe traditions and explain what they mean</li>
+                    <li>I can write simple sentences about my own feelings and opinions</li>
                 </ul>
             </div>
 
             <div class="reading-text">
-                <h3>📖 Read: What Do National Days Mean?</h3>
-                <p>National days are more than just holidays. They are days when people come together to celebrate their country, their history, and their shared identity. But what does it really mean to celebrate a national day, and who gets to feel included?</p>
-                
-                <p>In Norway, 17. mai is often called "barnas dag" — the children's day. Unlike many other countries, Norway doesn't have military parades. Instead, schoolchildren walk through the streets waving flags and singing songs. The focus is on joy, community, and the Constitution of 1814, which gave Norway one of the most democratic governments in Europe at that time.</p>
-                
-                <p>However, not everyone has always felt included in 17. mai celebrations. For many years, the Sami people — Norway's indigenous population — were not allowed to speak their own language or practice their own traditions. Today, many Sami people celebrate 17. mai, but some also celebrate their own national day on February 6th. Some people wave the Sami flag alongside the Norwegian flag on 17. mai.</p>
-                
-                <p>In the United States, July 4th celebrates independence from Britain in 1776. The Declaration of Independence stated that "all men are created equal" — but at that time, enslaved people and women did not have the same rights. The famous abolitionist Frederick Douglass gave a powerful speech in 1852 asking, "What to the Slave is the Fourth of July?" He pointed out that the promise of freedom did not include everyone.</p>
-                
-                <p>The United Kingdom is unusual because it doesn't have an official national day. Each nation within the UK — England, Scotland, Wales, and Northern Ireland — has its own celebration. Some people think this reflects the diversity of British identity, while others argue that a shared national day could bring people together.</p>
-                
-                <p>National days can be complicated. They can make people feel proud and connected, but they can also raise questions about who belongs and whose history is being celebrated. As our societies become more diverse, many people are thinking about how to make national celebrations more inclusive.</p>
+                <h3>📖 Read: National Days — More Than Just a Holiday</h3>
+                <p>National days are special days when people celebrate their country. On these days, people feel proud and happy to be part of a community. They often wear traditional clothes, listen to music, watch parades, and eat special food.</p>
+
+                <p>In Norway, 17. mai is a day for children. Children walk in parades and wave Norwegian flags. Many people wear a <em>bunad</em> — a traditional Norwegian costume. Families eat hot dogs and ice cream. The mood is happy and friendly.</p>
+
+                <p>In the United States, the 4th of July celebrates independence from Britain in 1776. People watch big fireworks displays, have barbecues, and wear red, white, and blue clothes. It is one of the biggest celebrations in the USA.</p>
+
+                <p>Not all countries have the same kind of national day. Some countries have military parades. Others focus on music and dancing. Some people celebrate with family at home, others go to big public events.</p>
+
+                <p>For many people, national days are a time to think about where they come from and what their country means to them. It is also a time to feel connected to other people.</p>
             </div>
 
-            <div class="discussion-section">
-                <h3>💬 Discussion Questions</h3>
-                <p style="margin-bottom: 1.5rem; opacity: 0.9;">Answer the questions below. Write at least 3-4 sentences for each answer.</p>
-                
-                <div class="discussion-question-box">
-                    <p class="discussion-q"><strong>1.</strong> Why do you think Norway chose to focus on children rather than the military for 17. mai?</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Discussion1" placeholder="Write your answer here..." rows="4"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion1', 'b1', 'Question: Why did Norway choose to focus on children rather than the military for 17. mai? Check if the student gives reasons, uses examples or logic, and expresses their thoughts clearly.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Discussion1-feedback"></div>
+            <div class="exercise-section">
+                <h3>✅ Comprehension: True or False?</h3>
+                <p style="margin-bottom: 1rem;">Read the text above and decide: is the sentence <strong>True</strong> or <strong>False</strong>?</p>
+                <div id="b1-tf-quiz"></div>
+                <script>
+                (function() {
+                    var questions = [
+                        { text: "On 17. mai, children walk in parades and wave flags.", answer: true },
+                        { text: "A bunad is a type of food.", answer: false },
+                        { text: "The 4th of July celebrates independence from Britain.", answer: true },
+                        { text: "All countries celebrate national days in exactly the same way.", answer: false },
+                        { text: "National days can make people feel connected to others.", answer: true },
+                    ];
+                    var container = document.getElementById('b1-tf-quiz');
+                    var score = 0;
+                    var answered = 0;
+                    questions.forEach(function(q, i) {
+                        var div = document.createElement('div');
+                        div.style.cssText = 'margin-bottom:1rem;padding:1rem;background:var(--cream);border-radius:8px;border:1px solid rgba(0,0,0,0.08);';
+                        div.innerHTML = '<p style="margin-bottom:0.5rem;font-weight:600;">' + (i+1) + '. ' + q.text + '</p>'
+                            + '<button onclick="checkTF(this, true, ' + q.answer + ', ' + i + ')" style="margin-right:0.5rem;padding:0.4rem 1.2rem;border:2px solid var(--blue);background:transparent;color:var(--blue);border-radius:6px;cursor:pointer;font-weight:600;">True</button>'
+                            + '<button onclick="checkTF(this, false, ' + q.answer + ', ' + i + ')" style="padding:0.4rem 1.2rem;border:2px solid var(--red);background:transparent;color:var(--red);border-radius:6px;cursor:pointer;font-weight:600;">False</button>'
+                            + '<span id="b1tf-result-' + i + '" style="margin-left:1rem;font-weight:600;"></span>';
+                        container.appendChild(div);
+                    });
+                    window.checkTF = function(btn, chosen, correct, i) {
+                        var result = document.getElementById('b1tf-result-' + i);
+                        if (result.textContent !== '') return;
+                        if (chosen === correct) {
+                            result.textContent = '✅ Correct!';
+                            result.style.color = 'green';
+                        } else {
+                            result.textContent = '❌ Not quite. The answer is ' + (correct ? 'True' : 'False') + '.';
+                            result.style.color = 'var(--red)';
+                        }
+                    };
+                })();
+                </script>
+            </div>
+
+            <div class="exercise-section">
+                <h3>🔗 Match: Country and Tradition</h3>
+                <p style="margin-bottom: 1rem;">Click a tradition on the left, then click the matching country on the right.</p>
+                <div id="b1-match-game" style="display:flex;gap:2rem;flex-wrap:wrap;"></div>
+                <div id="b1-match-result" style="margin-top:1rem;font-weight:600;"></div>
+                <button onclick="resetB1Match()" style="margin-top:0.5rem;padding:0.4rem 1rem;background:transparent;border:2px solid var(--blue);color:var(--blue);border-radius:6px;cursor:pointer;">🔄 Start again</button>
+                <script>
+                (function() {
+                    var pairs = [
+                        { left: 'Children walk in parades', right: 'Norway' },
+                        { left: 'Big fireworks displays', right: 'USA' },
+                        { left: 'Wearing a bunad', right: 'Norway' },
+                        { left: 'Barbecues and picnics', right: 'USA' },
+                        { left: 'Eating hot dogs and ice cream', right: 'Norway' },
+                    ];
+                    var selected = null;
+                    var matched = 0;
+
+                    function render() {
+                        var container = document.getElementById('b1-match-game');
+                        container.innerHTML = '';
+                        matched = 0;
+                        selected = null;
+
+                        var shuffledLeft = pairs.map(function(p,i){return {text:p.left, idx:i, matched:false};});
+                        var shuffledRight = [{text:'Norway'},{text:'USA'}];
+
+                        var leftCol = document.createElement('div');
+                        leftCol.style.cssText = 'display:flex;flex-direction:column;gap:0.5rem;';
+                        shuffledLeft.forEach(function(item) {
+                            var btn = document.createElement('button');
+                            btn.textContent = item.text;
+                            btn.dataset.idx = item.idx;
+                            btn.dataset.type = 'left';
+                            btn.style.cssText = 'padding:0.5rem 1rem;border:2px solid var(--blue);background:transparent;color:var(--blue);border-radius:8px;cursor:pointer;text-align:left;font-size:0.95rem;';
+                            btn.onclick = function() { handleClick(btn); };
+                            leftCol.appendChild(btn);
+                        });
+
+                        var rightCol = document.createElement('div');
+                        rightCol.style.cssText = 'display:flex;flex-direction:column;gap:0.5rem;justify-content:center;';
+                        [{text:'Norway'},{text:'USA'}].forEach(function(item) {
+                            var btn = document.createElement('button');
+                            btn.textContent = item.text;
+                            btn.dataset.country = item.text;
+                            btn.dataset.type = 'right';
+                            btn.style.cssText = 'padding:0.5rem 1.5rem;border:2px solid var(--red);background:transparent;color:var(--red);border-radius:8px;cursor:pointer;font-size:1rem;font-weight:700;';
+                            btn.onclick = function() { handleClick(btn); };
+                            rightCol.appendChild(btn);
+                        });
+
+                        container.appendChild(leftCol);
+                        container.appendChild(rightCol);
+                    }
+
+                    function handleClick(btn) {
+                        if (btn.dataset.type === 'left') {
+                            document.querySelectorAll('#b1-match-game button').forEach(function(b){if(b.dataset.type==='left') b.style.background='transparent';});
+                            btn.style.background = 'rgba(0,32,91,0.12)';
+                            selected = btn;
+                        } else if (btn.dataset.type === 'right' && selected) {
+                            var idx = parseInt(selected.dataset.idx);
+                            var correct = pairs[idx].right;
+                            if (btn.dataset.country === correct) {
+                                selected.style.cssText += 'background:#d4edda;border-color:green;color:green;pointer-events:none;';
+                                selected.textContent = selected.textContent + ' ✅';
+                                matched++;
+                                if (matched === pairs.length) {
+                                    document.getElementById('b1-match-result').textContent = '🎉 Well done! All correct!';
+                                    document.getElementById('b1-match-result').style.color = 'green';
+                                }
+                            } else {
+                                selected.style.cssText += 'background:#f8d7da;border-color:var(--red);color:var(--red);';
+                                setTimeout(function(){
+                                    selected.style.background='transparent';
+                                    selected.style.borderColor='var(--blue)';
+                                    selected.style.color='var(--blue)';
+                                },800);
+                            }
+                            selected = null;
+                        }
+                    }
+
+                    window.resetB1Match = function() {
+                        document.getElementById('b1-match-result').textContent = '';
+                        render();
+                    };
+
+                    render();
+                })();
+                </script>
+            </div>
+
+            <div class="exercise-section">
+                <h3>📝 Vocabulary: Key Words</h3>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <div class="emoji">🤝</div>
+                        <div class="word">community</div>
+                        <div class="translation">fellesskap</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎭</div>
+                        <div class="word">tradition</div>
+                        <div class="translation">tradisjon</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🏅</div>
+                        <div class="word">proud</div>
+                        <div class="translation">stolt</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎆</div>
+                        <div class="word">celebrate</div>
+                        <div class="translation">feire</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🔗</div>
+                        <div class="word">connected</div>
+                        <div class="translation">knyttet sammen</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">📅</div>
+                        <div class="word">independence</div>
+                        <div class="translation">selvstendighet</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🧳</div>
+                        <div class="word">costume</div>
+                        <div class="translation">kostyme / drakt</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">😊</div>
+                        <div class="word">mood</div>
+                        <div class="translation">stemning</div>
                     </div>
                 </div>
-                
-                <div class="discussion-question-box">
-                    <p class="discussion-q"><strong>2.</strong> How can national days be made more inclusive for minorities and indigenous peoples?</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Discussion2" placeholder="Write your answer here..." rows="4"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion2', 'b1', 'Question: How can national days be more inclusive for minorities and indigenous peoples? Check if the student gives concrete suggestions, shows understanding of inclusion, and expresses ideas clearly.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Discussion2-feedback"></div>
-                    </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Fill in the Gap</h3>
+                <p style="margin-bottom:1rem;">Choose the correct word for each sentence.</p>
+                <div id="b1-gap-fill"></div>
+                <button onclick="checkB1Gaps()" style="margin-top:1rem;padding:0.5rem 1.5rem;background:var(--blue);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:700;">✓ Check answers</button>
+                <div id="b1-gap-result" style="margin-top:0.75rem;font-weight:600;"></div>
+                <script>
+                (function(){
+                    var sentences = [
+                        { before: "On 17. mai, people feel", blank: "proud", after: "to be Norwegian.", options: ["proud", "tired", "worried"] },
+                        { before: "A bunad is a traditional", blank: "costume", after: "worn on 17. mai.", options: ["costume", "meal", "song"] },
+                        { before: "The 4th of July celebrates", blank: "independence", after: "from Britain.", options: ["independence", "tradition", "community"] },
+                        { before: "People like to feel", blank: "connected", after: "to their country on national days.", options: ["connected", "confused", "surprised"] },
+                        { before: "National days can make people feel part of a", blank: "community", after: ".", options: ["community", "parade", "bunad"] },
+                    ];
+                    var container = document.getElementById('b1-gap-fill');
+                    sentences.forEach(function(s, i){
+                        var div = document.createElement('div');
+                        div.style.cssText = 'margin-bottom:1rem;padding:0.8rem 1rem;background:var(--cream);border-radius:8px;border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;flex-wrap:wrap;gap:0.4rem;';
+                        var shuffled = s.options.slice().sort(function(){return Math.random()-0.5;});
+                        div.innerHTML = '<span>' + s.before + '</span>'
+                            + '<select id="b1gap-' + i + '" style="padding:0.3rem 0.5rem;border:2px solid var(--blue);border-radius:6px;font-size:1rem;background:white;">'
+                            + '<option value="">— choose —</option>'
+                            + shuffled.map(function(o){return '<option value="'+o+'">'+o+'</option>';}).join('')
+                            + '</select>'
+                            + '<span>' + s.after + '</span>'
+                            + '<span id="b1gap-fb-' + i + '" style="margin-left:0.5rem;font-weight:700;"></span>';
+                        container.appendChild(div);
+                    });
+                    window.checkB1Gaps = function(){
+                        var correct = 0;
+                        sentences.forEach(function(s,i){
+                            var sel = document.getElementById('b1gap-'+i);
+                            var fb = document.getElementById('b1gap-fb-'+i);
+                            if (sel.value === s.blank) {
+                                fb.textContent = '✅'; fb.style.color='green'; correct++;
+                            } else if (sel.value === '') {
+                                fb.textContent = '❓'; fb.style.color='gray';
+                            } else {
+                                fb.textContent = '❌ → ' + s.blank; fb.style.color='var(--red)';
+                            }
+                        });
+                        document.getElementById('b1-gap-result').textContent = 'Score: ' + correct + ' / ' + sentences.length;
+                        document.getElementById('b1-gap-result').style.color = correct === sentences.length ? 'green' : 'var(--blue)';
+                    };
+                })();
+                </script>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✍️ Guided Writing: My National Day</h3>
+                <p style="margin-bottom:1rem;">Use the sentence starters below to write about a special day in your life or your home country. Write <strong>4–6 sentences</strong>.</p>
+                <div style="background:var(--cream);padding:1.2rem;border-radius:8px;border-left:4px solid var(--blue);margin-bottom:1rem;">
+                    <p style="font-weight:600;margin-bottom:0.5rem;">💡 Sentence starters:</p>
+                    <ul style="margin-left:1.2rem;line-height:2;">
+                        <li>In my country, we celebrate...</li>
+                        <li>On this day, people usually...</li>
+                        <li>I feel ... because ...</li>
+                        <li>One tradition I like is...</li>
+                        <li>The food we eat is...</li>
+                        <li>I think national days are important because...</li>
+                    </ul>
                 </div>
-                
-                <div class="discussion-question-box">
-                    <p class="discussion-q"><strong>3.</strong> Do you think it's important for a country to have a national day? Why or why not?</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Discussion3" placeholder="Write your answer here..." rows="4"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion3', 'b1', 'Question: Is it important for a country to have a national day? Check if the student states their opinion clearly, gives reasons to support it, and considers different perspectives.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Discussion3-feedback"></div>
-                    </div>
+                <div class="ai-writing-box">
+                    <textarea class="ai-textarea" id="b1GuidedWriting" placeholder="Write your sentences here. You can use the sentence starters above to help you!" rows="7"></textarea>
+                    <button class="ai-feedback-btn" onclick="getAIFeedback('b1GuidedWriting', 'b1', 'The student is writing 4-6 sentences about a special day or national day in their life or home country. They are at A2+/early B1 level. Check if they have written at least 4 sentences, used sentence starters or similar structures, described a tradition or feeling, and written clearly. Give encouraging and simple feedback. Point out one thing they did well and one simple thing to improve. Keep your feedback short and friendly.')">
+                        🤖 Get AI Feedback
+                    </button>
+                    <div class="ai-feedback" id="b1GuidedWriting-feedback"></div>
                 </div>
-                
-                <div class="discussion-question-box">
-                    <p class="discussion-q"><strong>4.</strong> What does national identity mean to you? Can you have multiple identities?</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Discussion4" placeholder="Write your answer here..." rows="4"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion4', 'b1', 'Question: What does national identity mean to you? Can you have multiple identities? Check if the student reflects personally, explains their understanding of identity, and answers both parts of the question.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Discussion4-feedback"></div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>💬 Speaking Cards</h3>
+                <p style="margin-bottom:1rem;">Talk with a partner. Take turns asking and answering these questions. Try to answer in <strong>2–3 sentences</strong>.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;">
+                    <div style="background:var(--cream);border:2px solid var(--blue);border-radius:12px;padding:1.2rem;">
+                        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎉</div>
+                        <p style="font-weight:700;color:var(--blue);">What is a special day in your country?</p>
+                        <p style="font-size:0.85rem;opacity:0.8;margin-top:0.4rem;">Tip: Say the name of the day and one tradition.</p>
                     </div>
-                </div>
-                
-                <div class="discussion-question-box">
-                    <p class="discussion-q"><strong>5.</strong> Should the UK have one official national day? What are the arguments for and against?</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Discussion5" placeholder="Write your answer here..." rows="4"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion5', 'b1', 'Question: Should the UK have one official national day? Check if the student presents arguments for AND against, shows balanced thinking, and states their own conclusion.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Discussion5-feedback"></div>
+                    <div style="background:var(--cream);border:2px solid var(--red);border-radius:12px;padding:1.2rem;">
+                        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🍽️</div>
+                        <p style="font-weight:700;color:var(--red);">What do you eat on a special day?</p>
+                        <p style="font-size:0.85rem;opacity:0.8;margin-top:0.4rem;">Tip: Name 2–3 foods you like.</p>
+                    </div>
+                    <div style="background:var(--cream);border:2px solid var(--gold);border-radius:12px;padding:1.2rem;">
+                        <div style="font-size:1.5rem;margin-bottom:0.5rem;">😊</div>
+                        <p style="font-weight:700;color:var(--blue);">How do you feel on national days?</p>
+                        <p style="font-size:0.85rem;opacity:0.8;margin-top:0.4rem;">Tip: Use words like happy, proud, excited, or nervous.</p>
+                    </div>
+                    <div style="background:var(--cream);border:2px solid var(--blue);border-radius:12px;padding:1.2rem;">
+                        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🇳🇴</div>
+                        <p style="font-weight:700;color:var(--blue);">What is one thing you like about 17. mai?</p>
+                        <p style="font-size:0.85rem;opacity:0.8;margin-top:0.4rem;">Tip: Think about the parades, food, flags, or music.</p>
                     </div>
                 </div>
             </div>
 
             <div class="video-section">
-                <h3>🎬 Watch: Different Perspectives</h3>
+                <h3>🎬 Watch: 17. mai Celebrations</h3>
                 <div class="video-grid">
                     <div class="video-card">
                         <iframe src="https://www.youtube.com/embed/74ESlWK_4Dw" title="Sami National Day" allowfullscreen></iframe>
                         <div class="video-info">
                             <h4>Sami National Day</h4>
-                            <p>Learn about the Sami people's celebrations on February 6th</p>
-                        </div>
-                    </div>
-                    <div class="video-card">
-                        <iframe src="https://www.youtube.com/embed/z3YsMWLSyxY" title="Frederick Douglass" allowfullscreen></iframe>
-                        <div class="video-info">
-                            <h4>What to the Slave is the 4th of July?</h4>
-                            <p>Frederick Douglass's famous speech</p>
+                            <p>Watch and find one tradition you can see in the video.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="exercise-section">
-                <h3>📝 Vocabulary: Key Concepts</h3>
-                <div class="vocab-grid">
-                    <div class="vocab-item">
-                        <div class="emoji">🤝</div>
-                        <div class="word">identity</div>
-                        <div class="translation">who you are</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🏛️</div>
-                        <div class="word">democracy</div>
-                        <div class="translation">government by the people</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🌍</div>
-                        <div class="word">indigenous</div>
-                        <div class="translation">original inhabitants</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🎭</div>
-                        <div class="word">tradition</div>
-                        <div class="translation">customs passed down</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🤗</div>
-                        <div class="word">inclusive</div>
-                        <div class="translation">including everyone</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🏳️</div>
-                        <div class="word">nationalism</div>
-                        <div class="translation">strong national identity</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">🔗</div>
-                        <div class="word">belonging</div>
-                        <div class="translation">feeling part of something</div>
-                    </div>
-                    <div class="vocab-item">
-                        <div class="emoji">📊</div>
-                        <div class="word">diverse</div>
-                        <div class="translation">varied, different</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="exercise-section">
-                <h3>✍️ Writing and Speaking Tasks</h3>
-                
-                <div style="background: var(--cream); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--red); border-radius: 0 8px 8px 0;">
-                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 1: Opinion Essay</h4>
-                    <p>Write 200-250 words answering this question:</p>
-                    <p><strong>"Should national days change to reflect more diverse societies?"</strong></p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Include: your opinion, at least two arguments with examples, and a conclusion.</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1OpinionEssay" placeholder="Write your opinion essay here..." rows="10"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1OpinionEssay', 'b1', 'This is an opinion essay about whether national days should change to reflect diverse societies. Check for: clear opinion statement, at least 2 arguments with examples, a conclusion, appropriate B1 level vocabulary, and approximately 200-250 words.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1OpinionEssay-feedback"></div>
-                    </div>
-                </div>
-                
-                <div style="background: var(--cream); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0;">
-                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 2: Presentation Script</h4>
-                    <p>Write a script for a 3-minute presentation about national celebrations in a country of your choice.</p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Include: history, traditions, food, and your personal reflection on what the day means.</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Presentation" placeholder="Write your presentation script here..." rows="10"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Presentation', 'b1', 'This is a presentation script about a national celebration. Check for: introduction of the country and celebration, history section, traditions section, food section, personal reflection, clear structure, and appropriate length for 3 minutes.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Presentation-feedback"></div>
-                    </div>
-                </div>
-                
-                <div style="background: var(--cream); padding: 1.5rem; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0;">
-                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 3: Debate Arguments</h4>
-                    <p>Write arguments for a debate on this topic:</p>
-                    <p><strong>"National days are outdated in a globalized world."</strong></p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Write arguments for OR against. Include evidence and examples!</p>
-                    <div class="ai-writing-box">
-                        <textarea class="ai-textarea" id="b1Debate" placeholder="Write your debate arguments here (state if you are FOR or AGAINST)..." rows="8"></textarea>
-                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Debate', 'b1', 'These are debate arguments about whether national days are outdated. Check for: clear position (for or against), at least 2-3 strong arguments, use of evidence or examples, persuasive language, and logical structure.')">
-                            🤖 Get AI Feedback
-                        </button>
-                        <div class="ai-feedback" id="b1Debate-feedback"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="exercise-section">
-                <h3>🔍 Research Task</h3>
-                <p>Choose one of these topics and write a short report:</p>
-                <ul style="margin-top: 1rem; margin-left: 1.5rem; margin-bottom: 1rem;">
-                    <li>How do immigrants celebrate their new country's national day while keeping their own traditions?</li>
-                    <li>What is Juneteenth in the USA, and why is it important?</li>
-                    <li>How is 17. mai celebrated by Norwegians living abroad?</li>
-                    <li>Compare how two different countries celebrate their independence</li>
-                </ul>
-                <div class="ai-writing-box">
-                    <textarea class="ai-textarea" id="b1Research" placeholder="Write your research report here..." rows="10"></textarea>
-                    <button class="ai-feedback-btn" onclick="getAIFeedback('b1Research', 'b1', 'This is a research report on a topic related to national days. Check for: clear topic focus, factual information, good organization, personal analysis or reflection, and appropriate B1 level language.')">
-                        🤖 Get AI Feedback
-                    </button>
-                    <div class="ai-feedback" id="b1Research-feedback"></div>
-                </div>
-            </div>
-
-            <!-- NEW B1: Reading Comprehension -->
-            <div class="exercise-section">
-                <h3>📖 Reading Comprehension</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Answer the questions based on the text above.</p>
-                
-                <div class="quiz-question">
-                    <p>1. Why is 17. mai called "barnas dag" (children's day)?</p>
-                    <div class="quiz-options">
-                        <div class="quiz-option">Because only children are allowed to celebrate</div>
-                        <div class="quiz-option" data-correct="true">Because the focus is on children's parades, not military parades</div>
-                        <div class="quiz-option">Because it was created by children</div>
-                    </div>
-                </div>
-                
-                <div class="quiz-question">
-                    <p>2. What did Frederick Douglass's 1852 speech question?</p>
-                    <div class="quiz-options">
-                        <div class="quiz-option">Whether July 4th should have fireworks</div>
-                        <div class="quiz-option">Whether the USA should have a national day</div>
-                        <div class="quiz-option" data-correct="true">Whether the promise of freedom included enslaved people</div>
-                    </div>
-                </div>
-                
-                <div class="quiz-question">
-                    <p>3. How do some Sami people show their identity on 17. mai today?</p>
-                    <div class="quiz-options">
-                        <div class="quiz-option">They don't participate in celebrations</div>
-                        <div class="quiz-option" data-correct="true">They wave the Sami flag alongside the Norwegian flag</div>
-                        <div class="quiz-option">They only celebrate on February 6th</div>
-                    </div>
-                </div>
-                
-                <div class="quiz-question">
-                    <p>4. Why is the UK unusual regarding national days?</p>
-                    <div class="quiz-options">
-                        <div class="quiz-option" data-correct="true">It has no single official national day for the whole country</div>
-                        <div class="quiz-option">It celebrates national day every month</div>
-                        <div class="quiz-option">It only celebrates the King's birthday</div>
-                    </div>
-                </div>
-                
-                <div class="quiz-question">
-                    <p>5. What is the main message of the text?</p>
-                    <div class="quiz-options">
-                        <div class="quiz-option">National days are always positive for everyone</div>
-                        <div class="quiz-option">National days should be cancelled</div>
-                        <div class="quiz-option" data-correct="true">National days can be complicated and raise questions about inclusion</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NEW B1: Opinion Meter -->
-            <div class="exercise-section">
-                <h3>📊 Opinion Meter</h3>
-                <p style="margin-bottom: 1rem; color: #666;">How much do you agree with these statements? Click to show your opinion.</p>
-                
-                <div class="opinion-statements">
-                    <div class="opinion-item">
-                        <p class="opinion-text">"National days help people feel connected to their country."</p>
-                        <div class="opinion-scale">
-                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
-                            <span class="opinion-btn" data-value="2">Disagree</span>
-                            <span class="opinion-btn" data-value="3">Neutral</span>
-                            <span class="opinion-btn" data-value="4">Agree</span>
-                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
-                        </div>
-                    </div>
-                    
-                    <div class="opinion-item">
-                        <p class="opinion-text">"It's possible to have more than one national identity."</p>
-                        <div class="opinion-scale">
-                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
-                            <span class="opinion-btn" data-value="2">Disagree</span>
-                            <span class="opinion-btn" data-value="3">Neutral</span>
-                            <span class="opinion-btn" data-value="4">Agree</span>
-                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
-                        </div>
-                    </div>
-                    
-                    <div class="opinion-item">
-                        <p class="opinion-text">"National celebrations should include all minorities and indigenous peoples."</p>
-                        <div class="opinion-scale">
-                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
-                            <span class="opinion-btn" data-value="2">Disagree</span>
-                            <span class="opinion-btn" data-value="3">Neutral</span>
-                            <span class="opinion-btn" data-value="4">Agree</span>
-                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
-                        </div>
-                    </div>
-                    
-                    <div class="opinion-item">
-                        <p class="opinion-text">"Focusing on children (like Norway) is better than military parades."</p>
-                        <div class="opinion-scale">
-                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
-                            <span class="opinion-btn" data-value="2">Disagree</span>
-                            <span class="opinion-btn" data-value="3">Neutral</span>
-                            <span class="opinion-btn" data-value="4">Agree</span>
-                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NEW B1: Vocabulary in Context -->
-            <div class="exercise-section">
-                <h3>📚 Vocabulary in Context</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Choose the word that best fits each sentence.</p>
-                
-                <div class="fill-blank-exercise">
-                    <div class="fill-blank-sentence">
-                        <p>1. The Sami are the <span class="blank-space" data-answer="indigenous"></span> people of Norway.</p>
-                        <div class="word-bank">
-                            <span class="word-choice" data-word="indigenous">indigenous</span>
-                            <span class="word-choice" data-word="foreign">foreign</span>
-                            <span class="word-choice" data-word="national">national</span>
-                        </div>
-                    </div>
-                    
-                    <div class="fill-blank-sentence">
-                        <p>2. Norway is trying to make 17. mai more <span class="blank-space" data-answer="inclusive"></span> for all groups.</p>
-                        <div class="word-bank">
-                            <span class="word-choice" data-word="exclusive">exclusive</span>
-                            <span class="word-choice" data-word="inclusive">inclusive</span>
-                            <span class="word-choice" data-word="expensive">expensive</span>
-                        </div>
-                    </div>
-                    
-                    <div class="fill-blank-sentence">
-                        <p>3. National days can create a sense of <span class="blank-space" data-answer="belonging"></span> for citizens.</p>
-                        <div class="word-bank">
-                            <span class="word-choice" data-word="belonging">belonging</span>
-                            <span class="word-choice" data-word="confusion">confusion</span>
-                            <span class="word-choice" data-word="anger">anger</span>
-                        </div>
-                    </div>
-                    
-                    <div class="fill-blank-sentence">
-                        <p>4. Many countries have <span class="blank-space" data-answer="diverse"></span> populations with people from many backgrounds.</p>
-                        <div class="word-bank">
-                            <span class="word-choice" data-word="identical">identical</span>
-                            <span class="word-choice" data-word="diverse">diverse</span>
-                            <span class="word-choice" data-word="small">small</span>
-                        </div>
-                    </div>
-                    
-                    <div class="fill-blank-sentence">
-                        <p>5. <span class="blank-space" data-answer="Democracy"></span> means the people have the power to choose their leaders.</p>
-                        <div class="word-bank">
-                            <span class="word-choice" data-word="Monarchy">Monarchy</span>
-                            <span class="word-choice" data-word="Democracy">Democracy</span>
-                            <span class="word-choice" data-word="Dictatorship">Dictatorship</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NEW B1: Argument Builder -->
-            <div class="exercise-section">
-                <h3>💡 Argument Builder</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Build arguments for both sides of the debate. Click to sort each point.</p>
-                
-                <div class="argument-builder">
-                    <div class="argument-sides">
-                        <div class="argument-side for">
-                            <h4>✓ FOR: National days are important</h4>
-                            <div class="argument-drop" data-side="for"></div>
-                        </div>
-                        <div class="argument-side against">
-                            <h4>✗ AGAINST: National days are problematic</h4>
-                            <div class="argument-drop" data-side="against"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="argument-points">
-                        <div class="argument-point" data-correct="for">They bring communities together</div>
-                        <div class="argument-point" data-correct="against">They can exclude minorities</div>
-                        <div class="argument-point" data-correct="for">They teach children about history</div>
-                        <div class="argument-point" data-correct="against">They promote nationalism over global unity</div>
-                        <div class="argument-point" data-correct="for">They celebrate shared values like freedom</div>
-                        <div class="argument-point" data-correct="against">History being celebrated may be one-sided</div>
-                        <div class="argument-point" data-correct="for">They preserve cultural traditions</div>
-                        <div class="argument-point" data-correct="against">Not everyone identifies with the national story</div>
-                    </div>
-                </div>
-                <button class="reset-btn" onclick="resetArguments()">🔄 Start again</button>
-            </div>
-
-            <!-- NEW B1: Sentence Transformation -->
-            <div class="exercise-section">
-                <h3>🔄 Rewrite the Sentence</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Rewrite each sentence using the word in brackets. Type your answer.</p>
-                
-                <div class="transform-exercise">
-                    <div class="transform-item">
-                        <p class="original-sentence"><strong>Original:</strong> Norway celebrates 17. mai. The USA celebrates 4th of July.</p>
-                        <p class="hint">(Use: <strong>while</strong>)</p>
-                        <input type="text" class="transform-input" placeholder="Norway celebrates 17. mai while...">
-                        <p class="transform-answer" style="display: none;">Example: Norway celebrates 17. mai while the USA celebrates 4th of July.</p>
-                    </div>
-                    
-                    <div class="transform-item">
-                        <p class="original-sentence"><strong>Original:</strong> The UK doesn't have a single national day. This is unusual.</p>
-                        <p class="hint">(Use: <strong>which</strong>)</p>
-                        <input type="text" class="transform-input" placeholder="The UK doesn't have a single national day, which...">
-                        <p class="transform-answer" style="display: none;">Example: The UK doesn't have a single national day, which is unusual.</p>
-                    </div>
-                    
-                    <div class="transform-item">
-                        <p class="original-sentence"><strong>Original:</strong> Some people feel excluded from national celebrations. National days can be complicated.</p>
-                        <p class="hint">(Use: <strong>because</strong>)</p>
-                        <input type="text" class="transform-input" placeholder="National days can be complicated because...">
-                        <p class="transform-answer" style="display: none;">Example: National days can be complicated because some people feel excluded from national celebrations.</p>
-                    </div>
-                </div>
-                <button class="check-btn" onclick="showTransformAnswers()">👁️ Show example answers</button>
-            </div>
-
-            <!-- NEW B1: Discussion Dice -->
-            <div class="exercise-section">
-                <h3>🎲 Discussion Dice</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Click the dice to get a random discussion question!</p>
-                
-                <div class="dice-container">
-                    <div class="dice" onclick="rollDice()">🎲</div>
-                    <div class="dice-question" id="diceQuestion">Click the dice to start!</div>
-                </div>
-            </div>
         </section>
     </main>
 
