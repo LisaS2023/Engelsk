@@ -300,6 +300,12 @@ main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding
 .res-card.multi::before { background: radial-gradient(ellipse at top, rgba(255,77,166,0.06), transparent 60%); }
 .multi .card-icon { background: rgba(255,77,166,0.1); box-shadow: 0 0 12px rgba(255,77,166,0.15); }
 .multi .card-tag  { border-color: rgba(255,77,166,0.25); color: var(--pink); background: rgba(255,77,166,0.06); }
+
+/* games card (yellow/gold accent) */
+.res-card.game { --cc: var(--yellow); }
+.res-card.game::before { background: radial-gradient(ellipse at top, rgba(255,215,0,0.06), transparent 60%); }
+.game .card-icon { background: rgba(255,215,0,0.1); box-shadow: 0 0 12px rgba(255,215,0,0.15); }
+.game .card-tag  { border-color: rgba(255,215,0,0.25); color: var(--yellow); background: rgba(255,215,0,0.06); }
 .coming-badge {
   position: absolute; top: 1rem; right: 1rem;
   background: var(--panel); border: 1px solid var(--border);
@@ -583,19 +589,26 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
   <div class="cat-section" id="cat-games" data-cat="games">
     <div class="section-label">🎮 Games & Puzzles</div>
     <div class="cards-grid">
-      <div class="res-card coming" data-level="a1" data-cat="games">
-        <div class="coming-badge">Coming soon</div>
+
+      <a class="res-card game" href="games/index.html" data-level="a1" data-cat="games">
         <div class="card-head">
-          <div class="card-icon">🔒</div>
+          <div class="card-icon">🎮</div>
           <div>
-            <div class="card-level">A1+ · Coming soon</div>
-            <div class="card-title">Games & Puzzles</div>
+            <div class="card-level">A1 · A2 · B1 · 9 activities</div>
+            <div class="card-title">English Games &amp; Puzzles</div>
           </div>
         </div>
-        <div class="card-desc">Fun vocabulary games, word puzzles and interactive challenges.</div>
-        <div class="card-tags"><span class="card-tag">🎯 Interactive</span></div>
-        <div class="card-btn">Coming soon</div>
-      </div>
+        <div class="card-desc">Nine interactive games across three levels — picture quizzes, word matching and spelling (A1), sentence building, gap fill and translation (A2), idioms, grammar and reading (B1).</div>
+        <div class="card-tags">
+          <span class="card-tag">🖼️ Picture quiz</span>
+          <span class="card-tag">🔗 Word match</span>
+          <span class="card-tag">🧩 Sentence builder</span>
+          <span class="card-tag">💬 Idioms</span>
+          <span class="card-tag">🔍 Spot the error</span>
+        </div>
+        <div class="card-btn">Open task →</div>
+      </a>
+
     </div>
   </div>
 
