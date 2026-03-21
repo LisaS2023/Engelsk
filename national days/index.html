@@ -1,0 +1,3094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17. mai og nasjonaldager | National Days</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #BA0C2F;
+            --red-dark: #8B0A24;
+            --blue: #00205B;
+            --blue-light: #003087;
+            --white: #FFFFFF;
+            --cream: #FFF8F0;
+            --gold: #C9A227;
+            --text-dark: #1a1a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 50%, var(--blue) 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Floating flags animation */
+        .flag-decoration {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flag-decoration:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .flag-decoration:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .flag-decoration:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+        .flag-decoration:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 3s; }
+        .flag-decoration:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--white);
+            text-shadow: 3px 3px 0 var(--blue), 6px 6px 0 rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--white);
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .flag-stripe {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 2rem 0;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .stripe {
+            width: 60px;
+            height: 12px;
+        }
+
+        .stripe.red { background: var(--white); border-radius: 6px 0 0 6px; }
+        .stripe.white { background: var(--gold); }
+        .stripe.blue { background: var(--white); border-radius: 0 6px 6px 0; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation */
+        .level-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+
+        .level-btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: 3px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans 3', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .level-btn:hover::before {
+            left: 0;
+        }
+
+        .level-btn:hover {
+            color: var(--red);
+        }
+
+        .level-btn.active {
+            background: var(--white);
+            color: var(--red);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .level-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .level-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--red);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        .section-header .level-badge {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .learning-goals {
+            background: var(--white);
+            padding: 2rem;
+            border-left: 5px solid var(--red);
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .learning-goals h3 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .learning-goals ul {
+            list-style: none;
+        }
+
+        .learning-goals li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .learning-goals li::before {
+            content: '🎯';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Content Cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid var(--red);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            color: var(--white);
+            padding: 1.5rem;
+        }
+
+        .card-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+        }
+
+        .card-header .country-flag {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Vocabulary Section */
+        .vocab-section {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .vocab-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .vocab-item {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            padding: 1rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .vocab-item:hover {
+            border-color: var(--red);
+            transform: scale(1.02);
+        }
+
+        .vocab-item .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocab-item .word {
+            font-weight: 700;
+            color: var(--blue);
+            font-size: 1.1rem;
+        }
+
+        .vocab-item .translation {
+            color: var(--red);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Video Section */
+        .video-section {
+            margin-bottom: 3rem;
+        }
+
+        .video-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--red);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--white);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+
+        .video-card .video-info {
+            padding: 1rem;
+        }
+
+        .video-card h4 {
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Exercises */
+        .exercise-section {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .exercise-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question {
+            background: var(--cream);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--blue);
+        }
+
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem 1rem;
+            background: var(--white);
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--blue);
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .comparison-table th {
+            background: var(--blue);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--cream);
+        }
+
+        /* Discussion Section */
+        .discussion-section {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            color: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .discussion-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .discussion-questions {
+            list-style: none;
+        }
+
+        .discussion-questions li {
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .discussion-question-box {
+            background: rgba(255,255,255,0.1);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--gold);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .discussion-q {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .discussion-section .ai-textarea {
+            background: rgba(255,255,255,0.95);
+            color: var(--text-dark);
+        }
+
+        .discussion-section .ai-feedback-btn {
+            background: var(--gold);
+            color: var(--text-dark);
+        }
+
+        .discussion-section .ai-feedback-btn:hover {
+            background: #d4a72a;
+        }
+
+        .discussion-section .ai-feedback {
+            background: rgba(255,255,255,0.95);
+            color: var(--text-dark);
+        }
+
+        /* Text Section */
+        .reading-text {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            line-height: 1.9;
+        }
+
+        .reading-text h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .reading-text p {
+            margin-bottom: 1rem;
+        }
+
+        .highlight-word {
+            background: linear-gradient(180deg, transparent 60%, rgba(186,12,47,0.2) 60%);
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease;
+        }
+
+        .highlight-word:hover {
+            background: linear-gradient(180deg, transparent 50%, rgba(186,12,47,0.35) 50%);
+        }
+
+        /* Popup tooltip */
+        .word-popup {
+            position: fixed;
+            background: var(--blue);
+            color: var(--white);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        .word-popup.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .word-popup::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 8px 8px 8px;
+            border-style: solid;
+            border-color: transparent transparent var(--blue) transparent;
+        }
+
+        .word-popup .norwegian {
+            color: var(--gold);
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .word-popup .label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Matching Game */
+        .matching-game {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .match-item {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .match-item.english {
+            background: var(--cream);
+        }
+
+        .match-item.norwegian {
+            background: #e8f4f8;
+        }
+
+        .match-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .match-item.selected {
+            border-color: var(--blue);
+            background: var(--blue);
+            color: white;
+        }
+
+        .match-item.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+            pointer-events: none;
+        }
+
+        .match-item.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .reset-btn, .check-btn {
+            display: block;
+            margin: 1.5rem auto 0;
+            padding: 0.75rem 2rem;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .reset-btn:hover, .check-btn:hover {
+            background: var(--blue-light);
+        }
+
+        /* Fill in the Blank */
+        .fill-blank-exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .fill-blank-sentence {
+            background: var(--cream);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .fill-blank-sentence p {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blank-space {
+            display: inline-block;
+            min-width: 120px;
+            border-bottom: 2px dashed var(--blue);
+            padding: 0.25rem 0.5rem;
+            margin: 0 0.25rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .blank-space.filled {
+            background: rgba(0,32,91,0.1);
+            border-bottom-style: solid;
+        }
+
+        .blank-space.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .blank-space.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .word-choice {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .word-choice:hover {
+            border-color: var(--blue);
+            background: #f0f4ff;
+        }
+
+        .word-choice.used {
+            opacity: 0.4;
+            pointer-events: none;
+            text-decoration: line-through;
+        }
+
+        /* Picture Quiz */
+        .picture-quiz {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .picture-question {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .picture-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .picture-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .pic-option {
+            padding: 0.5rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .pic-option:hover {
+            border-color: var(--blue);
+        }
+
+        .pic-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .pic-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        /* Write Exercise */
+        .write-exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .write-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .norwegian-word {
+            font-weight: 700;
+            color: var(--red);
+            font-size: 1.2rem;
+            min-width: 80px;
+        }
+
+        .arrow {
+            color: var(--blue);
+            font-size: 1.2rem;
+        }
+
+        .write-input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .write-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .write-input.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .write-input.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .write-feedback {
+            font-size: 1.2rem;
+        }
+
+        /* Sorting Activity */
+        .sorting-activity {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sorting-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .sort-category {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 200px;
+        }
+
+        .sort-category h4 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .sort-drop-zone {
+            min-height: 150px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sort-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .sort-item {
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .sort-item:hover {
+            border-color: var(--blue);
+            transform: scale(1.02);
+        }
+
+        .sort-item.sorted {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .sort-item.in-zone {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        .sort-item.correct-sort {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .sort-item.incorrect-sort {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        /* Speaking Cards */
+        .speaking-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .speaking-card {
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .speaking-card .card-front,
+        .speaking-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.6s ease;
+            top: 0;
+            left: 0;
+        }
+
+        .speaking-card .card-front {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transform: rotateY(0deg);
+        }
+
+        .speaking-card .card-back {
+            background: var(--cream);
+            color: var(--text-dark);
+            transform: rotateY(180deg);
+            border: 2px solid var(--blue);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .speaking-card.flipped .card-front {
+            transform: rotateY(180deg);
+        }
+
+        .speaking-card.flipped .card-back {
+            transform: rotateY(0deg);
+        }
+
+        /* Opinion Meter */
+        .opinion-statements {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .opinion-item {
+            background: var(--cream);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .opinion-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .opinion-scale {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .opinion-btn {
+            padding: 0.5rem 0.75rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        .opinion-btn:hover {
+            border-color: var(--blue);
+        }
+
+        .opinion-btn.selected {
+            background: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        /* Argument Builder */
+        .argument-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .argument-sides {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .argument-side {
+            padding: 1rem;
+            border-radius: 8px;
+            min-height: 200px;
+        }
+
+        .argument-side.for {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+
+        .argument-side.against {
+            background: #ffebee;
+            border: 2px solid #f44336;
+        }
+
+        .argument-side h4 {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .argument-drop {
+            min-height: 120px;
+            border: 2px dashed #999;
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .argument-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .argument-point {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .argument-point:hover {
+            border-color: var(--blue);
+        }
+
+        .argument-point.placed {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Sentence Transformation */
+        .transform-exercise {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .transform-item {
+            background: var(--cream);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .original-sentence {
+            margin-bottom: 0.5rem;
+        }
+
+        .hint {
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .transform-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .transform-input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .transform-answer {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: #d4edda;
+            border-radius: 6px;
+            font-style: italic;
+        }
+
+        /* Discussion Dice */
+        .dice-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .dice {
+            font-size: 5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .dice:hover {
+            transform: scale(1.1);
+        }
+
+        .dice.rolling {
+            animation: roll 0.5s ease;
+        }
+
+        @keyframes roll {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .dice-question {
+            background: var(--blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        /* AI Writing Box */
+        .ai-writing-box {
+            margin-top: 1rem;
+        }
+
+        .ai-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .ai-feedback-btn {
+            display: block;
+            margin-top: 1rem;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ai-feedback-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,32,91,0.3);
+        }
+
+        .ai-feedback-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .ai-feedback-btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .ai-feedback-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid white;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .ai-feedback {
+            margin-top: 1rem;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border-left: 4px solid #4caf50;
+            border-radius: 0 8px 8px 0;
+            display: none;
+            line-height: 1.7;
+        }
+
+        .ai-feedback.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .ai-feedback h4 {
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-feedback .feedback-section {
+            margin-bottom: 1rem;
+        }
+
+        .ai-feedback .feedback-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .ai-feedback .feedback-label {
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .ai-feedback .strength {
+            color: #2e7d32;
+        }
+
+        .ai-feedback .improvement {
+            color: #c62828;
+        }
+
+        .ai-feedback .tip {
+            color: #1565c0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--blue);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        .footer-flags {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .level-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .level-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="flag-decoration">🇳🇴</div>
+        <div class="flag-decoration">🇺🇸</div>
+        <div class="flag-decoration">🇬🇧</div>
+        <div class="flag-decoration">🇳🇴</div>
+        <div class="flag-decoration">🎉</div>
+
+        <div class="hero-content">
+            <h1>17. mai og nasjonaldager</h1>
+            <p class="subtitle">National Days — Celebrating traditions and identity</p>
+            
+            <div class="flag-stripe">
+                <div class="stripe red"></div>
+                <div class="stripe white"></div>
+                <div class="stripe blue"></div>
+            </div>
+
+            <nav class="level-nav">
+                <button class="level-btn active" data-level="a1">A1 — Beginner</button>
+                <button class="level-btn" data-level="a2">A2 — Elementary</button>
+                <button class="level-btn" data-level="b1">B1 — Intermediate</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- A1 SECTION -->
+        <section id="a1" class="level-section active">
+            <div class="section-header">
+                <span class="level-badge">LEVEL A1</span>
+                <h2>Celebration Words</h2>
+            </div>
+
+            <div class="learning-goals">
+                <h3>Learning Goals</h3>
+                <ul>
+                    <li>I can say words for celebration and flags</li>
+                    <li>I can say what we do on 17. mai</li>
+                    <li>I can understand simple texts about national days</li>
+                </ul>
+            </div>
+
+            <div class="vocab-section">
+                <h3>🎉 Vocabulary — Celebration Words</h3>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <div class="emoji">🇳🇴</div>
+                        <div class="word">flag</div>
+                        <div class="translation">flagg</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎺</div>
+                        <div class="word">parade</div>
+                        <div class="translation">tog / parade</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">👗</div>
+                        <div class="word">bunad</div>
+                        <div class="translation">traditional costume</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎵</div>
+                        <div class="word">marching band</div>
+                        <div class="translation">musikkorps</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🍦</div>
+                        <div class="word">ice cream</div>
+                        <div class="translation">is</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🌭</div>
+                        <div class="word">hot dog</div>
+                        <div class="translation">pølse</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎆</div>
+                        <div class="word">fireworks</div>
+                        <div class="translation">fyrverkeri</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">👑</div>
+                        <div class="word">royal family</div>
+                        <div class="translation">kongefamilien</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🏰</div>
+                        <div class="word">palace</div>
+                        <div class="translation">slott</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎈</div>
+                        <div class="word">balloon</div>
+                        <div class="translation">ballong</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎉</div>
+                        <div class="word">celebration</div>
+                        <div class="translation">feiring</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">📜</div>
+                        <div class="word">constitution</div>
+                        <div class="translation">grunnlov</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reading-text">
+                <h3>📖 Read: 17. mai in Norway</h3>
+                <p>17. mai is Norway's <span class="highlight-word" title="nasjonaldag">national day</span>. On this day, we celebrate the <span class="highlight-word" title="grunnlov">constitution</span> from 1814.</p>
+                <p>Children walk in <span class="highlight-word" title="barnetog">parades</span>. They wave Norwegian <span class="highlight-word" title="flagg">flags</span>. Many people wear a <span class="highlight-word" title="bunad">bunad</span>.</p>
+                <p>We eat <span class="highlight-word" title="is">ice cream</span> and <span class="highlight-word" title="pølser">hot dogs</span>. <span class="highlight-word" title="Musikkorps">Marching bands</span> play music. The <span class="highlight-word" title="kongefamilien">royal family</span> waves from the <span class="highlight-word" title="slott">palace</span> balcony.</p>
+                <p>Everyone says: "Gratulerer med dagen!" — Happy Constitution Day!</p>
+            </div>
+
+            <div class="video-section">
+                <h3>🎬 Watch: 17. mai Celebrations</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/9G9Ox0dcZBY" title="17. mai in Oslo" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>17. mai in Oslo</h4>
+                            <p>Watch the children's parade in the capital</p>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/wfV5UgmSNHk" title="Norwegian Constitution Day" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>Norwegian Constitution Day</h4>
+                            <p>Learn about Norway's national day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Exercise: Match the words</h3>
+                <div class="quiz-question">
+                    <p>1. What do children wave on 17. mai?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">🇳🇴 Flags</div>
+                        <div class="quiz-option">📚 Books</div>
+                        <div class="quiz-option">🎸 Guitars</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <p>2. What is a bunad?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">A type of food</div>
+                        <div class="quiz-option" data-correct="true">A traditional costume</div>
+                        <div class="quiz-option">A musical instrument</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <p>3. What do people eat on 17. mai?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">Pizza and pasta</div>
+                        <div class="quiz-option" data-correct="true">Ice cream and hot dogs</div>
+                        <div class="quiz-option">Rice and fish</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Matching Activity -->
+            <div class="exercise-section">
+                <h3>🔗 Match English and Norwegian</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click on an English word, then click on the matching Norwegian word.</p>
+                <div class="matching-game" id="matchingGame1">
+                    <div class="matching-column">
+                        <div class="match-item english" data-pair="1">flag</div>
+                        <div class="match-item english" data-pair="2">parade</div>
+                        <div class="match-item english" data-pair="3">ice cream</div>
+                        <div class="match-item english" data-pair="4">hot dog</div>
+                        <div class="match-item english" data-pair="5">balloon</div>
+                        <div class="match-item english" data-pair="6">palace</div>
+                    </div>
+                    <div class="matching-column">
+                        <div class="match-item norwegian" data-pair="4">pølse</div>
+                        <div class="match-item norwegian" data-pair="1">flagg</div>
+                        <div class="match-item norwegian" data-pair="6">slott</div>
+                        <div class="match-item norwegian" data-pair="3">is</div>
+                        <div class="match-item norwegian" data-pair="5">ballong</div>
+                        <div class="match-item norwegian" data-pair="2">tog</div>
+                    </div>
+                </div>
+                <button class="reset-btn" onclick="resetMatching('matchingGame1')">🔄 Start again</button>
+            </div>
+
+            <!-- NEW: Fill in the Blank -->
+            <div class="exercise-section">
+                <h3>📝 Fill in the Blank</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Choose the correct word for each sentence.</p>
+                
+                <div class="fill-blank-exercise">
+                    <div class="fill-blank-sentence">
+                        <p>1. On 17. mai, children walk in a <span class="blank-space" data-answer="parade"></span>.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="parade">parade</span>
+                            <span class="word-choice" data-word="car">car</span>
+                            <span class="word-choice" data-word="boat">boat</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>2. Many people wear a traditional <span class="blank-space" data-answer="bunad"></span>.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="hat">hat</span>
+                            <span class="word-choice" data-word="bunad">bunad</span>
+                            <span class="word-choice" data-word="shoe">shoe</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>3. The royal family waves from the <span class="blank-space" data-answer="palace"></span>.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="school">school</span>
+                            <span class="word-choice" data-word="shop">shop</span>
+                            <span class="word-choice" data-word="palace">palace</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>4. <span class="blank-space" data-answer="Marching bands"></span> play music in the streets.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="Marching bands">Marching bands</span>
+                            <span class="word-choice" data-word="Teachers">Teachers</span>
+                            <span class="word-choice" data-word="Dogs">Dogs</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>5. We celebrate the Norwegian <span class="blank-space" data-answer="constitution"></span> from 1814.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="birthday">birthday</span>
+                            <span class="word-choice" data-word="constitution">constitution</span>
+                            <span class="word-choice" data-word="holiday">holiday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Picture Match -->
+            <div class="exercise-section">
+                <h3>🖼️ What do you see on 17. mai?</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click the correct word for each picture.</p>
+                
+                <div class="picture-quiz">
+                    <div class="picture-question">
+                        <div class="picture-emoji">🇳🇴</div>
+                        <div class="picture-options">
+                            <span class="pic-option" data-correct="true">flag</span>
+                            <span class="pic-option">cake</span>
+                            <span class="pic-option">car</span>
+                        </div>
+                    </div>
+                    
+                    <div class="picture-question">
+                        <div class="picture-emoji">🍦</div>
+                        <div class="picture-options">
+                            <span class="pic-option">bread</span>
+                            <span class="pic-option" data-correct="true">ice cream</span>
+                            <span class="pic-option">soup</span>
+                        </div>
+                    </div>
+                    
+                    <div class="picture-question">
+                        <div class="picture-emoji">🌭</div>
+                        <div class="picture-options">
+                            <span class="pic-option">pizza</span>
+                            <span class="pic-option">salad</span>
+                            <span class="pic-option" data-correct="true">hot dog</span>
+                        </div>
+                    </div>
+                    
+                    <div class="picture-question">
+                        <div class="picture-emoji">🎺</div>
+                        <div class="picture-options">
+                            <span class="pic-option" data-correct="true">marching band</span>
+                            <span class="pic-option">football team</span>
+                            <span class="pic-option">dance group</span>
+                        </div>
+                    </div>
+                    
+                    <div class="picture-question">
+                        <div class="picture-emoji">🏰</div>
+                        <div class="picture-options">
+                            <span class="pic-option">house</span>
+                            <span class="pic-option">school</span>
+                            <span class="pic-option" data-correct="true">palace</span>
+                        </div>
+                    </div>
+                    
+                    <div class="picture-question">
+                        <div class="picture-emoji">🎈</div>
+                        <div class="picture-options">
+                            <span class="pic-option">ball</span>
+                            <span class="pic-option" data-correct="true">balloon</span>
+                            <span class="pic-option">apple</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Write the Word -->
+            <div class="exercise-section">
+                <h3>✍️ Write the Word</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Look at the Norwegian word and type the English word.</p>
+                
+                <div class="write-exercise">
+                    <div class="write-item">
+                        <span class="norwegian-word">flagg</span>
+                        <span class="arrow">→</span>
+                        <input type="text" class="write-input" data-answer="flag" placeholder="Type in English...">
+                        <span class="write-feedback"></span>
+                    </div>
+                    
+                    <div class="write-item">
+                        <span class="norwegian-word">is</span>
+                        <span class="arrow">→</span>
+                        <input type="text" class="write-input" data-answer="ice cream" placeholder="Type in English...">
+                        <span class="write-feedback"></span>
+                    </div>
+                    
+                    <div class="write-item">
+                        <span class="norwegian-word">pølse</span>
+                        <span class="arrow">→</span>
+                        <input type="text" class="write-input" data-answer="hot dog" placeholder="Type in English...">
+                        <span class="write-feedback"></span>
+                    </div>
+                    
+                    <div class="write-item">
+                        <span class="norwegian-word">slott</span>
+                        <span class="arrow">→</span>
+                        <input type="text" class="write-input" data-answer="palace" placeholder="Type in English...">
+                        <span class="write-feedback"></span>
+                    </div>
+                    
+                    <div class="write-item">
+                        <span class="norwegian-word">ballong</span>
+                        <span class="arrow">→</span>
+                        <input type="text" class="write-input" data-answer="balloon" placeholder="Type in English...">
+                        <span class="write-feedback"></span>
+                    </div>
+                </div>
+                <button class="check-btn" onclick="checkWriteAnswers()">✓ Check answers</button>
+            </div>
+        </section>
+
+        <!-- A2 SECTION -->
+        <section id="a2" class="level-section">
+            <div class="section-header">
+                <span class="level-badge">LEVEL A2</span>
+                <h2>Comparing National Days</h2>
+            </div>
+
+            <div class="learning-goals">
+                <h3>Learning Goals</h3>
+                <ul>
+                    <li>I can compare Norwegian and English-speaking national days</li>
+                    <li>I can tell about national days in Norway, the UK, and USA</li>
+                    <li>I can describe similarities and differences</li>
+                </ul>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="country-flag">🇳🇴</div>
+                        <h3>Norway — 17. mai</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Date:</strong> May 17th</p>
+                        <p><strong>What we celebrate:</strong> The Constitution of 1814</p>
+                        <p><strong>Traditions:</strong></p>
+                        <ul>
+                            <li>Children's parades (barnetog)</li>
+                            <li>Wearing bunads</li>
+                            <li>Ice cream and hot dogs</li>
+                            <li>Singing national songs</li>
+                            <li>Royal family on the balcony</li>
+                        </ul>
+                        <p><strong>Special:</strong> No military parade — it's a day for children!</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="country-flag">🇺🇸</div>
+                        <h3>USA — 4th of July</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Date:</strong> July 4th</p>
+                        <p><strong>What they celebrate:</strong> Independence from Britain (1776)</p>
+                        <p><strong>Traditions:</strong></p>
+                        <ul>
+                            <li>Big fireworks displays</li>
+                            <li>Barbecues and picnics</li>
+                            <li>Parades with music</li>
+                            <li>Wearing red, white, and blue</li>
+                            <li>Baseball games</li>
+                        </ul>
+                        <p><strong>Special:</strong> Fireworks are the big highlight!</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="country-flag">🇬🇧</div>
+                        <h3>United Kingdom</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Date:</strong> No official national day!</p>
+                        <p><strong>What they celebrate instead:</strong></p>
+                        <ul>
+                            <li>🏴󠁧󠁢󠁥󠁮󠁧󠁿 St. George's Day (England) — April 23</li>
+                            <li>🏴󠁧󠁢󠁳󠁣󠁴󠁿 St. Andrew's Day (Scotland) — Nov 30</li>
+                            <li>🏴󠁧󠁢󠁷󠁬󠁳󠁿 St. David's Day (Wales) — March 1</li>
+                            <li>🇮🇪 St. Patrick's Day (N. Ireland) — March 17</li>
+                        </ul>
+                        <p><strong>Special:</strong> The King's Official Birthday is celebrated in June</p>
+                    </div>
+                </div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>🇳🇴 Norway</th>
+                        <th>🇺🇸 USA</th>
+                        <th>🇬🇧 UK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Main focus</strong></td>
+                        <td>Children and family</td>
+                        <td>Freedom and fireworks</td>
+                        <td>Each country celebrates differently</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Food</strong></td>
+                        <td>Ice cream, hot dogs, cakes</td>
+                        <td>Barbecue, hot dogs, apple pie</td>
+                        <td>Varies by region</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clothing</strong></td>
+                        <td>Bunad (traditional)</td>
+                        <td>Red, white, and blue colors</td>
+                        <td>Normal clothes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Military</strong></td>
+                        <td>No military parade</td>
+                        <td>Some military presence</td>
+                        <td>Royal ceremonies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fireworks</strong></td>
+                        <td>Not common on 17. mai</td>
+                        <td>Very important!</td>
+                        <td>Guy Fawkes Night (Nov 5)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="video-section">
+                <h3>🎬 Watch: Celebrations Around the World</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/vH1D8s2JXa8" title="4th of July" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>4th of July in America</h4>
+                            <p>See how Americans celebrate Independence Day</p>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/GRWbIoIR04c" title="St George's Day" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>St. George's Day</h4>
+                            <p>England's national day celebrations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✏️ Exercise: True or False?</h3>
+                <div class="quiz-question">
+                    <p>1. Norway has military parades on 17. mai.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">True</div>
+                        <div class="quiz-option" data-correct="true">False</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <p>2. The United Kingdom has one official national day.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">True</div>
+                        <div class="quiz-option" data-correct="true">False</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <p>3. Americans celebrate their independence with fireworks.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">True</div>
+                        <div class="quiz-option">False</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <p>4. Bunad is a traditional Norwegian costume.</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">True</div>
+                        <div class="quiz-option">False</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✍️ Writing Task</h3>
+                <p>Write 5-8 sentences comparing 17. mai and 4th of July. Use these words:</p>
+                <p style="margin-top: 1rem; padding: 1rem; background: var(--cream);">
+                    <em>both, but, different, similar, while, celebration, parade, fireworks, children, family</em>
+                </p>
+                <div class="ai-writing-box">
+                    <textarea class="ai-textarea" id="a2WritingTask" placeholder="Write your comparison here..." rows="8"></textarea>
+                    <button class="ai-feedback-btn" onclick="getAIFeedback('a2WritingTask', 'a2', 'Compare 17. mai and 4th of July using comparison words like both, but, while, similar, different. Check if the student uses at least 5 sentences and includes facts about both celebrations.')">
+                        🤖 Get AI Feedback
+                    </button>
+                    <div class="ai-feedback" id="a2WritingTask-feedback"></div>
+                </div>
+            </div>
+
+            <!-- NEW A2: Which Country? -->
+            <div class="exercise-section">
+                <h3>🌍 Which Country?</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Read the sentence and choose the correct country.</p>
+                
+                <div class="country-quiz">
+                    <div class="quiz-question">
+                        <p>1. Children's parades are the main event, not military parades.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option" data-correct="true">🇳🇴 Norway</div>
+                            <div class="quiz-option">🇺🇸 USA</div>
+                            <div class="quiz-option">🇬🇧 UK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p>2. There is no single official national day for the whole country.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option">🇳🇴 Norway</div>
+                            <div class="quiz-option">🇺🇸 USA</div>
+                            <div class="quiz-option" data-correct="true">🇬🇧 UK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p>3. Fireworks are the biggest highlight of the celebration.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option">🇳🇴 Norway</div>
+                            <div class="quiz-option" data-correct="true">🇺🇸 USA</div>
+                            <div class="quiz-option">🇬🇧 UK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p>4. People wear traditional costumes called bunads.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option" data-correct="true">🇳🇴 Norway</div>
+                            <div class="quiz-option">🇺🇸 USA</div>
+                            <div class="quiz-option">🇬🇧 UK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p>5. They celebrate independence from Britain in 1776.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option">🇳🇴 Norway</div>
+                            <div class="quiz-option" data-correct="true">🇺🇸 USA</div>
+                            <div class="quiz-option">🇬🇧 UK</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <p>6. St. George's Day is celebrated on April 23rd.</p>
+                        <div class="quiz-options country-options">
+                            <div class="quiz-option">🇳🇴 Norway</div>
+                            <div class="quiz-option">🇺🇸 USA</div>
+                            <div class="quiz-option" data-correct="true">🇬🇧 UK (England)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW A2: Complete the Sentence -->
+            <div class="exercise-section">
+                <h3>📝 Complete the Comparison</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Choose the correct word to complete each comparison sentence.</p>
+                
+                <div class="fill-blank-exercise">
+                    <div class="fill-blank-sentence">
+                        <p>1. Both Norway and the USA have parades, <span class="blank-space" data-answer="but"></span> Norway focuses on children while the USA includes military.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="but">but</span>
+                            <span class="word-choice" data-word="and">and</span>
+                            <span class="word-choice" data-word="because">because</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>2. The USA celebrates independence, <span class="blank-space" data-answer="while"></span> Norway celebrates its constitution.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="while">while</span>
+                            <span class="word-choice" data-word="because">because</span>
+                            <span class="word-choice" data-word="so">so</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>3. Fireworks are very important in the USA. <span class="blank-space" data-answer="However"></span>, Norway does not have fireworks on 17. mai.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="However">However</span>
+                            <span class="word-choice" data-word="Also">Also</span>
+                            <span class="word-choice" data-word="Because">Because</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>4. The UK is <span class="blank-space" data-answer="different"></span> from Norway and the USA because it has no single national day.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="similar">similar</span>
+                            <span class="word-choice" data-word="different">different</span>
+                            <span class="word-choice" data-word="same">same</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>5. <span class="blank-space" data-answer="Both"></span> Norway and the USA eat hot dogs on their national days.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="Both">Both</span>
+                            <span class="word-choice" data-word="Neither">Neither</span>
+                            <span class="word-choice" data-word="Only">Only</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW A2: Matching Traditions -->
+            <div class="exercise-section">
+                <h3>🔗 Match the Tradition to the Country</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click on a tradition, then click on the country where it belongs.</p>
+                <div class="matching-game" id="matchingGame2">
+                    <div class="matching-column">
+                        <div class="match-item english" data-pair="1">Bunad</div>
+                        <div class="match-item english" data-pair="2">Fireworks</div>
+                        <div class="match-item english" data-pair="3">St. Patrick's Day</div>
+                        <div class="match-item english" data-pair="1">Barnetog</div>
+                        <div class="match-item english" data-pair="2">Barbecue</div>
+                        <div class="match-item english" data-pair="3">Guy Fawkes Night</div>
+                    </div>
+                    <div class="matching-column">
+                        <div class="match-item norwegian" data-pair="2">🇺🇸 USA</div>
+                        <div class="match-item norwegian" data-pair="1">🇳🇴 Norway</div>
+                        <div class="match-item norwegian" data-pair="3">🇬🇧 UK</div>
+                    </div>
+                </div>
+                <button class="reset-btn" onclick="resetMatching('matchingGame2')">🔄 Start again</button>
+            </div>
+
+            <!-- NEW A2: Sorting Activity -->
+            <div class="exercise-section">
+                <h3>📊 Sort: Similarities and Differences</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click each statement to sort it into the correct category.</p>
+                
+                <div class="sorting-activity">
+                    <div class="sorting-categories">
+                        <div class="sort-category" data-category="similar">
+                            <h4>🤝 Similar</h4>
+                            <div class="sort-drop-zone" data-accept="similar"></div>
+                        </div>
+                        <div class="sort-category" data-category="different">
+                            <h4>↔️ Different</h4>
+                            <div class="sort-drop-zone" data-accept="different"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="sort-items">
+                        <div class="sort-item" data-correct="similar">Both have parades</div>
+                        <div class="sort-item" data-correct="different">Only Norway has bunads</div>
+                        <div class="sort-item" data-correct="similar">Both eat hot dogs</div>
+                        <div class="sort-item" data-correct="different">Only USA has fireworks</div>
+                        <div class="sort-item" data-correct="similar">Both wave flags</div>
+                        <div class="sort-item" data-correct="different">UK has no national day</div>
+                        <div class="sort-item" data-correct="similar">Both are in May/July</div>
+                        <div class="sort-item" data-correct="different">Only Norway focuses on children</div>
+                    </div>
+                </div>
+                <button class="reset-btn" onclick="resetSorting()">🔄 Start again</button>
+            </div>
+
+            <!-- NEW A2: Speaking Cards -->
+            <div class="exercise-section">
+                <h3>🗣️ Speaking Practice</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click a card to see a question. Practice answering with a partner.</p>
+                
+                <div class="speaking-cards">
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">🇳🇴 Card 1</div>
+                        <div class="card-back">Describe three things people do on 17. mai.</div>
+                    </div>
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">🇺🇸 Card 2</div>
+                        <div class="card-back">What is special about 4th of July celebrations?</div>
+                    </div>
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">🇬🇧 Card 3</div>
+                        <div class="card-back">Why doesn't the UK have one national day?</div>
+                    </div>
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">🤔 Card 4</div>
+                        <div class="card-back">What is similar about 17. mai and 4th of July?</div>
+                    </div>
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">🍽️ Card 5</div>
+                        <div class="card-back">Compare the food traditions in Norway and USA.</div>
+                    </div>
+                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
+                        <div class="card-front">💭 Card 6</div>
+                        <div class="card-back">Which national day would you like to experience? Why?</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- B1 SECTION -->
+        <section id="b1" class="level-section">
+            <div class="section-header">
+                <span class="level-badge">LEVEL B1</span>
+                <h2>Identity and Belonging</h2>
+            </div>
+
+            <div class="learning-goals">
+                <h3>Learning Goals</h3>
+                <ul>
+                    <li>I can discuss national days and what they mean for identity</li>
+                    <li>I can express and support my opinions</li>
+                    <li>I can reflect on nationalism, traditions, and belonging</li>
+                </ul>
+            </div>
+
+            <div class="reading-text">
+                <h3>📖 Read: What Do National Days Mean?</h3>
+                <p>National days are more than just holidays. They are days when people come together to celebrate their country, their history, and their shared identity. But what does it really mean to celebrate a national day, and who gets to feel included?</p>
+                
+                <p>In Norway, 17. mai is often called "barnas dag" — the children's day. Unlike many other countries, Norway doesn't have military parades. Instead, schoolchildren walk through the streets waving flags and singing songs. The focus is on joy, community, and the Constitution of 1814, which gave Norway one of the most democratic governments in Europe at that time.</p>
+                
+                <p>However, not everyone has always felt included in 17. mai celebrations. For many years, the Sami people — Norway's indigenous population — were not allowed to speak their own language or practice their own traditions. Today, many Sami people celebrate 17. mai, but some also celebrate their own national day on February 6th. Some people wave the Sami flag alongside the Norwegian flag on 17. mai.</p>
+                
+                <p>In the United States, July 4th celebrates independence from Britain in 1776. The Declaration of Independence stated that "all men are created equal" — but at that time, enslaved people and women did not have the same rights. The famous abolitionist Frederick Douglass gave a powerful speech in 1852 asking, "What to the Slave is the Fourth of July?" He pointed out that the promise of freedom did not include everyone.</p>
+                
+                <p>The United Kingdom is unusual because it doesn't have an official national day. Each nation within the UK — England, Scotland, Wales, and Northern Ireland — has its own celebration. Some people think this reflects the diversity of British identity, while others argue that a shared national day could bring people together.</p>
+                
+                <p>National days can be complicated. They can make people feel proud and connected, but they can also raise questions about who belongs and whose history is being celebrated. As our societies become more diverse, many people are thinking about how to make national celebrations more inclusive.</p>
+            </div>
+
+            <div class="discussion-section">
+                <h3>💬 Discussion Questions</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.9;">Answer the questions below. Write at least 3-4 sentences for each answer.</p>
+                
+                <div class="discussion-question-box">
+                    <p class="discussion-q"><strong>1.</strong> Why do you think Norway chose to focus on children rather than the military for 17. mai?</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Discussion1" placeholder="Write your answer here..." rows="4"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion1', 'b1', 'Question: Why did Norway choose to focus on children rather than the military for 17. mai? Check if the student gives reasons, uses examples or logic, and expresses their thoughts clearly.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Discussion1-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="discussion-question-box">
+                    <p class="discussion-q"><strong>2.</strong> How can national days be made more inclusive for minorities and indigenous peoples?</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Discussion2" placeholder="Write your answer here..." rows="4"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion2', 'b1', 'Question: How can national days be more inclusive for minorities and indigenous peoples? Check if the student gives concrete suggestions, shows understanding of inclusion, and expresses ideas clearly.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Discussion2-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="discussion-question-box">
+                    <p class="discussion-q"><strong>3.</strong> Do you think it's important for a country to have a national day? Why or why not?</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Discussion3" placeholder="Write your answer here..." rows="4"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion3', 'b1', 'Question: Is it important for a country to have a national day? Check if the student states their opinion clearly, gives reasons to support it, and considers different perspectives.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Discussion3-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="discussion-question-box">
+                    <p class="discussion-q"><strong>4.</strong> What does national identity mean to you? Can you have multiple identities?</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Discussion4" placeholder="Write your answer here..." rows="4"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion4', 'b1', 'Question: What does national identity mean to you? Can you have multiple identities? Check if the student reflects personally, explains their understanding of identity, and answers both parts of the question.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Discussion4-feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="discussion-question-box">
+                    <p class="discussion-q"><strong>5.</strong> Should the UK have one official national day? What are the arguments for and against?</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Discussion5" placeholder="Write your answer here..." rows="4"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Discussion5', 'b1', 'Question: Should the UK have one official national day? Check if the student presents arguments for AND against, shows balanced thinking, and states their own conclusion.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Discussion5-feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <h3>🎬 Watch: Different Perspectives</h3>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/nOPyVg4RQIA" title="Sami National Day" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>Sami National Day</h4>
+                            <p>Learn about the Sami people's celebrations on February 6th</p>
+                        </div>
+                    </div>
+                    <div class="video-card">
+                        <iframe src="https://www.youtube.com/embed/O-ZblMfZpuw" title="Frederick Douglass" allowfullscreen></iframe>
+                        <div class="video-info">
+                            <h4>What to the Slave is the 4th of July?</h4>
+                            <p>Frederick Douglass's famous speech (dramatized)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>📝 Vocabulary: Key Concepts</h3>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <div class="emoji">🤝</div>
+                        <div class="word">identity</div>
+                        <div class="translation">who you are</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🏛️</div>
+                        <div class="word">democracy</div>
+                        <div class="translation">government by the people</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🌍</div>
+                        <div class="word">indigenous</div>
+                        <div class="translation">original inhabitants</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🎭</div>
+                        <div class="word">tradition</div>
+                        <div class="translation">customs passed down</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🤗</div>
+                        <div class="word">inclusive</div>
+                        <div class="translation">including everyone</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🏳️</div>
+                        <div class="word">nationalism</div>
+                        <div class="translation">strong national identity</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">🔗</div>
+                        <div class="word">belonging</div>
+                        <div class="translation">feeling part of something</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="emoji">📊</div>
+                        <div class="word">diverse</div>
+                        <div class="translation">varied, different</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>✍️ Writing and Speaking Tasks</h3>
+                
+                <div style="background: var(--cream); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--red); border-radius: 0 8px 8px 0;">
+                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 1: Opinion Essay</h4>
+                    <p>Write 200-250 words answering this question:</p>
+                    <p><strong>"Should national days change to reflect more diverse societies?"</strong></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Include: your opinion, at least two arguments with examples, and a conclusion.</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1OpinionEssay" placeholder="Write your opinion essay here..." rows="10"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1OpinionEssay', 'b1', 'This is an opinion essay about whether national days should change to reflect diverse societies. Check for: clear opinion statement, at least 2 arguments with examples, a conclusion, appropriate B1 level vocabulary, and approximately 200-250 words.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1OpinionEssay-feedback"></div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--cream); padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0;">
+                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 2: Presentation Script</h4>
+                    <p>Write a script for a 3-minute presentation about national celebrations in a country of your choice.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Include: history, traditions, food, and your personal reflection on what the day means.</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Presentation" placeholder="Write your presentation script here..." rows="10"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Presentation', 'b1', 'This is a presentation script about a national celebration. Check for: introduction of the country and celebration, history section, traditions section, food section, personal reflection, clear structure, and appropriate length for 3 minutes.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Presentation-feedback"></div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--cream); padding: 1.5rem; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0;">
+                    <h4 style="color: var(--blue); margin-bottom: 0.5rem;">Task 3: Debate Arguments</h4>
+                    <p>Write arguments for a debate on this topic:</p>
+                    <p><strong>"National days are outdated in a globalized world."</strong></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Write arguments for OR against. Include evidence and examples!</p>
+                    <div class="ai-writing-box">
+                        <textarea class="ai-textarea" id="b1Debate" placeholder="Write your debate arguments here (state if you are FOR or AGAINST)..." rows="8"></textarea>
+                        <button class="ai-feedback-btn" onclick="getAIFeedback('b1Debate', 'b1', 'These are debate arguments about whether national days are outdated. Check for: clear position (for or against), at least 2-3 strong arguments, use of evidence or examples, persuasive language, and logical structure.')">
+                            🤖 Get AI Feedback
+                        </button>
+                        <div class="ai-feedback" id="b1Debate-feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>🔍 Research Task</h3>
+                <p>Choose one of these topics and write a short report:</p>
+                <ul style="margin-top: 1rem; margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li>How do immigrants celebrate their new country's national day while keeping their own traditions?</li>
+                    <li>What is Juneteenth in the USA, and why is it important?</li>
+                    <li>How is 17. mai celebrated by Norwegians living abroad?</li>
+                    <li>Compare how two different countries celebrate their independence</li>
+                </ul>
+                <div class="ai-writing-box">
+                    <textarea class="ai-textarea" id="b1Research" placeholder="Write your research report here..." rows="10"></textarea>
+                    <button class="ai-feedback-btn" onclick="getAIFeedback('b1Research', 'b1', 'This is a research report on a topic related to national days. Check for: clear topic focus, factual information, good organization, personal analysis or reflection, and appropriate B1 level language.')">
+                        🤖 Get AI Feedback
+                    </button>
+                    <div class="ai-feedback" id="b1Research-feedback"></div>
+                </div>
+            </div>
+
+            <!-- NEW B1: Reading Comprehension -->
+            <div class="exercise-section">
+                <h3>📖 Reading Comprehension</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Answer the questions based on the text above.</p>
+                
+                <div class="quiz-question">
+                    <p>1. Why is 17. mai called "barnas dag" (children's day)?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">Because only children are allowed to celebrate</div>
+                        <div class="quiz-option" data-correct="true">Because the focus is on children's parades, not military parades</div>
+                        <div class="quiz-option">Because it was created by children</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>2. What did Frederick Douglass's 1852 speech question?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">Whether July 4th should have fireworks</div>
+                        <div class="quiz-option">Whether the USA should have a national day</div>
+                        <div class="quiz-option" data-correct="true">Whether the promise of freedom included enslaved people</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>3. How do some Sami people show their identity on 17. mai today?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">They don't participate in celebrations</div>
+                        <div class="quiz-option" data-correct="true">They wave the Sami flag alongside the Norwegian flag</div>
+                        <div class="quiz-option">They only celebrate on February 6th</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>4. Why is the UK unusual regarding national days?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="true">It has no single official national day for the whole country</div>
+                        <div class="quiz-option">It celebrates national day every month</div>
+                        <div class="quiz-option">It only celebrates the King's birthday</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <p>5. What is the main message of the text?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option">National days are always positive for everyone</div>
+                        <div class="quiz-option">National days should be cancelled</div>
+                        <div class="quiz-option" data-correct="true">National days can be complicated and raise questions about inclusion</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW B1: Opinion Meter -->
+            <div class="exercise-section">
+                <h3>📊 Opinion Meter</h3>
+                <p style="margin-bottom: 1rem; color: #666;">How much do you agree with these statements? Click to show your opinion.</p>
+                
+                <div class="opinion-statements">
+                    <div class="opinion-item">
+                        <p class="opinion-text">"National days help people feel connected to their country."</p>
+                        <div class="opinion-scale">
+                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
+                            <span class="opinion-btn" data-value="2">Disagree</span>
+                            <span class="opinion-btn" data-value="3">Neutral</span>
+                            <span class="opinion-btn" data-value="4">Agree</span>
+                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
+                        </div>
+                    </div>
+                    
+                    <div class="opinion-item">
+                        <p class="opinion-text">"It's possible to have more than one national identity."</p>
+                        <div class="opinion-scale">
+                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
+                            <span class="opinion-btn" data-value="2">Disagree</span>
+                            <span class="opinion-btn" data-value="3">Neutral</span>
+                            <span class="opinion-btn" data-value="4">Agree</span>
+                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
+                        </div>
+                    </div>
+                    
+                    <div class="opinion-item">
+                        <p class="opinion-text">"National celebrations should include all minorities and indigenous peoples."</p>
+                        <div class="opinion-scale">
+                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
+                            <span class="opinion-btn" data-value="2">Disagree</span>
+                            <span class="opinion-btn" data-value="3">Neutral</span>
+                            <span class="opinion-btn" data-value="4">Agree</span>
+                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
+                        </div>
+                    </div>
+                    
+                    <div class="opinion-item">
+                        <p class="opinion-text">"Focusing on children (like Norway) is better than military parades."</p>
+                        <div class="opinion-scale">
+                            <span class="opinion-btn" data-value="1">Strongly Disagree</span>
+                            <span class="opinion-btn" data-value="2">Disagree</span>
+                            <span class="opinion-btn" data-value="3">Neutral</span>
+                            <span class="opinion-btn" data-value="4">Agree</span>
+                            <span class="opinion-btn" data-value="5">Strongly Agree</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW B1: Vocabulary in Context -->
+            <div class="exercise-section">
+                <h3>📚 Vocabulary in Context</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Choose the word that best fits each sentence.</p>
+                
+                <div class="fill-blank-exercise">
+                    <div class="fill-blank-sentence">
+                        <p>1. The Sami are the <span class="blank-space" data-answer="indigenous"></span> people of Norway.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="indigenous">indigenous</span>
+                            <span class="word-choice" data-word="foreign">foreign</span>
+                            <span class="word-choice" data-word="national">national</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>2. Norway is trying to make 17. mai more <span class="blank-space" data-answer="inclusive"></span> for all groups.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="exclusive">exclusive</span>
+                            <span class="word-choice" data-word="inclusive">inclusive</span>
+                            <span class="word-choice" data-word="expensive">expensive</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>3. National days can create a sense of <span class="blank-space" data-answer="belonging"></span> for citizens.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="belonging">belonging</span>
+                            <span class="word-choice" data-word="confusion">confusion</span>
+                            <span class="word-choice" data-word="anger">anger</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>4. Many countries have <span class="blank-space" data-answer="diverse"></span> populations with people from many backgrounds.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="identical">identical</span>
+                            <span class="word-choice" data-word="diverse">diverse</span>
+                            <span class="word-choice" data-word="small">small</span>
+                        </div>
+                    </div>
+                    
+                    <div class="fill-blank-sentence">
+                        <p>5. <span class="blank-space" data-answer="Democracy"></span> means the people have the power to choose their leaders.</p>
+                        <div class="word-bank">
+                            <span class="word-choice" data-word="Monarchy">Monarchy</span>
+                            <span class="word-choice" data-word="Democracy">Democracy</span>
+                            <span class="word-choice" data-word="Dictatorship">Dictatorship</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW B1: Argument Builder -->
+            <div class="exercise-section">
+                <h3>💡 Argument Builder</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Build arguments for both sides of the debate. Click to sort each point.</p>
+                
+                <div class="argument-builder">
+                    <div class="argument-sides">
+                        <div class="argument-side for">
+                            <h4>✓ FOR: National days are important</h4>
+                            <div class="argument-drop" data-side="for"></div>
+                        </div>
+                        <div class="argument-side against">
+                            <h4>✗ AGAINST: National days are problematic</h4>
+                            <div class="argument-drop" data-side="against"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="argument-points">
+                        <div class="argument-point" data-correct="for">They bring communities together</div>
+                        <div class="argument-point" data-correct="against">They can exclude minorities</div>
+                        <div class="argument-point" data-correct="for">They teach children about history</div>
+                        <div class="argument-point" data-correct="against">They promote nationalism over global unity</div>
+                        <div class="argument-point" data-correct="for">They celebrate shared values like freedom</div>
+                        <div class="argument-point" data-correct="against">History being celebrated may be one-sided</div>
+                        <div class="argument-point" data-correct="for">They preserve cultural traditions</div>
+                        <div class="argument-point" data-correct="against">Not everyone identifies with the national story</div>
+                    </div>
+                </div>
+                <button class="reset-btn" onclick="resetArguments()">🔄 Start again</button>
+            </div>
+
+            <!-- NEW B1: Sentence Transformation -->
+            <div class="exercise-section">
+                <h3>🔄 Rewrite the Sentence</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Rewrite each sentence using the word in brackets. Type your answer.</p>
+                
+                <div class="transform-exercise">
+                    <div class="transform-item">
+                        <p class="original-sentence"><strong>Original:</strong> Norway celebrates 17. mai. The USA celebrates 4th of July.</p>
+                        <p class="hint">(Use: <strong>while</strong>)</p>
+                        <input type="text" class="transform-input" placeholder="Norway celebrates 17. mai while...">
+                        <p class="transform-answer" style="display: none;">Example: Norway celebrates 17. mai while the USA celebrates 4th of July.</p>
+                    </div>
+                    
+                    <div class="transform-item">
+                        <p class="original-sentence"><strong>Original:</strong> The UK doesn't have a single national day. This is unusual.</p>
+                        <p class="hint">(Use: <strong>which</strong>)</p>
+                        <input type="text" class="transform-input" placeholder="The UK doesn't have a single national day, which...">
+                        <p class="transform-answer" style="display: none;">Example: The UK doesn't have a single national day, which is unusual.</p>
+                    </div>
+                    
+                    <div class="transform-item">
+                        <p class="original-sentence"><strong>Original:</strong> Some people feel excluded from national celebrations. National days can be complicated.</p>
+                        <p class="hint">(Use: <strong>because</strong>)</p>
+                        <input type="text" class="transform-input" placeholder="National days can be complicated because...">
+                        <p class="transform-answer" style="display: none;">Example: National days can be complicated because some people feel excluded from national celebrations.</p>
+                    </div>
+                </div>
+                <button class="check-btn" onclick="showTransformAnswers()">👁️ Show example answers</button>
+            </div>
+
+            <!-- NEW B1: Discussion Dice -->
+            <div class="exercise-section">
+                <h3>🎲 Discussion Dice</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Click the dice to get a random discussion question!</p>
+                
+                <div class="dice-container">
+                    <div class="dice" onclick="rollDice()">🎲</div>
+                    <div class="dice-question" id="diceQuestion">Click the dice to start!</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-flags">🇳🇴 🇺🇸 🇬🇧</div>
+        <p>17. mai og nasjonaldager — Learning Resource</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">English for Minorities | Levels A1-B1</p>
+    </footer>
+
+    <script>
+        // Level navigation
+        const levelBtns = document.querySelectorAll('.level-btn');
+        const levelSections = document.querySelectorAll('.level-section');
+
+        levelBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const level = btn.dataset.level;
+                
+                // Update buttons
+                levelBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update sections
+                levelSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === level) {
+                        section.classList.add('active');
+                    }
+                });
+
+                // Scroll to main content
+                document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Quiz functionality
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        
+        quizOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const parent = option.closest('.quiz-question');
+                const options = parent.querySelectorAll('.quiz-option');
+                
+                // Reset all options in this question
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+                
+                // Mark the selected option
+                if (option.dataset.correct === 'true') {
+                    option.classList.add('correct');
+                } else {
+                    option.classList.add('incorrect');
+                    // Show correct answer
+                    options.forEach(opt => {
+                        if (opt.dataset.correct === 'true') {
+                            opt.classList.add('correct');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Vocabulary item click effect
+        const vocabItems = document.querySelectorAll('.vocab-item');
+        vocabItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    item.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Word popup functionality
+        // Create popup element
+        const popup = document.createElement('div');
+        popup.className = 'word-popup';
+        document.body.appendChild(popup);
+
+        // Handle highlight word clicks
+        const highlightWords = document.querySelectorAll('.highlight-word');
+        let activeWord = null;
+
+        highlightWords.forEach(word => {
+            word.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const norwegianWord = word.getAttribute('title');
+                const englishWord = word.textContent;
+                
+                if (activeWord === word && popup.classList.contains('visible')) {
+                    // If clicking same word, hide popup
+                    popup.classList.remove('visible');
+                    activeWord = null;
+                    return;
+                }
+                
+                activeWord = word;
+                
+                // Set popup content
+                popup.innerHTML = `
+                    <div class="label">På norsk:</div>
+                    <span class="norwegian">${norwegianWord}</span>
+                `;
+                
+                // Position popup below the word
+                const rect = word.getBoundingClientRect();
+                const popupWidth = 180;
+                
+                let left = rect.left + (rect.width / 2) - (popupWidth / 2);
+                // Keep popup within screen bounds
+                if (left < 10) left = 10;
+                if (left + popupWidth > window.innerWidth - 10) {
+                    left = window.innerWidth - popupWidth - 10;
+                }
+                
+                popup.style.left = left + 'px';
+                popup.style.top = (rect.bottom + 10 + window.scrollY) + 'px';
+                popup.style.width = popupWidth + 'px';
+                
+                // For fixed positioning, use viewport coordinates
+                popup.style.top = (rect.bottom + 10) + 'px';
+                
+                // Show popup
+                popup.classList.add('visible');
+            });
+        });
+
+        // Hide popup when clicking elsewhere
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('highlight-word')) {
+                popup.classList.remove('visible');
+                activeWord = null;
+            }
+        });
+
+        // Hide popup on scroll
+        window.addEventListener('scroll', () => {
+            popup.classList.remove('visible');
+            activeWord = null;
+        });
+
+        // ========== MATCHING GAME ==========
+        let selectedMatch = null;
+
+        document.querySelectorAll('.match-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (item.classList.contains('correct')) return;
+
+                if (!selectedMatch) {
+                    // First selection
+                    selectedMatch = item;
+                    item.classList.add('selected');
+                } else {
+                    // Second selection
+                    if (selectedMatch === item) {
+                        // Clicked same item, deselect
+                        selectedMatch.classList.remove('selected');
+                        selectedMatch = null;
+                        return;
+                    }
+
+                    // Check if one is English and one is Norwegian
+                    const isFirstEnglish = selectedMatch.classList.contains('english');
+                    const isSecondEnglish = item.classList.contains('english');
+
+                    if (isFirstEnglish === isSecondEnglish) {
+                        // Same column, switch selection
+                        selectedMatch.classList.remove('selected');
+                        selectedMatch = item;
+                        item.classList.add('selected');
+                        return;
+                    }
+
+                    // Check if match is correct
+                    if (selectedMatch.dataset.pair === item.dataset.pair) {
+                        // Correct match!
+                        selectedMatch.classList.remove('selected');
+                        selectedMatch.classList.add('correct');
+                        item.classList.add('correct');
+                    } else {
+                        // Incorrect match
+                        item.classList.add('incorrect');
+                        setTimeout(() => {
+                            item.classList.remove('incorrect');
+                        }, 500);
+                    }
+                    selectedMatch.classList.remove('selected');
+                    selectedMatch = null;
+                }
+            });
+        });
+
+        function resetMatching(gameId) {
+            const game = document.getElementById(gameId);
+            game.querySelectorAll('.match-item').forEach(item => {
+                item.classList.remove('correct', 'selected', 'incorrect');
+            });
+            selectedMatch = null;
+        }
+
+        // ========== FILL IN THE BLANK ==========
+        document.querySelectorAll('.word-choice').forEach(word => {
+            word.addEventListener('click', () => {
+                if (word.classList.contains('used')) return;
+
+                const sentence = word.closest('.fill-blank-sentence');
+                const blank = sentence.querySelector('.blank-space');
+                const correctAnswer = blank.dataset.answer;
+
+                // If blank already has a word, release it
+                if (blank.textContent) {
+                    const previousWord = sentence.querySelector(`.word-choice[data-word="${blank.textContent}"]`);
+                    if (previousWord) {
+                        previousWord.classList.remove('used');
+                    }
+                    blank.classList.remove('filled', 'correct', 'incorrect');
+                }
+
+                // Fill in the blank
+                blank.textContent = word.dataset.word;
+                blank.classList.add('filled');
+                word.classList.add('used');
+
+                // Check if correct
+                if (word.dataset.word === correctAnswer) {
+                    blank.classList.add('correct');
+                } else {
+                    blank.classList.add('incorrect');
+                }
+            });
+        });
+
+        // ========== PICTURE QUIZ ==========
+        document.querySelectorAll('.pic-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const question = option.closest('.picture-question');
+                const options = question.querySelectorAll('.pic-option');
+
+                // Reset options in this question
+                options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+
+                // Mark selection
+                if (option.dataset.correct === 'true') {
+                    option.classList.add('correct');
+                } else {
+                    option.classList.add('incorrect');
+                    // Show correct answer
+                    options.forEach(opt => {
+                        if (opt.dataset.correct === 'true') {
+                            opt.classList.add('correct');
+                        }
+                    });
+                }
+            });
+        });
+
+        // ========== WRITE EXERCISE ==========
+        function checkWriteAnswers() {
+            document.querySelectorAll('.write-input').forEach(input => {
+                const correctAnswer = input.dataset.answer.toLowerCase();
+                const userAnswer = input.value.trim().toLowerCase();
+                const feedback = input.nextElementSibling;
+
+                input.classList.remove('correct', 'incorrect');
+
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    feedback.textContent = '✓';
+                } else if (userAnswer === '') {
+                    feedback.textContent = '';
+                } else {
+                    input.classList.add('incorrect');
+                    feedback.textContent = '✗';
+                }
+            });
+        }
+
+        // Check on Enter key
+        document.querySelectorAll('.write-input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    checkWriteAnswers();
+                }
+            });
+        });
+
+        // ========== SORTING ACTIVITY ==========
+        let selectedSortItem = null;
+
+        document.querySelectorAll('.sort-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (item.classList.contains('sorted')) return;
+                
+                if (selectedSortItem === item) {
+                    item.classList.remove('selected');
+                    selectedSortItem = null;
+                    return;
+                }
+
+                // Remove previous selection
+                document.querySelectorAll('.sort-item').forEach(i => i.classList.remove('selected'));
+                
+                selectedSortItem = item;
+                item.classList.add('selected');
+            });
+        });
+
+        document.querySelectorAll('.sort-drop-zone').forEach(zone => {
+            zone.addEventListener('click', () => {
+                if (!selectedSortItem) return;
+
+                const correctCategory = selectedSortItem.dataset.correct;
+                const zoneCategory = zone.dataset.accept;
+
+                const clone = selectedSortItem.cloneNode(true);
+                clone.classList.remove('selected');
+                clone.classList.add('in-zone');
+                
+                if (correctCategory === zoneCategory) {
+                    clone.classList.add('correct-sort');
+                } else {
+                    clone.classList.add('incorrect-sort');
+                }
+
+                zone.appendChild(clone);
+                selectedSortItem.classList.add('sorted');
+                selectedSortItem.classList.remove('selected');
+                selectedSortItem = null;
+            });
+        });
+
+        function resetSorting() {
+            document.querySelectorAll('.sort-item').forEach(item => {
+                item.classList.remove('sorted', 'selected');
+            });
+            document.querySelectorAll('.sort-drop-zone').forEach(zone => {
+                zone.innerHTML = '';
+            });
+            selectedSortItem = null;
+        }
+
+        // ========== OPINION METER ==========
+        document.querySelectorAll('.opinion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const scale = btn.closest('.opinion-scale');
+                scale.querySelectorAll('.opinion-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+
+        // ========== ARGUMENT BUILDER ==========
+        let selectedArgument = null;
+
+        document.querySelectorAll('.argument-point').forEach(point => {
+            point.addEventListener('click', () => {
+                if (point.classList.contains('placed')) return;
+                
+                if (selectedArgument === point) {
+                    point.classList.remove('selected');
+                    selectedArgument = null;
+                    return;
+                }
+
+                document.querySelectorAll('.argument-point').forEach(p => p.classList.remove('selected'));
+                selectedArgument = point;
+                point.classList.add('selected');
+            });
+        });
+
+        document.querySelectorAll('.argument-drop').forEach(drop => {
+            drop.addEventListener('click', () => {
+                if (!selectedArgument) return;
+
+                const correctSide = selectedArgument.dataset.correct;
+                const dropSide = drop.dataset.side;
+
+                const clone = selectedArgument.cloneNode(true);
+                clone.classList.remove('selected');
+                
+                if (correctSide === dropSide) {
+                    clone.style.background = '#c8e6c9';
+                    clone.style.borderColor = '#4caf50';
+                } else {
+                    clone.style.background = '#ffcdd2';
+                    clone.style.borderColor = '#f44336';
+                }
+
+                drop.appendChild(clone);
+                selectedArgument.classList.add('placed');
+                selectedArgument.classList.remove('selected');
+                selectedArgument = null;
+            });
+        });
+
+        function resetArguments() {
+            document.querySelectorAll('.argument-point').forEach(point => {
+                point.classList.remove('placed', 'selected');
+            });
+            document.querySelectorAll('.argument-drop').forEach(drop => {
+                drop.innerHTML = '';
+            });
+            selectedArgument = null;
+        }
+
+        // ========== SENTENCE TRANSFORMATION ==========
+        function showTransformAnswers() {
+            document.querySelectorAll('.transform-answer').forEach(answer => {
+                answer.style.display = 'block';
+            });
+        }
+
+        // ========== DISCUSSION DICE ==========
+        const diceQuestions = [
+            "What traditions from your home country would you like to see in Norwegian celebrations?",
+            "Do you feel included in 17. mai celebrations? Why or why not?",
+            "How can national days be more welcoming for newcomers?",
+            "Is nationalism positive or negative? Explain your view.",
+            "Should children learn about national days in school? Why?",
+            "How is celebrating a national day different from being patriotic?",
+            "What would your ideal national celebration look like?",
+            "Can you be proud of two countries at the same time?",
+            "How do national days affect immigrants and minorities?",
+            "What role should history play in national celebrations?",
+            "Should national days focus on the past or the future?",
+            "How can we celebrate together while respecting differences?"
+        ];
+
+        function rollDice() {
+            const dice = document.querySelector('.dice');
+            const questionDiv = document.getElementById('diceQuestion');
+            
+            dice.classList.add('rolling');
+            
+            setTimeout(() => {
+                dice.classList.remove('rolling');
+                const randomIndex = Math.floor(Math.random() * diceQuestions.length);
+                questionDiv.textContent = diceQuestions[randomIndex];
+            }, 500);
+        }
+
+        // ========== AI FEEDBACK ==========
+        async function getAIFeedback(textareaId, level, taskDescription) {
+            const textarea = document.getElementById(textareaId);
+            const feedbackDiv = document.getElementById(textareaId + '-feedback');
+            const button = textarea.parentElement.querySelector('.ai-feedback-btn');
+            const studentText = textarea.value.trim();
+
+            if (studentText.length < 20) {
+                feedbackDiv.innerHTML = '<p style="color: #c62828;">⚠️ Please write more text before requesting feedback (at least a few sentences).</p>';
+                feedbackDiv.classList.add('visible');
+                return;
+            }
+
+            // Show loading state
+            button.classList.add('loading');
+            button.disabled = true;
+            feedbackDiv.classList.remove('visible');
+
+            const systemPrompt = `You are a friendly and encouraging English teacher giving feedback to a language learner at level ${level.toUpperCase()}. 
+            
+Your feedback should be:
+- Encouraging and positive first
+- Specific and helpful
+- Appropriate for the student's level (${level.toUpperCase()})
+- Written in simple, clear English
+
+Structure your response exactly like this:
+**Strengths:** (2-3 things they did well)
+**Areas to improve:** (1-2 specific suggestions)
+**Language tip:** (one helpful grammar or vocabulary tip based on their writing)
+**Overall:** (1 sentence of encouragement)
+
+Keep your total response under 150 words. Be warm and supportive!`;
+
+            const userPrompt = `Task: ${taskDescription}
+
+Student's writing:
+"${studentText}"
+
+Please give feedback on this ${level.toUpperCase()} level student's work.`;
+
+            try {
+                const response = await fetch("https://api.anthropic.com/v1/messages", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "claude-sonnet-4-20250514",
+                        max_tokens: 500,
+                        messages: [
+                            { role: "user", content: userPrompt }
+                        ],
+                        system: systemPrompt
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.content && data.content[0] && data.content[0].text) {
+                    let feedbackText = data.content[0].text;
+                    
+                    // Format the feedback nicely
+                    feedbackText = feedbackText
+                        .replace(/\*\*Strengths:\*\*/g, '<div class="feedback-section"><span class="feedback-label strength">✅ Strengths:</span>')
+                        .replace(/\*\*Areas to improve:\*\*/g, '</div><div class="feedback-section"><span class="feedback-label improvement">📝 Areas to improve:</span>')
+                        .replace(/\*\*Language tip:\*\*/g, '</div><div class="feedback-section"><span class="feedback-label tip">💡 Language tip:</span>')
+                        .replace(/\*\*Overall:\*\*/g, '</div><div class="feedback-section"><span class="feedback-label">🌟 Overall:</span>')
+                        + '</div>';
+
+                    feedbackDiv.innerHTML = `<h4>🤖 AI Feedback</h4>${feedbackText}`;
+                    feedbackDiv.classList.add('visible');
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('AI Feedback error:', error);
+                feedbackDiv.innerHTML = `
+                    <h4>🤖 AI Feedback</h4>
+                    <p>Sorry, I couldn't get AI feedback right now. Here are some self-check questions instead:</p>
+                    <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                        <li>Did you answer the question fully?</li>
+                        <li>Did you use examples to support your ideas?</li>
+                        <li>Did you check your spelling and grammar?</li>
+                        <li>Is your writing organized with a clear beginning, middle, and end?</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Ask your teacher for feedback on your writing!</p>
+                `;
+                feedbackDiv.classList.add('visible');
+            } finally {
+                button.classList.remove('loading');
+                button.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
