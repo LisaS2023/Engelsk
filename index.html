@@ -107,9 +107,13 @@ body::before {
 }
 
 /* ── flask row ── */
+.flask-row-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  margin: 2.2rem 0;
+}
 .flask-row {
   display: flex; justify-content: center; align-items: flex-end;
-  gap: 1.2rem; margin: 2.2rem 0; flex-wrap: wrap;
+  gap: 1.2rem; flex-wrap: wrap;
 }
 .flask-item {
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -347,6 +351,7 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
     <p class="hero-sub">Experiment with English. Open any task directly in your browser — no login, no download required.</p>
 
     <!-- FLASK ROW — one per level -->
+    <div class="flask-row-wrap">
     <div class="flask-row">
 
       <div class="flask-item">
@@ -416,6 +421,8 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
         <div class="flask-label" style="color:var(--purple)">B2</div>
       </div>
 
+    </div><!-- /flask-row -->
+
     <div class="level-pills">
       <span class="lpill lpill-prea1 active-pill" onclick="filterLevel('pre-a1',this)">Pre-A1</span>
       <span class="lpill lpill-a1 active-pill" onclick="filterLevel('a1',this)">A1</span>
@@ -423,6 +430,7 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
       <span class="lpill lpill-b1 active-pill" onclick="filterLevel('b1',this)">B1</span>
       <span class="lpill lpill-b2 active-pill" onclick="filterLevel('b2',this)">B2</span>
     </div>
+    </div><!-- /flask-row-wrap -->
 
 
   </div>
