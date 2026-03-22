@@ -137,21 +137,20 @@ body::before {
 }
 .flask-item:hover .flask-label { color: var(--white); }
 
-/* level pills */
-.level-pills { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
-.lpill {
-  padding: 0.3rem 0.9rem; border-radius: 4px;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 1px;
-  border: 1px solid; transition: all 0.15s;
-  cursor: pointer; opacity: 0.55;
+/* category flask row */
+.cat-flask-row {
+  display: flex; justify-content: center; align-items: flex-end;
+  gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem;
 }
-.lpill:hover { opacity: 1; }
-.lpill.active-pill { opacity: 1; }
-.lpill-prea1 { color:var(--green);  border-color:rgba(57,217,138,0.3);  background:rgba(57,217,138,0.08); }
-.lpill-a1    { color:var(--teal);   border-color:rgba(0,201,177,0.3);   background:rgba(0,201,177,0.08); }
-.lpill-a2    { color:var(--blue);   border-color:rgba(77,166,255,0.3);  background:rgba(77,166,255,0.08); }
-.lpill-b1    { color:var(--orange); border-color:rgba(255,140,66,0.3);  background:rgba(255,140,66,0.08); }
-.lpill-b2    { color:var(--purple); border-color:rgba(168,85,247,0.3);  background:rgba(168,85,247,0.08); }
+.cat-flask-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: pointer; transition: transform 0.2s;
+}
+.cat-flask-item:hover { transform: translateY(-4px); }
+.cat-flask-item .flask-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
 
 /* ═══ CATEGORY BAR ═══ */
 .category-bar {
@@ -428,14 +427,6 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
       </div>
 
     </div><!-- /flask-row -->
-
-    <div class="level-pills">
-      <span class="lpill lpill-prea1 active-pill" onclick="filterLevel('pre-a1',this)">Pre-A1</span>
-      <span class="lpill lpill-a1 active-pill" onclick="filterLevel('a1',this)">A1</span>
-      <span class="lpill lpill-a2 active-pill" onclick="filterLevel('a2',this)">A2</span>
-      <span class="lpill lpill-b1 active-pill" onclick="filterLevel('b1',this)">B1</span>
-      <span class="lpill lpill-b2 active-pill" onclick="filterLevel('b2',this)">B2</span>
-    </div>
     </div><!-- /flask-row-wrap -->
 
 
@@ -445,10 +436,10 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
 <!-- CATEGORY BAR -->
 <div class="category-bar">
   <button class="cbtn active" onclick="filterCat('all',this)">All categories</button>
-  <button class="cbtn" onclick="filterCat('explore',this)">🌍 Explore the World</button>
-  <button class="cbtn" onclick="filterCat('topic',this)">📚 Topic Units</button>
-  <button class="cbtn" onclick="filterCat('everyday',this)">💬 Everyday English</button>
-  <button class="cbtn" onclick="filterCat('games',this)">🎮 Games & Puzzles</button>
+  <button class="cbtn" data-cat="explore" onclick="filterCat('explore',this)">🌍 Explore the World</button>
+  <button class="cbtn" data-cat="topic" onclick="filterCat('topic',this)">📚 Topic Units</button>
+  <button class="cbtn" data-cat="everyday" onclick="filterCat('everyday',this)">💬 Everyday English</button>
+  <button class="cbtn" data-cat="games" onclick="filterCat('games',this)">🎮 Games & Puzzles</button>
 </div>
 
 <div class="filter-bar">
@@ -637,7 +628,7 @@ footer .ft-logo { color: var(--teal); font-weight: 700; }
         <div class="card-btn">Open task →</div>
       </a>
 
-      <a class="res-card cat-everyday" href="grammatikk/index" data-level="a2" data-cat="everyday">
+      <a class="res-card cat-everyday" href="grammatikk/index.html" data-level="a2" data-cat="everyday">
         <div class="card-head">
           <div class="card-icon">📝</div>
           <div>
