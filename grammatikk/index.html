@@ -3189,7 +3189,9 @@
         `;
       }
       
-      const state = ensureQuizState(document.getElementById('modal').dataset.topic, level);
+      const topicId = document.getElementById('modal').dataset.topic;
+      const state = ensureQuizState(topicId, level);
+      const quizData = state.questions;
       if (state.index < quizData.length - 1) {
         nextBtn.classList.add('show');
       } else {
@@ -3227,7 +3229,7 @@
         const level = tab === 'quizA1' ? 'A1' : 'A2';
         const topicId = document.getElementById('modal').dataset.topic;
         const t = topics[topicId];
-        ensureQuizState(topicId, level, true);
+        ensureQuizState(topicId, level);
         document.getElementById(`tab-${tab}`).innerHTML = renderQuizContent(t, level);
       }
     }
