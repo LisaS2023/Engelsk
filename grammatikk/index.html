@@ -2964,11 +2964,33 @@
       }).join('');
     }
 
+    function getQuizKey(topicId, level) {
+      return `${topicId}-${level}`;
+    }
+
+    function ensureQuizState(topicId, level, forceNew = false) {
+      const key = getQuizKey(topicId, level);
+      if (!currentQuiz[key] || forceNew) {
+        currentQuiz[key] = {
+          topic: topicId,
+          level,
+          index: 0,
+          questions: generateQuiz(topicId, level)
+        };
+      }
+      return currentQuiz[key];
+    }
+
+    function getActiveQuizContainer(level) {
+      const tabId = level === 'A1' ? 'tab-quizA1' : 'tab-quizA2';
+      return document.getElementById(tabId);
+    }
+
     function openModal(topicId, tab = 'all') {
       const t = topics[topicId];
       if (!t) return;
 
-      currentQuiz = { topic: topicId, index: 0, level: 'A1', questions: [] };
+      currentQuiz = {};
 
       const modal = document.getElementById('modal');
       modal.style.setProperty('--modal-color', t.color);
@@ -2984,6 +3006,9 @@
       document.getElementById('modal-subtitle').textContent = t.description;
 
       const activeTab = tab === 'quiz' ? 'quizA1' : (tab === 'a1' ? 'quizA1' : (tab === 'a2' ? 'quizA2' : 'learn'));
+
+      ensureQuizState(topicId, 'A1');
+      ensureQuizState(topicId, 'A2');
       
       document.getElementById('modal-body').innerHTML = `
         <div class="modal-tabs">
@@ -3005,6 +3030,7 @@
         </div>
       `;
 
+      modal.dataset.topic = topicId;
       document.getElementById('modal-overlay').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -3084,20 +3110,13 @@
     }
 
     function renderQuizContent(t, level) {
-      // Generate new questions if needed
-      if (currentQuiz.questions.length === 0 || currentQuiz.level !== level || currentQuiz.topic !== t.id) {
-        currentQuiz.questions = generateQuiz(t.id, level);
-        currentQuiz.index = 0;
-        currentQuiz.level = level;
-        currentQuiz.topic = t.id;
-      }
-      
-      const quizData = currentQuiz.questions;
+      const state = ensureQuizState(t.id, level);
+      const quizData = state.questions;
       if (quizData.length === 0) {
         return `<div class="quiz-container"><p>Ingen spørsmål tilgjengelig for dette temaet.</p></div>`;
       }
       
-      const q = quizData[currentQuiz.index % quizData.length];
+      const q = quizData[state.index % quizData.length];
       const letters = ['A', 'B', 'C', 'D'];
       const levelColor = level === 'A1' ? 'var(--green-a1)' : 'var(--blue-a2)';
       const levelBg = level === 'A1' ? 'var(--green-a1-soft)' : 'var(--blue-a2-soft)';
@@ -3106,15 +3125,15 @@
         <div class="quiz-container">
           <div class="quiz-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <span class="section-badge" style="background: ${levelBg}; color: ${levelColor}; font-size: 14px; padding: 8px 16px;">${level} Quiz</span>
-            <span style="color: var(--text-muted); font-size: 14px;">Spørsmål ${(currentQuiz.index % quizData.length) + 1} av ${quizData.length}</span>
+            <span style="color: var(--text-muted); font-size: 14px;">Spørsmål ${(state.index % quizData.length) + 1} av ${quizData.length}</span>
           </div>
           <div class="quiz-progress">
             ${quizData.map((_, i) => `
-              <div class="quiz-progress-dot ${i === currentQuiz.index % quizData.length ? 'active' : ''} ${i < currentQuiz.index % quizData.length ? 'completed' : ''}" style="${i === currentQuiz.index % quizData.length ? 'background:' + levelColor : ''}"></div>
+              <div class="quiz-progress-dot ${i === state.index % quizData.length ? 'active' : ''} ${i < state.index % quizData.length ? 'completed' : ''}" style="${i === state.index % quizData.length ? 'background:' + levelColor : ''}"></div>
             `).join('')}
           </div>
           <div class="quiz-question">${q.q}</div>
-          <div class="quiz-options" id="quiz-options">
+          <div class="quiz-options" id="quiz-options-${level}">
             ${q.opts.map((opt, i) => `
               <div class="quiz-option" data-index="${i}" onclick="checkQuizAnswer(${i}, ${q.correct}, '${level}')">
                 <span class="quiz-option-letter">${letters[i]}</span>
@@ -3122,12 +3141,12 @@
               </div>
             `).join('')}
           </div>
-          <div class="quiz-feedback" id="quiz-feedback"></div>
+          <div class="quiz-feedback" id="quiz-feedback-${level}"></div>
           <div class="quiz-actions">
-            <button class="quiz-btn quiz-btn-primary" id="quiz-next" onclick="nextQuizQuestion('${level}')" style="background: ${levelColor};">
+            <button class="quiz-btn quiz-btn-primary" id="quiz-next-${level}" onclick="nextQuizQuestion('${level}')" style="background: ${levelColor};">
               Neste spørsmål →
             </button>
-            <button class="quiz-btn" id="quiz-restart" onclick="restartQuiz('${level}')" style="background: var(--bg-elevated); color: var(--text-primary); margin-left: 10px;">
+            <button class="quiz-btn" id="quiz-restart-${level}" onclick="restartQuiz('${level}')" style="background: var(--bg-elevated); color: var(--text-primary); margin-left: 10px;">
               🔄 Nye spørsmål
             </button>
           </div>
@@ -3136,10 +3155,13 @@
     }
 
     function checkQuizAnswer(selected, correct, level) {
-      const options = document.querySelectorAll('.quiz-option');
-      const feedback = document.getElementById('quiz-feedback');
-      const nextBtn = document.getElementById('quiz-next');
-      const restartBtn = document.getElementById('quiz-restart');
+      const container = getActiveQuizContainer(level);
+      if (!container) return;
+
+      const options = container.querySelectorAll('.quiz-option');
+      const feedback = container.querySelector(`#quiz-feedback-${level}`);
+      const nextBtn = container.querySelector(`#quiz-next-${level}`);
+      const restartBtn = container.querySelector(`#quiz-restart-${level}`);
       
       options.forEach((opt, i) => {
         opt.classList.add('disabled');
@@ -3167,29 +3189,28 @@
         `;
       }
       
-      const quizData = currentQuiz.questions;
-      if (currentQuiz.index < quizData.length - 1) {
+      const state = ensureQuizState(document.getElementById('modal').dataset.topic, level);
+      if (state.index < quizData.length - 1) {
         nextBtn.classList.add('show');
       } else {
-        // Quiz ferdig - vis restart-knapp
         restartBtn.classList.add('show');
         restartBtn.textContent = '🎉 Ferdig! Prøv nye spørsmål';
       }
     }
 
     function nextQuizQuestion(level) {
-      currentQuiz.index++;
-      const t = topics[currentQuiz.topic];
+      const topicId = document.getElementById('modal').dataset.topic;
+      const state = ensureQuizState(topicId, level);
+      state.index++;
+      const t = topics[topicId];
       const tabId = level === 'A1' ? 'tab-quizA1' : 'tab-quizA2';
       document.getElementById(tabId).innerHTML = renderQuizContent(t, level);
     }
 
     function restartQuiz(level) {
-      // Generer helt nye spørsmål
-      currentQuiz.questions = [];
-      currentQuiz.index = 0;
-      const t = topics[currentQuiz.topic];
-      currentQuiz.questions = generateQuiz(t.id, level);
+      const topicId = document.getElementById('modal').dataset.topic;
+      ensureQuizState(topicId, level, true);
+      const t = topics[topicId];
       const tabId = level === 'A1' ? 'tab-quizA1' : 'tab-quizA2';
       document.getElementById(tabId).innerHTML = renderQuizContent(t, level);
     }
@@ -3203,12 +3224,11 @@
       document.getElementById(`tab-${tab}`).classList.add('active');
       
       if (tab === 'quizA1' || tab === 'quizA2') {
-        // Nullstill og generer nye spørsmål
-        currentQuiz.questions = [];
-        currentQuiz.index = 0;
-        currentQuiz.level = tab === 'quizA1' ? 'A1' : 'A2';
-        const t = topics[currentQuiz.topic];
-        document.getElementById(`tab-${tab}`).innerHTML = renderQuizContent(t, currentQuiz.level);
+        const level = tab === 'quizA1' ? 'A1' : 'A2';
+        const topicId = document.getElementById('modal').dataset.topic;
+        const t = topics[topicId];
+        ensureQuizState(topicId, level, true);
+        document.getElementById(`tab-${tab}`).innerHTML = renderQuizContent(t, level);
       }
     }
 
@@ -3229,6 +3249,16 @@
 
     function toggleLevel(level, btn) {
       btn.classList.toggle('active');
+
+      const a1Btn = document.querySelector('.level-btn.a1');
+      const a2Btn = document.querySelector('.level-btn.a2');
+
+      if (!a1Btn.classList.contains('active') && !a2Btn.classList.contains('active')) {
+        btn.classList.add('active');
+      }
+
+      document.getElementById('a1').style.display = a1Btn.classList.contains('active') ? '' : 'none';
+      document.getElementById('a2').style.display = a2Btn.classList.contains('active') ? '' : 'none';
     }
 
     function setupScrollListener() {
