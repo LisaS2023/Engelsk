@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Search Studio</title>
+  <style>
+    :root{
+      --bg:#f3f6fb;
+      --bg-soft:#e9eef7;
+      --panel:#ffffff;
+      --panel-2:#f8fbff;
+      --text:#122033;
+      --muted:#5f7189;
+      --line:#d8e1ef;
+      --accent:#355cde;
+      --accent-soft:#e8eeff;
+      --green:#1f9d67;
+      --green-soft:#e5f7ef;
+      --gold:#d48b14;
+      --gold-soft:#fff2dc;
+      --shadow:0 12px 28px rgba(22, 35, 61, 0.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, "Segoe UI", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, #ffffff 0%, #f6f8fc 30%, #eef3f9 100%);
+    }
+
+    .shell{
+      max-width:1360px;
+      margin:0 auto;
+      padding:28px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #ffffff 0%, #f5f8ff 55%, #eef4ff 100%);
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto -60px -60px auto;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(53,92,222,.12) 0%, rgba(53,92,222,0) 70%);
+      pointer-events:none;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size:clamp(34px, 5vw, 58px);
+      line-height:.96;
+      letter-spacing:-1.6px;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .hero-actions,
+    .level-group,
+    .toolbar,
+    .word-list,
+    .legend{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn,
+    .level-btn,
+    .mini-btn,
+    .topic-btn{
+      font:inherit;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn,
+    .level-btn,
+    .mini-btn{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:14px;
+      padding:12px 16px;
+    }
+
+    .btn:hover,
+    .level-btn:hover,
+    .mini-btn:hover,
+    .topic-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(22,35,61,.08);
+    }
+
+    .btn.primary{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    .info-card{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .info-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .legend{
+      margin-top:14px;
+    }
+
+    .legend-item{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .legend-dot{
+      width:14px;
+      height:14px;
+      border-radius:5px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .legend-dot.selecting{
+      background:var(--gold-soft);
+      border-color:#f0cb84;
+    }
+
+    .legend-dot.found{
+      background:var(--green-soft);
+      border-color:#9fd9bc;
+    }
+
+    .stats{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .stat{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .label{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .value{
+      font-size:30px;
+      font-weight:800;
+      letter-spacing:-.5px;
+    }
+
+    .workspace{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .card h2{
+      margin:0 0 8px;
+      font-size:28px;
+      letter-spacing:-.6px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .toolbar{
+      margin:18px 0;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .toolbar-left,
+    .toolbar-right{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .level-btn{
+      border-radius:999px;
+      padding:10px 16px;
+      background:#fff;
+    }
+
+    .level-btn.active.a1{
+      background:#eaf8f1;
+      color:var(--green);
+      border-color:#b8e0cb;
+    }
+
+    .level-btn.active.a2{
+      background:var(--accent-soft);
+      color:var(--accent);
+      border-color:#c9d6ff;
+    }
+
+    .mini-btn{
+      padding:10px 14px;
+      border-radius:12px;
+      background:var(--panel-2);
+    }
+
+    .mini-btn.primary{
+      background:var(--accent-soft);
+      color:var(--accent);
+      border-color:#cbd7ff;
+    }
+
+    .mini-btn.good{
+      background:var(--green-soft);
+      color:var(--green);
+      border-color:#b8e0cb;
+    }
+
+    .mini-btn.warn{
+      background:var(--gold-soft);
+      color:var(--gold);
+      border-color:#f0d29a;
+    }
+
+    .grid-wrap{
+      background:linear-gradient(180deg, #fbfdff 0%, #f4f8ff 100%);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      overflow:auto;
+    }
+
+    .grid{
+      display:grid;
+      gap:4px;
+      width:max-content;
+      margin:0 auto;
+      user-select:none;
+      touch-action:none;
+    }
+
+    .cell{
+      width:36px;
+      height:36px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      border:1px solid #dbe4f2;
+      font-weight:800;
+      color:var(--text);
+      text-transform:uppercase;
+      cursor:pointer;
+      transition:.12s ease;
+    }
+
+    .cell:hover{
+      background:#f6f9ff;
+    }
+
+    .cell.selecting{
+      background:var(--gold-soft);
+      border-color:#efcd85;
+      color:#8a5a04;
+    }
+
+    .cell.found{
+      background:var(--green-soft);
+      border-color:#9dd7ba;
+      color:var(--green);
+    }
+
+    .cell.hint{
+      box-shadow:0 0 0 2px rgba(53,92,222,.25) inset;
+    }
+
+    .word-list{
+      margin-top:16px;
+    }
+
+    .word-chip{
+      padding:10px 12px;
+      border-radius:12px;
+      background:#f7faff;
+      border:1px solid var(--line);
+      color:var(--text);
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .word-chip.done{
+      background:var(--green-soft);
+      color:var(--green);
+      border-color:#b1dec6;
+      text-decoration:line-through;
+    }
+
+    .status{
+      margin-top:16px;
+      min-height:54px;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#f9fbff;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+    }
+
+    .status.good{
+      background:var(--green-soft);
+      color:var(--green);
+      border-color:#b5dfc8;
+    }
+
+    .status.warn{
+      background:var(--gold-soft);
+      color:#99640a;
+      border-color:#efd39f;
+    }
+
+    .status.error{
+      background:#fff0f2;
+      color:#b23c52;
+      border-color:#f4c7d0;
+    }
+
+    .topic-grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .topic-btn{
+      text-align:left;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border-radius:18px;
+      padding:16px;
+      color:var(--text);
+    }
+
+    .topic-btn.active{
+      border-color:#c7d5ff;
+      background:linear-gradient(180deg, #eef3ff 0%, #f8fbff 100%);
+      box-shadow:0 0 0 2px rgba(53,92,222,.08) inset;
+    }
+
+    .topic-btn strong{
+      display:block;
+      font-size:18px;
+      margin-bottom:6px;
+    }
+
+    .topic-btn span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .section-note{
+      margin-top:16px;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    @media (max-width:1100px){
+      .hero-grid,
+      .workspace{
+        grid-template-columns:1fr;
+      }
+
+      .stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .toolbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media (max-width:700px){
+      .shell{
+        padding:14px;
+      }
+
+      .hero,
+      .card{
+        padding:18px;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .topic-grid{
+        grid-template-columns:1fr;
+      }
+
+      .cell{
+        width:32px;
+        height:32px;
+        font-size:14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">🔎 Word Search Studio • A1–A2</div>
+          <h1>Interactive vocabulary puzzles for English learners</h1>
+          <p>Choose a level, open a topic, and find the hidden words in the grid. Each puzzle includes a selected word set, clear progress tracking, hints, and a clean interface designed for classroom use.</p>
+          <div class="hero-actions" style="margin-top:18px;">
+            <button class="btn primary" onclick="scrollToGame()">Open puzzle board</button>
+            <button class="btn" onclick="setLevel('A1')">Choose A1</button>
+            <button class="btn" onclick="setLevel('A2')">Choose A2</button>
+          </div>
+        </div>
+        <aside class="info-card">
+          <h3>How students use it</h3>
+          <p>Select a topic, drag across letters to mark words, and complete the full list. A1 puzzles use smaller grids and easier vocabulary. A2 puzzles use larger grids and more demanding word sets.</p>
+          <div class="legend">
+            <span class="legend-item"><i class="legend-dot selecting"></i> selecting</span>
+            <span class="legend-item"><i class="legend-dot found"></i> found</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Levels</div>
+          <div class="value">2</div>
+        </div>
+        <div class="stat">
+          <div class="label">Topics</div>
+          <div class="value">10</div>
+        </div>
+        <div class="stat">
+          <div class="label">Words per puzzle</div>
+          <div class="value" id="wordsPerPuzzle">8</div>
+        </div>
+        <div class="stat">
+          <div class="label">Current level</div>
+          <div class="value" id="currentLevelStat">A1</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workspace" id="gameArea">
+      <div class="card">
+        <h2 id="gameTitle">A1 · Daily Life</h2>
+        <div class="muted" id="gameSubtitle">Find the hidden words by dragging across the grid.</div>
+
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <div class="level-group">
+              <button class="level-btn a1 active" id="btnA1" onclick="setLevel('A1')">A1</button>
+              <button class="level-btn a2" id="btnA2" onclick="setLevel('A2')">A2</button>
+            </div>
+          </div>
+          <div class="toolbar-right">
+            <button class="mini-btn primary" onclick="newPuzzle()">New puzzle</button>
+            <button class="mini-btn warn" onclick="showHint()">Hint</button>
+            <button class="mini-btn good" onclick="revealAll()">Reveal</button>
+          </div>
+        </div>
+
+        <div class="grid-wrap">
+          <div class="grid" id="grid"></div>
+        </div>
+
+        <div class="word-list" id="wordList"></div>
+        <div class="status" id="statusBox">Choose a topic and find all the hidden words.</div>
+      </div>
+
+      <div class="card">
+        <h2>Choose a topic</h2>
+        <div class="muted">Each topic opens a new word search with a fresh set of words.</div>
+        <div class="topic-grid" id="topicGrid"></div>
+        <div class="section-note">Words can be hidden horizontally, vertically, or diagonally.</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const WORD_BANK = {
+      A1: {
+        daily: {
+          title: "Daily Life",
+          desc: "High-frequency everyday words",
+          words: ["WAKE","EAT","DRINK","SCHOOL","HOME","MORNING","BAG","BUS","BOOK","BED","DAY","WATER"]
+        },
+        school: {
+          title: "School",
+          desc: "Core classroom vocabulary",
+          words: ["TEACHER","BOOK","WRITE","READ","DESK","PEN","CLASS","TASK","QUESTION","ANSWER","BOARD","LEARN"]
+        },
+        food: {
+          title: "Food",
+          desc: "Basic food and meal words",
+          words: ["APPLE","BREAD","WATER","MILK","JUICE","LUNCH","DINNER","RICE","FISH","EGG","CAKE","SHOP"]
+        },
+        home: {
+          title: "Home",
+          desc: "Useful words for rooms and things in the house",
+          words: ["ROOM","BED","DOOR","TABLE","CHAIR","WINDOW","KITCHEN","LIGHT","FLOOR","WALL","SOFA","HOUSE"]
+        },
+        people: {
+          title: "People",
+          desc: "Basic words for family and people around us",
+          words: ["MOTHER","FATHER","SISTER","BROTHER","FRIEND","BABY","TEACHER","STUDENT","FAMILY","PERSON","WOMAN","CHILD"]
+        }
+      },
+      A2: {
+        directions: {
+          title: "Directions",
+          desc: "Giving and following directions",
+          words: ["STRAIGHT","CORNER","BETWEEN","ACROSS","LEFT","RIGHT","STATION","BRIDGE","TRAFFIC","SQUARE","AVENUE","NEARBY"]
+        },
+        shopping: {
+          title: "Shopping",
+          desc: "Useful vocabulary for buying things",
+          words: ["RECEIPT","PRICE","PAYMENT","CUSTOMER","MARKET","CHEAP","EXPENSIVE","RETURN","BASKET","CHANGE","PRODUCT","SIZE"]
+        },
+        freeTime: {
+          title: "Free Time",
+          desc: "Hobbies and activities",
+          words: ["MUSIC","PRACTISE","WEEKEND","CINEMA","FOOTBALL","GAMING","READING","HIKING","FRIENDS","TRAINING","DRAWING","RELAX"]
+        },
+        health: {
+          title: "Health",
+          desc: "Words for feeling unwell and getting help",
+          words: ["DOCTOR","MEDICINE","HEADACHE","PAIN","APPOINTMENT","SICK","TABLET","COUGH","FEVER","NURSE","CLINIC","STOMACH"]
+        },
+        travel: {
+          title: "Travel",
+          desc: "Words for trips and transport",
+          words: ["AIRPORT","TICKET","LUGGAGE","JOURNEY","HOTEL","PASSPORT","PLATFORM","DEPARTURE","ARRIVAL","SUITCASE","FLIGHT","STATION"]
+        }
+      }
+    };
+
+    const GRID_SIZE = { A1: 10, A2: 12 };
+    const WORDS_PER_PUZZLE = { A1: 8, A2: 8 };
+    const DIRECTIONS = [[1,0],[0,1],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]];
+
+    let state = {
+      level: "A1",
+      topic: "daily",
+      selectedWords: [],
+      grid: [],
+      placed: [],
+      found: new Set(),
+      isPointerDown: false,
+      selection: []
+    };
+
+    function shuffle(arr){
+      const copy = [...arr];
+      for(let i = copy.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function randomLetter(){
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      return letters[Math.floor(Math.random() * letters.length)];
+    }
+
+    function chooseWords(){
+      const pool = WORD_BANK[state.level][state.topic].words;
+      state.selectedWords = shuffle(pool).slice(0, WORDS_PER_PUZZLE[state.level]);
+      document.getElementById("wordsPerPuzzle").textContent = WORDS_PER_PUZZLE[state.level];
+    }
+
+    function emptyGrid(size){
+      return Array.from({length:size}, () => Array.from({length:size}, () => ""));
+    }
+
+    function canPlace(word, row, col, dr, dc, grid){
+      for(let i = 0; i < word.length; i++){
+        const r = row + dr * i;
+        const c = col + dc * i;
+        if(r < 0 || c < 0 || r >= grid.length || c >= grid.length) return false;
+        if(grid[r][c] !== "" && grid[r][c] !== word[i]) return false;
+      }
+      return true;
+    }
+
+    function placeWord(word, grid){
+      for(let t = 0; t < 250; t++){
+        const dir = DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
+        const dr = dir[0], dc = dir[1];
+        const row = Math.floor(Math.random() * grid.length);
+        const col = Math.floor(Math.random() * grid.length);
+        if(!canPlace(word, row, col, dr, dc, grid)) continue;
+
+        const cells = [];
+        for(let i = 0; i < word.length; i++){
+          const r = row + dr * i;
+          const c = col + dc * i;
+          grid[r][c] = word[i];
+          cells.push(r + "-" + c);
+        }
+        return { word, cells };
+      }
+      return null;
+    }
+
+    function generatePuzzle(){
+      chooseWords();
+      const size = GRID_SIZE[state.level];
+      let success = false;
+      let attempts = 0;
+
+      while(!success && attempts < 40){
+        attempts++;
+        const grid = emptyGrid(size);
+        const placed = [];
+        success = true;
+
+        const ordered = [...state.selectedWords].sort((a,b) => b.length - a.length);
+        for(const word of ordered){
+          const result = placeWord(word, grid);
+          if(!result){
+            success = false;
+            break;
+          }
+          placed.push(result);
+        }
+
+        if(success){
+          for(let r = 0; r < size; r++){
+            for(let c = 0; c < size; c++){
+              if(!grid[r][c]) grid[r][c] = randomLetter();
+            }
+          }
+          state.grid = grid;
+          state.placed = placed;
+          state.found = new Set();
+          state.selection = [];
+          return;
+        }
+      }
+
+      setStatus("Could not build a puzzle. Try again.", "error");
+    }
+
+    function renderTopics(){
+      const holder = document.getElementById("topicGrid");
+      holder.innerHTML = "";
+      const topics = WORD_BANK[state.level];
+      Object.entries(topics).forEach(([key, topic]) => {
+        const btn = document.createElement("button");
+        btn.className = "topic-btn" + (state.topic === key ? " active" : "");
+        btn.innerHTML = "<strong>" + topic.title + "</strong><span>" + topic.desc + "</span>";
+        btn.onclick = () => {
+          state.topic = key;
+          newPuzzle();
+          renderTopics();
+        };
+        holder.appendChild(btn);
+      });
+    }
+
+    function isFoundCell(key){
+      for(const item of state.placed){
+        if(state.found.has(item.word) && item.cells.includes(key)) return true;
+      }
+      return false;
+    }
+
+    function renderGrid(){
+      const gridEl = document.getElementById("grid");
+      const size = state.grid.length;
+      gridEl.innerHTML = "";
+      gridEl.style.gridTemplateColumns = "repeat(" + size + ", 36px)";
+
+      state.grid.forEach((row, r) => {
+        row.forEach((letter, c) => {
+          const cell = document.createElement("div");
+          const key = r + "-" + c;
+          cell.className = "cell";
+          cell.textContent = letter;
+          cell.dataset.row = r;
+          cell.dataset.col = c;
+          cell.dataset.key = key;
+
+          if(isFoundCell(key)) cell.classList.add("found");
+          if(state.selection.includes(key)) cell.classList.add("selecting");
+
+          cell.addEventListener("pointerdown", startSelection);
+          cell.addEventListener("pointerenter", extendSelection);
+          cell.addEventListener("pointerup", finishSelection);
+          gridEl.appendChild(cell);
+        });
+      });
+    }
+
+    function renderWords(){
+      const list = document.getElementById("wordList");
+      list.innerHTML = "";
+      state.selectedWords.forEach(word => {
+        const chip = document.createElement("div");
+        chip.className = "word-chip" + (state.found.has(word) ? " done" : "");
+        chip.textContent = word;
+        list.appendChild(chip);
+      });
+    }
+
+    function updateHeader(){
+      const topic = WORD_BANK[state.level][state.topic];
+      document.getElementById("gameTitle").textContent = state.level + " · " + topic.title;
+      document.getElementById("gameSubtitle").textContent = topic.desc;
+      document.getElementById("currentLevelStat").textContent = state.level;
+      document.getElementById("btnA1").classList.toggle("active", state.level === "A1");
+      document.getElementById("btnA2").classList.toggle("active", state.level === "A2");
+    }
+
+    function setStatus(text, kind){
+      const box = document.getElementById("statusBox");
+      box.className = "status" + (kind ? " " + kind : "");
+      box.textContent = text;
+    }
+
+    function setLevel(level){
+      state.level = level;
+      const firstTopic = Object.keys(WORD_BANK[level])[0];
+      if(!WORD_BANK[level][state.topic]) state.topic = firstTopic;
+      newPuzzle();
+      renderTopics();
+    }
+
+    function newPuzzle(){
+      generatePuzzle();
+      updateHeader();
+      renderGrid();
+      renderWords();
+      setStatus("Find all the hidden words.", "");
+    }
+
+    function scrollToGame(){
+      document.getElementById("gameArea").scrollIntoView({behavior:"smooth"});
+    }
+
+    function startSelection(e){
+      state.isPointerDown = true;
+      const key = e.currentTarget.dataset.key;
+      state.selection = [key];
+      renderGrid();
+    }
+
+    function extendSelection(e){
+      if(!state.isPointerDown || state.selection.length === 0) return;
+      const start = state.selection[0].split("-").map(Number);
+      const end = [Number(e.currentTarget.dataset.row), Number(e.currentTarget.dataset.col)];
+      const cells = getLineCells(start[0], start[1], end[0], end[1]);
+      if(cells.length){
+        state.selection = cells;
+        renderGrid();
+      }
+    }
+
+    function finishSelection(){
+      if(!state.isPointerDown) return;
+      state.isPointerDown = false;
+      checkSelection();
+    }
+
+    function getLineCells(r1,c1,r2,c2){
+      const dr = Math.sign(r2-r1);
+      const dc = Math.sign(c2-c1);
+      if(!(dr === 0 || dc === 0 || Math.abs(r2-r1) === Math.abs(c2-c1))) return [];
+      const cells = [];
+      let r = r1, c = c1;
+      cells.push(r + "-" + c);
+      while(r !== r2 || c !== c2){
+        r += dr;
+        c += dc;
+        cells.push(r + "-" + c);
+      }
+      return cells;
+    }
+
+    function arraysEqual(a,b){
+      if(a.length !== b.length) return false;
+      for(let i = 0; i < a.length; i++){
+        if(a[i] !== b[i]) return false;
+      }
+      return true;
+    }
+
+    function checkSelection(){
+      const selected = state.selection;
+      const reverse = [...selected].reverse();
+
+      const match = state.placed.find(item =>
+        arraysEqual(item.cells, selected) || arraysEqual(item.cells, reverse)
+      );
+
+      if(match){
+        if(!state.found.has(match.word)){
+          state.found.add(match.word);
+          setStatus('Great! You found "' + match.word + '".', "good");
+        }
+      } else {
+        setStatus("Not a target word. Try again.", "warn");
+      }
+
+      state.selection = [];
+      renderGrid();
+      renderWords();
+
+      if(state.found.size === state.selectedWords.length){
+        setStatus("Excellent! You found all " + state.selectedWords.length + " words.", "good");
+      }
+    }
+
+    function showHint(){
+      const remaining = state.placed.find(item => !state.found.has(item.word));
+      if(!remaining){
+        setStatus("All words are already found.", "good");
+        return;
+      }
+      const key = remaining.cells[0];
+      const cell = Array.from(document.querySelectorAll(".cell")).find(c => c.dataset.key === key);
+      if(cell){
+        cell.classList.add("hint");
+        setStatus('Hint: Look for a word that starts with "' + remaining.word[0] + '".', "warn");
+        setTimeout(() => cell.classList.remove("hint"), 1200);
+      }
+    }
+
+    function revealAll(){
+      state.selectedWords.forEach(word => state.found.add(word));
+      state.selection = [];
+      renderGrid();
+      renderWords();
+      setStatus("All words have been revealed.", "good");
+    }
+
+    document.addEventListener("pointerup", () => {
+      if(state.isPointerDown){
+        state.isPointerDown = false;
+        checkSelection();
+      }
+    });
+
+    renderTopics();
+    newPuzzle();
+  </script>
+</body>
+</html>
