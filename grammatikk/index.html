@@ -2171,12 +2171,11 @@
                 { word: 'clean', opposite: 'dirty' }
               ],
               generate: (item) => {
-                const opts = shuffle([item.opposite, 'very', 'more', 'not']).slice(0, 4);
-                opts[0] = item.opposite;
+                const shuffled = shuffle([item.opposite, 'veldig', 'mer', 'ikke']);
                 return {
                   q: `Hva er det motsatte av "${item.word}"?`,
-                  opts: shuffle(opts),
-                  correct: shuffle(opts).indexOf(item.opposite)
+                  opts: shuffled,
+                  correct: shuffled.indexOf(item.opposite)
                 };
               }
             }
@@ -2205,11 +2204,12 @@
               generate: (item) => {
                 const wrong1 = 'more ' + item.base;
                 const wrong2 = item.base + 'er';
-                const opts = [item.comp, wrong1, item.base, wrong2].filter((v, i, a) => a.indexOf(v) === i).slice(0, 4);
+                const raw = [item.comp, wrong1, item.base, wrong2].filter((v, i, a) => a.indexOf(v) === i).slice(0, 4);
+                const shuffled = shuffle(raw);
                 return {
                   q: `Hva er komparativ av "${item.base}"?`,
-                  opts: shuffle(opts),
-                  correct: shuffle(opts).indexOf(item.comp)
+                  opts: shuffled,
+                  correct: shuffled.indexOf(item.comp)
                 };
               }
             },
@@ -2295,11 +2295,14 @@
                 { q: 'Hvor bruker vi "in"?', answer: 'Inne i noe', wrong: ['På overflater', 'Ved et punkt'] },
                 { q: 'Hvor bruker vi "at"?', answer: 'Ved et punkt/sted', wrong: ['Inne i noe', 'På overflater'] }
               ],
-              generate: (item) => ({
-                q: item.q,
-                opts: shuffle([item.answer, ...item.wrong]),
-                correct: shuffle([item.answer, ...item.wrong]).indexOf(item.answer)
-              })
+              generate: (item) => {
+                const shuffled = shuffle([item.answer, ...item.wrong]);
+                return {
+                  q: item.q,
+                  opts: shuffled,
+                  correct: shuffled.indexOf(item.answer)
+                };
+              }
             }
           ]
         },
@@ -2338,11 +2341,14 @@
                 { phrase: 'above', meaning: 'over' },
                 { phrase: 'below', meaning: 'under' }
               ],
-              generate: (item) => ({
-                q: `Hva betyr "${item.phrase}" på norsk?`,
-                opts: shuffle([item.meaning, 'inne i', 'på toppen av', 'langt fra']),
-                correct: shuffle([item.meaning, 'inne i', 'på toppen av', 'langt fra']).indexOf(item.meaning)
-              })
+              generate: (item) => {
+                const shuffled = shuffle([item.meaning, 'inne i', 'på toppen av', 'langt fra']);
+                return {
+                  q: `Hva betyr "${item.phrase}" på norsk?`,
+                  opts: shuffled,
+                  correct: shuffled.indexOf(item.meaning)
+                };
+              }
             },
             {
               type: 'compoundSentence',
@@ -2391,11 +2397,18 @@
                 { s: 'They like ___ new house.', answer: 'their' },
                 { s: 'Is this ___ pen? (you)', answer: 'your' }
               ],
-              generate: (item) => ({
-                q: `Velg riktig eiendomsord: "${item.s}"`,
-                opts: shuffle(['my', 'your', 'his', 'her', 'our', 'their']).slice(0, 4),
-                correct: shuffle(['my', 'your', 'his', 'her', 'our', 'their']).slice(0, 4).indexOf(item.answer)
-              })
+              generate: (item) => {
+                const allOpts = ['my', 'your', 'his', 'her', 'our', 'their'];
+                // Sikre at riktig svar alltid er med
+                const without = allOpts.filter(o => o.toLowerCase() !== item.answer.toLowerCase());
+                const selected = [item.answer.toLowerCase() === item.answer ? item.answer : item.answer, ...shuffle(without).slice(0, 3)];
+                const shuffled = shuffle(selected);
+                return {
+                  q: `Velg riktig eiendomsord: "${item.s}"`,
+                  opts: shuffled,
+                  correct: shuffled.findIndex(o => o.toLowerCase() === item.answer.toLowerCase())
+                };
+              }
             }
           ]
         },
@@ -2955,7 +2968,7 @@
       const t = topics[topicId];
       if (!t) return;
 
-      currentQuiz = { topic: topicId, index: 0 };
+      currentQuiz = { topic: topicId, index: 0, level: 'A1', questions: [] };
 
       const modal = document.getElementById('modal');
       modal.style.setProperty('--modal-color', t.color);
