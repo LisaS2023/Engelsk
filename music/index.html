@@ -1,1 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When I Was Your Man / Flowers — Interactive English Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --surface2: #242424;
+  --surface3: #2e2e2e;
+  --text: #e8e4df;
+  --text-dim: #9a958e;
+  --accent-blue: #5b8fb9;
+  --accent-pink: #c97b84;
+  --accent-gold: #d4a653;
+  --correct: #6db87b;
+  --incorrect: #c75c5c;
+  --bruno: #3d6a8e;
+  --miley: #a85d67;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ─── NAV ─── */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,13,13,.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 24px;
+}
+
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 12px 0;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.nav-btn:hover { color: var(--text); background: var(--surface2); }
+.nav-btn.active {
+  color: var(--bg);
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.nav-progress {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-ring {
+  width: 28px; height: 28px;
+}
+.progress-ring circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.progress-ring .bg { stroke: var(--surface3); }
+.progress-ring .fg { stroke: var(--accent-gold); transition: stroke-dashoffset .5s ease; }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 56px 24px 32px;
+  text-align: center;
+}
+
+.hero-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.hero h1 .vs {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .45em;
+  color: var(--text-dim);
+  vertical-align: middle;
+  margin: 0 12px;
+}
+.hero h1 .bruno-name { color: var(--accent-blue); }
+.hero h1 .miley-name { color: var(--accent-pink); }
+
+.hero p {
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+/* ─── SECTIONS ─── */
+.section {
+  display: none;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8px 24px 80px;
+  animation: fadeUp .35s ease;
+}
+.section.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--surface2);
+}
+.section-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.section-icon.blue { background: rgba(91,143,185,.15); }
+.section-icon.pink { background: rgba(201,123,132,.15); }
+.section-icon.gold { background: rgba(212,166,83,.15); }
+
+.section-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+.section-header p {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface2);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── TASK 1: MATCHING ─── */
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.match-item {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all .2s;
+  border: 2px solid var(--surface3);
+  background: var(--surface2);
+  user-select: none;
+}
+.match-item:hover { border-color: var(--accent-gold); }
+.match-item.selected { border-color: var(--accent-gold); background: rgba(212,166,83,.1); }
+.match-item.correct { border-color: var(--correct); background: rgba(109,184,123,.1); }
+.match-item.incorrect { border-color: var(--incorrect); background: rgba(199,92,92,.1); }
+
+.match-word { font-weight: 600; }
+.match-def { font-style: italic; color: var(--text-dim); }
+.match-def.selected, .match-def.correct, .match-def.incorrect { color: var(--text); }
+
+/* ─── FEELING CHECK ─── */
+.feeling-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.feeling-chip {
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid var(--surface3);
+  background: var(--surface2);
+  transition: all .2s;
+  user-select: none;
+}
+.feeling-chip:hover { border-color: var(--accent-blue); }
+.feeling-chip.picked { border-color: var(--accent-blue); background: rgba(91,143,185,.15); }
+.feeling-chip.right { border-color: var(--correct); background: rgba(109,184,123,.1); }
+.feeling-chip.wrong { border-color: var(--incorrect); background: rgba(199,92,92,.1); }
+
+/* ─── GAP FILL ─── */
+.lyrics-block {
+  font-size: 15px;
+  line-height: 2.4;
+}
+
+.lyrics-label {
+  font-weight: 600;
+  color: var(--accent-gold);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 20px 0 8px;
+}
+.lyrics-label:first-child { margin-top: 0; }
+
+.gap-slot {
+  display: inline-block;
+  min-width: 100px;
+  padding: 2px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--surface3);
+  border-bottom: 2px solid var(--accent-gold);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .25s;
+  text-align: center;
+  vertical-align: baseline;
+  user-select: none;
+}
+.gap-slot:hover { border-bottom-color: var(--accent-blue); background: rgba(91,143,185,.06); }
+.gap-slot.filled {
+  background: rgba(212,166,83,.1);
+  border-color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+  font-weight: 500;
+}
+.gap-slot.active-target {
+  border-bottom-color: var(--accent-blue);
+  background: rgba(91,143,185,.1);
+  box-shadow: 0 0 0 2px rgba(91,143,185,.25);
+}
+.gap-slot.correct { border-color: var(--correct); border-bottom-color: var(--correct); background: rgba(109,184,123,.1); }
+.gap-slot.incorrect { border-color: var(--incorrect); border-bottom-color: var(--incorrect); background: rgba(199,92,92,.1); }
+.gap-slot .gap-placeholder { color: var(--text-dim); font-style: italic; font-size: 12px; }
+
+.word-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+}
+
+.word-bank-tag {
+  padding: 7px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 2px solid var(--surface3);
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.word-bank-tag:hover { border-color: var(--accent-gold); background: rgba(212,166,83,.08); }
+.word-bank-tag.used {
+  opacity: .35;
+  border-color: transparent;
+  cursor: default;
+  text-decoration: line-through;
+}
+.word-bank-tag.selected {
+  border-color: var(--accent-gold);
+  background: rgba(212,166,83,.18);
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+/* ─── COMPREHENSION ─── */
+.question-block {
+  margin-bottom: 18px;
+}
+.question-block label {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.question-block textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--surface3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color .2s;
+}
+.question-block textarea:focus { border-color: var(--accent-blue); }
+
+/* ─── GRAMMAR ─── */
+.grammar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+.grammar-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--surface2);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+.grammar-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+.grammar-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+.grammar-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--surface2);
+}
+
+.circle-choice {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+.circle-btn {
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 2px solid var(--surface3);
+  background: var(--surface2);
+  color: var(--text);
+  font-family: inherit;
+  transition: all .2s;
+}
+.circle-btn:hover { border-color: var(--accent-gold); }
+.circle-btn.picked { border-color: var(--accent-gold); background: rgba(212,166,83,.15); }
+.circle-btn.right { border-color: var(--correct); background: rgba(109,184,123,.12); }
+.circle-btn.wrong { border-color: var(--incorrect); background: rgba(199,92,92,.12); }
+
+/* ─── TRANSFORM ─── */
+.transform-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.transform-arrow {
+  color: var(--accent-gold);
+  font-size: 18px;
+}
+.transform-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--surface3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+.transform-input:focus { border-color: var(--accent-blue); }
+.transform-input.correct { border-color: var(--correct); }
+.transform-input.incorrect { border-color: var(--incorrect); }
+
+/* ─── MATCH LINES (Task 4A) ─── */
+.match-lines-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ml-item {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  border: 2px solid var(--surface3);
+  background: var(--surface2);
+  transition: all .2s;
+  user-select: none;
+}
+.ml-item.bruno-side { border-left: 3px solid var(--bruno); }
+.ml-item.miley-side { border-left: 3px solid var(--miley); }
+.ml-item:hover { border-color: var(--accent-gold); }
+.ml-item.selected { border-color: var(--accent-gold); background: rgba(212,166,83,.1); }
+.ml-item.correct { border-color: var(--correct); background: rgba(109,184,123,.1); }
+.ml-item.incorrect { border-color: var(--incorrect); background: rgba(199,92,92,.1); }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all .2s;
+}
+.btn-primary {
+  background: var(--accent-gold);
+  color: var(--bg);
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--surface3);
+}
+.btn-secondary:hover { border-color: var(--text-dim); }
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+/* ─── SCORE TOAST ─── */
+.score-toast {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  animation: fadeUp .3s ease;
+}
+.score-toast.show { display: block; }
+.score-toast.good { background: rgba(109,184,123,.12); color: var(--correct); border: 1px solid rgba(109,184,123,.3); }
+.score-toast.ok { background: rgba(212,166,83,.12); color: var(--accent-gold); border: 1px solid rgba(212,166,83,.3); }
+.score-toast.bad { background: rgba(199,92,92,.12); color: var(--incorrect); border: 1px solid rgba(199,92,92,.3); }
+
+/* ─── WRITING ─── */
+.writing-area {
+  width: 100%;
+  min-height: 160px;
+  padding: 16px;
+  background: var(--surface2);
+  border: 1px solid var(--surface3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.7;
+  resize: vertical;
+  outline: none;
+}
+.writing-area:focus { border-color: var(--accent-gold); }
+
+.starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.starter-chip {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  background: var(--surface2);
+  border: 1px solid var(--surface3);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all .2s;
+}
+.starter-chip:hover { border-color: var(--accent-gold); color: var(--text); }
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--text-dim);
+  font-size: 12px;
+  border-top: 1px solid var(--surface2);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  .match-grid, .match-lines-grid { grid-template-columns: 1fr; }
+  .transform-row { grid-template-columns: 1fr; }
+  .transform-arrow { display: none; }
+  .gap-input { width: 100px; }
+  .card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection(0)">Vocabulary</button>
+    <button class="nav-btn" onclick="showSection(1)">Bruno Mars</button>
+    <button class="nav-btn" onclick="showSection(2)">Miley Cyrus</button>
+    <button class="nav-btn" onclick="showSection(3)">Compare &amp; Grammar</button>
+    <button class="nav-btn" onclick="showSection(4)">Writing</button>
+    <div class="nav-progress">
+      <svg class="progress-ring" viewBox="0 0 36 36">
+        <circle class="bg" cx="18" cy="18" r="15.5"/>
+        <circle class="fg" id="progressCircle" cx="18" cy="18" r="15.5"
+          stroke-dasharray="97.4" stroke-dashoffset="97.4"
+          transform="rotate(-90 18 18)"/>
+      </svg>
+      <span id="progressText">0%</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-label">Interactive English Lesson</span>
+  <h1>
+    <span class="bruno-name">When I Was Your Man</span>
+    <span class="vs">vs</span>
+    <span class="miley-name">Flowers</span>
+  </h1>
+  <p>Learn vocabulary, practise listening, and explore grammar through two connected songs.</p>
+</header>
+
+<!-- ═══════ SECTION 0: VOCABULARY ═══════ -->
+<div class="section active" id="sec0">
+  <div class="section-header">
+    <div class="section-icon gold">📖</div>
+    <div>
+      <h2>Task 1 — Vocabulary</h2>
+      <p>Match words with meanings, then sort them by feeling</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part A — Match the word to its meaning</div>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:14px;">Click a word, then click its meaning.</p>
+    <div class="match-grid" id="matchGrid"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMatch()">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetMatch()">Reset</button>
+    </div>
+    <div class="score-toast" id="matchScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part B — Feeling check: Sad words</div>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:10px;">Click the words that sound <strong>sad</strong>.</p>
+    <div class="feeling-grid" id="sadGrid"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFeeling('sad')">Check</button>
+      <button class="btn btn-secondary" onclick="resetFeeling('sad')">Reset</button>
+    </div>
+    <div class="score-toast" id="sadScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part B — Feeling check: Positive words</div>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:10px;">Click the words that sound <strong>positive</strong>.</p>
+    <div class="feeling-grid" id="posGrid"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFeeling('pos')">Check</button>
+      <button class="btn btn-secondary" onclick="resetFeeling('pos')">Reset</button>
+    </div>
+    <div class="score-toast" id="posScore"></div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 1: BRUNO MARS ═══════ -->
+<div class="section" id="sec1">
+  <div class="section-header">
+    <div class="section-icon blue">🎤</div>
+    <div>
+      <h2>Task 2 — Bruno Mars: Listening</h2>
+      <p>Click a word from the bank, then click a gap to place it</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Word bank</div>
+    <div class="word-bank" id="brunoBank"></div>
+  </div>
+
+  <div class="card">
+    <div class="lyrics-block" id="brunoLyrics"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkGaps('bruno')">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetGaps('bruno')">Reset</button>
+    </div>
+    <div class="score-toast" id="brunoScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Comprehension questions</div>
+    <div class="question-block"><label>1. Is Bruno Mars happy or sad?</label><textarea placeholder="Write your answer..."></textarea></div>
+    <div class="question-block"><label>2. What did he NOT do when he had the chance?</label><textarea placeholder="Write your answer..."></textarea></div>
+    <div class="question-block"><label>3. Find one word that means 'not other people — only yourself':</label><textarea placeholder="Write your answer..."></textarea></div>
+    <div class="question-block"><label>4. Find a word that means 'something you did wrong':</label><textarea placeholder="Write your answer..."></textarea></div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 2: MILEY CYRUS ═══════ -->
+<div class="section" id="sec2">
+  <div class="section-header">
+    <div class="section-icon pink">🎶</div>
+    <div>
+      <h2>Task 3 — Miley Cyrus: Listening</h2>
+      <p>Click a word from the bank, then click a gap to place it</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Word bank</div>
+    <div class="word-bank" id="mileyBank"></div>
+  </div>
+
+  <div class="card">
+    <div class="lyrics-block" id="mileyLyrics"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkGaps('miley')">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetGaps('miley')">Reset</button>
+    </div>
+    <div class="score-toast" id="mileyScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Comprehension questions</div>
+    <div class="question-block"><label>1. Is Miley Cyrus sad or strong?</label><textarea placeholder="Write your answer..."></textarea></div>
+    <div class="question-block"><label>2. What can she do for herself? (give 2 examples)</label><textarea placeholder="Write your answer..."></textarea></div>
+    <div class="question-block"><label>3. She says 'I can hold my own hand.' What does this mean?</label><textarea placeholder="Write your answer..."></textarea></div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 3: COMPARE & GRAMMAR ═══════ -->
+<div class="section" id="sec3">
+  <div class="section-header">
+    <div class="section-icon gold">📝</div>
+    <div>
+      <h2>Task 4 — Compare &amp; Grammar</h2>
+      <p>should have vs can — regret vs ability</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part A — Match the lines</div>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:14px;">Click a Bruno Mars line, then click the matching Miley Cyrus line.</p>
+    <div class="match-lines-grid" id="linesGrid"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkLines()">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetLines()">Reset</button>
+    </div>
+    <div class="score-toast" id="linesScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part B — Grammar reminder</div>
+    <table class="grammar-table">
+      <tr><th>Structure</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td><strong>should have</strong> + verb</td><td>Regret about the past</td><td>I should have studied.</td></tr>
+      <tr><td><strong>can</strong> + verb</td><td>Ability in the present</td><td>I can study now.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part C — Circle the correct grammar</div>
+    <div id="circleQuestions"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkCircle()">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetCircle()">Reset</button>
+    </div>
+    <div class="score-toast" id="circleScore"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Part D — Transform the sentences</div>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:14px;">Change <em>should have + verb</em> → <em>can + myself</em></p>
+    <div style="padding:12px 16px;background:var(--surface2);border-radius:var(--radius-sm);margin-bottom:18px;font-size:14px;">
+      <strong>Example:</strong> I should have bought you flowers → <em>I can buy myself flowers</em>
+    </div>
+    <div id="transformBlock"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTransform()">Check answers</button>
+      <button class="btn btn-secondary" onclick="resetTransform()">Reset</button>
+    </div>
+    <div class="score-toast" id="transformScore"></div>
+  </div>
+</div>
+
+<!-- ═══════ SECTION 4: WRITING ═══════ -->
+<div class="section" id="sec4">
+  <div class="section-header">
+    <div class="section-icon gold">✍️</div>
+    <div>
+      <h2>Task 5 — Writing</h2>
+      <p>Reflect on the two songs</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Reflection writing</div>
+    <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px;">Write 3–5 sentences about the two songs. Click a sentence starter to add it.</p>
+    <div class="starters" id="starters"></div>
+    <textarea class="writing-area" id="writingArea" placeholder="Write your reflection here..."></textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Challenge question</div>
+    <p style="font-size:14px;margin-bottom:12px;">Do you think <em>Flowers</em> is a reply to <em>When I Was Your Man</em>? Why or why not?</p>
+    <textarea class="writing-area" id="challengeArea" placeholder="Write your thoughts here..."></textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  Interactive English Lesson — When I Was Your Man / Flowers
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════
+
+const matchData = [
+  { word: 'flowers', def: 'a gift people give', idx: 0 },
+  { word: 'hand', def: 'part of your body, used for touching', idx: 1 },
+  { word: 'dance', def: 'to move your body to music', idx: 2 },
+  { word: 'cry', def: 'water from your eyes / to weep', idx: 3 },
+  { word: 'lonely', def: 'feeling alone', idx: 4 },
+  { word: 'mistake', def: 'something you did wrong', idx: 5 },
+  { word: 'buy', def: 'get something from a shop', idx: 6 },
+  { word: 'hold', def: 'keep something in your hands', idx: 7 },
+  { word: 'regret', def: 'a feeling of sadness for something you did', idx: 8 },
+  { word: 'pride', def: 'a strong belief that you are good / important', idx: 9 },
+  { word: 'apologize', def: 'say sorry', idx: 10 },
+  { word: 'forgive', def: 'to forgive / not be angry anymore', idx: 11 },
+];
+
+const sadWords = ['cry','lonely','mistake','regret'];
+const posWords = ['flowers','dance','forgive','pride'];
+const allFeelingWords = ['flowers','dance','cry','lonely','mistake','buy','hold','regret','forgive','pride'];
+
+const brunoWords = ['bigger','same','tear','name','flowers','hours','party','dancing','ego','walk','mess','eyes','buys','chance','dance','man'];
+const brunoGaps = [
+  { label: 'Verse 1', lines: [
+    { pre: 'Same bed but it feels just a little bit ', ans: 'bigger', post: ' now' },
+    { pre: "Our song on the radio, but it don't sound the ", ans: 'same', post: '' },
+    { pre: 'When our friends talk about you, all it does is just ', ans: 'tear', post: ' me down' },
+    { pre: "'Cause my heart breaks a little when I hear your ", ans: 'name', post: '' },
+  ]},
+  { label: 'Chorus', lines: [
+    { pre: "That I should've bought you ", ans: 'flowers', post: ' and held your hand' },
+    { pre: "Should've gave you all my ", ans: 'hours', post: ' when I had the chance' },
+    { pre: 'Take you to every ', ans: 'party', post: " 'cause all you wanted to do was dance" },
+    { pre: "Now my baby's ", ans: 'dancing', post: ", but she's dancing with another man" },
+  ]},
+  { label: 'Verse 2', lines: [
+    { pre: 'My pride, my ', ans: 'ego', post: ', my needs, and my selfish ways' },
+    { pre: 'Caused a good, strong woman like you to ', ans: 'walk', post: ' out my life' },
+    { pre: 'Now I never, never get to clean up the ', ans: 'mess', post: ' I made, oh' },
+    { pre: 'And it haunts me every time I close my ', ans: 'eyes', post: '' },
+  ]},
+  { label: 'Final Chorus', lines: [
+    { pre: 'I hope he ', ans: 'buys', post: ' you flowers, I hope he holds your hand' },
+    { pre: 'Give you all his hours when he has the ', ans: 'chance', post: '' },
+    { pre: "Take you to every party 'cause I remember how much you loved to ", ans: 'dance', post: '' },
+    { pre: 'Do all the things I should have done when I was your ', ans: 'man', post: '' },
+  ]},
+];
+
+const mileyWords = ['gold','sold','burn','lie','cry','flowers','sand','hours','understand','dancing','hand','better','red','roses','regret'];
+const mileyGaps = [
+  { label: 'Verse 1', lines: [
+    { pre: 'We were good, we were ', ans: 'gold', post: '' },
+    { pre: "Kinda dream that can't be ", ans: 'sold', post: '' },
+    { pre: 'Built a home and watched it ', ans: 'burn', post: '' },
+    { pre: "Mm, I didn't wanna leave you, I didn't wanna ", ans: 'lie', post: '' },
+    { pre: 'Started to ', ans: 'cry', post: ' but then remembered I' },
+  ]},
+  { label: 'Chorus', lines: [
+    { pre: 'I can buy myself ', ans: 'flowers', post: '' },
+    { pre: 'Write my name in the ', ans: 'sand', post: '' },
+    { pre: 'Talk to myself for ', ans: 'hours', post: '' },
+    { pre: "Say things you don't ", ans: 'understand', post: '' },
+    { pre: 'I can take myself ', ans: 'dancing', post: '' },
+    { pre: 'And I can hold my own ', ans: 'hand', post: '' },
+    { pre: 'Yeah, I can love me ', ans: 'better', post: ' than you can' },
+  ]},
+  { label: 'Verse 2', lines: [
+    { pre: 'Paint my nails cherry ', ans: 'red', post: '' },
+    { pre: 'Match the ', ans: 'roses', post: ' that you left' },
+    { pre: 'No remorse, no ', ans: 'regret', post: '' },
+  ]},
+];
+
+const linesData = [
+  { bruno: "I should've bought you flowers", miley: "I can buy myself flowers" },
+  { bruno: "I should've held your hand", miley: "I can hold my own hand" },
+  { bruno: "Take you to every party", miley: "I can take myself dancing" },
+  { bruno: "I should've gave you all my hours", miley: "I can talk to myself for hours" },
+];
+
+const circleData = [
+  { q: "Bruno Mars sings about the past.", ans: "should have" },
+  { q: "Miley Cyrus sings about what she is able to do now.", ans: "can" },
+  { q: "Bruno Mars: 'I _______ bought you flowers.'", ans: "should have" },
+  { q: "Miley Cyrus: 'I _______ buy myself flowers.'", ans: "can" },
+  { q: "I _______ studied more last year. (regret)", ans: "should have" },
+  { q: "I _______ speak some English now. (ability)", ans: "can" },
+];
+
+const transformData = [
+  { from: "I should have called you.", ans: ["call myself","called myself"] },
+  { from: "I should have helped you.", ans: ["help myself","helped myself"] },
+  { from: "I should have listened to you.", ans: ["listen to myself","listened to myself"] },
+  { from: "I should have taken you dancing.", ans: ["take myself dancing","taken myself dancing"] },
+  { from: "I should have given you more time.", ans: ["give myself more time","given myself more time"] },
+];
+
+const starters = [
+  "Bruno Mars sings about...",
+  "Miley Cyrus sings about...",
+  "Bruno Mars feels...",
+  "Miley Cyrus feels...",
+  "I think the message of Flowers is...",
+];
+
+// ═══════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════
+let currentSection = 0;
+const sections = document.querySelectorAll('.section');
+const navBtns = document.querySelectorAll('.nav-btn');
+
+function showSection(i) {
+  sections.forEach((s,idx) => s.classList.toggle('active', idx===i));
+  navBtns.forEach((b,idx) => b.classList.toggle('active', idx===i));
+  currentSection = i;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════
+//  PROGRESS
+// ═══════════════════════════════════════
+const completedTasks = new Set();
+const totalTasks = 10; // match, sad, pos, bruno, miley, lines, circle, transform, writing, challenge
+
+function markDone(key) {
+  completedTasks.add(key);
+  const pct = Math.round(completedTasks.size / totalTasks * 100);
+  document.getElementById('progressText').textContent = pct + '%';
+  const circle = document.getElementById('progressCircle');
+  circle.style.strokeDashoffset = 97.4 * (1 - completedTasks.size / totalTasks);
+}
+
+function showScore(id, correct, total) {
+  const el = document.getElementById(id);
+  const pct = Math.round(correct / total * 100);
+  el.textContent = `${correct} / ${total} correct (${pct}%)`;
+  el.className = 'score-toast show ' + (pct >= 80 ? 'good' : pct >= 50 ? 'ok' : 'bad');
+}
+
+// ═══════════════════════════════════════
+//  TASK 1A: MATCHING
+// ═══════════════════════════════════════
+let matchPairs = {};
+let matchSelected = null;
+let matchSelectedType = null;
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - .5); }
+
+function buildMatch() {
+  const grid = document.getElementById('matchGrid');
+  const shuffledWords = shuffle(matchData);
+  const shuffledDefs = shuffle(matchData);
+  grid.innerHTML = '';
+  shuffledWords.forEach((d,i) => {
+    grid.innerHTML += `<div class="match-item match-word" data-idx="${d.idx}" onclick="pickMatch(this,'word')">${d.word}</div>`;
+    grid.innerHTML += `<div class="match-item match-def" data-idx="${shuffledDefs[i].idx}" onclick="pickMatch(this,'def')">${shuffledDefs[i].def}</div>`;
+  });
+}
+
+function pickMatch(el, type) {
+  if (el.classList.contains('correct') || el.classList.contains('incorrect')) return;
+  if (matchSelected && matchSelectedType === type) {
+    matchSelected.classList.remove('selected');
+  }
+  if (matchSelected && matchSelectedType !== type) {
+    const wIdx = type === 'word' ? el.dataset.idx : matchSelected.dataset.idx;
+    const dIdx = type === 'def' ? el.dataset.idx : matchSelected.dataset.idx;
+    matchPairs[wIdx] = dIdx;
+    el.classList.add('selected');
+    setTimeout(() => {
+      el.classList.remove('selected');
+      matchSelected.classList.remove('selected');
+      el.style.opacity = '.6';
+      matchSelected.style.opacity = '.6';
+      matchSelected = null;
+      matchSelectedType = null;
+    }, 300);
+    return;
+  }
+  el.classList.add('selected');
+  matchSelected = el;
+  matchSelectedType = type;
+}
+
+function checkMatch() {
+  let correct = 0;
+  const items = document.querySelectorAll('#matchGrid .match-item');
+  items.forEach(el => {
+    el.style.opacity = '1';
+    el.classList.remove('selected','correct','incorrect');
+  });
+  Object.entries(matchPairs).forEach(([wIdx, dIdx]) => {
+    const wEl = document.querySelector(`#matchGrid .match-word[data-idx="${wIdx}"]`);
+    const dEl = document.querySelector(`#matchGrid .match-def[data-idx="${dIdx}"]`);
+    if (wIdx === dIdx) {
+      wEl.classList.add('correct');
+      dEl.classList.add('correct');
+      correct++;
+    } else {
+      wEl.classList.add('incorrect');
+      dEl.classList.add('incorrect');
+    }
+  });
+  showScore('matchScore', correct, matchData.length);
+  if (correct >= matchData.length * .6) markDone('match');
+}
+
+function resetMatch() {
+  matchPairs = {};
+  matchSelected = null;
+  matchSelectedType = null;
+  document.getElementById('matchScore').className = 'score-toast';
+  buildMatch();
+}
+
+// ═══════════════════════════════════════
+//  TASK 1B: FEELINGS
+// ═══════════════════════════════════════
+function buildFeeling(containerId) {
+  const grid = document.getElementById(containerId);
+  grid.innerHTML = '';
+  allFeelingWords.forEach(w => {
+    grid.innerHTML += `<div class="feeling-chip" onclick="this.classList.toggle('picked')">${w}</div>`;
+  });
+}
+
+function checkFeeling(type) {
+  const containerId = type === 'sad' ? 'sadGrid' : 'posGrid';
+  const correctArr = type === 'sad' ? sadWords : posWords;
+  const chips = document.querySelectorAll(`#${containerId} .feeling-chip`);
+  let correct = 0;
+  chips.forEach(c => {
+    const w = c.textContent;
+    const isPicked = c.classList.contains('picked');
+    const isCorrect = correctArr.includes(w);
+    c.classList.remove('picked','right','wrong');
+    if (isPicked && isCorrect) { c.classList.add('right'); correct++; }
+    else if (isPicked && !isCorrect) { c.classList.add('wrong'); }
+    else if (!isPicked && isCorrect) { c.classList.add('right'); }
+  });
+  showScore(`${type}Score`, correct, correctArr.length);
+  if (correct >= correctArr.length * .6) markDone(type);
+}
+
+function resetFeeling(type) {
+  const containerId = type === 'sad' ? 'sadGrid' : 'posGrid';
+  document.getElementById(`${type}Score`).className = 'score-toast';
+  buildFeeling(containerId);
+}
+
+// ═══════════════════════════════════════
+//  TASK 2 & 3: GAP FILL (click-to-fill)
+// ═══════════════════════════════════════
+const gapState = {
+  bruno: { selectedWord: null, slots: {} },
+  miley: { selectedWord: null, slots: {} }
+};
+
+function buildGaps(artist, gapsArr, bankArr, bankId, lyricsId) {
+  const state = gapState[artist];
+  state.selectedWord = null;
+  state.slots = {};
+
+  // Word bank — clickable
+  const bankEl = document.getElementById(bankId);
+  bankEl.innerHTML = shuffle(bankArr).map(w =>
+    `<span class="word-bank-tag" data-artist="${artist}" data-word="${w}" onclick="pickWord(this,'${artist}')">${w}</span>`
+  ).join('');
+
+  // Lyrics with gap slots
+  const lyricsEl = document.getElementById(lyricsId);
+  let html = '';
+  let gapIdx = 0;
+  gapsArr.forEach(section => {
+    html += `<div class="lyrics-label">${section.label}</div>`;
+    section.lines.forEach(line => {
+      html += `${line.pre}<span class="gap-slot" data-artist="${artist}" data-answer="${line.ans}" data-gid="${artist}Gap${gapIdx}" onclick="pickSlot(this,'${artist}')"><span class="gap-placeholder">···</span></span>${line.post}<br>`;
+      gapIdx++;
+    });
+  });
+  lyricsEl.innerHTML = html;
+}
+
+function pickWord(el, artist) {
+  if (el.classList.contains('used')) return;
+  const state = gapState[artist];
+
+  // Deselect previous
+  document.querySelectorAll(`#${artist === 'bruno' ? 'brunoBank' : 'mileyBank'} .word-bank-tag.selected`).forEach(t => t.classList.remove('selected'));
+
+  // If clicking same word, deselect
+  if (state.selectedWord === el.dataset.word) {
+    state.selectedWord = null;
+    return;
+  }
+
+  el.classList.add('selected');
+  state.selectedWord = el.dataset.word;
+
+  // Also remove active-target highlight
+  document.querySelectorAll(`.gap-slot[data-artist="${artist}"].active-target`).forEach(s => s.classList.remove('active-target'));
+}
+
+function pickSlot(el, artist) {
+  const state = gapState[artist];
+  const gid = el.dataset.gid;
+
+  // If slot already has a word, put it back
+  if (state.slots[gid]) {
+    const oldWord = state.slots[gid];
+    delete state.slots[gid];
+    el.classList.remove('filled');
+    el.innerHTML = '<span class="gap-placeholder">···</span>';
+    // Un-use the word in the bank
+    const bankTag = document.querySelector(`#${artist === 'bruno' ? 'brunoBank' : 'mileyBank'} .word-bank-tag[data-word="${oldWord}"].used`);
+    if (bankTag) bankTag.classList.remove('used');
+    return;
+  }
+
+  // If a word is selected in the bank, place it
+  if (state.selectedWord) {
+    const word = state.selectedWord;
+    state.slots[gid] = word;
+    el.innerHTML = word;
+    el.classList.add('filled');
+
+    // Mark word as used
+    const bankTag = document.querySelector(`#${artist === 'bruno' ? 'brunoBank' : 'mileyBank'} .word-bank-tag.selected`);
+    if (bankTag) {
+      bankTag.classList.remove('selected');
+      bankTag.classList.add('used');
+    }
+    state.selectedWord = null;
+  }
+}
+
+function checkGaps(artist) {
+  const slots = document.querySelectorAll(`.gap-slot[data-artist="${artist}"]`);
+  let correct = 0;
+  slots.forEach(slot => {
+    slot.classList.remove('correct','incorrect');
+    const gid = slot.dataset.gid;
+    const placed = gapState[artist].slots[gid];
+    if (placed && placed.toLowerCase() === slot.dataset.answer.toLowerCase()) {
+      slot.classList.add('correct');
+      correct++;
+    } else {
+      slot.classList.add('incorrect');
+    }
+  });
+  showScore(`${artist}Score`, correct, slots.length);
+  if (correct >= slots.length * .6) markDone(artist);
+}
+
+function resetGaps(artist) {
+  gapState[artist] = { selectedWord: null, slots: {} };
+  document.getElementById(`${artist}Score`).className = 'score-toast';
+  if (artist === 'bruno') buildGaps('bruno', brunoGaps, brunoWords, 'brunoBank', 'brunoLyrics');
+  else buildGaps('miley', mileyGaps, mileyWords, 'mileyBank', 'mileyLyrics');
+}
+
+// ═══════════════════════════════════════
+//  TASK 4A: MATCH LINES
+// ═══════════════════════════════════════
+let linesPairs = {};
+let linesSelected = null;
+let linesSelectedSide = null;
+
+function buildLines() {
+  const grid = document.getElementById('linesGrid');
+  const shuffledMiley = shuffle(linesData.map((d,i) => ({...d, origIdx: i})));
+  grid.innerHTML = '';
+  linesData.forEach((d,i) => {
+    grid.innerHTML += `<div class="ml-item bruno-side" data-idx="${i}" onclick="pickLine(this,'bruno')">${d.bruno}</div>`;
+    grid.innerHTML += `<div class="ml-item miley-side" data-idx="${shuffledMiley[i].origIdx}" onclick="pickLine(this,'miley')">${shuffledMiley[i].miley}</div>`;
+  });
+}
+
+function pickLine(el, side) {
+  if (el.classList.contains('correct') || el.classList.contains('incorrect')) return;
+  if (linesSelected && linesSelectedSide === side) {
+    linesSelected.classList.remove('selected');
+  }
+  if (linesSelected && linesSelectedSide !== side) {
+    const bIdx = side === 'bruno' ? el.dataset.idx : linesSelected.dataset.idx;
+    const mIdx = side === 'miley' ? el.dataset.idx : linesSelected.dataset.idx;
+    linesPairs[bIdx] = mIdx;
+    el.classList.add('selected');
+    setTimeout(() => {
+      el.classList.remove('selected');
+      linesSelected.classList.remove('selected');
+      el.style.opacity = '.6';
+      linesSelected.style.opacity = '.6';
+      linesSelected = null;
+      linesSelectedSide = null;
+    }, 300);
+    return;
+  }
+  el.classList.add('selected');
+  linesSelected = el;
+  linesSelectedSide = side;
+}
+
+function checkLines() {
+  let correct = 0;
+  const items = document.querySelectorAll('#linesGrid .ml-item');
+  items.forEach(el => { el.style.opacity = '1'; el.classList.remove('selected','correct','incorrect'); });
+  Object.entries(linesPairs).forEach(([bIdx, mIdx]) => {
+    const bEl = document.querySelector(`#linesGrid .bruno-side[data-idx="${bIdx}"]`);
+    const mEl = document.querySelector(`#linesGrid .miley-side[data-idx="${mIdx}"]`);
+    if (bIdx === mIdx) { bEl.classList.add('correct'); mEl.classList.add('correct'); correct++; }
+    else { bEl.classList.add('incorrect'); mEl.classList.add('incorrect'); }
+  });
+  showScore('linesScore', correct, linesData.length);
+  if (correct >= linesData.length * .6) markDone('lines');
+}
+
+function resetLines() {
+  linesPairs = {};
+  linesSelected = null;
+  linesSelectedSide = null;
+  document.getElementById('linesScore').className = 'score-toast';
+  buildLines();
+}
+
+// ═══════════════════════════════════════
+//  TASK 4C: CIRCLE
+// ═══════════════════════════════════════
+function buildCircle() {
+  const container = document.getElementById('circleQuestions');
+  container.innerHTML = '';
+  circleData.forEach((d,i) => {
+    container.innerHTML += `
+      <div class="question-block">
+        <label>${i+1}. ${d.q}</label>
+        <div class="circle-choice">
+          <button class="circle-btn" data-qi="${i}" data-val="should have" onclick="pickCircle(this)">should have</button>
+          <button class="circle-btn" data-qi="${i}" data-val="can" onclick="pickCircle(this)">can</button>
+        </div>
+      </div>`;
+  });
+}
+
+function pickCircle(el) {
+  const qi = el.dataset.qi;
+  document.querySelectorAll(`.circle-btn[data-qi="${qi}"]`).forEach(b => b.classList.remove('picked','right','wrong'));
+  el.classList.add('picked');
+}
+
+function checkCircle() {
+  let correct = 0;
+  circleData.forEach((d,i) => {
+    const btns = document.querySelectorAll(`.circle-btn[data-qi="${i}"]`);
+    btns.forEach(b => {
+      b.classList.remove('right','wrong');
+      if (b.classList.contains('picked')) {
+        if (b.dataset.val === d.ans) { b.classList.add('right'); correct++; }
+        else { b.classList.add('wrong'); }
+      }
+    });
+  });
+  showScore('circleScore', correct, circleData.length);
+  if (correct >= circleData.length * .6) markDone('circle');
+}
+
+function resetCircle() {
+  document.querySelectorAll('.circle-btn').forEach(b => b.classList.remove('picked','right','wrong'));
+  document.getElementById('circleScore').className = 'score-toast';
+}
+
+// ═══════════════════════════════════════
+//  TASK 4D: TRANSFORM
+// ═══════════════════════════════════════
+function buildTransform() {
+  const container = document.getElementById('transformBlock');
+  container.innerHTML = '';
+  transformData.forEach((d,i) => {
+    container.innerHTML += `
+      <div class="transform-row">
+        <div style="font-size:14px;">${d.from}</div>
+        <div class="transform-arrow">→</div>
+        <input class="transform-input" data-ti="${i}" placeholder="I can ..." autocomplete="off" spellcheck="false">
+      </div>`;
+  });
+}
+
+function checkTransform() {
+  let correct = 0;
+  transformData.forEach((d,i) => {
+    const inp = document.querySelector(`.transform-input[data-ti="${i}"]`);
+    inp.classList.remove('correct','incorrect');
+    const val = inp.value.trim().toLowerCase().replace(/[.!]/g,'').trim();
+    const match = d.ans.some(a => val.includes(a.toLowerCase()));
+    if (match) { inp.classList.add('correct'); correct++; }
+    else { inp.classList.add('incorrect'); }
+  });
+  showScore('transformScore', correct, transformData.length);
+  if (correct >= transformData.length * .6) markDone('transform');
+}
+
+function resetTransform() {
+  document.querySelectorAll('.transform-input').forEach(inp => {
+    inp.value = '';
+    inp.classList.remove('correct','incorrect');
+  });
+  document.getElementById('transformScore').className = 'score-toast';
+}
+
+// ═══════════════════════════════════════
+//  TASK 5: WRITING
+// ═══════════════════════════════════════
+function buildStarters() {
+  const container = document.getElementById('starters');
+  starters.forEach(s => {
+    container.innerHTML += `<span class="starter-chip" onclick="addStarter(this)">${s}</span>`;
+  });
+}
+
+function addStarter(el) {
+  const area = document.getElementById('writingArea');
+  area.value += (area.value ? ' ' : '') + el.textContent + ' ';
+  area.focus();
+}
+
+// Track writing
+document.addEventListener('input', e => {
+  if (e.target.id === 'writingArea' && e.target.value.trim().split(/\s+/).length >= 10) markDone('writing');
+  if (e.target.id === 'challengeArea' && e.target.value.trim().split(/\s+/).length >= 5) markDone('challenge');
+});
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+buildMatch();
+buildFeeling('sadGrid');
+buildFeeling('posGrid');
+buildGaps('bruno', brunoGaps, brunoWords, 'brunoBank', 'brunoLyrics');
+buildGaps('miley', mileyGaps, mileyWords, 'mileyBank', 'mileyLyrics');
+buildLines();
+buildCircle();
+buildTransform();
+buildStarters();
+</script>
+</body>
+</html>
