@@ -226,6 +226,35 @@ body {
 }
 .img-match-item .emoji { font-size: 32px; }
 .img-match-item .label { font-size: 13px; font-weight: 600; }
+.img-match-item .listen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--surface3);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all .2s;
+  margin-top: 2px;
+}
+.img-match-item .listen-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+.img-match-item .listen-btn.playing { border-color: var(--blue); background: var(--blue-light); animation: pulse .6s ease infinite; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.def-chip .listen-sm {
+  cursor: pointer;
+  margin-left: 2px;
+  font-size: 13px;
+  opacity: .6;
+  transition: opacity .2s;
+}
+.def-chip .listen-sm:hover { opacity: 1; }
 .img-match-item:hover { border-color: var(--accent); }
 .img-match-item.selected { border-color: var(--accent); background: var(--accent-light); }
 .img-match-item.correct { border-color: var(--green); background: var(--green-light); }
@@ -843,6 +872,21 @@ function showScore(id, c, t) {
   el.className = 'score-toast show ' + (p>=80?'good':p>=50?'ok':'bad');
 }
 
+// ─── Text-to-speech ───
+function speak(word, btnEl) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  if (btnEl) {
+    btnEl.classList.add('playing');
+    u.onend = () => btnEl.classList.remove('playing');
+    u.onerror = () => btnEl.classList.remove('playing');
+  }
+  window.speechSynthesis.speak(u);
+}
+
 // ═══════════════════════════════════════
 //  TASK 1A: IMAGE MATCH
 // ═══════════════════════════════════════
@@ -866,11 +910,14 @@ function buildImgMatch() {
   const chips = document.getElementById('wordChips');
   const shuffledImgs = shuffle(imgData);
   const shuffledWords = shuffle(imgData);
-  grid.innerHTML = shuffledImgs.map((d,i) =>
-    `<div class="img-match-item" data-word="${d.word}" onclick="pickImg(this)"><span class="emoji">${d.emoji}</span></div>`
+  grid.innerHTML = shuffledImgs.map(d =>
+    `<div class="img-match-item" data-word="${d.word}" onclick="pickImg(this)">
+      <span class="emoji">${d.emoji}</span>
+      <span class="listen-btn" onclick="event.stopPropagation(); speak('${d.word}', this)" title="Listen">🔊</span>
+    </div>`
   ).join('');
   chips.innerHTML = shuffledWords.map(d =>
-    `<div class="def-chip" data-word="${d.word}" onclick="pickImgWord(this)">${d.word}</div>`
+    `<div class="def-chip" data-word="${d.word}" onclick="pickImgWord(this)">${d.word} <span class="listen-sm" onclick="event.stopPropagation(); speak('${d.word}')" title="Listen">🔊</span></div>`
   ).join('');
 }
 
