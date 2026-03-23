@@ -466,6 +466,22 @@ body {
 .ml-item.correct { border-color: var(--correct); background: rgba(109,184,123,.1); }
 .ml-item.incorrect { border-color: var(--incorrect); background: rgba(199,92,92,.1); }
 
+/* ─── VIDEO EMBED ─── */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
 /* ─── BUTTONS ─── */
 .btn {
   display: inline-flex;
@@ -658,6 +674,13 @@ body {
   </div>
 
   <div class="card">
+    <div class="card-title">🎬 Watch the music video</div>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/EAZYEOBOlJI" title="Bruno Mars — When I Was Your Man" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="card-title">Word bank</div>
     <div class="word-bank" id="brunoBank"></div>
   </div>
@@ -687,6 +710,13 @@ body {
     <div>
       <h2>Task 3 — Miley Cyrus: Listening</h2>
       <p>Click a word from the bank, then click a gap to place it</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎬 Watch the music video</div>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/G7KNmW9a75Y" title="Miley Cyrus — Flowers" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 
