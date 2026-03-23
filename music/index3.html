@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>When I Was Your Man / Flowers — English Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111110;
+  --surface: #1c1b1a;
+  --surface2: #262524;
+  --surface3: #333231;
+  --text: #ece8e1;
+  --text-dim: #8f8a82;
+  --gold: #d4a653;
+  --gold-light: rgba(212,166,83,.12);
+  --blue: #5b8fb9;
+  --blue-deep: #3d6a8e;
+  --blue-light: rgba(91,143,185,.12);
+  --pink: #c97b84;
+  --pink-deep: #a85d67;
+  --pink-light: rgba(201,123,132,.12);
+  --warm: #e07a3a;
+  --warm-light: rgba(224,122,58,.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .035;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 999;
+}
+
+/* ─── HEADER ─── */
+.header {
+  position: relative;
+  padding: 80px 24px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(212,166,83,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.header-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--surface3);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.header h1 .line1 { display: block; color: var(--blue); }
+.header h1 .amp {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .32em;
+  color: var(--text-dim);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 8px 0;
+}
+.header h1 .line2 { display: block; color: var(--pink); }
+
+.header p {
+  color: var(--text-dim);
+  font-size: 16px;
+  max-width: 480px;
+  margin: 18px auto 0;
+  line-height: 1.6;
+}
+
+/* ─── LEVEL CARDS ─── */
+.levels {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .levels { grid-template-columns: 1fr; }
+}
+
+.level-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--surface2);
+  border-radius: 20px;
+  padding: 36px 30px 30px;
+  overflow: hidden;
+  transition: transform .25s ease, border-color .25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.level-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--surface3);
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.level-card.a1::before { background: linear-gradient(90deg, var(--warm), var(--gold)); }
+.level-card.a2::before { background: linear-gradient(90deg, var(--blue), var(--pink)); }
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-bottom: 18px;
+}
+
+.a1 .level-badge { background: var(--warm-light); color: var(--warm); }
+.a2 .level-badge { background: var(--blue-light); color: var(--blue); }
+
+.level-card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.level-card .desc {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 20px 0;
+}
+
+.skill-tag {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--surface3);
+  color: var(--text-dim);
+}
+
+.level-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all .25s ease;
+  margin-top: auto;
+  width: fit-content;
+}
+
+.a1 .level-link {
+  background: var(--warm);
+  color: var(--bg);
+}
+.a1 .level-link:hover { filter: brightness(1.1); }
+
+.a2 .level-link {
+  background: var(--blue);
+  color: var(--bg);
+}
+.a2 .level-link:hover { filter: brightness(1.1); }
+
+.level-link .arrow {
+  transition: transform .2s;
+}
+.level-link:hover .arrow { transform: translateX(3px); }
+
+/* ─── INFO SECTION ─── */
+.info {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .info-grid { grid-template-columns: 1fr; }
+}
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--surface2);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.info-card .ic-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.info-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.info-card p {
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ic1 .ic-icon { background: var(--gold-light); }
+.ic2 .ic-icon { background: var(--blue-light); }
+.ic3 .ic-icon { background: var(--pink-light); }
+
+/* ─── FOOTER ─── */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--text-dim);
+  font-size: 11px;
+  letter-spacing: .5px;
+  border-top: 1px solid var(--surface2);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: rise .6s ease forwards;
+}
+.fade-in:nth-child(2) { animation-delay: .1s; }
+.fade-in:nth-child(3) { animation-delay: .2s; }
+
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-tag">🎵 Engelsk for innføringsklassen</div>
+  <h1>
+    <span class="line1">When I Was Your Man</span>
+    <span class="amp">meets</span>
+    <span class="line2">Flowers</span>
+  </h1>
+  <p>To interaktive leksjoner basert på sangene av Bruno Mars og Miley Cyrus. Velg ditt nivå og start!</p>
+</header>
+
+<section class="levels">
+
+  <div class="level-card a1 fade-in">
+    <div class="level-badge">☀️ Nivå 1 — A1 Beginner</div>
+    <h2>Beginner Lesson</h2>
+    <p class="desc">
+      For elever som er nybegynnere i engelsk. Enkle ord med bilder og lyd, 
+      klikk-baserte oppgaver, flervalg, og setningsbygging. 
+      Lær grunnleggende ord som <em>flowers, dance, cry, happy</em> og øv på <em>I can</em>.
+    </p>
+    <div class="skill-tags">
+      <span class="skill-tag">🔊 Lytte til ord</span>
+      <span class="skill-tag">🖼️ Bilder + ord</span>
+      <span class="skill-tag">🎬 Videoer</span>
+      <span class="skill-tag">📝 I can + verb</span>
+      <span class="skill-tag">🧩 Setningsbygging</span>
+    </div>
+    <a href="a1-lesson.html" class="level-link">
+      Start A1 Lesson <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="level-card a2 fade-in">
+    <div class="level-badge">🚀 Nivå 2 — A2 / B1</div>
+    <h2>Intermediate Lesson</h2>
+    <p class="desc">
+      For elever med grunnleggende engelskkunnskaper. 
+      Fullstendig gap-fill av begge sanger, sammenligningsoppgaver, 
+      grammatikk med <em>should have</em> vs <em>can</em>, og reflekterende skriving.
+    </p>
+    <div class="skill-tags">
+      <span class="skill-tag">🎤 Gap-fill sanglyrikk</span>
+      <span class="skill-tag">🎬 Videoer</span>
+      <span class="skill-tag">⚖️ Sammenligning</span>
+      <span class="skill-tag">📝 should have vs can</span>
+      <span class="skill-tag">✍️ Refleksjon</span>
+    </div>
+    <a href="index.html" class="level-link">
+      Start A2/B1 Lesson <span class="arrow">→</span>
+    </a>
+  </div>
+
+</section>
+
+<section class="info">
+  <div class="info-grid">
+    <div class="info-card ic1 fade-in">
+      <div class="ic-icon">🎧</div>
+      <h3>Lytt og lær</h3>
+      <p>Se musikkvideoene og fyll inn ord mens du lytter til sangene.</p>
+    </div>
+    <div class="info-card ic2 fade-in">
+      <div class="ic-icon">🖱️</div>
+      <h3>Interaktivt</h3>
+      <p>Klikk, match og bygg setninger — alt med umiddelbar tilbakemelding.</p>
+    </div>
+    <div class="info-card ic3 fade-in">
+      <div class="ic-icon">📱</div>
+      <h3>Fungerer overalt</h3>
+      <p>Bruk på PC, nettbrett eller mobil. Ingen innlogging, ingen installasjon.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  Engelsk for innføringsklassen — Bruno Mars & Miley Cyrus
+</footer>
+
+</body>
+</html>
