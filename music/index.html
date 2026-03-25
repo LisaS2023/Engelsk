@@ -552,8 +552,13 @@ function initA1() {
 </div>
 <div class="section" data-a1sec="4">
   <div class="section-header"><div class="section-icon gold">✍️</div><div><h2>Task 5 — My sentences</h2><div class="sub">Write about the songs in simple English</div></div></div>
-  <div class="card"><div class="card-title">Write 2–3 sentences. Click a start to help.</div><div class="starters" id="a1starters"></div><textarea class="writing-area" id="a1write1" placeholder="Bruno Mars is sad. He ..."></textarea><div class="btn-row"><button class="btn btn-primary" id="a1fb1">Get feedback 💬</button></div><div id="a1feedback1" style="margin-top:12px;"></div></div>
-  <div class="card"><div class="card-title">What can YOU do? Write 3 things with "I can".</div><p style="color:#8a8279;font-size:14px;margin-bottom:10px;">Example: I can cook food. I can read a book.</p><textarea class="writing-area" id="a1write2" placeholder="I can ..."></textarea><div class="btn-row"><button class="btn btn-primary" id="a1fb2">Get feedback 💬</button></div><div id="a1feedback2" style="margin-top:12px;"></div></div>
+  <div class="card"><div class="card-title">Write 2–3 sentences. Click a start to help.</div><div class="starters" id="a1starters"></div><textarea class="writing-area" id="a1write1" placeholder="Bruno Mars is sad. He ..."></textarea></div>
+  <div class="card"><div class="card-title">What can YOU do? Write 3 things with "I can".</div><p style="color:#8a8279;font-size:14px;margin-bottom:10px;">Example: I can cook food. I can read a book.</p><textarea class="writing-area" id="a1write2" placeholder="I can ..."></textarea></div>
+  <div style="text-align:center;padding:24px 0 8px;">
+    <button class="btn btn-primary" onclick="savePDF('a1')" style="font-size:15px;padding:13px 36px;border-radius:10px;gap:8px;display:inline-flex;align-items:center;">
+      <span>💾</span> Lagre som PDF
+    </button>
+  </div>
 </div>
 <footer class="footer">A1 Beginner English — When I Was Your Man / Flowers</footer>`;
 
@@ -687,54 +692,6 @@ function initA1() {
   $('#a1starters').innerHTML=starters.map(s=>`<span class="starter-chip">${s}</span>`).join('');
   $$('#a1starters .starter-chip').forEach(el=>el.addEventListener('click',()=>{const a=$('#a1write1');a.value+=(a.value?' ':'')+el.textContent+' ';a.focus();}));
 
-  // AI Writing Feedback
-  async function getWritingFeedback(text, taskType, feedbackElId) {
-    const fbEl = $('#'+feedbackElId);
-    if (!text.trim()) { fbEl.innerHTML='<div class="ai-feedback" style="color:#c75c5c;">Please write something first!</div>'; return; }
-    fbEl.innerHTML='<div class="ai-feedback loading">Checking your writing... ✍️</div>';
-    const prompts = {
-      reflection: `You are a friendly, encouraging English teacher for A1 beginner students (teenagers/young adults in Norway learning English). The student wrote about two songs (Bruno Mars "When I Was Your Man" and Miley Cyrus "Flowers"). Their task was to write 2-3 sentences.
-
-Review their text and give SHORT feedback in this format:
-1. Start with something positive about what they wrote (1 sentence)
-2. Count their sentences - did they write 2-3? Say "You wrote X sentences" 
-3. Check: capital letters at start of sentences? Periods at end? Note any issues briefly.
-4. If there are spelling or word order errors, mention 1-2 of the most important ones gently with the correction
-5. End with an encouraging word
-
-Keep your total response under 100 words. Be warm and supportive. Write in English but you can use a Norwegian word in parentheses if it helps explain something.`,
-      ican: `You are a friendly, encouraging English teacher for A1 beginner students (teenagers/young adults in Norway learning English). The student was asked to write 3 sentences using "I can + verb".
-
-Review their text and give SHORT feedback:
-1. Start with something positive (1 sentence)
-2. Count: did they write 3 "I can" sentences? Say how many you found.
-3. Check: capital letters at start? Periods at end? 
-4. If there are spelling or word order errors, mention 1-2 gently with corrections
-5. End with encouragement
-
-Keep your total response under 80 words. Be warm and supportive.`
-    };
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 300,
-          messages: [{ role: 'user', content: prompts[taskType] + '\n\nStudent text:\n' + text }]
-        })
-      });
-      const data = await response.json();
-      const reply = data.content?.map(b => b.text || '').join('') || 'Could not get feedback. Try again!';
-      fbEl.innerHTML = '<div class="ai-feedback">' + reply.replace(/\n/g, '<br>') + '</div>';
-    } catch (err) {
-      fbEl.innerHTML = '<div class="ai-feedback" style="color:#c75c5c;">Could not connect. Check your internet and try again.</div>';
-    }
-  }
-
-  $('#a1fb1').onclick = () => getWritingFeedback($('#a1write1').value, 'reflection', 'a1feedback1');
-  $('#a1fb2').onclick = () => getWritingFeedback($('#a1write2').value, 'ican', 'a1feedback2');
-
   // Init all
   buildImg(); buildSort();
   buildGap('bruno',brunoG,brunoW,'a1brunoBank','a1brunoLyrics');
@@ -791,8 +748,13 @@ function initA2() {
 </div>
 <div class="section" data-a2sec="4">
   <div class="section-header"><div class="section-icon gold">✍️</div><div><h2>Task 5 — Writing</h2><p>Reflect on the two songs</p></div></div>
-  <div class="card"><div class="card-title">Reflection writing</div><p style="color:#9a958e;font-size:14px;margin-bottom:12px;">Write 3–5 sentences about the two songs. Click a sentence starter to add it.</p><div class="starters" id="a2starters"></div><textarea class="writing-area" id="a2writingArea" placeholder="Write your reflection here..."></textarea><div class="btn-row"><button class="btn btn-primary" id="a2fbWrite1">Get feedback 💬</button></div><div id="a2writeFb1" style="margin-top:12px;"></div></div>
-  <div class="card"><div class="card-title">Challenge question</div><p style="font-size:14px;margin-bottom:12px;">Do you think <em>Flowers</em> is a reply to <em>When I Was Your Man</em>? Why or why not?</p><textarea class="writing-area" id="a2challengeArea" placeholder="Write your thoughts here..."></textarea><div class="btn-row"><button class="btn btn-primary" id="a2fbWrite2">Get feedback 💬</button></div><div id="a2writeFb2" style="margin-top:12px;"></div></div>
+  <div class="card"><div class="card-title">Reflection writing</div><p style="color:#9a958e;font-size:14px;margin-bottom:12px;">Write 3–5 sentences about the two songs. Click a sentence starter to add it.</p><div class="starters" id="a2starters"></div><textarea class="writing-area" id="a2writingArea" placeholder="Write your reflection here..."></textarea></div>
+  <div class="card"><div class="card-title">Challenge question</div><p style="font-size:14px;margin-bottom:12px;">Do you think <em>Flowers</em> is a reply to <em>When I Was Your Man</em>? Why or why not?</p><textarea class="writing-area" id="a2challengeArea" placeholder="Write your thoughts here..."></textarea></div>
+  <div style="text-align:center;padding:24px 0 8px;">
+    <button class="btn btn-primary" onclick="savePDF('a2')" style="font-size:15px;padding:13px 36px;border-radius:10px;gap:8px;display:inline-flex;align-items:center;">
+      <span>💾</span> Lagre som PDF
+    </button>
+  </div>
 </div>
 <footer class="footer">Interactive English Lesson — When I Was Your Man / Flowers</footer>`;
 
@@ -907,40 +869,228 @@ For each question, briefly say if the answer is correct, partially correct, or w
 For each question, briefly say if the answer is correct, partially correct, or wrong. If wrong, give a gentle hint. Correct any spelling or grammar errors. Keep total response under 100 words. Be encouraging.`, 'a2mileyCompFb');
   };
 
-  // Writing feedback - reflection
-  $('#a2fbWrite1').onclick = () => {
-    a2Feedback($('#a2writingArea').value, `You are a friendly English teacher for A2/B1 level students (teenagers in Norway). The student wrote a reflection about "When I Was Your Man" by Bruno Mars and "Flowers" by Miley Cyrus. They were asked to write 3-5 sentences.
-
-Give feedback:
-1. Something positive about the content (1 sentence)
-2. Count sentences — did they write 3-5?
-3. Focus on spelling errors — list specific corrections (word → correction)
-4. Focus on sentence structure / word order — note any issues with specific corrections
-5. Check punctuation (capital letters, periods)
-6. Brief encouraging closing
-
-Keep total under 130 words. Be warm but specific about errors.`, 'a2writeFb1');
-  };
-
-  // Writing feedback - challenge
-  $('#a2fbWrite2').onclick = () => {
-    a2Feedback($('#a2challengeArea').value, `You are a friendly English teacher for A2/B1 level students (teenagers in Norway). The student answered: "Do you think Flowers is a reply to When I Was Your Man? Why or why not?"
-
-Give feedback:
-1. Comment on their argument — did they give reasons? (1 sentence)
-2. Spelling errors — list specific corrections (word → correction)
-3. Sentence structure / word order issues with corrections
-4. Punctuation check
-5. Brief encouraging closing
-
-Keep total under 100 words. Be warm but specific about errors.`, 'a2writeFb2');
-  };
-
   // Init
   buildMatch(); buildFeeling('a2sadGrid'); buildFeeling('a2posGrid');
   buildGap2('bruno',bG,bW,'a2brunoBank','a2brunoLyrics');
   buildGap2('miley',mG,mW,'a2mileyBank','a2mileyLyrics');
   buildLines(); buildCircle(); buildTransform();
+}
+
+// ══════════════════════════════════════════
+//  SAVE AS PDF — collects all results
+// ══════════════════════════════════════════
+function savePDF(level) {
+  const isA1 = level === 'a1';
+  const root = document.getElementById(isA1 ? 'v-a1' : 'v-a2');
+
+  // Helper: get score text from a toast element
+  function score(id) {
+    const el = root.querySelector('#' + id);
+    return (el && el.classList.contains('show')) ? el.textContent : '—';
+  }
+
+  // Helper: get textarea value
+  function text(id) {
+    const el = root.querySelector('#' + id);
+    return (el && el.value.trim()) ? el.value.trim() : '(ikke besvart)';
+  }
+
+  // Helper: collect multiple-choice answers from a container
+  function mcAnswers(selector) {
+    const rows = [];
+    root.querySelectorAll(selector).forEach(q => {
+      const label = q.querySelector('label, .who-q .line, p');
+      const picked = q.querySelector('.right, .wrong, .picked');
+      if (label) {
+        const ans = picked ? picked.textContent.trim() : '—';
+        const ok = picked && picked.classList.contains('right') ? '✓' : picked ? '✗' : '—';
+        rows.push({ q: label.textContent.trim(), a: ans, ok });
+      }
+    });
+    return rows;
+  }
+
+  // Helper: gap fill results — correct/incorrect spans
+  function gapResults(lyricsId) {
+    const rows = [];
+    root.querySelectorAll('#' + lyricsId + ' .gap-slot').forEach(el => {
+      const ans = el.dataset.ans;
+      const filled = el.classList.contains('filled') ? el.textContent.trim() : '—';
+      const ok = el.classList.contains('correct') ? '✓' : el.classList.contains('incorrect') ? '✗' : '—';
+      rows.push({ ans, filled, ok });
+    });
+    return rows;
+  }
+
+  // Helper: transform inputs
+  function transformResults() {
+    const rows = [];
+    root.querySelectorAll('.transform-row').forEach(row => {
+      const from = row.querySelector('div')?.textContent?.trim() || '';
+      const inp = row.querySelector('.transform-input');
+      const val = inp ? inp.value.trim() : '';
+      const ok = inp && inp.classList.contains('correct') ? '✓' : inp && inp.classList.contains('incorrect') ? '✗' : '—';
+      rows.push({ from, val: val || '—', ok });
+    });
+    return rows;
+  }
+
+  // ── BUILD HTML ──
+  let sections = [];
+
+  if (isA1) {
+    sections = [
+      {
+        title: 'Task 1 — Learn the Words',
+        rows: [
+          ['Part A — Picture matching', score('a1imgScore')],
+          ['Part B — Sort sad/happy', score('a1sortScore')],
+        ]
+      },
+      {
+        title: 'Task 2 — Bruno Mars (gap fill)',
+        rows: [['Gap fill score', score('a1brunoScore')], ['Comprehension', score('a1brunoCompScore')]]
+      },
+      {
+        title: 'Task 3 — Miley Cyrus (gap fill)',
+        rows: [['Gap fill score', score('a1mileyScore')], ['Comprehension', score('a1mileyCompScore')]]
+      },
+      {
+        title: 'Task 4 — Compare & Grammar',
+        rows: [['Who says it?', score('a1whoScore')], ['Grammar mix', score('a1gramScore')]]
+      },
+      {
+        title: 'Task 5 — My sentences',
+        writing: [
+          { label: 'Write 2–3 sentences about the songs:', val: text('a1write1') },
+          { label: 'What can YOU do? (I can...)', val: text('a1write2') }
+        ]
+      }
+    ];
+  } else {
+    const brunoGaps = gapResults('a2brunoLyrics');
+    const mileyGaps = gapResults('a2mileyLyrics');
+    const trans = transformResults();
+
+    sections = [
+      {
+        title: 'Task 1 — Vocabulary',
+        rows: [
+          ['Word matching', score('a2matchScore')],
+          ['Sad words', score('a2sadScore')],
+          ['Positive words', score('a2posScore')]
+        ]
+      },
+      {
+        title: 'Task 2 — Bruno Mars',
+        rows: [['Gap fill score', score('a2brunoScore')]],
+        writing: [
+          { label: '1. Is Bruno Mars happy or sad?', val: text('a2bcomp1') },
+          { label: '2. What did he NOT do when he had the chance?', val: text('a2bcomp2') },
+          { label: '3. Word meaning "not other people — only yourself":', val: text('a2bcomp3') },
+          { label: '4. Word meaning "something you did wrong":', val: text('a2bcomp4') }
+        ]
+      },
+      {
+        title: 'Task 3 — Miley Cyrus',
+        rows: [['Gap fill score', score('a2mileyScore')]],
+        writing: [
+          { label: '1. Is Miley Cyrus sad or strong?', val: text('a2mcomp1') },
+          { label: '2. What can she do for herself? (2 examples)', val: text('a2mcomp2') },
+          { label: '3. "I can hold my own hand" — what does it mean?', val: text('a2mcomp3') }
+        ]
+      },
+      {
+        title: 'Task 4 — Compare & Grammar',
+        rows: [
+          ['Match the lines', score('a2linesScore')],
+          ['Grammar: should have / can', score('a2circleScore')],
+          ['Transform sentences', score('a2transformScore')]
+        ],
+        transforms: trans
+      },
+      {
+        title: 'Task 5 — Writing',
+        writing: [
+          { label: 'Reflection (3–5 sentences about the songs):', val: text('a2writingArea') },
+          { label: 'Challenge: Is Flowers a reply to When I Was Your Man?', val: text('a2challengeArea') }
+        ]
+      }
+    ];
+  }
+
+  // ── RENDER HTML ──
+  const title = isA1
+    ? 'A1 — When I Was Your Man / Flowers'
+    : 'A2/B1 — When I Was Your Man / Flowers';
+
+  let body = '';
+  sections.forEach(sec => {
+    body += `<div class="sec"><h2>${sec.title}</h2>`;
+
+    if (sec.rows && sec.rows.length) {
+      body += '<table><thead><tr><th>Oppgave</th><th>Resultat</th></tr></thead><tbody>';
+      sec.rows.forEach(([label, val]) => {
+        const cls = val === '—' ? 'empty' : val.includes('correct') ? '' : '';
+        body += `<tr><td>${label}</td><td class="score">${val}</td></tr>`;
+      });
+      body += '</tbody></table>';
+    }
+
+    if (sec.transforms && sec.transforms.length) {
+      body += '<h3 style="margin:14px 0 8px;font-size:13px;color:#555;text-transform:uppercase;letter-spacing:.06em;">Transform sentences</h3>';
+      body += '<table><thead><tr><th>Original</th><th>Svar</th><th></th></tr></thead><tbody>';
+      sec.transforms.forEach(t => {
+        body += `<tr><td>${t.from}</td><td>${t.val}</td><td class="${t.ok==='✓'?'ok':'no'}">${t.ok}</td></tr>`;
+      });
+      body += '</tbody></table>';
+    }
+
+    if (sec.writing && sec.writing.length) {
+      sec.writing.forEach(w => {
+        body += `<div class="writing-block"><div class="writing-label">${w.label}</div><div class="writing-text">${w.val.replace(/\n/g,'<br>')}</div></div>`;
+      });
+    }
+
+    body += '</div>';
+  });
+
+  const html = `<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<title>${title}</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'DM Sans', Georgia, sans-serif; font-size: 13px; color: #1a1814; padding: 32px 40px; background: #fff; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .meta { font-size: 12px; color: #888; margin-bottom: 28px; border-bottom: 2px solid #111; padding-bottom: 12px; }
+  .sec { margin-bottom: 28px; page-break-inside: avoid; }
+  h2 { font-size: 15px; font-weight: 700; color: #fff; background: #2c2824; padding: 8px 14px; border-radius: 6px 6px 0 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f0ece4; text-align: left; padding: 7px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #888; }
+  td { padding: 8px 12px; border-bottom: 1px solid #f0ece4; }
+  td.score { font-weight: 700; color: #2c7a4b; }
+  td.ok { color: #2c7a4b; font-weight: 700; text-align: center; }
+  td.no { color: #c75c5c; font-weight: 700; text-align: center; }
+  .writing-block { background: #faf8f4; border: 1px solid #e3ddd3; border-radius: 0 0 6px 6px; padding: 14px 16px; margin-bottom: 10px; }
+  .writing-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #888; margin-bottom: 6px; }
+  .writing-text { font-size: 14px; line-height: 1.7; color: #2c2824; white-space: pre-wrap; }
+  .writing-text:empty::before, .empty { color: #aaa; font-style: italic; }
+  @media print { body { padding: 16px 24px; } }
+</style>
+</head>
+<body>
+<h1>${title}</h1>
+<div class="meta">Utskrift av resultater — ${new Date().toLocaleDateString('no-NO', {day:'2-digit',month:'long',year:'numeric'})}</div>
+${body}
+</body>
+</html>`;
+
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(() => w.print(), 400);
 }
 </script>
 </body>
