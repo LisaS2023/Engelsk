@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover Canada – A1/A2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #B22A1E;
+    --red-bright: #D52B1E;
+    --red-hero: #9C2318;
+    --dark-red: #7A1A0C;
+    --deep-red: #5E150A;
+    --light-red: #F5D5D2;
+    --very-light-red: #FDF5F4;
+    --cream: #FFF9F7;
+    --white: #FFFFFF;
+    --dark: #1A1A1A;
+    --medium: #4A4A4A;
+    --light-gray: #E8E8E8;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Source Sans 3', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--dark);
+    background: var(--cream);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #C42D20 0%, #A82319 35%, #8E1E14 65%, #7A1A0C 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13 0v12H0v2h13v14h2V14h13v-2H15V0h-2z' fill='%23ffffff' fill-opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.25) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px 28px;
+  }
+
+  .maple-leaf {
+    width: 72px;
+    height: 82px;
+    margin: 0 auto 36px;
+    filter: drop-shadow(0 6px 20px rgba(0,0,0,0.35));
+    animation: gentle-float 5s ease-in-out infinite;
+  }
+
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    color: var(--white);
+    line-height: 1.0;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.3);
+  }
+
+  .hero h1 .discover {
+    display: block;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    letter-spacing: 0.18em;
+    margin-bottom: 4px;
+    opacity: 0.9;
+  }
+
+  .hero h1 .canada {
+    display: block;
+    font-weight: 900;
+    font-size: clamp(4rem, 11vw, 8rem);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-subtitle {
+    font-family: var(--sans);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    margin-top: 28px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-btn.level-btn {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: white;
+  }
+
+  .hero-btn.level-btn:hover {
+    background: rgba(255,255,255,0.22);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+
+  .hero-btn.level-btn:active { transform: translateY(-1px); }
+
+  .hero-btn.ndla-btn {
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-btn.ndla-btn:hover {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+
+  .hero-btn .btn-sub {
+    font-size: 0.68rem;
+    opacity: 0.6;
+    font-weight: 400;
+    margin-left: 2px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.35);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    z-index: 2;
+    animation: scroll-pulse 2.5s ease-in-out infinite;
+    display: none;
+  }
+
+  .scroll-hint.visible { display: block; }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.25);
+    margin: 8px auto 0;
+    animation: scroll-line 2.5s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse { 0%,100%{opacity:.3} 50%{opacity:.7} }
+  @keyframes scroll-line { 0%,100%{height:28px;opacity:.25} 50%{height:40px;opacity:.5} }
+
+  .app-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .app-content.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .level-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .level-bar.a1 { background: rgba(212,43,30,0.92); }
+  .level-bar.a2 { background: rgba(122,26,12,0.92); }
+
+  .level-bar-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: 0.03em;
+  }
+
+  .level-bar-back {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 18px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .level-bar-back:hover {
+    background: rgba(255,255,255,0.25);
+    color: white;
+  }
+
+  section {
+    padding: 64px 0;
+    position: relative;
+  }
+
+  section:nth-child(odd) { background: var(--cream); }
+  section:nth-child(even) { background: var(--white); }
+
+  .section-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .a1-theme .section-label { color: var(--red-bright); }
+  .a2-theme .section-label { color: var(--dark-red); }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .section-title .accent { color: var(--red-bright); }
+  .a2-theme .section-title .accent { color: var(--dark-red); }
+
+  .section-divider {
+    width: 50px;
+    height: 3px;
+    border: none;
+    margin: 14px 0 28px;
+    border-radius: 2px;
+  }
+
+  .a1-theme .section-divider { background: var(--red-bright); }
+  .a2-theme .section-divider { background: var(--dark-red); }
+
+  .text-box {
+    border-radius: 0 14px 14px 0;
+    padding: 30px 34px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--medium);
+    background: var(--white);
+  }
+
+  .a1-theme .text-box { border-left: 4px solid var(--red-bright); }
+  .a2-theme .text-box { border-left: 4px solid var(--dark-red); }
+
+  .text-box p { margin-bottom: 14px; }
+  .text-box p:last-child { margin-bottom: 0; }
+
+  .hw {
+    font-weight: 700;
+    cursor: help;
+    border-bottom: 2px dotted;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .a1-theme .hw { color: var(--red-bright); border-color: rgba(213,43,30,0.3); }
+  .a2-theme .hw { color: var(--dark-red); border-color: rgba(122,26,12,0.3); }
+
+  .hw .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: var(--dark);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    font-style: italic;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+
+  .hw .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--dark);
+  }
+
+  .hw:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  @media (max-width: 520px) { .vocab-grid { grid-template-columns: 1fr; } }
+
+  .vocab-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 12px 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .vocab-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .vocab-card.flipped .vocab-eng { display: none; }
+  .vocab-card.flipped .vocab-nor { display: block; }
+  .vocab-card .vocab-nor { display: none; }
+
+  .vocab-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    font-family: var(--mono);
+  }
+
+  .a1-theme .vocab-icon { background: var(--red-bright); }
+  .a2-theme .vocab-icon { background: var(--dark-red); }
+
+  .vocab-eng { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
+  .vocab-nor { font-style: italic; color: var(--medium); font-size: 0.95rem; }
+
+  .vocab-hint {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: rgba(0,0,0,0.35);
+    font-style: italic;
+  }
+
+  .task-card {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    margin-bottom: 28px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .task-header {
+    padding: 16px 26px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .a1-theme .task-header { background: linear-gradient(135deg, #D52B1E, #E23A2E); }
+  .a2-theme .task-header { background: linear-gradient(135deg, #8E1E14, #A82319); }
+
+  .task-header h3 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    flex: 1;
+  }
+
+  .task-badge {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 3px 14px;
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  .task-body { padding: 22px 26px; }
+  .task-body p { font-size: 0.93rem; color: var(--medium); margin-bottom: 10px; }
+  .task-body .instruction { font-weight: 600; color: var(--dark); }
+
+  .tf-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background: var(--cream);
+    transition: all 0.3s;
+    border: 2px solid transparent;
+  }
+
+  .tf-item.correct { border-color: #2ea043; background: #e6f9eb; }
+  .tf-item.wrong { border-color: var(--red-bright); background: #fde8e6; }
+
+  .tf-text {
+    flex: 1;
+    font-size: 0.93rem;
+    color: var(--dark);
+  }
+
+  .tf-buttons {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .tf-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid var(--light-gray);
+    background: white;
+    color: var(--medium);
+    transition: all 0.2s;
+    font-family: var(--sans);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .tf-btn:hover { border-color: var(--red-bright); color: var(--red-bright); }
+  .tf-btn.selected-true { background: #2ea043; color: white; border-color: #2ea043; }
+  .tf-btn.selected-false { background: var(--red-bright); color: white; border-color: var(--red-bright); }
+
+  .tf-feedback {
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .tf-item.correct .tf-feedback,
+  .tf-item.wrong .tf-feedback { opacity: 1; }
+  .tf-item.correct .tf-feedback { color: #2ea043; }
+  .tf-item.wrong .tf-feedback { color: var(--red-bright); }
+
+  .check-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 28px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
+  }
+
+  .a1-theme .check-btn { background: var(--red-bright); }
+  .a2-theme .check-btn { background: var(--dark-red); }
+
+  .check-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+  .score-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .score-display.visible { opacity: 1; }
+
+  .write-area {
+    width: 100%;
+    min-height: 120px;
+    border: 2px solid var(--light-gray);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--dark);
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+    background: var(--cream);
+    margin-top: 10px;
+  }
+
+  .a1-theme .write-area:focus { border-color: var(--red-bright); }
+  .a2-theme .write-area:focus { border-color: var(--dark-red); }
+
+  .starters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .starter-chip {
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--light-gray);
+    background: white;
+    color: var(--medium);
+    transition: all 0.2s;
+  }
+
+  .a1-theme .starter-chip:hover { border-color: var(--red-bright); color: var(--red-bright); background: var(--very-light-red); }
+  .a2-theme .starter-chip:hover { border-color: var(--dark-red); color: var(--dark-red); background: var(--very-light-red); }
+
+  .speak-prompt {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    border-left: 3px solid;
+    background: var(--cream);
+    transition: transform 0.2s;
+  }
+
+  .speak-prompt:hover { transform: translateX(4px); }
+  .a1-theme .speak-prompt { border-color: var(--red-bright); }
+  .a2-theme .speak-prompt { border-color: var(--dark-red); }
+
+  .speak-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .speak-text { font-size: 0.93rem; color: var(--dark); }
+  .speak-text em { color: var(--medium); }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+
+  .comp-table thead th {
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .comp-table thead th:first-child { background: var(--dark); color: white; width: 26%; }
+  .comp-table thead th:nth-child(2) { background: var(--red-bright); color: white; }
+  .comp-table thead th:nth-child(3) { background: #003A70; color: white; }
+
+  .comp-table tbody td {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--light-gray);
+    vertical-align: top;
+  }
+
+  .comp-table tbody td:first-child {
+    font-weight: 700;
+    color: var(--dark-red);
+    background: var(--very-light-red);
+  }
+
+  .comp-table tbody tr:hover td { background: var(--very-light-red); }
+  .comp-table tbody tr:hover td:first-child { background: var(--light-red); }
+
+  .fact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid;
+    transition: transform 0.2s;
+    cursor: default;
+  }
+
+  .a1-theme .fact-card { border-color: var(--red-bright); }
+  .a2-theme .fact-card { border-color: var(--dark-red); }
+
+  .fact-card:nth-child(odd) { background: var(--very-light-red); }
+  .fact-card:nth-child(even) { background: var(--white); box-shadow: 0 1px 6px rgba(0,0,0,0.03); }
+
+  .fact-card:hover { transform: translateX(4px); }
+  .fact-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .fact-text { font-size: 0.93rem; line-height: 1.6; color: var(--medium); }
+
+  .progress-bar {
+    height: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    transition: width 0.3s;
+  }
+
+  .a1-theme .progress-bar { background: var(--red-bright); }
+  .a2-theme .progress-bar { background: var(--dark-red); }
+
+  .pdf-wrap {
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .a1-theme .pdf-btn { background: linear-gradient(135deg, #D52B1E, #A82319); }
+  .a2-theme .pdf-btn { background: linear-gradient(135deg, #8E1E14, #5E150A); }
+
+  .pdf-btn:hover { transform: translateY(-2px); }
+
+  .page-footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  .page-footer a { color: var(--light-red); text-decoration: none; }
+  .page-footer .red { color: var(--red-bright); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .hero-buttons { flex-direction: column; align-items: center; gap: 10px; }
+    .hero-btn { width: 220px; justify-content: center; }
+    .section-inner { padding: 0 16px; }
+    .tf-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .comp-table { font-size: 0.8rem; }
+    .comp-table thead th, .comp-table tbody td { padding: 8px 10px; }
+    .level-bar { padding: 10px 16px; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media print {
+    .hero { min-height: auto !important; padding: 40pt 0 !important; page-break-after: always; }
+    .hero::before, .hero::after, .scroll-hint, .level-bar, .progress-bar { display: none !important; }
+    .app-content { display: block !important; opacity: 1 !important; }
+    section { break-inside: avoid; padding: 20pt 0 !important; }
+    .task-card, .fact-card, .text-box, .comp-table { break-inside: avoid; }
+    @page { margin: 1.5cm; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero-screen">
+  <div class="hero-content">
+    <svg class="maple-leaf" viewBox="0 0 80 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 0 L44 18 L56 10 L50 24 L68 22 L54 32 L72 42 L52 40 L58 56 L44 46 L40 62 L36 46 L22 56 L28 40 L8 42 L26 32 L12 22 L30 24 L24 10 L36 18 Z" fill="url(#leafGrad)" />
+      <rect x="38" y="58" width="4" height="30" rx="2" fill="url(#stemGrad)" />
+      <defs>
+        <linearGradient id="leafGrad" x1="40" y1="0" x2="40" y2="62" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#F06080"/>
+          <stop offset="0.5" stop-color="#E04060"/>
+          <stop offset="1" stop-color="#C03050"/>
+        </linearGradient>
+        <linearGradient id="stemGrad" x1="40" y1="58" x2="40" y2="88" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#C03050"/>
+          <stop offset="1" stop-color="#8A2040"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <h1>
+      <span class="discover">Discover</span>
+      <span class="canada">Canada</span>
+    </h1>
+
+    <p class="hero-subtitle">The English-Speaking World &nbsp;·&nbsp; Innføringsklassen</p>
+
+    <div class="hero-buttons">
+      <button class="hero-btn level-btn" onclick="startLevel('a1')">Nivå 1 — A1</button>
+      <button class="hero-btn level-btn" onclick="startLevel('a2')">Nivå 2 — A2</button>
+      <a class="hero-btn ndla-btn" href="https://ndla.no/e/engelsk-sf/canada/acea2ef31f" target="_blank">NDLA Source <span class="btn-sub">(B1–B2)</span></a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</header>
+
+<div id="a1-content" class="app-content a1-theme">
+  <div class="progress-bar" id="a1-progress" style="width:0%"></div>
+  <div class="level-bar a1">
+    <span class="level-bar-title">🍁 Discover Canada — Nivå 1 (A1)</span>
+    <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
+  </div>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">01 — Reading</p>
+      <h2 class="section-title">Welcome to <span class="accent">Canada</span></h2>
+      <hr class="section-divider">
+      <div class="text-box fade-in">
+        <p><span class="hw">Canada<span class="tooltip">et land i Nord-Amerika</span></span> is a very <span class="hw">big<span class="tooltip">stor</span></span> <span class="hw">country<span class="tooltip">land</span></span>. It is in North America. Not many <span class="hw">people<span class="tooltip">folk</span></span> live there – only about 40 million. Most people live in the south, close to the USA.</p>
+        <p>Canada has two languages: English and French. The capital <span class="hw">city<span class="tooltip">by</span></span> is Ottawa. The biggest city is Toronto.</p>
+        <p>The Canadian <span class="hw">flag<span class="tooltip">flagg</span></span> is red and white. It has a maple leaf. Canadians love <span class="hw">nature<span class="tooltip">natur</span></span> – mountains, <span class="hw">forest<span class="tooltip">skog</span></span>s, <span class="hw">lake<span class="tooltip">innsjø</span></span>s, and <span class="hw">animal<span class="tooltip">dyr</span></span>s like <span class="hw">bear<span class="tooltip">bjørn</span></span>s.</p>
+        <p>The first people in Canada were Indigenous peoples. They lived there for thousands of years. Today, Canada is <span class="hw">friendly<span class="tooltip">vennlig</span></span> and multicultural. It is famous for ice hockey, maple syrup, and <span class="hw">cold<span class="tooltip">kald</span></span> winters!</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">02 — Vocabulary</p>
+      <h2 class="section-title">Key <span class="accent">Words</span></h2>
+      <hr class="section-divider">
+      <div class="vocab-grid fade-in" id="a1-vocab"></div>
+      <p class="vocab-hint">Klikk på et ord for å se oversettelsen 👆</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">03 — Task</p>
+      <h2 class="section-title">True or <span class="accent">False?</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Read and decide</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Read the text. Is each sentence true or false?</p>
+          <div id="a1-tf"></div>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <button class="check-btn" onclick="checkTF('a1')">Sjekk svar ✓</button>
+            <span class="score-display" id="a1-score"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">04 — Writing</p>
+      <h2 class="section-title">Write about <span class="accent">Canada</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>My sentences about Canada</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Write 3–5 short sentences about Canada. Use the vocabulary words.</p>
+          <div class="starters" id="a1-starters"></div>
+          <textarea class="write-area" id="a1-write" placeholder="Canada is a big country. It is cold in winter..."></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">05 — Speaking</p>
+      <h2 class="section-title">Minitalk — <span class="accent">Muntlig</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Talk about Canada</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Work in pairs. Use these sentences:</p>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">Canada is in … <em>(North America)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">People in Canada speak … <em>(English and French)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">Canada is famous for … <em>(ice hockey, maple syrup)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">I think Canada is … because … </p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">06 — Did you know?</p>
+      <h2 class="section-title">Fun <span class="accent">Facts</span></h2>
+      <hr class="section-divider">
+      <div id="a1-facts" class="fade-in"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">07 — Reflection</p>
+      <h2 class="section-title">What I <span class="accent">Learned</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>My thoughts</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Write 2–3 sentences about what you learned.</p>
+          <div class="starters" id="a1-reflect-starters"></div>
+          <textarea class="write-area" id="a1-reflect" placeholder="I learned that Canada ..."></textarea>
+          <div class="pdf-wrap">
+            <button class="pdf-btn" onclick="downloadAnswersPDF('a1')">📄 Download your answers as PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>Kilde: <a href="https://ndla.no/e/engelsk-sf/canada/acea2ef31f" target="_blank">NDLA – Canada</a> &nbsp;·&nbsp; Nivå 1 (A1) &nbsp;·&nbsp; <span class="red">🍁</span></p>
+  </footer>
+</div>
+
+<div id="a2-content" class="app-content a2-theme">
+  <div class="progress-bar" id="a2-progress" style="width:0%"></div>
+  <div class="level-bar a2">
+    <span class="level-bar-title">🍁 Discover Canada — Nivå 2 (A2)</span>
+    <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
+  </div>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">01 — Reading</p>
+      <h2 class="section-title">Welcome to <span class="accent">Canada</span></h2>
+      <hr class="section-divider">
+      <div class="text-box fade-in">
+        <p><span class="hw">Canada<span class="tooltip">et land i Nord-Amerika</span></span> is the second-largest <span class="hw">country<span class="tooltip">land</span></span> in the world with a total area of almost 10 million km². It is located in North America, north of the United States. Although Canada is enormous, its <span class="hw">population<span class="tooltip">befolkning</span></span> is only about 40 million. Most people live in the southern part, close to the US <span class="hw">border<span class="tooltip">grense</span></span> – the longest border between two countries in the world.</p>
+        <p>Canada is a <span class="hw">bilingual<span class="tooltip">tospråklig</span></span> country with two <span class="hw">official<span class="tooltip">offisielle</span></span> languages: English and French. English is spoken in most <span class="hw">province<span class="tooltip">provins/fylke</span></span>s, while French is the main language in Quebec. The capital city is Ottawa, but the largest city is Toronto.</p>
+        <p>The Canadian flag is red and white with a maple leaf in the centre – a <span class="hw">symbol<span class="tooltip">symbol</span></span> of national <span class="hw">pride<span class="tooltip">stolthet</span></span>. Canada is known for its stunning <span class="hw">wildlife<span class="tooltip">dyreliv</span></span>: bears, moose, caribou, wolves, and even polar bears in the north.</p>
+        <p>The first inhabitants were the <span class="hw">Indigenous<span class="tooltip">urfolk</span></span> peoples: First Nations, Inuit, and Métis. They have lived there for thousands of years. Vikings from Scandinavia visited around the year 1000, and later both France and Britain competed for control. Canada became independent from Britain gradually, and in 1965, the Canadian flag replaced the British Union Jack.</p>
+        <p>Today, Canada is a <span class="hw">multicultural<span class="tooltip">flerkulturell</span></span> society. People from all over the world have immigrated there, making it one of the most <span class="hw">diverse<span class="tooltip">mangfoldig</span></span> countries on Earth. Canadians are famous for being polite, inclusive, and passionate about ice hockey!</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">02 — Vocabulary</p>
+      <h2 class="section-title">Key <span class="accent">Words</span></h2>
+      <hr class="section-divider">
+      <div class="vocab-grid fade-in" id="a2-vocab"></div>
+      <p class="vocab-hint">Klikk på et ord for å se oversettelsen 👆</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">03 — Task</p>
+      <h2 class="section-title">Answer the <span class="accent">Questions</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Reading comprehension</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Read the text again and answer in full sentences.</p>
+          <div id="a2-questions"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">04 — Task</p>
+      <h2 class="section-title">True or <span class="accent">False?</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Read and decide</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Are these sentences true or false?</p>
+          <div id="a2-tf"></div>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;">
+            <button class="check-btn" onclick="checkTF('a2')">Sjekk svar ✓</button>
+            <span class="score-display" id="a2-score"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">05 — Speaking</p>
+      <h2 class="section-title">Compare Canada <span class="accent">&amp; Norway</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Minitalk – Comparison</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Talk with a partner. Compare Canada and Norway using these prompts:</p>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">Canada is bigger / smaller than Norway because …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">In Norway we speak …, but in Canada they speak …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">Both Canada and Norway have …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">One difference is that …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">One thing they have in common is …</p></div>
+        </div>
+      </div>
+
+      <div class="fade-in" style="margin-top:28px;">
+        <table class="comp-table">
+          <thead><tr><th></th><th>🍁 Canada</th><th>🇳🇴 Norway</th></tr></thead>
+          <tbody>
+            <tr><td>Size</td><td>~10 million km²</td><td>~385 000 km²</td></tr>
+            <tr><td>Population</td><td>~40 million</td><td>~5.5 million</td></tr>
+            <tr><td>Capital</td><td>Ottawa</td><td>Oslo</td></tr>
+            <tr><td>Languages</td><td>English &amp; French</td><td>Norwegian</td></tr>
+            <tr><td>Indigenous</td><td>First Nations, Inuit, Métis</td><td>Sami</td></tr>
+            <tr><td>Nature</td><td>Mountains, forests, prairies</td><td>Fjords, mountains, northern lights</td></tr>
+            <tr><td>Famous for</td><td>Ice hockey, maple syrup</td><td>Skiing, brown cheese</td></tr>
+            <tr><td>Government</td><td>Constitutional monarchy</td><td>Constitutional monarchy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">06 — Did you know?</p>
+      <h2 class="section-title">Fun <span class="accent">Facts</span></h2>
+      <hr class="section-divider">
+      <div id="a2-facts" class="fade-in"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <p class="section-label">07 — Reflection</p>
+      <h2 class="section-title">My <span class="accent">Opinion</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Would you like to visit Canada?</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Write a short paragraph (5–8 sentences). Use: because, and, but, also, for example.</p>
+          <div class="starters" id="a2-reflect-starters"></div>
+          <textarea class="write-area" id="a2-reflect" placeholder="I would like to visit Canada because ..."></textarea>
+          <div class="pdf-wrap">
+            <button class="pdf-btn" onclick="downloadAnswersPDF('a2')">📄 Download your answers as PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>Kilde: <a href="https://ndla.no/r/engelsk-sf/easy-text-an-introduction-to-canada/d5ceaa7497" target="_blank">NDLA – Canada</a> &nbsp;·&nbsp; Nivå 2 (A2) &nbsp;·&nbsp; <span class="red">🍁</span></p>
+  </footer>
+</div>
+
+<script>
+const vocabA1 = [
+  ["country","land"],["big","stor"],["city","by"],["flag","flagg"],
+  ["people","folk"],["nature","natur"],["forest","skog"],["lake","innsjø"],
+  ["cold","kald"],["snow","snø"],["animal","dyr"],["bear","bjørn"],
+  ["friendly","vennlig"],["food","mat"],["language","språk"]
+];
+
+const vocabA2 = [
+  ["multicultural","flerkulturell"],["indigenous","urfolk"],["province","provins/fylke"],
+  ["border","grense"],["official","offisiell"],["bilingual","tospråklig"],
+  ["wildlife","dyreliv"],["maple syrup","lønnesirup"],["settlers","nybyggere"],
+  ["culture","kultur"],["diversity","mangfold"],["symbol","symbol"],
+  ["proud","stolt"],["independence","uavhengighet"],["commonwealth","samveldet"]
+];
+
+const tfA1 = [
+  ["Canada is the biggest country in the world.", false],
+  ["Most Canadians live in the south.", true],
+  ["Canada has one official language.", false],
+  ["The capital of Canada is Toronto.", false],
+  ["The Canadian flag has a maple leaf.", true],
+  ["Indigenous peoples lived in Canada first.", true],
+  ["Canadians are known for being friendly.", true],
+  ["Canada is famous for ice hockey.", true]
+];
+
+const tfA2 = [
+  ["Canada has the largest area of any country in the world.", false],
+  ["The border between Canada and the USA is the longest in the world.", true],
+  ["French is spoken only in Ontario.", false],
+  ["Vikings from Scandinavia visited Canada around the year 1000.", true],
+  ["Canada became independent from France.", false],
+  ["The Canadian flag was introduced in 1965.", true],
+  ["Canada has very few immigrants today.", false],
+  ["Both Canada and Norway are constitutional monarchies.", true]
+];
+
+const questionsA2 = [
+  "Where do most Canadians live, and why?",
+  "What are the two official languages of Canada?",
+  "Who were the first people to live in Canada?",
+  "Why do you think Canada is called a multicultural country?",
+  "What are three things Canada is famous for?"
+];
+
+const facts = [
+  ["🍁","Canada produces about 71% of the world's maple syrup."],
+  ["🏒","Ice hockey is Canada's national winter sport. Lacrosse is the summer sport."],
+  ["💧","Canada has more lakes than all other countries in the world combined."],
+  ["🌐","The border with the USA is 8 892 km – the longest in the world!"],
+  ["🐻‍❄️","In Churchill, people don't lock their cars – so others can escape polar bears!"],
+  ["🏔️","Canada's mountains reach almost 6 000 metres high."]
+];
+
+const startersA1 = ["Canada is...","It is cold...","People speak...","The flag...","I think..."];
+const startersA2reflect = ["I would like to visit Canada because...","I think Canada is interesting because...","One thing I learned is...","Canada and Norway are similar because...","The most surprising fact was..."];
+const startersA1reflect = ["I learned that Canada...","I think it is interesting that...","Canada and Norway are similar because..."];
+
+function renderVocab(containerId, words) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = words.map(([eng,nor],i) =>
+    `<div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="vocab-icon">${i+1}</div>
+      <span class="vocab-eng">${eng}</span>
+      <span class="vocab-nor">${nor}</span>
+    </div>`
+  ).join('');
+}
+
+function renderTF(containerId, items) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(([text], i) =>
+    `<div class="tf-item" data-index="${i}">
+      <span class="tf-text">${i+1}. ${text}</span>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="selectTF(this,'true')">True</button>
+        <button class="tf-btn" onclick="selectTF(this,'false')">False</button>
+      </div>
+      <span class="tf-feedback"></span>
+    </div>`
+  ).join('');
+}
+
+function renderQuestions(containerId, questions) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = questions.map((q,i) =>
+    `<div style="margin-bottom:18px;">
+      <p style="font-weight:600;color:var(--dark);font-size:0.93rem;margin-bottom:6px;">${i+1}. ${q}</p>
+      <textarea class="write-area a2-question-answer" id="a2-question-${i+1}" style="min-height:70px;" placeholder="Write your answer here..."></textarea>
+    </div>`
+  ).join('');
+}
+
+function renderFacts(containerId) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = facts.map(([icon,text]) =>
+    `<div class="fact-card">
+      <span class="fact-icon">${icon}</span>
+      <p class="fact-text">${text}</p>
+    </div>`
+  ).join('');
+}
+
+function renderStarters(containerId, starters, targetId) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = starters.map(s =>
+    `<button class="starter-chip" onclick="insertStarter('${targetId || ''}','${s.replace(/'/g,"\\'")}')">${s}</button>`
+  ).join('');
+}
+
+function insertStarter(targetId, text) {
+  if(!targetId) return;
+  const ta = document.getElementById(targetId);
+  if(ta) {
+    ta.value += (ta.value ? '\n' : '') + text + ' ';
+    ta.focus();
+  }
+}
+
+function selectTF(btn, value) {
+  const item = btn.closest('.tf-item');
+  item.querySelectorAll('.tf-btn').forEach(b => {
+    b.classList.remove('selected-true','selected-false');
+  });
+  btn.classList.add(value === 'true' ? 'selected-true' : 'selected-false');
+  btn.dataset.answer = value;
+  item.classList.remove('correct','wrong');
+  item.querySelector('.tf-feedback').textContent = '';
+}
+
+function checkTF(level) {
+  const answers = level === 'a1' ? tfA1 : tfA2;
+  const container = document.getElementById(`${level}-tf`);
+  const items = container.querySelectorAll('.tf-item');
+  let correct = 0;
+
+  items.forEach((item, i) => {
+    const selected = item.querySelector('.tf-btn.selected-true, .tf-btn.selected-false');
+    const feedback = item.querySelector('.tf-feedback');
+    item.classList.remove('correct','wrong');
+
+    if (!selected) {
+      item.classList.add('wrong');
+      feedback.textContent = '← velg et svar';
+      return;
+    }
+
+    const userAnswer = selected.classList.contains('selected-true');
+    const correctAnswer = answers[i][1];
+
+    if (userAnswer === correctAnswer) {
+      item.classList.add('correct');
+      feedback.textContent = '✓ Riktig!';
+      correct++;
+    } else {
+      item.classList.add('wrong');
+      feedback.textContent = `✗ Svaret er ${correctAnswer ? 'True' : 'False'}`;
+    }
+  });
+
+  const scoreEl = document.getElementById(`${level}-score`);
+  scoreEl.textContent = `${correct}/${answers.length} riktige`;
+  scoreEl.style.color = correct === answers.length ? '#2ea043' : 'var(--red-bright)';
+  scoreEl.classList.add('visible');
+}
+
+function startLevel(level) {
+  document.getElementById('hero-screen').style.display = 'none';
+  const content = document.getElementById(`${level}-content`);
+  content.style.display = 'block';
+  requestAnimationFrame(() => {
+    content.style.opacity = '1';
+    content.classList.add('active');
+  });
+  window.scrollTo({top:0, behavior:'instant'});
+  observeFadeIns();
+  setupProgressBar(level);
+}
+
+function goHome() {
+  document.querySelectorAll('.app-content').forEach(c => {
+    c.style.display = 'none';
+    c.style.opacity = '0';
+    c.classList.remove('active');
+  });
+  document.getElementById('hero-screen').style.display = 'flex';
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function observeFadeIns() {
+  const els = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  els.forEach(el => obs.observe(el));
+}
+
+function setupProgressBar(level) {
+  const bar = document.getElementById(`${level}-progress`);
+  const content = document.getElementById(`${level}-content`);
+  window.addEventListener('scroll', () => {
+    if(!content.classList.contains('active')) return;
+    const h = content.scrollHeight - window.innerHeight;
+    const pct = Math.min(100, Math.max(0, (window.scrollY / h) * 100));
+    bar.style.width = pct + '%';
+  });
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getTFRows(level) {
+  const answers = level === 'a1' ? tfA1 : tfA2;
+  const items = document.querySelectorAll(`#${level}-tf .tf-item`);
+  let rows = '';
+  items.forEach((item, i) => {
+    const question = answers[i] ? answers[i][0] : `Question ${i+1}`;
+    const selected = item.querySelector('.tf-btn.selected-true, .tf-btn.selected-false');
+    let answer = 'No answer';
+    let result = '';
+    if (selected) {
+      answer = selected.textContent.trim();
+      const userAnswer = selected.classList.contains('selected-true');
+      result = userAnswer === answers[i][1] ? 'Correct' : 'Wrong';
+    }
+    rows += `<tr>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(question)}</td>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(answer)}</td>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(result)}</td>
+    </tr>`;
+  });
+  return `<table style="width:100%;border-collapse:collapse;margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Statement</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Student answer</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Result</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function getTextValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return 'No written answer.';
+  const val = el.value.trim();
+  return val ? escapeHtml(val).replace(/\n/g, '<br>') : 'No written answer.';
+}
+
+function getA2QuestionAnswers() {
+  let html = '';
+  questionsA2.forEach((q, i) => {
+    const answer = getTextValue(`a2-question-${i+1}`);
+    html += `<div style="margin-bottom:14px;">
+      <p style="font-weight:700;margin-bottom:6px;">${i+1}. ${escapeHtml(q)}</p>
+      <div style="padding:10px 12px;background:#f8f8f8;border-radius:8px;border:1px solid #e3e3e3;">${answer}</div>
+    </div>`;
+  });
+  return html;
+}
+
+function downloadAnswersPDF(level) {
+  let title = '';
+  let content = '';
+
+  if (level === 'a1') {
+    title = 'Discover Canada – Level 1 (A1)';
+    content = `
+      <h1>Your Answers</h1>
+      <p><strong>${title}</strong></p>
+      <h2>True / False</h2>
+      ${getTFRows('a1')}
+      <h2>Writing task</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #D52B1E;border-radius:8px;">${getTextValue('a1-write')}</div>
+      <h2>Reflection</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #D52B1E;border-radius:8px;">${getTextValue('a1-reflect')}</div>
+      <h2>Speaking</h2>
+      <p>Muntlige oppgaver lagres ikke automatisk.</p>
+    `;
+  } else if (level === 'a2') {
+    title = 'Discover Canada – Level 2 (A2)';
+    content = `
+      <h1>Your Answers</h1>
+      <p><strong>${title}</strong></p>
+      <h2>Reading comprehension</h2>
+      ${getA2QuestionAnswers()}
+      <h2>True / False</h2>
+      ${getTFRows('a2')}
+      <h2>Reflection</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #7A1A0C;border-radius:8px;">${getTextValue('a2-reflect')}</div>
+      <h2>Speaking</h2>
+      <p>Muntlige oppgaver lagres ikke automatisk.</p>
+    `;
+  } else {
+    return;
+  }
+
+  const win = window.open('', '', 'width=900,height=700');
+  win.document.write(`
+    <html>
+      <head>
+        <title>Student Answers</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 30px; color:#222; line-height:1.6; }
+          h1 { color: #B22A1E; margin-bottom: 8px; }
+          h2 { margin-top: 24px; color:#333; }
+          table { font-size: 14px; }
+        </style>
+      </head>
+      <body>${content}</body>
+    </html>
+  `);
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
+renderVocab('a1-vocab', vocabA1);
+renderVocab('a2-vocab', vocabA2);
+renderTF('a1-tf', tfA1);
+renderTF('a2-tf', tfA2);
+renderQuestions('a2-questions', questionsA2);
+renderFacts('a1-facts');
+renderFacts('a2-facts');
+renderStarters('a1-starters', startersA1, 'a1-write');
+renderStarters('a2-reflect-starters', startersA2reflect, 'a2-reflect');
+renderStarters('a1-reflect-starters', startersA1reflect, 'a1-reflect');
+</script>
+
+</body>
+</html>
