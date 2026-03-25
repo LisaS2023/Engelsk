@@ -37,9 +37,6 @@
     overflow-x: hidden;
   }
 
-  /* ========================================
-     HERO – matching the screenshot exactly
-     ======================================== */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -52,7 +49,6 @@
     background: linear-gradient(160deg, #C42D20 0%, #A82319 35%, #8E1E14 65%, #7A1A0C 100%);
   }
 
-  /* Subtle cross-pattern overlay like the screenshot */
   .hero::before {
     content: '';
     position: absolute;
@@ -62,7 +58,6 @@
     z-index: 1;
   }
 
-  /* Cinematic vignette */
   .hero::after {
     content: '';
     position: absolute;
@@ -78,7 +73,6 @@
     padding: 40px 28px;
   }
 
-  /* SVG Maple leaf */
   .maple-leaf {
     width: 72px;
     height: 82px;
@@ -167,9 +161,7 @@
     box-shadow: 0 12px 40px rgba(0,0,0,0.25);
   }
 
-  .hero-btn.level-btn:active {
-    transform: translateY(-1px);
-  }
+  .hero-btn.level-btn:active { transform: translateY(-1px); }
 
   .hero-btn.ndla-btn {
     background: rgba(0,0,0,0.2);
@@ -223,9 +215,6 @@
   @keyframes scroll-pulse { 0%,100%{opacity:.3} 50%{opacity:.7} }
   @keyframes scroll-line { 0%,100%{height:28px;opacity:.25} 50%{height:40px;opacity:.5} }
 
-  /* ========================================
-     MAIN CONTENT AREA
-     ======================================== */
   .app-content {
     display: none;
     opacity: 0;
@@ -237,7 +226,6 @@
     opacity: 1;
   }
 
-  /* Top bar showing chosen level */
   .level-bar {
     position: sticky;
     top: 0;
@@ -281,9 +269,6 @@
     color: white;
   }
 
-  /* ========================================
-     SECTIONS
-     ======================================== */
   section {
     padding: 64px 0;
     position: relative;
@@ -333,9 +318,6 @@
   .a1-theme .section-divider { background: var(--red-bright); }
   .a2-theme .section-divider { background: var(--dark-red); }
 
-  /* ========================================
-     TEXT BOX
-     ======================================== */
   .text-box {
     border-radius: 0 14px 14px 0;
     padding: 30px 34px;
@@ -352,7 +334,6 @@
   .text-box p { margin-bottom: 14px; }
   .text-box p:last-child { margin-bottom: 0; }
 
-  /* Highlighted words */
   .hw {
     font-weight: 700;
     cursor: help;
@@ -398,9 +379,6 @@
     transform: translateX(-50%) scale(1);
   }
 
-  /* ========================================
-     VOCABULARY
-     ======================================== */
   .vocab-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -460,9 +438,6 @@
     font-style: italic;
   }
 
-  /* ========================================
-     INTERACTIVE TASKS
-     ======================================== */
   .task-card {
     background: var(--white);
     border-radius: 14px;
@@ -502,14 +477,10 @@
     letter-spacing: 0.06em;
   }
 
-  .task-body {
-    padding: 22px 26px;
-  }
-
+  .task-body { padding: 22px 26px; }
   .task-body p { font-size: 0.93rem; color: var(--medium); margin-bottom: 10px; }
   .task-body .instruction { font-weight: 600; color: var(--dark); }
 
-  /* True/False interactive */
   .tf-item {
     display: flex;
     align-items: center;
@@ -602,7 +573,6 @@
   }
   .score-display.visible { opacity: 1; }
 
-  /* Writing area */
   .write-area {
     width: 100%;
     min-height: 120px;
@@ -623,7 +593,6 @@
   .a1-theme .write-area:focus { border-color: var(--red-bright); }
   .a2-theme .write-area:focus { border-color: var(--dark-red); }
 
-  /* Sentence starters */
   .starters {
     display: flex;
     flex-wrap: wrap;
@@ -646,7 +615,6 @@
   .a1-theme .starter-chip:hover { border-color: var(--red-bright); color: var(--red-bright); background: var(--very-light-red); }
   .a2-theme .starter-chip:hover { border-color: var(--dark-red); color: var(--dark-red); background: var(--very-light-red); }
 
-  /* Speaking prompts */
   .speak-prompt {
     display: flex;
     align-items: flex-start;
@@ -667,9 +635,6 @@
   .speak-text { font-size: 0.93rem; color: var(--dark); }
   .speak-text em { color: var(--medium); }
 
-  /* ========================================
-     COMPARISON TABLE
-     ======================================== */
   .comp-table {
     width: 100%;
     border-collapse: collapse;
@@ -705,9 +670,6 @@
   .comp-table tbody tr:hover td { background: var(--very-light-red); }
   .comp-table tbody tr:hover td:first-child { background: var(--light-red); }
 
-  /* ========================================
-     FUN FACTS
-     ======================================== */
   .fact-card {
     display: flex;
     align-items: flex-start;
@@ -730,9 +692,6 @@
   .fact-icon { font-size: 1.5rem; flex-shrink: 0; }
   .fact-text { font-size: 0.93rem; line-height: 1.6; color: var(--medium); }
 
-  /* ========================================
-     PROGRESS BAR
-     ======================================== */
   .progress-bar {
     height: 3px;
     position: fixed;
@@ -745,9 +704,33 @@
   .a1-theme .progress-bar { background: var(--red-bright); }
   .a2-theme .progress-bar { background: var(--dark-red); }
 
-  /* ========================================
-     FOOTER
-     ======================================== */
+  .pdf-wrap {
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .a1-theme .pdf-btn { background: linear-gradient(135deg, #D52B1E, #A82319); }
+  .a2-theme .pdf-btn { background: linear-gradient(135deg, #8E1E14, #5E150A); }
+
+  .pdf-btn:hover { transform: translateY(-2px); }
+
   .page-footer {
     background: var(--dark);
     color: rgba(255,255,255,0.5);
@@ -760,9 +743,6 @@
   .page-footer a { color: var(--light-red); text-decoration: none; }
   .page-footer .red { color: var(--red-bright); font-weight: 700; }
 
-  /* ========================================
-     RESPONSIVE
-     ======================================== */
   @media (max-width: 600px) {
     .hero-buttons { flex-direction: column; align-items: center; gap: 10px; }
     .hero-btn { width: 220px; justify-content: center; }
@@ -773,9 +753,6 @@
     .level-bar { padding: 10px 16px; }
   }
 
-  /* ========================================
-     ANIMATIONS
-     ======================================== */
   .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -799,10 +776,8 @@
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
 <header class="hero" id="hero-screen">
   <div class="hero-content">
-    <!-- Inline SVG maple leaf with warm tones matching screenshot -->
     <svg class="maple-leaf" viewBox="0 0 80 92" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M40 0 L44 18 L56 10 L50 24 L68 22 L54 32 L72 42 L52 40 L58 56 L44 46 L40 62 L36 46 L22 56 L28 40 L8 42 L26 32 L12 22 L30 24 L24 10 L36 18 Z" fill="url(#leafGrad)" />
       <rect x="38" y="58" width="4" height="30" rx="2" fill="url(#stemGrad)" />
@@ -835,7 +810,6 @@
   <div class="scroll-hint">Scroll</div>
 </header>
 
-<!-- ===== A1 CONTENT ===== -->
 <div id="a1-content" class="app-content a1-theme">
   <div class="progress-bar" id="a1-progress" style="width:0%"></div>
   <div class="level-bar a1">
@@ -843,7 +817,6 @@
     <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
   </div>
 
-  <!-- READING -->
   <section>
     <div class="section-inner">
       <p class="section-label">01 — Reading</p>
@@ -858,7 +831,6 @@
     </div>
   </section>
 
-  <!-- VOCABULARY -->
   <section>
     <div class="section-inner">
       <p class="section-label">02 — Vocabulary</p>
@@ -869,7 +841,6 @@
     </div>
   </section>
 
-  <!-- TRUE/FALSE -->
   <section>
     <div class="section-inner">
       <p class="section-label">03 — Task</p>
@@ -892,7 +863,6 @@
     </div>
   </section>
 
-  <!-- WRITING -->
   <section>
     <div class="section-inner">
       <p class="section-label">04 — Writing</p>
@@ -912,7 +882,6 @@
     </div>
   </section>
 
-  <!-- SPEAKING -->
   <section>
     <div class="section-inner">
       <p class="section-label">05 — Speaking</p>
@@ -934,7 +903,6 @@
     </div>
   </section>
 
-  <!-- FUN FACTS -->
   <section>
     <div class="section-inner">
       <p class="section-label">06 — Did you know?</p>
@@ -944,7 +912,6 @@
     </div>
   </section>
 
-  <!-- REFLECTION -->
   <section>
     <div class="section-inner">
       <p class="section-label">07 — Reflection</p>
@@ -958,7 +925,10 @@
         <div class="task-body">
           <p class="instruction">Write 2–3 sentences about what you learned.</p>
           <div class="starters" id="a1-reflect-starters"></div>
-          <textarea class="write-area" placeholder="I learned that Canada ..."></textarea>
+          <textarea class="write-area" id="a1-reflect" placeholder="I learned that Canada ..."></textarea>
+          <div class="pdf-wrap">
+            <button class="pdf-btn" onclick="downloadAnswersPDF('a1')">📄 Download your answers as PDF</button>
+          </div>
         </div>
       </div>
     </div>
@@ -969,7 +939,6 @@
   </footer>
 </div>
 
-<!-- ===== A2 CONTENT ===== -->
 <div id="a2-content" class="app-content a2-theme">
   <div class="progress-bar" id="a2-progress" style="width:0%"></div>
   <div class="level-bar a2">
@@ -977,7 +946,6 @@
     <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
   </div>
 
-  <!-- READING -->
   <section>
     <div class="section-inner">
       <p class="section-label">01 — Reading</p>
@@ -993,7 +961,6 @@
     </div>
   </section>
 
-  <!-- VOCABULARY -->
   <section>
     <div class="section-inner">
       <p class="section-label">02 — Vocabulary</p>
@@ -1004,7 +971,6 @@
     </div>
   </section>
 
-  <!-- COMPREHENSION QUESTIONS -->
   <section>
     <div class="section-inner">
       <p class="section-label">03 — Task</p>
@@ -1023,7 +989,6 @@
     </div>
   </section>
 
-  <!-- TRUE/FALSE -->
   <section>
     <div class="section-inner">
       <p class="section-label">04 — Task</p>
@@ -1046,7 +1011,6 @@
     </div>
   </section>
 
-  <!-- SPEAKING -->
   <section>
     <div class="section-inner">
       <p class="section-label">05 — Speaking</p>
@@ -1067,7 +1031,6 @@
         </div>
       </div>
 
-      <!-- Comparison table -->
       <div class="fade-in" style="margin-top:28px;">
         <table class="comp-table">
           <thead><tr><th></th><th>🍁 Canada</th><th>🇳🇴 Norway</th></tr></thead>
@@ -1086,7 +1049,6 @@
     </div>
   </section>
 
-  <!-- FUN FACTS -->
   <section>
     <div class="section-inner">
       <p class="section-label">06 — Did you know?</p>
@@ -1096,7 +1058,6 @@
     </div>
   </section>
 
-  <!-- REFLECTION -->
   <section>
     <div class="section-inner">
       <p class="section-label">07 — Reflection</p>
@@ -1110,7 +1071,10 @@
         <div class="task-body">
           <p class="instruction">Write a short paragraph (5–8 sentences). Use: because, and, but, also, for example.</p>
           <div class="starters" id="a2-reflect-starters"></div>
-          <textarea class="write-area" placeholder="I would like to visit Canada because ..."></textarea>
+          <textarea class="write-area" id="a2-reflect" placeholder="I would like to visit Canada because ..."></textarea>
+          <div class="pdf-wrap">
+            <button class="pdf-btn" onclick="downloadAnswersPDF('a2')">📄 Download your answers as PDF</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1122,7 +1086,6 @@
 </div>
 
 <script>
-// ===== DATA =====
 const vocabA1 = [
   ["country","land"],["big","stor"],["city","by"],["flag","flagg"],
   ["people","folk"],["nature","natur"],["forest","skog"],["lake","innsjø"],
@@ -1181,7 +1144,6 @@ const startersA1 = ["Canada is...","It is cold...","People speak...","The flag..
 const startersA2reflect = ["I would like to visit Canada because...","I think Canada is interesting because...","One thing I learned is...","Canada and Norway are similar because...","The most surprising fact was..."];
 const startersA1reflect = ["I learned that Canada...","I think it is interesting that...","Canada and Norway are similar because..."];
 
-// ===== RENDER =====
 function renderVocab(containerId, words) {
   const el = document.getElementById(containerId);
   el.innerHTML = words.map(([eng,nor],i) =>
@@ -1212,7 +1174,7 @@ function renderQuestions(containerId, questions) {
   el.innerHTML = questions.map((q,i) =>
     `<div style="margin-bottom:18px;">
       <p style="font-weight:600;color:var(--dark);font-size:0.93rem;margin-bottom:6px;">${i+1}. ${q}</p>
-      <textarea class="write-area" style="min-height:70px;" placeholder="Write your answer here..."></textarea>
+      <textarea class="write-area a2-question-answer" id="a2-question-${i+1}" style="min-height:70px;" placeholder="Write your answer here..."></textarea>
     </div>`
   ).join('');
 }
@@ -1243,7 +1205,6 @@ function insertStarter(targetId, text) {
   }
 }
 
-// ===== INTERACTIONS =====
 function selectTF(btn, value) {
   const item = btn.closest('.tf-item');
   item.querySelectorAll('.tf-btn').forEach(b => {
@@ -1251,7 +1212,6 @@ function selectTF(btn, value) {
   });
   btn.classList.add(value === 'true' ? 'selected-true' : 'selected-false');
   btn.dataset.answer = value;
-  // Reset feedback on re-select
   item.classList.remove('correct','wrong');
   item.querySelector('.tf-feedback').textContent = '';
 }
@@ -1292,7 +1252,6 @@ function checkTF(level) {
   scoreEl.classList.add('visible');
 }
 
-// ===== NAVIGATION =====
 function startLevel(level) {
   document.getElementById('hero-screen').style.display = 'none';
   const content = document.getElementById(`${level}-content`);
@@ -1316,7 +1275,6 @@ function goHome() {
   window.scrollTo({top:0, behavior:'instant'});
 }
 
-// ===== SCROLL ANIMATIONS =====
 function observeFadeIns() {
   const els = document.querySelectorAll('.fade-in');
   const obs = new IntersectionObserver((entries) => {
@@ -1330,7 +1288,6 @@ function observeFadeIns() {
   els.forEach(el => obs.observe(el));
 }
 
-// ===== PROGRESS BAR =====
 function setupProgressBar(level) {
   const bar = document.getElementById(`${level}-progress`);
   const content = document.getElementById(`${level}-content`);
@@ -1342,7 +1299,122 @@ function setupProgressBar(level) {
   });
 }
 
-// ===== INIT =====
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getTFRows(level) {
+  const answers = level === 'a1' ? tfA1 : tfA2;
+  const items = document.querySelectorAll(`#${level}-tf .tf-item`);
+  let rows = '';
+  items.forEach((item, i) => {
+    const question = answers[i] ? answers[i][0] : `Question ${i+1}`;
+    const selected = item.querySelector('.tf-btn.selected-true, .tf-btn.selected-false');
+    let answer = 'No answer';
+    let result = '';
+    if (selected) {
+      answer = selected.textContent.trim();
+      const userAnswer = selected.classList.contains('selected-true');
+      result = userAnswer === answers[i][1] ? 'Correct' : 'Wrong';
+    }
+    rows += `<tr>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(question)}</td>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(answer)}</td>
+      <td style="padding:8px;border:1px solid #ddd;vertical-align:top;">${escapeHtml(result)}</td>
+    </tr>`;
+  });
+  return `<table style="width:100%;border-collapse:collapse;margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Statement</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Student answer</th>
+        <th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Result</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function getTextValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return 'No written answer.';
+  const val = el.value.trim();
+  return val ? escapeHtml(val).replace(/\n/g, '<br>') : 'No written answer.';
+}
+
+function getA2QuestionAnswers() {
+  let html = '';
+  questionsA2.forEach((q, i) => {
+    const answer = getTextValue(`a2-question-${i+1}`);
+    html += `<div style="margin-bottom:14px;">
+      <p style="font-weight:700;margin-bottom:6px;">${i+1}. ${escapeHtml(q)}</p>
+      <div style="padding:10px 12px;background:#f8f8f8;border-radius:8px;border:1px solid #e3e3e3;">${answer}</div>
+    </div>`;
+  });
+  return html;
+}
+
+function downloadAnswersPDF(level) {
+  let title = '';
+  let content = '';
+
+  if (level === 'a1') {
+    title = 'Discover Canada – Level 1 (A1)';
+    content = `
+      <h1>Your Answers</h1>
+      <p><strong>${title}</strong></p>
+      <h2>True / False</h2>
+      ${getTFRows('a1')}
+      <h2>Writing task</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #D52B1E;border-radius:8px;">${getTextValue('a1-write')}</div>
+      <h2>Reflection</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #D52B1E;border-radius:8px;">${getTextValue('a1-reflect')}</div>
+      <h2>Speaking</h2>
+      <p>Muntlige oppgaver lagres ikke automatisk.</p>
+    `;
+  } else if (level === 'a2') {
+    title = 'Discover Canada – Level 2 (A2)';
+    content = `
+      <h1>Your Answers</h1>
+      <p><strong>${title}</strong></p>
+      <h2>Reading comprehension</h2>
+      ${getA2QuestionAnswers()}
+      <h2>True / False</h2>
+      ${getTFRows('a2')}
+      <h2>Reflection</h2>
+      <div style="padding:12px;background:#FFF7F5;border-left:4px solid #7A1A0C;border-radius:8px;">${getTextValue('a2-reflect')}</div>
+      <h2>Speaking</h2>
+      <p>Muntlige oppgaver lagres ikke automatisk.</p>
+    `;
+  } else {
+    return;
+  }
+
+  const win = window.open('', '', 'width=900,height=700');
+  win.document.write(`
+    <html>
+      <head>
+        <title>Student Answers</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 30px; color:#222; line-height:1.6; }
+          h1 { color: #B22A1E; margin-bottom: 8px; }
+          h2 { margin-top: 24px; color:#333; }
+          table { font-size: 14px; }
+        </style>
+      </head>
+      <body>${content}</body>
+    </html>
+  `);
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
 renderVocab('a1-vocab', vocabA1);
 renderVocab('a2-vocab', vocabA2);
 renderTF('a1-tf', tfA1);
@@ -1351,21 +1423,8 @@ renderQuestions('a2-questions', questionsA2);
 renderFacts('a1-facts');
 renderFacts('a2-facts');
 renderStarters('a1-starters', startersA1, 'a1-write');
-renderStarters('a2-reflect-starters', startersA2reflect, '');
-renderStarters('a1-reflect-starters', startersA1reflect, '');
-
-// Make reflection starters work with closest textarea
-document.querySelectorAll('.starter-chip').forEach(chip => {
-  if(!chip.onclick.toString().includes("insertStarter('')")) return;
-  chip.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const ta = this.closest('.task-body').querySelector('textarea');
-    if(ta) {
-      ta.value += (ta.value ? '\n' : '') + this.textContent + ' ';
-      ta.focus();
-    }
-  });
-});
+renderStarters('a2-reflect-starters', startersA2reflect, 'a2-reflect');
+renderStarters('a1-reflect-starters', startersA1reflect, 'a1-reflect');
 </script>
 
 </body>
