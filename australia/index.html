@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Australia - Nivå A1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff; /* Lys blå bakgrunn */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #d9381e; /* Australsk rødbrun */
+        }
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #ccc;
+        }
+        /* Del 1: Gloser */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .flashcard {
+            background: #ffe4b5;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .flashcard:hover {
+            transform: scale(1.05);
+            background: #ffd070;
+        }
+        /* Del 2 og 3: Quiz og utfylling */
+        .quiz-question {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        button {
+            background: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #004494;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        select {
+            padding: 8px;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+        /* Del 4: Snakk sammen */
+        .dialogue-box {
+            background: #e6f7ff;
+            padding: 15px;
+            border-left: 5px solid #0056b3;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🦘 Welcome to Australia! (Nivå A1)</h1>
+    <p>Lær om Australia! Trykk, velg og snakk engelsk.</p>
+
+    <div class="section">
+        <h2>1. Vocabulary (Trykk på kortene!)</h2>
+        <div class="vocab-grid">
+            <div class="flashcard" onclick="flipCard(this, 'Country', 'Land')">Country</div>
+            <div class="flashcard" onclick="flipCard(this, 'Big', 'Stor')">Big</div>
+            <div class="flashcard" onclick="flipCard(this, 'Hot', 'Varm')">Hot</div>
+            <div class="flashcard" onclick="flipCard(this, 'City', 'By')">City</div>
+            <div class="flashcard" onclick="flipCard(this, 'Kangaroo', 'Kenguru')">Kangaroo</div>
+            <div class="flashcard" onclick="flipCard(this, 'Spider', 'Edderkopp')">Spider</div>
+            <div class="flashcard" onclick="flipCard(this, 'Ocean', 'Hav')">Ocean</div>
+            <div class="flashcard" onclick="flipCard(this, 'Desert', 'Ørken')">Desert</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. True or False? (Sant eller usant?)</h2>
+        
+        <div class="quiz-question">
+            1. Australia is a very small country. <br><br>
+            <button onclick="checkTF(this, false)">True</button>
+            <button onclick="checkTF(this, true)">False</button>
+            <span class="feedback"></span>
+        </div>
+        <div class="quiz-question">
+            2. Kangaroos live in Australia. <br><br>
+            <button onclick="checkTF(this, true)">True</button>
+            <button onclick="checkTF(this, false)">False</button>
+            <span class="feedback"></span>
+        </div>
+        <div class="quiz-question">
+            3. The weather in Australia is very cold. <br><br>
+            <button onclick="checkTF(this, false)">True</button>
+            <button onclick="checkTF(this, true)">False</button>
+            <span class="feedback"></span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Fill in the blanks (Velg riktig ord)</h2>
+        
+        <div class="quiz-question">
+            1. Australia is a very 
+            <select id="q1" onchange="checkSelect('q1', 'big')">
+                <option value="">--Velg--</option>
+                <option value="hot">hot</option>
+                <option value="big">big</option>
+                <option value="ocean">ocean</option>
+            </select>
+            country. <span id="fb-q1" class="feedback"></span>
+        </div>
+
+        <div class="quiz-question">
+            2. In the summer, the weather is very 
+            <select id="q2" onchange="checkSelect('q2', 'hot')">
+                <option value="">--Velg--</option>
+                <option value="kangaroos">kangaroos</option>
+                <option value="ocean">ocean</option>
+                <option value="hot">hot</option>
+            </select>. <span id="fb-q2" class="feedback"></span>
+        </div>
+
+        <div class="quiz-question">
+            3. You can see many 
+            <select id="q3" onchange="checkSelect('q3', 'kangaroos')">
+                <option value="">--Velg--</option>
+                <option value="hot">hot</option>
+                <option value="kangaroos">kangaroos</option>
+                <option value="big">big</option>
+            </select>
+            in Australia. <span id="fb-q3" class="feedback"></span>
+        </div>
+    </div>
+
+    <div class="section" style="border-bottom: none;">
+        <h2>4. Let's Talk! (Snakk med en venn)</h2>
+        <div class="dialogue-box">
+            <strong>Elev A:</strong> Do you want to visit Australia?<br>
+            <strong>Elev B:</strong> Yes, I do. / No, I don't.
+        </div>
+        <div class="dialogue-box">
+            <strong>Elev A:</strong> What is your favorite animal?<br>
+            <strong>Elev B:</strong> My favorite animal is a (kangaroo / spider / dog / cat).
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Funksjon for å flippe glosene
+    function flipCard(element, engelsk, norsk) {
+        if (element.innerText === engelsk) {
+            element.innerText = norsk;
+            element.style.background = "#add8e6"; // Lys blå for norsk
+        } else {
+            element.innerText = engelsk;
+            element.style.background = "#ffe4b5"; // Tilbake til gul for engelsk
+        }
+    }
+
+    // Funksjon for Sant/Usant (True/False)
+    function checkTF(btn, isCorrect) {
+        let feedback = btn.parentElement.querySelector('.feedback');
+        if (isCorrect) {
+            feedback.innerText = "✅ Riktig! (Correct)";
+            feedback.style.color = "green";
+        } else {
+            feedback.innerText = "❌ Prøv igjen! (Try again)";
+            feedback.style.color = "red";
+        }
+    }
+
+    // Funksjon for å sjekke nedtrekksmenyer
+    function checkSelect(selectId, correctWord) {
+        let selectBox = document.getElementById(selectId);
+        let feedback = document.getElementById('fb-' + selectId);
+        
+        if (selectBox.value === correctWord) {
+            feedback.innerText = "✅ Bra jobba!";
+            feedback.style.color = "green";
+        } else if (selectBox.value !== "") {
+            feedback.innerText = "❌ Feil ord.";
+            feedback.style.color = "red";
+        } else {
+            feedback.innerText = "";
+        }
+    }
+</script>
+
+</body>
+</html>
