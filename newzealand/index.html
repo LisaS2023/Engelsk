@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover New Zealand – A1 / A2 / B1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --nz-black: #00204B;
+  --nz-dark: #001830;
+  --nz-mid: #003A70;
+  --nz-red: #CC0000;
+  --nz-gold: #C9A227;
+  --nz-light: #E8F0F8;
+  --nz-accent: #4A90D9;
+  --cream: #FAFAF8;
+  --white: #FFFFFF;
+  --dark: #1A1A1A;
+  --medium: #4A4A4A;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Source Sans 3', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--dark);
+  background: var(--cream);
+  line-height: 1.7;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #00204B 0%, #001830 40%, #000C1A 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='%23ffffff' fill-opacity='0.04'/%3E%3Ccircle cx='10' cy='10' r='0.5' fill='%23ffffff' fill-opacity='0.06'/%3E%3Ccircle cx='50' cy='20' r='0.7' fill='%23ffffff' fill-opacity='0.05'/%3E%3Ccircle cx='20' cy='50' r='0.6' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Southern Cross stars decorative */
+.hero-stars {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.star {
+  position: absolute;
+  color: #CC0000;
+  font-size: 18px;
+  opacity: 0.7;
+  animation: twinkle 3s ease-in-out infinite;
+}
+.star:nth-child(1) { top: 15%; left: 12%; animation-delay: 0s; }
+.star:nth-child(2) { top: 22%; left: 8%; animation-delay: 0.4s; font-size: 14px; }
+.star:nth-child(3) { top: 30%; left: 15%; animation-delay: 0.8s; }
+.star:nth-child(4) { top: 20%; left: 20%; animation-delay: 1.2s; font-size: 12px; }
+.star:nth-child(5) { top: 35%; left: 10%; animation-delay: 1.6s; font-size: 10px; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.2); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 40px 24px;
+  max-width: 720px;
+  animation: fadeInUp 0.9s ease both;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 22px;
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+}
+
+.hero-flag {
+  font-size: 80px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+  animation: flagFloat 4s ease-in-out infinite;
+}
+@keyframes flagFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(42px, 8vw, 72px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 14px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.hero-title span { color: #C9A227; font-style: italic; }
+
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 48px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Level cards */
+.level-cards {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.level-card {
+  cursor: pointer;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 22px 28px;
+  width: 170px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  text-align: center;
+  text-decoration: none;
+}
+.level-card:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+}
+.level-card.a1 { border-color: rgba(76,175,80,0.5); }
+.level-card.a1:hover { border-color: #4CAF50; background: rgba(76,175,80,0.12); }
+.level-card.a2 { border-color: rgba(33,150,243,0.5); }
+.level-card.a2:hover { border-color: #2196F3; background: rgba(33,150,243,0.12); }
+.level-card.b1 { border-color: rgba(201,162,39,0.5); }
+.level-card.b1:hover { border-color: #C9A227; background: rgba(201,162,39,0.12); }
+
+.level-card .lc-badge {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.level-card.a1 .lc-badge { color: #4CAF50; }
+.level-card.a2 .lc-badge { color: #64B5F6; }
+.level-card.b1 .lc-badge { color: #C9A227; }
+
+.level-card .lc-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.level-card .lc-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: rgba(255,255,255,0.3);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ========== CONTENT PAGES ========== */
+.app-content { display: none; }
+.app-content.active { display: block; }
+
+.level-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.level-bar.a1 { background: #1A3A1A; color: #4CAF50; }
+.level-bar.a2 { background: #0A1E3A; color: #64B5F6; }
+.level-bar.b1 { background: #2A1F00; color: #C9A227; }
+.level-bar-back {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: inherit;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--sans);
+  transition: background 0.2s;
+}
+.level-bar-back:hover { background: rgba(255,255,255,0.2); }
+
+.progress-bar {
+  height: 3px;
+  transition: width 0.4s ease;
+}
+.a1-theme .progress-bar { background: #4CAF50; }
+.a2-theme .progress-bar { background: #2196F3; }
+.b1-theme .progress-bar { background: #C9A227; }
+
+section {
+  padding: 52px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+section:last-child { border-bottom: none; }
+
+.section-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.section-title .accent { color: var(--nz-black); }
+.a2-theme .section-title .accent { color: #1565C0; }
+.b1-theme .section-title .accent { color: #8B6914; }
+
+.section-divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, var(--nz-black), transparent);
+  margin: 16px 0 28px;
+  width: 80px;
+}
+.a2-theme .section-divider { background: linear-gradient(90deg, #1565C0, transparent); }
+.b1-theme .section-divider { background: linear-gradient(90deg, #8B6914, transparent); }
+
+/* ── TEXT BOX ── */
+.text-box {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 28px 32px;
+  line-height: 1.85;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.text-box p { margin-bottom: 14px; }
+.text-box p:last-child { margin-bottom: 0; }
+
+/* tooltip words */
+.hw {
+  position: relative;
+  color: var(--nz-black);
+  border-bottom: 1px dashed var(--nz-black);
+  cursor: help;
+}
+.a2-theme .hw { color: #1565C0; border-bottom-color: #1565C0; }
+.b1-theme .hw { color: #8B6914; border-bottom-color: #8B6914; }
+.hw .tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1A1A1A;
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  font-style: normal;
+}
+.hw:hover .tooltip { display: block; }
+
+/* ── VOCAB GRID ── */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.vocab-card {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+.vocab-card .en { font-weight: 600; font-size: 15px; color: var(--dark); }
+.vocab-card .no {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.vocab-card.revealed .no { opacity: 1; }
+.vocab-card.revealed { background: #f0f7f0; border-color: #4CAF50; }
+.a2-theme .vocab-card.revealed { background: #eff6ff; border-color: #2196F3; }
+.b1-theme .vocab-card.revealed { background: #fffbeb; border-color: #C9A227; }
+
+/* ── TASK CARD ── */
+.task-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden;
+  margin-top: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.task-header {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.task-header h3 { font-size: 16px; font-weight: 600; }
+.task-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.a1-theme .task-badge { background: #e8f5e9; color: #2e7d32; }
+.a2-theme .task-badge { background: #e3f2fd; color: #1565c0; }
+.b1-theme .task-badge { background: #fffde7; color: #f57f17; }
+
+.task-body { padding: 20px 24px; }
+.instruction { font-size: 14px; color: #666; margin-bottom: 16px; font-style: italic; }
+
+/* ── TRUE/FALSE QUIZ ── */
+.tf-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.tf-item:last-child { border-bottom: none; }
+.tf-statement { font-size: 15px; font-weight: 500; }
+.tf-buttons { display: flex; gap: 8px; }
+.tf-btn {
+  padding: 6px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.tf-btn:hover { background: #f5f5f5; }
+.tf-btn.correct { background: #e8f5e9; border-color: #4CAF50; color: #2e7d32; }
+.tf-btn.wrong { background: #ffebee; border-color: #ef5350; color: #c62828; }
+.tf-feedback { font-size: 13px; color: #666; }
+
+/* ── WRITING AREA ── */
+.write-area {
+  width: 100%;
+  min-height: 110px;
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-size: 15px;
+  resize: vertical;
+  margin-top: 10px;
+  color: var(--dark);
+  transition: border-color 0.2s;
+  background: #fafafa;
+}
+.write-area:focus { outline: none; border-color: var(--nz-black); }
+.a2-theme .write-area:focus { border-color: #2196F3; }
+.b1-theme .write-area:focus { border-color: #C9A227; }
+
+/* ── STARTERS ── */
+.starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.starter-chip {
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: white;
+  transition: all 0.2s;
+}
+.a1-theme .starter-chip:hover { background: #e8f5e9; border-color: #4CAF50; }
+.a2-theme .starter-chip:hover { background: #e3f2fd; border-color: #2196F3; }
+.b1-theme .starter-chip:hover { background: #fffde7; border-color: #C9A227; }
+
+/* ── SPEAKING PROMPTS ── */
+.speak-prompt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.speak-prompt:last-child { border-bottom: none; }
+.speak-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.speak-text { font-size: 15px; color: var(--dark); }
+.speak-text em { color: #888; font-style: italic; }
+
+/* ── COMPARISON TABLE ── */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.comp-table th {
+  background: var(--nz-black);
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+.a2-theme .comp-table th { background: #1565C0; }
+.comp-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.comp-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+.comp-table tr:hover td { background: rgba(0,0,0,0.04); }
+.comp-table td:first-child { font-weight: 600; color: #555; }
+
+/* ── FUN FACTS ── */
+.facts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 500px) { .facts-grid { grid-template-columns: 1fr; } }
+.fact-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.07);
+  padding: 18px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.fact-icon { font-size: 26px; margin-bottom: 8px; }
+.fact-text { font-size: 14px; color: #444; line-height: 1.6; }
+.fact-text strong { color: var(--dark); }
+
+/* ── AI FEEDBACK ── */
+.ai-btn {
+  margin-top: 12px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.a1-theme .ai-btn { background: var(--nz-black); color: white; }
+.a1-theme .ai-btn:hover { background: var(--nz-mid); }
+.a2-theme .ai-btn { background: #1565C0; color: white; }
+.a2-theme .ai-btn:hover { background: #1976D2; }
+.b1-theme .ai-btn { background: #8B6914; color: white; }
+.b1-theme .ai-btn:hover { background: #A07820; }
+.ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ai-response {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  display: none;
+}
+.a1-theme .ai-response { background: #e8f5e9; border: 1px solid #a5d6a7; color: #1b5e20; }
+.a2-theme .ai-response { background: #e3f2fd; border: 1px solid #90caf9; color: #0d47a1; }
+.b1-theme .ai-response { background: #fffde7; border: 1px solid #fff176; color: #5d4037; }
+
+/* ── GAP FILL ── */
+.gap-sentence {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 15px;
+}
+.gap-sentence:last-child { border-bottom: none; }
+.gap-input {
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: var(--sans);
+  font-size: 15px;
+  width: 130px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.gap-input:focus { outline: none; border-color: #2196F3; }
+.gap-input.correct { border-color: #4CAF50; background: #e8f5e9; }
+.gap-input.wrong { border-color: #ef5350; background: #ffebee; }
+.check-gaps-btn {
+  margin-top: 14px;
+  padding: 9px 20px;
+  border-radius: 9px;
+  border: none;
+  background: #1565C0;
+  color: white;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.check-gaps-btn:hover { background: #1976D2; }
+.gaps-score { margin-top: 10px; font-size: 14px; font-weight: 600; }
+
+/* ── NDLA LINK ── */
+.ndla-card {
+  background: linear-gradient(135deg, #00204B 0%, #003070 100%);
+  border-radius: 20px;
+  padding: 36px 32px;
+  text-align: center;
+  color: white;
+}
+.ndla-card h3 { font-family: var(--serif); font-size: 24px; margin-bottom: 10px; }
+.ndla-card p { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 24px; line-height: 1.6; }
+.ndla-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #C9A227;
+  color: #1A1200;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+.ndla-link:hover { background: #D4AF37; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,162,39,0.4); }
+
+/* ── FOOTER ── */
+.page-footer {
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+}
+.page-footer a { color: var(--nz-black); }
+.a2-theme .page-footer a { color: #1565C0; }
+.b1-theme .page-footer a { color: #8B6914; }
+
+/* ── FADE IN ── */
+.fade-in {
+  animation: fadeInUp 0.5s ease both;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Multiple choice */
+.mc-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+.mc-options { display: flex; flex-direction: column; gap: 7px; }
+.mc-opt {
+  padding: 9px 14px;
+  border-radius: 9px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  text-align: left;
+}
+.mc-opt:hover:not(.answered) { background: #f0f7f0; border-color: #4CAF50; }
+.mc-opt.correct { background: #e8f5e9; border-color: #4CAF50; color: #2e7d32; font-weight: 600; }
+.mc-opt.wrong   { background: #ffebee; border-color: #ef5350; color: #c62828; }
+.mc-opt.show-correct { background: #e8f5e9; border-color: #4CAF50; }
+
+/* ── PRINT BUTTON ── */
+.print-bar {
+  max-width: 780px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  letter-spacing: 0.01em;
+}
+.a1-theme .print-btn {
+  background: var(--nz-black);
+  color: white;
+  box-shadow: 0 4px 18px rgba(0,32,75,0.25);
+}
+.a1-theme .print-btn:hover {
+  background: var(--nz-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,32,75,0.35);
+}
+.a2-theme .print-btn {
+  background: #1565C0;
+  color: white;
+  box-shadow: 0 4px 18px rgba(21,101,192,0.28);
+}
+.a2-theme .print-btn:hover {
+  background: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(21,101,192,0.38);
+}
+.print-btn-icon { font-size: 18px; }
+
+/* ── PRINT STYLES ── */
+@media print {
+  /* Hide everything except the active level */
+  .hero, .level-bar, .progress-bar, .print-bar,
+  .ai-btn, .check-gaps-btn, .starter-chip,
+  .level-bar-back { display: none !important; }
+
+  body { background: white; font-size: 13px; }
+
+  .app-content { display: none !important; }
+  .app-content.active { display: block !important; }
+
+  section { padding: 18px 0; break-inside: avoid; }
+  .section-inner { padding: 0 12px; }
+
+  .text-box { border: 1px solid #ccc; padding: 14px; box-shadow: none; }
+  .task-card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+
+  /* Show tooltips as plain text, not interactive */
+  .hw .tooltip { display: none; }
+  .hw { border-bottom: 1px dotted #888; color: inherit; }
+
+  /* Show vocab Norwegian translations always in print */
+  .vocab-card .no { opacity: 1 !important; }
+  .vocab-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .vocab-card { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
+
+  /* Writing areas get extra height for handwriting if printing blank */
+  .write-area { min-height: 80px; background: #fafafa; border: 1px solid #ccc; }
+
+  /* AI feedback box: keep if visible */
+  .ai-response { display: block !important; background: #f9f9f9 !important; border: 1px solid #ddd !important; color: #333 !important; }
+
+  /* Gap inputs */
+  .gap-input { border: 1px solid #999; }
+
+  /* Facts grid 2-col */
+  .facts-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Print header */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    padding: 10px 0 16px;
+    border-bottom: 2px solid #00204B;
+    margin-bottom: 16px;
+  }
+  .print-header h2 { font-size: 20px; color: #00204B; }
+  .print-header p  { font-size: 12px; color: #666; margin-top: 4px; }
+
+  /* Page footer */
+  .page-footer { display: block !important; font-size: 11px; color: #999; text-align: center; margin-top: 12px; border-top: 1px solid #eee; padding-top: 8px; }
+
+  @page { margin: 1.8cm 1.5cm; }
+}
+
+/* Hidden on screen, shown on print */
+.print-header { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div id="hero" class="hero">
+  <div class="hero-stars">
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+    <span class="star">★</span>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>🌿</span>
+      English-Speaking World
+    </div>
+
+    <div class="hero-flag">🇳🇿</div>
+
+    <h1 class="hero-title">
+      Discover<br><span>New Zealand</span>
+    </h1>
+    <p class="hero-sub">Aotearoa — The Land of the Long White Cloud</p>
+
+    <div class="level-cards">
+      <div class="level-card a1" onclick="showLevel('a1')">
+        <div class="lc-badge">A1</div>
+        <div class="lc-label">Beginner</div>
+        <div class="lc-desc">Simple words & sentences about NZ</div>
+      </div>
+      <div class="level-card a2" onclick="showLevel('a2')">
+        <div class="lc-badge">A2</div>
+        <div class="lc-label">Elementary</div>
+        <div class="lc-desc">Facts, comparisons & short tasks</div>
+      </div>
+      <a class="level-card b1" href="https://ndla.no/r/engelsk-sf/an-introduction-to-new-zealand/c3128e7893" target="_blank">
+        <div class="lc-badge">B1</div>
+        <div class="lc-label">Intermediate</div>
+        <div class="lc-desc">Full NDLA text & deeper tasks</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">▼ scroll</div>
+</div>
+
+<!-- ===== A1 CONTENT ===== -->
+<div id="a1-content" class="app-content a1-theme">
+  <div class="progress-bar" id="a1-progress" style="width:0%"></div>
+  <div class="level-bar a1">
+    <span>🇳🇿 New Zealand — Nivå 1 (A1)</span>
+    <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
+  </div>
+
+  <!-- READING -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">01 — Reading</p>
+      <h2 class="section-title">Welcome to <span class="accent">New Zealand</span></h2>
+      <hr class="section-divider">
+      <div class="text-box fade-in">
+        <p>
+          <span class="hw">New Zealand<span class="tooltip">New Zealand = New Zealand (et land)</span></span>
+          is a
+          <span class="hw">country<span class="tooltip">country = land</span></span>
+          in the
+          <span class="hw">Pacific Ocean<span class="tooltip">Pacific Ocean = Stillehavet</span></span>.
+          It has two main
+          <span class="hw">islands<span class="tooltip">islands = øyer</span></span>.
+        </p>
+        <p>
+          The
+          <span class="hw">capital<span class="tooltip">capital = hovedstad</span></span>
+          is
+          <span class="hw">Wellington<span class="tooltip">Wellington = Wellingtonby</span></span>.
+          The biggest
+          <span class="hw">city<span class="tooltip">city = by</span></span>
+          is
+          <span class="hw">Auckland<span class="tooltip">Auckland = Auclandby</span></span>.
+        </p>
+        <p>
+          The
+          <span class="hw">Māori<span class="tooltip">Māori = māori (urfolk i New Zealand)</span></span>
+          are the
+          <span class="hw">indigenous<span class="tooltip">indigenous = urfolk</span></span>
+          people of New Zealand.
+          They call their land
+          <strong>Aotearoa</strong> — "the land of the long white
+          <span class="hw">cloud<span class="tooltip">cloud = sky</span></span>".
+        </p>
+        <p>
+          People in New Zealand
+          <span class="hw">speak<span class="tooltip">speak = snakke</span></span>
+          English and Māori.
+          New Zealand is
+          <span class="hw">famous<span class="tooltip">famous = kjent / berømt</span></span>
+          for rugby,
+          <span class="hw">sheep<span class="tooltip">sheep = sauer</span></span>,
+          kiwi birds, and beautiful
+          <span class="hw">nature<span class="tooltip">nature = natur</span></span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOCABULARY -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">02 — Vocabulary</p>
+      <h2 class="section-title">Key <span class="accent">Words</span></h2>
+      <hr class="section-divider">
+      <p class="instruction" style="color:#666; font-size:14px;">Click a card to see the Norwegian translation.</p>
+      <div class="vocab-grid" id="a1-vocab"></div>
+    </div>
+  </section>
+
+  <!-- TRUE/FALSE QUIZ -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">03 — Quiz</p>
+      <h2 class="section-title">True or <span class="accent">False?</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Read and answer</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body" id="a1-tf"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">04 — Writing</p>
+      <h2 class="section-title">Write about <span class="accent">New Zealand</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>About New Zealand</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Use the sentence starters below. Write 3–5 sentences.</p>
+          <div class="starters" id="a1-starters"></div>
+          <textarea class="write-area" id="a1-write" placeholder="New Zealand is ..."></textarea>
+          <button class="ai-btn" onclick="getAIFeedback('a1')">Get feedback ✦</button>
+          <div class="ai-response" id="a1-ai"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKING -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">05 — Speaking</p>
+      <h2 class="section-title">Minitalk — <span class="accent">Muntlig</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Talk about New Zealand</h3>
+          <span class="task-badge">A1</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Work in pairs. Use these sentences:</p>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">New Zealand is in … <em>(the Pacific Ocean)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">The capital is … <em>(Wellington)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">People in New Zealand speak … <em>(English and Māori)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">New Zealand is famous for … <em>(rugby, sheep, kiwi birds)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">I think New Zealand is … because …</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN FACTS -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">06 — Did you know?</p>
+      <h2 class="section-title">Fun <span class="accent">Facts</span></h2>
+      <hr class="section-divider">
+      <div class="facts-grid" id="a1-facts"></div>
+    </div>
+  </section>
+
+  <!-- PRINT BUTTON -->
+  <div class="print-bar">
+    <button class="print-btn" onclick="printLevel('a1')">
+      <span class="print-btn-icon">🖨️</span>
+      Lagre svar som PDF
+    </button>
+  </div>
+
+  <!-- Print-only header (hidden on screen) -->
+  <div class="print-header">
+    <h2>🇳🇿 Discover New Zealand — Nivå 1 (A1)</h2>
+    <p>Navn: _________________________________ &nbsp;&nbsp; Klasse: _____________ &nbsp;&nbsp; Dato: _____________</p>
+  </div>
+
+  <footer class="page-footer">
+    <p>Kilde: <a href="https://ndla.no/r/engelsk-sf/an-introduction-to-new-zealand/c3128e7893" target="_blank">NDLA – An Introduction to New Zealand</a> &nbsp;·&nbsp; Nivå 1 (A1) &nbsp;·&nbsp; 🇳🇿</p>
+  </footer>
+</div>
+
+<!-- ===== A2 CONTENT ===== -->
+<div id="a2-content" class="app-content a2-theme">
+  <div class="progress-bar" id="a2-progress" style="width:0%"></div>
+  <div class="level-bar a2">
+    <span>🇳🇿 New Zealand — Nivå 2 (A2)</span>
+    <button class="level-bar-back" onclick="goHome()">← Tilbake</button>
+  </div>
+
+  <!-- READING -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">01 — Reading</p>
+      <h2 class="section-title">An Introduction to <span class="accent">New Zealand</span></h2>
+      <hr class="section-divider">
+      <div class="text-box fade-in">
+        <p>
+          <span class="hw">New Zealand<span class="tooltip">et land i Stillehavet</span></span>
+          is a
+          <span class="hw">developed<span class="tooltip">developed = utviklet</span></span>
+          country located about 2,000 km southeast of
+          <span class="hw">Australia<span class="tooltip">Australia = Austeralia</span></span>.
+          It consists of two main
+          <span class="hw">islands<span class="tooltip">islands = øyer</span></span>
+          and has a
+          <span class="hw">population<span class="tooltip">population = befolkning</span></span>
+          of about 4.3 million people.
+        </p>
+        <p>
+          The
+          <span class="hw">capital<span class="tooltip">capital = hovedstad</span></span>
+          city is
+          <span class="hw">Wellington<span class="tooltip">Wellington = landets offisielle hovedstad</span></span>,
+          but the largest city is
+          <span class="hw">Auckland<span class="tooltip">Auckland = største by i landet</span></span>.
+          Most people are of
+          <span class="hw">European<span class="tooltip">European = europeisk</span></span>
+          descent, while the
+          <span class="hw">Māori<span class="tooltip">Māori = det største urfolket i NZ</span></span>
+          are the largest
+          <span class="hw">minority<span class="tooltip">minority = minoritet</span></span>.
+        </p>
+        <p>
+          New Zealand has a strong
+          <span class="hw">economy<span class="tooltip">economy = økonomi</span></span>
+          based on
+          <span class="hw">agriculture<span class="tooltip">agriculture = landbruk</span></span>
+          and
+          <span class="hw">tourism<span class="tooltip">tourism = turisme</span></span>.
+          It is famous for its beautiful
+          <span class="hw">landscapes<span class="tooltip">landscapes = landskap</span></span>
+          and is sometimes called a "clean, green
+          <span class="hw">adventure<span class="tooltip">adventure = eventyr</span></span>
+          playground".
+          Each year about 3.8 million
+          <span class="hw">tourists<span class="tooltip">tourists = turister</span></span>
+          visit the country.
+        </p>
+        <p>
+          The country has
+          <span class="hw">extraordinary<span class="tooltip">extraordinary = enestående</span></span>
+          wildlife, including the famous
+          <span class="hw">kiwi<span class="tooltip">kiwi = en fugl som ikke kan fly (nasjonalsymbol)</span></span>
+          bird — the national symbol — and the
+          <span class="hw">cheeky<span class="tooltip">cheeky = frekk/uhøflig</span></span>
+          Kea parrot. New Zealand has worked hard to
+          <span class="hw">protect<span class="tooltip">protect = beskytte</span></span>
+          its
+          <span class="hw">endangered<span class="tooltip">endangered = truet (av utryddelse)</span></span>
+          species.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOCABULARY -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">02 — Vocabulary</p>
+      <h2 class="section-title">Key <span class="accent">Words</span></h2>
+      <hr class="section-divider">
+      <p class="instruction" style="color:#666; font-size:14px;">Click a card to see the Norwegian translation.</p>
+      <div class="vocab-grid" id="a2-vocab"></div>
+    </div>
+  </section>
+
+  <!-- GAP FILL -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">03 — Grammar</p>
+      <h2 class="section-title">Fill in the <span class="accent">Gaps</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Complete the sentences</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Use these words: <strong>larger, further, more, smaller, higher</strong></p>
+          <div id="a2-gaps"></div>
+          <button class="check-gaps-btn" onclick="checkGaps()">Check answers ✓</button>
+          <p class="gaps-score" id="gaps-score"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MULTIPLE CHOICE -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">04 — Comprehension</p>
+      <h2 class="section-title">Multiple <span class="accent">Choice</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Choose the correct answer</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body" id="a2-mc"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">05 — Compare</p>
+      <h2 class="section-title">New Zealand <span class="accent">vs Norway</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Compare the two countries</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <table class="comp-table">
+            <thead><tr><th></th><th>🇳🇿 New Zealand</th><th>🇳🇴 Norway</th></tr></thead>
+            <tbody>
+              <tr><td>Location</td><td>Pacific Ocean, SE of Australia</td><td>Northern Europe</td></tr>
+              <tr><td>Population</td><td>~4.3 million</td><td>~5.5 million</td></tr>
+              <tr><td>Capital</td><td>Wellington</td><td>Oslo</td></tr>
+              <tr><td>Language</td><td>English &amp; Māori</td><td>Norwegian</td></tr>
+              <tr><td>Indigenous peoples</td><td>Māori</td><td>Sami</td></tr>
+              <tr><td>Economy</td><td>Agriculture, tourism</td><td>Oil, fish, technology</td></tr>
+              <tr><td>Famous for</td><td>Rugby, kiwi, landscapes</td><td>Fjords, skiing, salmon</td></tr>
+              <tr><td>Government</td><td>Constitutional monarchy</td><td>Constitutional monarchy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Speaking prompts based on table -->
+      <div class="task-card fade-in" style="margin-top:14px;">
+        <div class="task-header">
+          <h3>Minitalk: Compare with Norway</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">New Zealand is <em>further away / closer</em> than Norway because …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">Both countries have … <em>(indigenous peoples, monarchy, nature)</em></p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">One difference is that New Zealand …, but Norway …</p></div>
+          <div class="speak-prompt"><span class="speak-icon">💬</span><p class="speak-text">I would like to visit New Zealand because …</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">06 — Writing</p>
+      <h2 class="section-title">My <span class="accent">Opinion</span></h2>
+      <hr class="section-divider">
+      <div class="task-card fade-in">
+        <div class="task-header">
+          <h3>Would you like to visit New Zealand?</h3>
+          <span class="task-badge">A2</span>
+        </div>
+        <div class="task-body">
+          <p class="instruction">Write 5–7 sentences. Use the starters to help you.</p>
+          <div class="starters" id="a2-starters"></div>
+          <textarea class="write-area" id="a2-write" placeholder="I would like to visit New Zealand because ..."></textarea>
+          <button class="ai-btn" onclick="getAIFeedback('a2')">Get feedback ✦</button>
+          <div class="ai-response" id="a2-ai"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN FACTS -->
+  <section>
+    <div class="section-inner">
+      <p class="section-label">07 — Did you know?</p>
+      <h2 class="section-title">Fun <span class="accent">Facts</span></h2>
+      <hr class="section-divider">
+      <div class="facts-grid" id="a2-facts"></div>
+    </div>
+  </section>
+
+  <!-- PRINT BUTTON -->
+  <div class="print-bar">
+    <button class="print-btn" onclick="printLevel('a2')">
+      <span class="print-btn-icon">🖨️</span>
+      Lagre svar som PDF
+    </button>
+  </div>
+
+  <!-- Print-only header (hidden on screen) -->
+  <div class="print-header">
+    <h2>🇳🇿 Discover New Zealand — Nivå 2 (A2)</h2>
+    <p>Navn: _________________________________ &nbsp;&nbsp; Klasse: _____________ &nbsp;&nbsp; Dato: _____________</p>
+  </div>
+
+  <footer class="page-footer">
+    <p>Kilde: <a href="https://ndla.no/r/engelsk-sf/an-introduction-to-new-zealand/c3128e7893" target="_blank">NDLA – An Introduction to New Zealand</a> &nbsp;·&nbsp; Nivå 2 (A2) &nbsp;·&nbsp; 🇳🇿</p>
+  </footer>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ── DATA ──────────────────────────────────────────
+const A1_VOCAB = [
+  {en:'country',no:'land'}, {en:'island',no:'øy'}, {en:'capital',no:'hovedstad'},
+  {en:'city',no:'by'}, {en:'language',no:'språk'}, {en:'famous',no:'kjent/berømt'},
+  {en:'nature',no:'natur'}, {en:'sheep',no:'sau'}, {en:'speak',no:'å snakke'},
+  {en:'people',no:'folk/mennesker'}, {en:'bird',no:'fugl'}, {en:'cloud',no:'sky'}
+];
+
+const A2_VOCAB = [
+  {en:'population',no:'befolkning'}, {en:'economy',no:'økonomi'}, {en:'tourism',no:'turisme'},
+  {en:'agriculture',no:'landbruk'}, {en:'indigenous',no:'urfolk'}, {en:'minority',no:'minoritet'},
+  {en:'isolation',no:'isolasjon'}, {en:'wildlife',no:'dyreliv'}, {en:'landscape',no:'landskap'},
+  {en:'endangered',no:'truet (av utryddelse)'}, {en:'export',no:'eksport'}, {en:'adventure',no:'eventyr'},
+  {en:'dairy',no:'meieri/melkeprodukter'}, {en:'descent',no:'herkomst/avstamning'}, {en:'restore',no:'gjenopprette'}
+];
+
+const A1_TF = [
+  { s: "New Zealand is in the Atlantic Ocean.", ans: false, fb: "No — New Zealand is in the Pacific Ocean." },
+  { s: "The capital of New Zealand is Wellington.", ans: true, fb: "Correct! Wellington is the capital." },
+  { s: "The Māori call New Zealand 'Aotearoa'.", ans: true, fb: "Correct! It means 'the land of the long white cloud'." },
+  { s: "New Zealand is famous for polar bears.", ans: false, fb: "No — New Zealand is famous for sheep, kiwi birds and rugby!" },
+  { s: "Auckland is the biggest city in New Zealand.", ans: true, fb: "Correct! Auckland is the largest city." }
+];
+
+const A2_MC = [
+  { q: "How many people live in New Zealand?", opts: ["About 1 million","About 4.3 million","About 20 million","About 40 million"], correct: 1 },
+  { q: "What is New Zealand's biggest 'export' earner according to the NDLA text?", opts: ["Dairy products","Wool","Tourism","Wine"], correct: 2 },
+  { q: "Where is New Zealand located?", opts: ["North of Australia","East of Africa","Southeast of Australia","West of South America"], correct: 2 },
+  { q: "What is the Kea Parrot known for?", opts: ["Beautiful singing","Not being afraid of humans","Living only in cities","Being very shy"], correct: 1 }
+];
+
+const GAP_SENTENCES = [
+  { before: "New Zealand is", blank: "smaller", after: "than Australia in terms of population.", answer: "smaller" },
+  { before: "New Zealand is", blank: "further", after: "from Norway than Canada is.", answer: "further" },
+  { before: "Tourism is becoming", blank: "more", after: "and more important for the New Zealand economy.", answer: "more" },
+  { before: "The South Island has", blank: "higher", after: "mountains than the North Island.", answer: "higher" },
+  { before: "New Zealand is", blank: "larger", after: "than Norway in terms of land area.", answer: "larger" }
+];
+
+const A1_STARTERS = ["New Zealand is ...", "The capital is ...", "People speak ...", "It is famous for ...", "I think ..."];
+const A2_STARTERS = ["New Zealand is different from Norway because ...", "Both countries have ...", "I would like to visit ... because ...", "One interesting fact is ...", "Compared to Norway, New Zealand ..."];
+
+const A1_FACTS = [
+  { icon: "🐑", text: "<strong>7 sheep per person!</strong> New Zealand has about 30 million sheep and only 4.3 million people." },
+  { icon: "🥝", text: "<strong>Kiwi birds</strong> cannot fly. They are nocturnal and only found in New Zealand." },
+  { icon: "🏉", text: "<strong>The All Blacks</strong> are New Zealand's famous rugby team. They do the Haka before every match." },
+  { icon: "🌋", text: "<strong>Lord of the Rings</strong> was filmed in New Zealand — it was called 'Middle-earth' in the movies!" }
+];
+
+const A2_FACTS = [
+  { icon: "🌿", text: "<strong>First country</strong> to give women the right to vote — in 1893, more than 25 years before Norway did." },
+  { icon: "🦅", text: "<strong>No snakes!</strong> New Zealand has no native land snakes, making it very safe for wildlife." },
+  { icon: "🧀", text: "<strong>Dairy giant:</strong> In 2007 a New Zealand dairy cooperative controlled almost one-third of all international dairy trade." },
+  { icon: "⏰", text: "<strong>First sunrise:</strong> New Zealand is one of the first countries in the world to see the new day — the sun rises there first." }
+];
+
+// ── INIT FUNCTIONS ─────────────────────────────────
+function buildVocab(id, words) {
+  const g = document.getElementById(id);
+  words.forEach(w => {
+    const c = document.createElement('div');
+    c.className = 'vocab-card';
+    c.innerHTML = `<div class="en">${w.en}</div><div class="no">${w.no}</div>`;
+    c.onclick = () => c.classList.toggle('revealed');
+    g.appendChild(c);
+  });
+}
+
+function buildTF() {
+  const c = document.getElementById('a1-tf');
+  A1_TF.forEach((item, i) => {
+    const d = document.createElement('div');
+    d.className = 'tf-item';
+    d.innerHTML = `
+      <div class="tf-statement">${i+1}. ${item.s}</div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="checkTF(this, ${item.ans}, true)">True ✓</button>
+        <button class="tf-btn" onclick="checkTF(this, ${item.ans}, false)">False ✗</button>
+      </div>
+      <div class="tf-feedback" id="tf-fb-${i}"></div>`;
+    c.appendChild(d);
+  });
+}
+
+function checkTF(btn, correct, chosen) {
+  const row = btn.closest('.tf-item');
+  const btns = row.querySelectorAll('.tf-btn');
+  btns.forEach(b => b.disabled = true);
+  const fbId = row.querySelector('[id^="tf-fb"]').id;
+  const idx = parseInt(fbId.split('-')[2]);
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    document.getElementById(fbId).textContent = '✓ ' + A1_TF[idx].fb;
+    document.getElementById(fbId).style.color = '#2e7d32';
+  } else {
+    btn.classList.add('wrong');
+    // Highlight correct
+    btns[correct ? 0 : 1].classList.add('show-correct');
+    document.getElementById(fbId).textContent = '✗ ' + A1_TF[idx].fb;
+    document.getElementById(fbId).style.color = '#c62828';
+  }
+}
+
+function buildMC() {
+  const c = document.getElementById('a2-mc');
+  A2_MC.forEach((item, qi) => {
+    const d = document.createElement('div');
+    d.className = 'mc-item';
+    d.innerHTML = `<div class="mc-question">${qi+1}. ${item.q}</div>
+      <div class="mc-options">${item.opts.map((o,oi) =>
+        `<button class="mc-opt" onclick="checkMC(this,${qi},${oi})">${o}</button>`
+      ).join('')}</div>`;
+    c.appendChild(d);
+  });
+}
+
+function checkMC(btn, qi, oi) {
+  const block = btn.closest('.mc-item');
+  block.querySelectorAll('.mc-opt').forEach((b,i) => {
+    b.disabled = true;
+    b.classList.add('answered');
+    if (i === A2_MC[qi].correct) b.classList.add('correct');
+  });
+  if (oi !== A2_MC[qi].correct) btn.classList.add('wrong');
+}
+
+function buildGaps() {
+  const c = document.getElementById('a2-gaps');
+  GAP_SENTENCES.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'gap-sentence';
+    d.innerHTML = `<span>${i+1}. ${s.before}</span>
+      <input class="gap-input" id="gap-${i}" placeholder="…" type="text">
+      <span>${s.after}</span>`;
+    c.appendChild(d);
+  });
+}
+
+function checkGaps() {
+  let correct = 0;
+  GAP_SENTENCES.forEach((s, i) => {
+    const inp = document.getElementById(`gap-${i}`);
+    const val = inp.value.trim().toLowerCase();
+    if (val === s.answer.toLowerCase()) {
+      inp.classList.remove('wrong'); inp.classList.add('correct'); correct++;
+    } else {
+      inp.classList.remove('correct'); inp.classList.add('wrong');
+    }
+  });
+  const sc = document.getElementById('gaps-score');
+  sc.textContent = `Score: ${correct} / ${GAP_SENTENCES.length}`;
+  sc.style.color = correct === GAP_SENTENCES.length ? '#2e7d32' : '#c62828';
+}
+
+function buildStarters(id, starters) {
+  const c = document.getElementById(id);
+  const taId = id.replace('-starters', '-write');
+  starters.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'starter-chip';
+    btn.textContent = s;
+    btn.onclick = () => {
+      const ta = document.getElementById(taId);
+      ta.value += (ta.value && !ta.value.endsWith('\n') ? '\n' : '') + s + ' ';
+      ta.focus();
+    };
+    c.appendChild(btn);
+  });
+}
+
+function buildFacts(id, facts) {
+  const g = document.getElementById(id);
+  facts.forEach(f => {
+    const d = document.createElement('div');
+    d.className = 'fact-card';
+    d.innerHTML = `<div class="fact-icon">${f.icon}</div><div class="fact-text">${f.text}</div>`;
+    g.appendChild(d);
+  });
+}
+
+// ── NAVIGATION ─────────────────────────────────────
+function showLevel(level) {
+  document.getElementById('hero').style.display = 'none';
+  ['a1','a2'].forEach(l => {
+    document.getElementById(l+'-content').classList.remove('active');
+  });
+  document.getElementById(level+'-content').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goHome() {
+  ['a1','a2'].forEach(l => {
+    document.getElementById(l+'-content').classList.remove('active');
+  });
+  document.getElementById('hero').style.display = '';
+  window.scrollTo(0,0);
+}
+
+// ── AI FEEDBACK ────────────────────────────────────
+async function getAIFeedback(level) {
+  const text = document.getElementById(level+'-write').value.trim();
+  if (!text) { alert('Please write something first!'); return; }
+
+  const btn = event.target;
+  const resEl = document.getElementById(level+'-ai');
+  btn.disabled = true;
+  btn.textContent = 'Thinking…';
+  resEl.style.display = 'block';
+  resEl.textContent = '…';
+
+  const levelDesc = level === 'a1'
+    ? 'A1 beginner English learner (uses very simple sentences)'
+    : 'A2 elementary English learner (uses basic sentences and some complex ones)';
+
+  const systemPrompt = `You are a friendly English teacher giving brief, encouraging feedback to a ${levelDesc}. 
+Keep your response SHORT (3-4 sentences max). 
+First say one thing they did well. Then give ONE simple improvement tip. 
+Use simple language. Be warm and motivating. Do NOT rewrite the whole text.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: `Please give feedback on this student writing about New Zealand:\n\n"${text}"` }]
+      })
+    });
+    const data = await response.json();
+    resEl.textContent = data.content?.[0]?.text || 'Feedback not available.';
+  } catch(e) {
+    resEl.textContent = 'Could not get feedback. Please try again.';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Get feedback ✦';
+}
+
+// ── PROGRESS BAR ────────────────────────────────────
+function updateProgress(level) {
+  const content = document.getElementById(level+'-content');
+  const sections = content.querySelectorAll('section');
+  const bar = document.getElementById(level+'-progress');
+  const onScroll = () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    bar.style.width = Math.min(100, (scrolled/total)*100) + '%';
+  };
+  window.addEventListener('scroll', onScroll);
+}
+
+// ── PRINT ─────────────────────────────────────────
+function printLevel(level) {
+  // Make sure the correct level is active
+  ['a1','a2'].forEach(l => {
+    document.getElementById(l+'-content').classList.remove('active');
+  });
+  document.getElementById(level+'-content').classList.add('active');
+  document.getElementById('hero').style.display = 'none';
+
+  // Show all vocab translations for print
+  document.querySelectorAll('.vocab-card').forEach(c => c.classList.add('revealed'));
+
+  // Show all AI feedback boxes that have content
+  document.querySelectorAll('.ai-response').forEach(el => {
+    if (el.textContent.trim()) el.style.display = 'block';
+  });
+
+  window.print();
+
+  // Restore vocab state after print dialog closes
+  setTimeout(() => {
+    document.querySelectorAll('.vocab-card').forEach(c => c.classList.remove('revealed'));
+  }, 1000);
+}
+
+// ── INIT ───────────────────────────────────────────
+buildVocab('a1-vocab', A1_VOCAB);
+buildVocab('a2-vocab', A2_VOCAB);
+buildTF();
+buildMC();
+buildGaps();
+buildStarters('a1-starters', A1_STARTERS);
+buildStarters('a2-starters', A2_STARTERS);
+buildFacts('a1-facts', A1_FACTS);
+buildFacts('a2-facts', A2_FACTS);
+updateProgress('a1');
+updateProgress('a2');
+</script>
+</body>
+</html>
