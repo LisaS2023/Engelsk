@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heartstopper – Episode 2 “Crush” – A2</title>
+<style>
+  :root{
+    --bg1:#10211f; --bg2:#1d3b36; --panel:rgba(255,255,255,.07); --line:rgba(255,255,255,.12);
+    --pink:#efb1b0; --pink-dark:#df8f8b; --green:#6f9c95; --cream:#f7f3ef; --soft:#d9ebe5;
+    --ok:#b9efc7; --warn:#ffd9d8; --shadow:0 14px 34px rgba(0,0,0,.24);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;color:var(--cream);
+    background:
+      radial-gradient(circle at top right, rgba(239,177,176,.18), transparent 22%),
+      radial-gradient(circle at left center, rgba(201,232,222,.12), transparent 18%),
+      linear-gradient(180deg,var(--bg1),var(--bg2));}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch;margin-bottom:22px}
+  .hero-card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+  .hero-card{padding:28px;position:relative;overflow:hidden}
+  .hero-card::after{content:"";position:absolute;inset:auto -80px -80px auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(239,177,176,.18), transparent 70%);}
+  .kicker{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(239,177,176,.16);border:1px solid rgba(239,177,176,.22);color:#ffeae9;font-weight:bold;font-size:.95rem;margin-bottom:14px}
+  h1{margin:0 0 10px 0;font-size:clamp(2.2rem,4.6vw,4rem);line-height:.93;letter-spacing:-.04em}
+  .lead{color:var(--soft);line-height:1.65;max-width:62ch;margin:0}
+  .hero-side{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .mini{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));border:1px solid var(--line);border-radius:22px;padding:18px 14px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:148px;text-align:center}
+  .mini .icon{font-size:2.1rem;margin-bottom:10px}
+  .mini strong{font-size:1.1rem}
+  .mini span{color:var(--warn);font-weight:bold;margin-top:6px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px 0}
+  .tool-pill{padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:.92rem}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .panel{padding:20px}
+  .section-title{margin:0 0 12px 0;font-size:1.45rem}
+  .helper{color:var(--soft);line-height:1.6;margin:0 0 14px 0}
+  .vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .word-card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:20px;padding:16px}
+  .word-top{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+  .icon-box{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.12);font-size:1.6rem;flex-shrink:0}
+  .word-card h3{margin:0;font-size:1.2rem}
+  .translation{color:var(--warn);font-weight:bold;margin-top:4px}
+  .phonetic{color:#cfe6df;font-size:.95rem;margin-top:8px}
+  .btn{border:none;border-radius:999px;padding:10px 14px;font-weight:bold;cursor:pointer}
+  .btn-primary{background:linear-gradient(135deg,var(--pink),var(--pink-dark));color:#1b1717}
+  .btn-secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .task-card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:14px}
+  .task-card h3{margin:.1rem 0 .7rem}
+  .question{margin-bottom:12px}
+  .question label{display:block;margin-bottom:6px;font-weight:bold}
+  input[type="text"], textarea, select{width:100%;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:12px 13px;font:inherit}
+  textarea{min-height:96px;resize:vertical}
+  select{appearance:auto;-webkit-appearance:menulist;color-scheme:dark;background-color:rgba(255,255,255,.08)}
+  select option{background:#294640;color:#f7f3ef}
+  .feedback{margin-top:8px;min-height:1.2rem;font-weight:bold;color:var(--soft)}
+  .choices{display:grid;gap:8px;margin-top:10px}
+  .choice{width:100%;text-align:left;border:none;border-radius:14px;padding:12px 13px;background:rgba(255,255,255,.07);color:var(--cream);border:1px solid var(--line);cursor:pointer}
+  .choice.correct{background:rgba(185,239,199,.16);border-color:rgba(185,239,199,.4)}
+  .choice.wrong{background:rgba(255,217,216,.14);border-color:rgba(255,217,216,.35)}
+  .memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .memory-card{min-height:88px;border:none;border-radius:18px;cursor:pointer;font-weight:bold;font-size:1rem;background:#496b64;color:#496b64;padding:10px}
+  .memory-card.revealed,.memory-card.matched{color:var(--cream);background:rgba(255,255,255,.09);border:1px solid var(--line)}
+  .memory-card.matched{background:rgba(185,239,199,.16);border-color:rgba(185,239,199,.35)}
+  .score-box{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  .score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
+  .score strong{display:block;font-size:1.35rem;margin-bottom:4px}
+  .drag-area{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .bank,.dropzones{background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.14);border-radius:18px;padding:12px}
+  .draggable{background:rgba(239,177,176,.16);border:1px solid rgba(239,177,176,.22);color:#fff;border-radius:12px;padding:10px 12px;margin:8px 0;cursor:grab}
+  .drop{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;min-height:54px}
+  .drop small{display:block;color:var(--soft);margin-bottom:6px}
+  .complete{color:var(--ok)}
+  .footer-note{color:var(--soft);font-size:.95rem;line-height:1.55}
+  .download-wrap{text-align:center;margin-top:20px}
+  @media (max-width:960px){.hero,.grid{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:640px){.hero-side{grid-template-columns:1fr 1fr}.memory-grid{grid-template-columns:repeat(2,1fr)}.drag-area{grid-template-columns:1fr}.score-box{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">Heartstopper • A2 • Season 1 • Episode 2</span>
+      <h1>Episode 2<br>“Crush”</h1>
+      <p class="lead">Work with A2 vocabulary and activities about trust, dialogue and the way friendship develops in episode 2.</p>
+      <div class="toolbar">
+        <div class="tool-pill">🔊 English audio</div>
+        <div class="tool-pill">🧠 Matching games</div>
+        <div class="tool-pill">✏️ A2 tasks</div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="mini"><div class="icon">🤝</div><strong>trust</strong><span>tillit</span></div>
+<div class="mini"><div class="icon">🗨️</div><strong>dialogue</strong><span>dialog</span></div>
+<div class="mini"><div class="icon">👀</div><strong>gesture</strong><span>bevegelse</span></div>
+<div class="mini"><div class="icon">🌱</div><strong>develop</strong><span>utvikle</span></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div>
+      <section class="panel">
+        <h2 class="section-title">Vocabulary</h2>
+        <p class="helper">Click <strong>Listen</strong> to hear the word in English. Then use the activities below.</p>
+        <div class="vocab-grid" id="vocabGrid"></div>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Memory game</h2>
+        <p class="helper">Match the English word with the Norwegian word.</p>
+        <div class="btn-row" style="margin-bottom:14px;">
+          <button class="btn btn-secondary" onclick="resetMemory()">New game</button>
+        </div>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <div class="feedback" id="memoryFeedback">Find all the pairs.</div>
+      </section>
+
+      <section class="panel">
+        <h2 class="section-title">Drag and match</h2>
+        <p class="helper">Drag the English words to the correct Norwegian meaning.</p>
+        <div class="drag-area">
+          <div class="bank" id="dragBank"></div>
+          <div class="dropzones" id="dropZones"></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="resetDragGame()">Reset match</button>
+        </div>
+        <div class="feedback" id="dragFeedback">Match all the words.</div>
+      </section>
+    </div>
+
+    <div>
+      <section class="panel">
+        <h2 class="section-title">A2 tasks</h2>
+        <p class="helper">These activities focus on how dialogue and body language show feelings.</p>
+
+        <div class="task-card">
+          <h3>1. Choose the correct answer</h3>
+          <div class="helper">What best shows friendship in episode 2?</div>
+          <div class="choices" id="mcq1"></div>
+          <div class="feedback" id="mcq1fb"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>2. Choose the best answer</h3>
+          <div class="helper">What helps the relationship develop?</div>
+          <div class="choices" id="mcq2"></div>
+          <div class="feedback" id="mcq2fb"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>3. Fill in the word</h3>
+          <div id="fillArea"></div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="checkFillIns()">Check answers</button>
+          </div>
+          <div class="feedback" id="fillFeedback"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>4. Write short answers</h3>
+          <div id="shortArea"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>5. Write a longer answer</h3>
+          <div id="paraArea"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>6. Sentence builder</h3>
+          <div class="helper">Choose the best sentence.</div>
+          <select id="sentenceSelect"></select>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="checkSentence()">Check sentence</button>
+          </div>
+          <div class="feedback" id="sentenceFeedback"></div>
+        </div>
+
+        <div class="task-card">
+          <h3>Progress</h3>
+          <div class="score-box">
+            <div class="score"><strong id="scoreListen">0</strong>Words listened to</div>
+            <div class="score"><strong id="scoreMemory">0</strong>Pairs found</div>
+            <div class="score"><strong id="scoreTasks">0</strong>Tasks checked</div>
+          </div>
+        </div>
+
+        <p class="footer-note">Tip: Start with the vocabulary and matching tasks before you write.</p>
+      </section>
+    </div>
+  </section>
+
+  <div class="download-wrap">
+    <button class="btn btn-primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const words = [{"en": "trust", "no": "tillit", "icon": "🤝", "phonetic": "/trʌst/"}, {"en": "dialogue", "no": "dialog", "icon": "🗨️", "phonetic": "/ˈdaɪəlɒɡ/"}, {"en": "gesture", "no": "bevegelse", "icon": "👀", "phonetic": "/ˈdʒestʃə/"}, {"en": "comfortable", "no": "komfortabel", "icon": "😌", "phonetic": "/ˈkʌmftəbəl/"}, {"en": "curious", "no": "nysgjerrig", "icon": "❓", "phonetic": "/ˈkjʊəriəs/"}, {"en": "develop", "no": "utvikle", "icon": "🌱", "phonetic": "/dɪˈveləp/"}];
+const mcq1Data = {"prompt": "What best shows friendship in episode 2?", "options": ["Small conversations and gestures", "A newspaper article", "A football injury"], "answer": 0};
+const mcq2Data = {"prompt": "What helps the relationship develop?", "options": ["Trust and dialogue", "Silence only", "Anger"], "answer": 0};
+const fillItems = [{"prompt": "The friendship starts to ______.", "answer": "develop"}, {"prompt": "Small ______ help show emotion.", "answer": "gestures"}];
+const sentenceOptions = [{"text": "Dialogue and gestures show the relationship developing.", "correct": true}, {"text": "Dialogue and gestures shows the relationship developing.", "correct": false}, {"text": "Dialogue and gestures is development the relationship.", "correct": false}];
+const shortQuestions = ["How does the friendship develop?", "Which moment feels important?", "How do looks and gestures help?"];
+const paraQuestions = ["Write 4–6 sentences about how episode 2 shows growing feelings."];
+
+let englishVoice = null;
+let listened = new Set();
+let memoryPairs = 0;
+let tasksChecked = 0;
+
+function loadEnglishVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  englishVoice =
+    voices.find(v => v.lang === "en-GB") ||
+    voices.find(v => v.lang === "en-US") ||
+    voices.find(v => v.lang && v.lang.startsWith("en")) ||
+    null;
+}
+if ("speechSynthesis" in window) {
+  loadEnglishVoice();
+  speechSynthesis.onvoiceschanged = loadEnglishVoice;
+}
+
+function updateScore() {
+  document.getElementById("scoreListen").textContent = listened.size;
+  document.getElementById("scoreMemory").textContent = memoryPairs;
+  document.getElementById("scoreTasks").textContent = tasksChecked;
+}
+
+function speakWord(word) {
+  if (!("speechSynthesis" in window)) {
+    alert("Speech is not supported in this browser.");
+    return;
+  }
+  const utter = new SpeechSynthesisUtterance(word);
+  utter.lang = englishVoice?.lang || "en-GB";
+  if (englishVoice) utter.voice = englishVoice;
+  utter.rate = 0.9;
+  utter.pitch = 1;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utter);
+  listened.add(word);
+  updateScore();
+}
+
+const vocabGrid = document.getElementById("vocabGrid");
+words.forEach(w => {
+  const card = document.createElement("div");
+  card.className = "word-card";
+  card.innerHTML = `
+    <div class="word-top">
+      <div class="icon-box">${w.icon}</div>
+      <div>
+        <h3>${w.en}</h3>
+        <div class="translation">${w.no}</div>
+      </div>
+    </div>
+    <div class="phonetic">Pronunciation: ${w.phonetic}</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="speakWord('${w.en.replace("'", "\'")}')">🔊 Listen</button>
+    </div>
+  `;
+  vocabGrid.appendChild(card);
+});
+
+const fillArea = document.getElementById("fillArea");
+fillItems.forEach((item, i) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<label>${item.prompt}</label><input type="text" id="fill${i}" placeholder="Write one word">`;
+  fillArea.appendChild(div);
+});
+
+const shortArea = document.getElementById("shortArea");
+shortQuestions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<label>${q}</label><textarea id="short${i}" placeholder="Write a short answer"></textarea>`;
+  shortArea.appendChild(div);
+});
+
+const paraArea = document.getElementById("paraArea");
+paraQuestions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<label>${q}</label><textarea id="para${i}" placeholder="Write 4–6 sentences"></textarea>`;
+  paraArea.appendChild(div);
+});
+
+const sentenceSelect = document.getElementById("sentenceSelect");
+sentenceSelect.innerHTML = '<option value="">Choose one</option>' + sentenceOptions.map((opt) => `<option value="${opt.correct ? 1 : 0}">${opt.text}</option>`).join("");
+
+let firstMemoryCard = null;
+let lockMemory = false;
+function resetMemory() {
+  const grid = document.getElementById("memoryGrid");
+  grid.innerHTML = "";
+  firstMemoryCard = null;
+  lockMemory = false;
+  memoryPairs = 0;
+  updateScore();
+  document.getElementById("memoryFeedback").textContent = "Find all the pairs.";
+
+  let cards = [];
+  words.forEach(w => {
+    cards.push({ text:w.en, pair:w.en });
+    cards.push({ text:w.no, pair:w.en });
+  });
+  cards.sort(() => Math.random() - 0.5);
+
+  cards.forEach(data => {
+    const btn = document.createElement("button");
+    btn.className = "memory-card";
+    btn.textContent = data.text;
+    btn.dataset.pair = data.pair;
+    btn.onclick = () => handleMemory(btn);
+    grid.appendChild(btn);
+  });
+}
+
+function handleMemory(btn) {
+  if (lockMemory || btn.classList.contains("matched") || btn === firstMemoryCard) return;
+  btn.classList.add("revealed");
+
+  if (!firstMemoryCard) {
+    firstMemoryCard = btn;
+    return;
+  }
+
+  if (firstMemoryCard.dataset.pair === btn.dataset.pair) {
+    firstMemoryCard.classList.remove("revealed");
+    btn.classList.remove("revealed");
+    firstMemoryCard.classList.add("matched");
+    btn.classList.add("matched");
+    firstMemoryCard = null;
+    memoryPairs += 1;
+    updateScore();
+    document.getElementById("memoryFeedback").textContent = memoryPairs === words.length ? "Well done! You found all the pairs." : "Good! Keep going.";
+  } else {
+    lockMemory = true;
+    document.getElementById("memoryFeedback").textContent = "Try again.";
+    setTimeout(() => {
+      btn.classList.remove("revealed");
+      firstMemoryCard.classList.remove("revealed");
+      firstMemoryCard = null;
+      lockMemory = false;
+      document.getElementById("memoryFeedback").textContent = "Find all the pairs.";
+    }, 850);
+  }
+}
+
+function resetDragGame() {
+  const bank = document.getElementById("dragBank");
+  const dropZones = document.getElementById("dropZones");
+  bank.innerHTML = "<strong>English words</strong>";
+  dropZones.innerHTML = "<strong>Norwegian words</strong>";
+  document.getElementById("dragFeedback").textContent = "Match all the words.";
+
+  const shuffled = [...words].sort(() => Math.random() - 0.5);
+  shuffled.forEach(w => {
+    const drag = document.createElement("div");
+    drag.className = "draggable";
+    drag.textContent = w.en;
+    drag.draggable = true;
+    drag.dataset.word = w.en;
+    drag.dataset.pair = w.no;
+    drag.addEventListener("dragstart", ev => {
+      ev.dataTransfer.setData("text/plain", JSON.stringify({en:w.en,no:w.no}));
+    });
+    bank.appendChild(drag);
+  });
+
+  words.forEach(w => {
+    const drop = document.createElement("div");
+    drop.className = "drop";
+    drop.dataset.no = w.no;
+    drop.innerHTML = `<small>${w.no}</small>`;
+    drop.addEventListener("dragover", ev => ev.preventDefault());
+    drop.addEventListener("drop", ev => {
+      ev.preventDefault();
+      const data = JSON.parse(ev.dataTransfer.getData("text/plain"));
+      if (drop.dataset.filled === "yes") return;
+      if (data.no === drop.dataset.no) {
+        drop.innerHTML = `<small>${w.no}</small><div class="complete">${data.en}</div>`;
+        drop.dataset.filled = "yes";
+        const items = [...document.querySelectorAll(".draggable")];
+        const target = items.find(x => x.dataset.word === data.en);
+        if (target) target.remove();
+        const allFilled = [...document.querySelectorAll(".drop")].every(d => d.dataset.filled === "yes");
+        document.getElementById("dragFeedback").textContent = allFilled ? "Great! All the matches are correct." : "Correct! Keep going.";
+      } else {
+        document.getElementById("dragFeedback").textContent = "Not correct. Try again.";
+      }
+    });
+    dropZones.appendChild(drop);
+  });
+}
+
+function buildChoiceSet(id, data, feedbackId) {
+  const wrap = document.getElementById(id);
+  wrap.innerHTML = "";
+  data.options.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.textContent = text;
+    btn.onclick = () => {
+      [...wrap.children].forEach(x => x.classList.remove("correct","wrong"));
+      if (i === data.answer) {
+        btn.classList.add("correct");
+        document.getElementById(feedbackId).textContent = "Correct!";
+      } else {
+        btn.classList.add("wrong");
+        wrap.children[data.answer].classList.add("correct");
+        document.getElementById(feedbackId).textContent = "Try again.";
+      }
+      tasksChecked += 1;
+      updateScore();
+    };
+    wrap.appendChild(btn);
+  });
+}
+buildChoiceSet("mcq1", mcq1Data, "mcq1fb");
+buildChoiceSet("mcq2", mcq2Data, "mcq2fb");
+
+function checkFillIns() {
+  const results = fillItems.map((item, i) => (document.getElementById("fill"+i).value || "").trim().toLowerCase() === item.answer.toLowerCase());
+  const fb = document.getElementById("fillFeedback");
+  if (results.every(Boolean)) {
+    fb.textContent = "Correct!";
+    fb.style.color = "#b9efc7";
+  } else {
+    fb.textContent = "Check your words and try again.";
+    fb.style.color = "#ffd9d8";
+  }
+  tasksChecked += 1;
+  updateScore();
+}
+
+function checkSentence() {
+  const val = document.getElementById("sentenceSelect").value;
+  const fb = document.getElementById("sentenceFeedback");
+  if (val === "1") {
+    fb.textContent = "Correct!";
+    fb.style.color = "#b9efc7";
+  } else if (val === "0") {
+    fb.textContent = "Try again.";
+    fb.style.color = "#ffd9d8";
+  } else {
+    fb.textContent = "Choose one sentence first.";
+    fb.style.color = "#d9ebe5";
+  }
+  tasksChecked += 1;
+  updateScore();
+}
+
+function safeText(value) {
+  return (value || "").toString().replace(/\s+/g, " ").trim();
+}
+
+function downloadPDF(){
+  const jspdf = window.jspdf;
+  if (!jspdf) {
+    alert("PDF library not loaded.");
+    return;
+  }
+  const doc = new jspdf.jsPDF();
+  let y = 20;
+
+  function addLine(text, indent=10) {
+    const lines = doc.splitTextToSize(text, 180);
+    doc.text(lines, indent, y);
+    y += lines.length * 7;
+    if (y > 270) {
+      doc.addPage();
+      y = 20;
+    }
+  }
+
+  doc.setFontSize(16);
+  addLine("Heartstopper – A2 Episode 2 “Crush”");
+  y += 3;
+  doc.setFontSize(12);
+
+  addLine("Fill in:");
+  fillItems.forEach((item, i) => addLine(item.prompt + " " + safeText(document.getElementById("fill"+i).value)));
+  y += 2;
+
+  addLine("Short answers:");
+  shortQuestions.forEach((q, i) => addLine(q + " " + safeText(document.getElementById("short"+i).value)));
+  y += 2;
+
+  addLine("Longer answer:");
+  paraQuestions.forEach((q, i) => addLine(q + " " + safeText(document.getElementById("para"+i).value)));
+  y += 2;
+
+  const sentence = sentenceSelect.selectedIndex >= 0 ? sentenceSelect.options[sentenceSelect.selectedIndex].text : "";
+  addLine("Sentence builder:");
+  addLine(safeText(sentence));
+
+  doc.save("A2_episode2_crush_answers.pdf");
+}
+
+resetMemory();
+resetDragGame();
+updateScore();
+</script>
+</body>
+</html>
