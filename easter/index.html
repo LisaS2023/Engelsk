@@ -922,6 +922,31 @@ footer p{font-size:11px;color:var(--hint)}
 </div><!-- /page-a2 -->
 
 <script>
+/* ── SHUFFLE ── */
+function shuffleBank(bankId){
+  var bank=document.getElementById(bankId);
+  if(!bank)return;
+  var words=Array.from(bank.querySelectorAll('.wbank-word'));
+  for(var i=words.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    bank.appendChild(words[j]);
+    words.splice(j,1);
+    words.splice(i,0,bank.children[i]);
+  }
+  /* re-shuffle by appending in random order */
+  var items=Array.from(bank.querySelectorAll('.wbank-word'));
+  for(var k=items.length-1;k>0;k--){
+    var r=Math.floor(Math.random()*(k+1));
+    bank.insertBefore(items[r],items[k]);
+    var tmp=items[k];items[k]=items[r];items[r]=tmp;
+  }
+}
+function shuffleAllBanks(){
+  shuffleBank('a1-bank');
+  shuffleBank('a2-bank');
+}
+document.addEventListener('DOMContentLoaded',shuffleAllBanks);
+
 /* ── PAGE NAV ── */
 function goLevel(lvl){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1024,6 +1049,7 @@ function resetBlanks(lvl){
   bankState[lvl].picked=null;
   var sc=document.getElementById(lvl+'-blank-score');
   sc.className='ex-score';
+  shuffleBank(lvl+'-bank');
 }
 
 /* ── TRUE/FALSE ── */
