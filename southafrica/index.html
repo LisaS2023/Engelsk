@@ -1,1 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover South Africa – A1 / A2 / B1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sa-green:#007A4D;--sa-black:#001219;--sa-yellow:#FFB612;
+  --sa-red:#DE3831;--sa-blue:#002395;
+  --hero-bg1:#002B1C;--hero-bg2:#005C36;--hero-bg3:#004028;
+  --cream:#F7FAF8;--text:#0F1E17;--text2:#3A5444;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Source Sans 3',-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(155deg,var(--hero-bg1) 0%,var(--hero-bg2) 45%,var(--hero-bg3) 100%)}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,122,77,.18) 0%,transparent 70%)}
+.hero-inner{position:relative;z-index:2;padding:60px 20px 80px;max-width:900px;margin:0 auto}
+.flag-bar{display:flex;height:5px;width:180px;margin:0 auto 32px;border-radius:3px;overflow:hidden}
+.flag-bar span{flex:1}
+.fb1{background:var(--sa-green)}.fb2{background:var(--sa-yellow)}.fb3{background:var(--sa-red)}.fb4{background:var(--sa-blue)}.fb5{background:#fff}.fb6{background:var(--sa-green)}
+.hero-eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--sa-yellow);margin-bottom:16px;opacity:.9}
+.hero-title{font-family:var(--serif);font-size:clamp(42px,7vw,84px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px;text-shadow:0 4px 32px rgba(0,0,0,.35);letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--sa-yellow)}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:rgba(255,255,255,.68);font-weight:300;margin-bottom:48px}
+.hero-prompt{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:28px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+.level-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:0 10px}
+.level-btn{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);border-radius:16px;padding:22px 28px;cursor:pointer;transition:all .25s;min-width:170px;text-align:center;position:relative;overflow:hidden;backdrop-filter:blur(8px)}
+.level-btn:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.level-btn.a1{border-color:rgba(255,182,18,.45)}.level-btn.a2{border-color:rgba(0,122,77,.6)}.level-btn.b1{border-color:rgba(222,56,49,.45)}
+.level-badge{display:inline-block;font-size:22px;font-weight:900;font-family:var(--serif);margin-bottom:6px}
+.level-btn.a1 .level-badge{color:var(--sa-yellow)}.level-btn.a2 .level-badge{color:#5EE8A4}.level-btn.b1 .level-badge{color:#FF9B96}
+.level-btn .level-name{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.level-btn .level-desc{font-size:12px;color:rgba(255,255,255,.48);line-height:1.5}
+.level-btn.b1-link{text-decoration:none}
+.ndla-note{font-size:10px;color:rgba(255,182,18,.7);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;font-weight:700}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* CONTENT PAGE */
+.content-page{display:none;min-height:100vh;background:var(--cream)}
+.content-page.active{display:block}
+.top-bar{background:var(--sa-black);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.back-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;font-family:var(--sans)}
+.back-btn:hover{background:rgba(255,255,255,.2)}
+.top-bar-title{font-family:var(--serif);font-size:16px;font-weight:700;flex:1}
+.level-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.1em}
+.pill-a1{background:rgba(255,182,18,.2);color:var(--sa-yellow)}.pill-a2{background:rgba(0,122,77,.25);color:#3ECB87}
+.progress-bar{height:3px;background:rgba(255,255,255,.1)}
+.progress-fill{height:100%;transition:width .4s;border-radius:0 2px 2px 0}
+.fill-a1{background:linear-gradient(90deg,var(--sa-yellow),#FFD060)}.fill-a2{background:linear-gradient(90deg,var(--sa-green),#3ECB87)}
+.content-wrap{max-width:780px;margin:0 auto;padding:40px 24px 60px}
+.section{margin-bottom:40px}
+.section-label{font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:700;color:var(--sa-green);margin-bottom:10px}
+.section-title{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.reading-box{background:#fff;border:1px solid rgba(0,122,77,.15);border-left:4px solid var(--sa-green);border-radius:12px;padding:28px 32px;margin-bottom:20px;line-height:1.85;font-size:16px;box-shadow:0 2px 12px rgba(0,122,77,.06)}
+.reading-box p{margin-bottom:12px}.reading-box p:last-child{margin-bottom:0}
+.reading-box h3{font-family:var(--serif);font-size:20px;margin-bottom:14px;color:var(--sa-black)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:#fff;border:1px solid rgba(0,122,77,.15);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all .2s}
+.vocab-card:hover{border-color:var(--sa-green);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,122,77,.1)}
+.vocab-card .word{font-weight:700;font-size:15px}
+.vocab-card .translation{font-size:13px;color:var(--sa-green);margin-top:3px;display:none}
+.vocab-card.flipped .translation{display:block}
+.vocab-card .flip-hint{font-size:10px;color:#aaa;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+.exercise{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:24px 28px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.ex-label{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;margin-bottom:8px}
+.ex-question{font-size:16px;font-weight:600;margin-bottom:16px}
+.ex-options{display:flex;flex-direction:column;gap:9px}
+.ex-opt{background:var(--cream);border:1.5px solid rgba(0,0,0,.1);border-radius:9px;padding:11px 16px;cursor:pointer;font-size:15px;transition:all .2s;display:flex;align-items:center;gap:10px;font-family:var(--sans);color:var(--text);text-align:left;width:100%}
+.ex-opt:hover{border-color:var(--sa-green);background:rgba(0,122,77,.05)}
+.ex-opt.correct{background:rgba(0,122,77,.08);border-color:var(--sa-green);color:var(--sa-green)}
+.ex-opt.wrong{background:rgba(222,56,49,.07);border-color:var(--sa-red);color:var(--sa-red)}
+.ex-opt.disabled{pointer-events:none;opacity:.7}
+.opt-icon{font-size:16px;min-width:20px}
+.feedback{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:14px;font-weight:600;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(0,122,77,.1);color:var(--sa-green)}
+.feedback.nope{background:rgba(222,56,49,.08);color:var(--sa-red)}
+.gap-sentence{font-size:16px;line-height:2.6;margin-bottom:4px}
+.gap-input{border:none;border-bottom:2px solid var(--sa-green);background:transparent;font-size:16px;font-family:var(--sans);padding:2px 6px;width:120px;text-align:center;color:var(--text);outline:none}
+.gap-input.correct{border-color:var(--sa-green);color:var(--sa-green)}
+.gap-input.wrong{border-color:var(--sa-red);color:var(--sa-red)}
+.check-btn{background:var(--sa-green);color:#fff;border:none;border-radius:9px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px;font-family:var(--sans);transition:all .2s}
+.check-btn:hover{background:#005C36;transform:translateY(-1px)}
+.write-area{width:100%;border:1.5px solid rgba(0,122,77,.2);border-radius:10px;padding:14px 16px;font-family:var(--sans);font-size:15px;line-height:1.7;resize:vertical;min-height:110px;background:#fff;color:var(--text);outline:none}
+.write-area:focus{border-color:var(--sa-green)}
+.starters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.starter{background:rgba(0,122,77,.07);border:1px solid rgba(0,122,77,.2);border-radius:6px;padding:5px 12px;font-size:13px;cursor:pointer;color:var(--sa-green);font-weight:600;transition:background .2s}
+.starter:hover{background:rgba(0,122,77,.15)}
+.fact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-bottom:20px}
+.fact-card{background:#fff;border-radius:14px;padding:20px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.fact-icon{font-size:28px;margin-bottom:8px}
+.fact-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--sa-green);font-weight:700;margin-bottom:4px}
+.fact-value{font-size:15px;font-weight:600}
+.score-box{background:linear-gradient(135deg,var(--sa-green),#005C36);color:#fff;border-radius:14px;padding:20px 24px;text-align:center;margin-bottom:20px;display:none}
+.score-box.show{display:block}
+.score-box .big-score{font-family:var(--serif);font-size:40px;font-weight:900;margin-bottom:4px}
+.score-box .score-label{font-size:14px;opacity:.8}
+.divider{height:1px;background:rgba(0,0,0,.07);margin:32px 0}
+.info-box{background:rgba(255,182,18,.08);border:1px solid rgba(255,182,18,.25);border-radius:10px;padding:16px 20px;margin-bottom:20px;font-size:14px;color:var(--text2)}
+.info-box strong{color:var(--text)}
+.comp-table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:20px}
+.comp-table th{background:var(--sa-green);color:#fff;padding:12px 16px;text-align:left;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.comp-table td{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.06)}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:nth-child(even) td{background:rgba(0,122,77,.03)}
+
+/* MEMORY GAME */
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;max-width:480px}
+.mem-card{aspect-ratio:1;perspective:600px;cursor:pointer}
+.mem-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .4s}
+.mem-card.flipped .mem-inner,.mem-card.matched .mem-inner{transform:rotateY(180deg)}
+.mem-front,.mem-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(0,0,0,.1)}
+.mem-front{background:linear-gradient(135deg,var(--sa-green),#005C36);color:#fff;font-size:22px}
+.mem-back{background:#fff;transform:rotateY(180deg);font-size:12px;font-weight:700;text-align:center;padding:8px;line-height:1.3;border-color:rgba(0,122,77,.2)}
+.mem-card.matched .mem-back{background:rgba(0,122,77,.12);border-color:var(--sa-green)}
+.mem-stats{font-size:14px;color:var(--text2);margin-bottom:12px}
+.mem-win{background:linear-gradient(135deg,var(--sa-green),var(--sa-yellow));color:var(--sa-black);border-radius:12px;padding:14px 20px;text-align:center;font-weight:700;font-size:16px;display:none;margin-top:12px}
+.mem-win.show{display:block}
+.reset-btn{background:var(--cream);border:1.5px solid rgba(0,0,0,.15);border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .2s;margin-top:8px}
+.reset-btn:hover{background:#e8f5ee;border-color:var(--sa-green)}
+
+/* WORD SEARCH */
+.ws-grid{display:inline-grid;gap:2px;background:#e8f5ee;padding:10px;border-radius:10px;margin-bottom:16px;user-select:none;-webkit-user-select:none}
+.ws-cell{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:var(--sans);border-radius:5px;cursor:pointer;background:#fff;color:var(--text);border:1px solid rgba(0,122,77,.1);transition:background .1s}
+.ws-cell.selecting{background:rgba(255,182,18,.4)}
+.ws-cell.found-0{background:var(--sa-green);color:#fff;border-color:var(--sa-green)}
+.ws-cell.found-1{background:#005C36;color:#fff;border-color:#005C36}
+.ws-cell.found-2{background:var(--sa-yellow);color:var(--sa-black);border-color:var(--sa-yellow)}
+.ws-cell.found-3{background:var(--sa-red);color:#fff;border-color:var(--sa-red)}
+.ws-cell.found-4{background:var(--sa-blue);color:#fff;border-color:var(--sa-blue)}
+.ws-cell.found-5{background:#8B4513;color:#fff;border-color:#8B4513}
+.ws-cell.found-6{background:#6B238E;color:#fff;border-color:#6B238E}
+.ws-wordlist{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ws-word{background:#fff;border:1.5px solid rgba(0,122,77,.25);border-radius:6px;padding:5px 12px;font-size:13px;font-weight:700;color:var(--text2);transition:all .2s}
+.ws-word.found-word{background:var(--sa-green);border-color:var(--sa-green);color:#fff;text-decoration:line-through;opacity:.7}
+.ws-overflow{overflow-x:auto;padding-bottom:6px}
+
+/* MATCHING */
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-bottom:14px}
+.match-col-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--sa-green);margin-bottom:6px}
+.match-item{background:#fff;border:2px solid rgba(0,122,77,.18);border-radius:9px;padding:10px 14px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;text-align:center;min-height:44px;display:flex;align-items:center;justify-content:center}
+.match-item:hover:not(.matched-ok){border-color:var(--sa-green);background:rgba(0,122,77,.04)}
+.match-item.selected{border-color:var(--sa-yellow);background:rgba(255,182,18,.12)}
+.match-item.matched-ok{border-color:var(--sa-green);background:rgba(0,122,77,.1);color:var(--sa-green);pointer-events:none}
+.match-item.matched-wrong{border-color:var(--sa-red);background:rgba(222,56,49,.07);animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* PRINT FOOTER */
+.print-footer{background:var(--sa-black);padding:30px 24px;text-align:center}
+.print-btn{background:transparent;border:2px solid rgba(255,255,255,.3);color:#fff;border-radius:10px;padding:13px 32px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:all .25s;display:inline-flex;align-items:center;gap:10px}
+.print-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);transform:translateY(-2px)}
+.print-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:10px}
+
+@media(max-width:600px){
+  .level-cards{flex-direction:column;align-items:center}
+  .level-btn{width:100%;max-width:300px}
+  .content-wrap{padding:24px 14px 50px}
+  .reading-box,.exercise{padding:18px}
+  .memory-grid{gap:6px}
+  .ws-cell{width:25px;height:25px;font-size:11px}
+}
+@media print{
+  .top-bar,.progress-bar,.print-footer,.scroll-hint,.starters,.check-btn,.reset-btn,.ws-overflow,.match-item{display:none!important}
+  .content-page{display:block!important;min-height:unset}
+  .hero{display:none!important}
+  body,*{background:white!important;color:black!important;box-shadow:none!important}
+  .content-wrap{padding:10pt 15pt}
+  .reading-box,.exercise,.fact-card{border:1pt solid #ccc!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ======== HERO ======== -->
+<div class="hero" id="heroPage">
+  <div class="hero-inner">
+    <div class="flag-bar"><span class="fb1"></span><span class="fb2"></span><span class="fb3"></span><span class="fb4"></span><span class="fb5"></span><span class="fb6"></span></div>
+    <div class="hero-eyebrow">English Resource · Geography &amp; Culture</div>
+    <h1 class="hero-title">Discover<br><em>South Africa</em></h1>
+    <p class="hero-sub">The Rainbow Nation · Ubuntu · Mandela · Wildlife · Apartheid</p>
+    <p class="hero-prompt">Choose your level</p>
+    <div class="level-cards">
+      <div class="level-btn a1" onclick="showLevel('a1')">
+        <span class="level-badge">A1</span>
+        <span class="level-name">Beginner</span>
+        <div class="level-desc">Simple words &amp; sentences<br>about South Africa</div>
+      </div>
+      <div class="level-btn a2" onclick="showLevel('a2')">
+        <span class="level-badge">A2</span>
+        <span class="level-name">Elementary</span>
+        <div class="level-desc">Descriptions, culture<br>&amp; comparisons</div>
+      </div>
+      <a class="level-btn b1 b1-link" href="https://ndla.no/r/engelsk-sf/an-introduction-to-south-africa/4b132a7289" target="_blank">
+        <span class="level-badge">B1</span>
+        <span class="level-name">Intermediate</span>
+        <div class="level-desc">Read the original<br>NDLA article</div>
+        <div class="ndla-note">↗ Opens on NDLA</div>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+</div>
+
+<!-- ======== A1 PAGE ======== -->
+<div class="content-page" id="page-a1">
+  <div class="top-bar">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <span class="top-bar-title">South Africa — A1 · Beginner</span>
+    <span class="level-pill pill-a1">A1</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill fill-a1" id="prog-a1" style="width:0%"></div></div>
+  <div class="content-wrap">
+
+    <div class="section">
+      <div class="section-label">Quick Facts</div>
+      <div class="section-title">South Africa at a Glance</div>
+      <div class="fact-grid">
+        <div class="fact-card"><div class="fact-icon">🌍</div><div class="fact-title">Continent</div><div class="fact-value">Africa</div></div>
+        <div class="fact-card"><div class="fact-icon">🏙️</div><div class="fact-title">Capitals</div><div class="fact-value">Pretoria, Cape Town &amp; Bloemfontein</div></div>
+        <div class="fact-card"><div class="fact-icon">👥</div><div class="fact-title">Population</div><div class="fact-value">~62 million people</div></div>
+        <div class="fact-card"><div class="fact-icon">🗣️</div><div class="fact-title">Languages</div><div class="fact-value">11 official languages</div></div>
+        <div class="fact-card"><div class="fact-icon">🌈</div><div class="fact-title">Nickname</div><div class="fact-value">The Rainbow Nation</div></div>
+        <div class="fact-card"><div class="fact-icon">🦁</div><div class="fact-title">Famous for</div><div class="fact-value">Big Five: lion, elephant, rhino, leopard, buffalo</div></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Reading</div>
+      <div class="section-title">A Short Text About South Africa</div>
+      <div class="reading-box">
+        <h3>South Africa</h3>
+        <p>South Africa is a big country in Africa. It is at the south of the continent. The country has many different people. They speak many languages.</p>
+        <p>South Africa has three capitals. Pretoria is the main capital. Cape Town is a very beautiful city. It has mountains and the sea.</p>
+        <p>South Africa has many wild animals. Lions, elephants and rhinos live there. The Kruger National Park is very famous. Many tourists visit it every year.</p>
+        <p>Nelson Mandela is a very important person in South Africa. He was the first black president. He wanted peace and freedom for all people.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="section-title">Key Words — Click to See Norwegian</div>
+      <div class="vocab-grid" id="vocab-a1"></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Memory Game 🎴</div>
+      <div class="section-title">Match Word to Picture</div>
+      <div class="info-box"><strong>How to play:</strong> Click two cards to flip them over. Match each English word with its picture emoji. Find all 6 pairs!</div>
+      <div class="mem-stats">Pairs found: <strong id="mf-a1">0</strong> / 6 &nbsp;·&nbsp; Attempts: <strong id="ma-a1">0</strong></div>
+      <div class="memory-grid" id="mem-a1"></div>
+      <button class="reset-btn" onclick="initMem('a1')">🔄 New Game</button>
+      <div class="mem-win" id="mw-a1">🎉 Amazing! You found all the pairs!</div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Word Search 🔍</div>
+      <div class="section-title">Find the Hidden Words</div>
+      <div class="info-box"><strong>How to play:</strong> Click and drag across letters to highlight a word. Words can go in any direction!</div>
+      <div class="ws-wordlist" id="wsl-a1"></div>
+      <div class="ws-overflow"><div class="ws-grid" id="wsg-a1" style="grid-template-columns:repeat(10,30px)"></div></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">True or False? ✓✗</div>
+      <div class="section-title">Do You Remember?</div>
+      <div id="quiz-a1"></div>
+      <div class="score-box" id="sc-a1"><div class="big-score" id="scn-a1">0/4</div><div class="score-label">Well done! 🎉</div></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Writing ✏️</div>
+      <div class="section-title">Write About South Africa</div>
+      <div class="info-box"><strong>Task:</strong> Write 3–4 sentences. Use the sentence starters below to help you.</div>
+      <div class="starters" id="st-a1"></div>
+      <textarea class="write-area" id="wr-a1" placeholder="Write your sentences here..."></textarea>
+    </div>
+  </div>
+
+  <div class="print-footer">
+    <button class="print-btn" onclick="doPrint('a1')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save as PDF
+    </button>
+    <div class="print-note">Opens your browser's print dialog — select "Save as PDF"</div>
+  </div>
+</div>
+
+<!-- ======== A2 PAGE ======== -->
+<div class="content-page" id="page-a2">
+  <div class="top-bar">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <span class="top-bar-title">South Africa — A2 · Elementary</span>
+    <span class="level-pill pill-a2">A2</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill fill-a2" id="prog-a2" style="width:0%"></div></div>
+  <div class="content-wrap">
+
+    <div class="section">
+      <div class="section-label">Reading</div>
+      <div class="section-title">An Introduction to South Africa</div>
+      <div class="reading-box">
+        <h3>The Rainbow Nation</h3>
+        <p>South Africa is a country at the southern tip of Africa. It is famous for its beautiful landscapes, amazing wildlife, and diverse culture. Because of its many different peoples and cultures, South Africa is often called the <strong>"Rainbow Nation"</strong>.</p>
+        <p>The country has three capital cities: <strong>Pretoria</strong> (the executive capital), <strong>Cape Town</strong> (the legislative capital), and <strong>Bloemfontein</strong> (the judicial capital). Johannesburg is the largest city and the economic centre of the country.</p>
+        <p>South Africa has <strong>11 official languages</strong>, including Zulu, Xhosa, Afrikaans, and English. This shows how many different groups of people live in the country.</p>
+        <p>The country is known for the <strong>Big Five</strong> wild animals: lion, elephant, rhino, leopard, and buffalo. The famous Kruger National Park is one of the best places in Africa to see wildlife.</p>
+        <p><strong>Nelson Mandela</strong> is the most famous South African. He fought against apartheid — the unfair system that separated people by race. In 1994, he became the first black president of South Africa after apartheid ended.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="section-title">Important Words — Click to See Norwegian</div>
+      <div class="vocab-grid" id="vocab-a2"></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Memory Game 🎴</div>
+      <div class="section-title">Match English to Norwegian</div>
+      <div class="info-box"><strong>How to play:</strong> Flip two cards at a time. Match each English word with its Norwegian translation. Find all 6 pairs!</div>
+      <div class="mem-stats">Pairs found: <strong id="mf-a2">0</strong> / 6 &nbsp;·&nbsp; Attempts: <strong id="ma-a2">0</strong></div>
+      <div class="memory-grid" id="mem-a2"></div>
+      <button class="reset-btn" onclick="initMem('a2')">🔄 New Game</button>
+      <div class="mem-win" id="mw-a2">🌍 Excellent! All pairs matched!</div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Matching Exercise 🏛️</div>
+      <div class="section-title">Match the City to Its Role</div>
+      <div class="info-box"><strong>How to play:</strong> Click a city on the left, then click its matching role on the right.</div>
+      <div id="match-a2"></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Word Search 🔍</div>
+      <div class="section-title">Find the Hidden Words</div>
+      <div class="ws-wordlist" id="wsl-a2"></div>
+      <div class="ws-overflow"><div class="ws-grid" id="wsg-a2" style="grid-template-columns:repeat(12,30px)"></div></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Gap Fill ✍️</div>
+      <div class="section-title">Fill in the Missing Words</div>
+      <div class="exercise">
+        <div class="ex-label" style="color:var(--sa-green)">Complete each sentence</div>
+        <div id="gap-a2"></div>
+        <button class="check-btn" onclick="checkGaps()">Check Answers ✓</button>
+        <div class="feedback" id="gap-fb"></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Comparison 📊</div>
+      <div class="section-title">South Africa vs. Norway</div>
+      <table class="comp-table">
+        <thead><tr><th>Topic</th><th>South Africa 🇿🇦</th><th>Norway 🇳🇴</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Size</strong></td><td>1,221,037 km²</td><td>385,207 km²</td></tr>
+          <tr><td><strong>Population</strong></td><td>~62 million</td><td>~5.5 million</td></tr>
+          <tr><td><strong>Languages</strong></td><td>11 official languages</td><td>Norwegian (Bokmål &amp; Nynorsk)</td></tr>
+          <tr><td><strong>Capital</strong></td><td>Pretoria (executive)</td><td>Oslo</td></tr>
+          <tr><td><strong>Climate</strong></td><td>Warm &amp; sunny</td><td>Cold winters, mild summers</td></tr>
+          <tr><td><strong>Famous for</strong></td><td>Wildlife, Cape Town, Mandela</td><td>Fjords, Northern Lights, oil</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Multiple Choice Quiz 🧠</div>
+      <div class="section-title">Test Your Knowledge</div>
+      <div id="quiz-a2"></div>
+      <div class="score-box" id="sc-a2"><div class="big-score" id="scn-a2">0/4</div><div class="score-label">Great work! 🌍</div></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-label">Writing ✏️</div>
+      <div class="section-title">Write a Short Text</div>
+      <div class="info-box"><strong>Task:</strong> Write 5–8 sentences. Compare South Africa and Norway, OR describe what you would like to see in South Africa.</div>
+      <div class="starters" id="st-a2"></div>
+      <textarea class="write-area" id="wr-a2" placeholder="Write your text here..."></textarea>
+    </div>
+
+  </div>
+  <div class="print-footer">
+    <button class="print-btn" onclick="doPrint('a2')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save as PDF
+    </button>
+    <div class="print-note">Opens your browser's print dialog — select "Save as PDF"</div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const vocabA1=[
+  {w:'country',t:'land'},{w:'capital',t:'hovedstad'},{w:'people',t:'folk/mennesker'},
+  {w:'language',t:'språk'},{w:'mountain',t:'fjell'},{w:'sea',t:'hav'},
+  {w:'animal',t:'dyr'},{w:'famous',t:'kjent/berømt'},{w:'president',t:'president'},
+  {w:'freedom',t:'frihet'},{w:'peace',t:'fred'},{w:'tourist',t:'turist'},
+];
+const vocabA2=[
+  {w:'diverse',t:'mangfoldig'},{w:'landscape',t:'landskap'},{w:'culture',t:'kultur'},
+  {w:'official',t:'offisiell'},{w:'apartheid',t:'raseadskillelse'},{w:'segregation',t:'adskillelse'},
+  {w:'wildlife',t:'dyreliv'},{w:'democracy',t:'demokrati'},{w:'economy',t:'økonomi'},
+  {w:'continent',t:'kontinent'},{w:'nickname',t:'kallenavn'},{w:'unfair',t:'urettferdig'},
+];
+
+// Memory A1: word ↔ emoji
+const memA1=[
+  {id:'lion',a:'LION',b:'🦁'},{id:'elephant',a:'ELEPHANT',b:'🐘'},
+  {id:'capetown',a:'CAPE TOWN',b:'🏔️'},{id:'flag',a:'SOUTH AFRICA',b:'🇿🇦'},
+  {id:'mandela',a:'MANDELA',b:'✊'},{id:'giraffe',a:'WILDLIFE',b:'🦒'},
+];
+// Memory A2: english ↔ norwegian
+const memA2=[
+  {id:'diverse',a:'diverse',b:'mangfoldig'},{id:'apartheid',a:'apartheid',b:'raseadskillelse'},
+  {id:'wildlife',a:'wildlife',b:'dyreliv'},{id:'democracy',a:'democracy',b:'demokrati'},
+  {id:'culture',a:'culture',b:'kultur'},{id:'landscape',a:'landscape',b:'landskap'},
+];
+
+// Word search words
+const wsA1=['LION','SEA','PEACE','AFRICA','RHINO','GOLD','ZULU'];
+const wsA2=['APARTHEID','MANDELA','RAINBOW','KRUGER','PRETORIA','LEOPARD','BUFFALO'];
+
+// Matching A2
+const cityRoleMap={Pretoria:'Executive capital','Cape Town':'Legislative capital',Bloemfontein:'Judicial capital',Johannesburg:'Largest city'};
+
+// Quiz A1
+const qA1=[
+  {q:'South Africa is in Europe.',a:false},
+  {q:'South Africa has three capital cities.',a:true},
+  {q:'Nelson Mandela was the first black president.',a:true},
+  {q:'Lions and elephants live in South Africa.',a:true},
+];
+// Quiz A2
+const qA2=[
+  {q:'How many official languages does South Africa have?',opts:['3','7','11','15'],a:2},
+  {q:'What is the name of the famous wildlife park in South Africa?',opts:['Serengeti','Kruger','Namib','Victoria'],a:1},
+  {q:'What was "apartheid"?',opts:['A dance','A national park','A system of racial segregation','A type of food'],a:2},
+  {q:'What is South Africa\'s nickname?',opts:['The Golden Nation','The Rainbow Nation','The Safari Nation','The Sun Nation'],a:1},
+];
+// Gap fill A2
+const gaps=[
+  {s:'South Africa is at the southern ___ of Africa.',a:'tip'},
+  {s:'The country is known as the "Rainbow ___" because of its many cultures.',a:'Nation'},
+  {s:'Nelson Mandela fought against ___, the system that separated people by race.',a:'apartheid'},
+  {s:'The Big Five include lion, elephant, rhino, leopard, and ___.',a:'buffalo'},
+];
+// Starters
+const stA1=['South Africa is…','The capital is…','South Africa has…','Nelson Mandela was…','I think South Africa is…'];
+const stA2=['South Africa is different from Norway because…','Both countries have…','One thing I find interesting is…','In South Africa, people…','I would like to visit South Africa because…','Compared to Norway, South Africa…'];
+
+// ============================================================
+// VOCAB
+// ============================================================
+function renderVocab(data,id){
+  document.getElementById(id).innerHTML=data.map(v=>
+    `<div class="vocab-card" onclick="this.classList.toggle('flipped')">
+      <div class="word">${v.w}</div><div class="translation">${v.t}</div>
+      <div class="flip-hint">👆 tap to reveal</div>
+    </div>`).join('');
+}
+
+// ============================================================
+// QUIZ A1 — true/false
+// ============================================================
+let sa1={n:0,c:0};
+function renderQuizA1(){
+  document.getElementById('quiz-a1').innerHTML=qA1.map((q,i)=>
+    `<div class="exercise" id="q1-${i}">
+      <div class="ex-label" style="color:var(--sa-yellow)">True or False?</div>
+      <div class="ex-question">${q.q}</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="tfAnswer(${i},true,${q.a})"><span class="opt-icon">✓</span> True</button>
+        <button class="ex-opt" onclick="tfAnswer(${i},false,${q.a})"><span class="opt-icon">✗</span> False</button>
+      </div>
+      <div class="feedback" id="f1-${i}"></div>
+    </div>`).join('');
+}
+function tfAnswer(i,given,correct){
+  const card=document.getElementById('q1-'+i);
+  const fb=document.getElementById('f1-'+i);
+  card.querySelectorAll('.ex-opt').forEach(b=>b.classList.add('disabled'));
+  const ok=(given===correct);
+  card.querySelectorAll('.ex-opt').forEach(b=>{
+    const isT=b.textContent.trim().startsWith('True');
+    if(isT===correct)b.classList.add('correct');
+    else if(isT===given&&!ok)b.classList.add('wrong');
+  });
+  fb.textContent=ok?'✅ Correct!':'❌ The answer is '+(correct?'True':'False')+'.';
+  fb.className='feedback show '+(ok?'ok':'nope');
+  sa1.n++;if(ok)sa1.c++;
+  document.getElementById('prog-a1').style.width=Math.round(sa1.n/qA1.length*100)+'%';
+  if(sa1.n===qA1.length){document.getElementById('scn-a1').textContent=sa1.c+'/'+qA1.length;document.getElementById('sc-a1').classList.add('show');}
+}
+
+// ============================================================
+// QUIZ A2 — multiple choice
+// ============================================================
+let sa2={n:0,c:0};
+function renderQuizA2(){
+  document.getElementById('quiz-a2').innerHTML=qA2.map((q,i)=>
+    `<div class="exercise" id="q2-${i}">
+      <div class="ex-label" style="color:#3ECB87">Multiple Choice</div>
+      <div class="ex-question">${q.q}</div>
+      <div class="ex-options">
+        ${q.opts.map((o,j)=>`<button class="ex-opt" onclick="mcAnswer(${i},${j},${q.a})"><span class="opt-icon">${['A','B','C','D'][j]}</span> ${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="f2-${i}"></div>
+    </div>`).join('');
+}
+function mcAnswer(qi,given,correct){
+  const card=document.getElementById('q2-'+qi);
+  const fb=document.getElementById('f2-'+qi);
+  card.querySelectorAll('.ex-opt').forEach(b=>b.classList.add('disabled'));
+  const ok=(given===correct);
+  card.querySelectorAll('.ex-opt')[correct].classList.add('correct');
+  if(!ok)card.querySelectorAll('.ex-opt')[given].classList.add('wrong');
+  fb.textContent=ok?'✅ Correct!':'❌ Correct answer: '+qA2[qi].opts[correct];
+  fb.className='feedback show '+(ok?'ok':'nope');
+  sa2.n++;if(ok)sa2.c++;
+  document.getElementById('prog-a2').style.width=Math.round(sa2.n/qA2.length*100)+'%';
+  if(sa2.n===qA2.length){document.getElementById('scn-a2').textContent=sa2.c+'/'+qA2.length;document.getElementById('sc-a2').classList.add('show');}
+}
+
+// ============================================================
+// GAP FILL
+// ============================================================
+function renderGaps(){
+  document.getElementById('gap-a2').innerHTML=gaps.map((g,i)=>
+    `<div class="gap-sentence">${g.s.replace('___',`<input class="gap-input" id="gi-${i}" type="text" autocomplete="off" spellcheck="false">`)}</div>`
+  ).join('');
+}
+function checkGaps(){
+  let c=0;
+  gaps.forEach((g,i)=>{
+    const el=document.getElementById('gi-'+i);
+    if(!el)return;
+    const v=el.value.trim().toLowerCase();
+    if(v===g.a.toLowerCase()){el.className='gap-input correct';c++;}
+    else el.className='gap-input wrong';
+  });
+  const fb=document.getElementById('gap-fb');
+  fb.textContent=c+' / '+gaps.length+' correct!';
+  fb.className='feedback show '+(c===gaps.length?'ok':'nope');
+}
+
+// ============================================================
+// STARTERS
+// ============================================================
+function renderStarters(arr,cid,tid){
+  document.getElementById(cid).innerHTML=arr.map(s=>
+    `<span class="starter" onclick="addStarter('${tid}','${s.replace(/'/g,"\\'")}')"> ${s}</span>`).join('');
+}
+function addStarter(id,text){
+  const ta=document.getElementById(id);
+  ta.value+=(ta.value&&!ta.value.endsWith(' ')?' ':'')+text+' ';ta.focus();
+}
+
+// ============================================================
+// MEMORY GAME
+// ============================================================
+const MS={};
+function initMem(lv){
+  const data=lv==='a1'?memA1:memA2;
+  MS[lv]={flipped:[],matched:0,lock:false,attempts:0,deck:[]};
+  document.getElementById('mf-'+lv).textContent=0;
+  document.getElementById('ma-'+lv).textContent=0;
+  document.getElementById('mw-'+lv).classList.remove('show');
+  // Build & shuffle deck
+  const deck=[];
+  data.forEach(p=>{deck.push({id:p.id,face:p.a,side:0});deck.push({id:p.id,face:p.b,side:1});});
+  for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+  MS[lv].deck=deck;
+  document.getElementById('mem-'+lv).innerHTML=deck.map((_,idx)=>
+    `<div class="mem-card" id="mc-${lv}-${idx}" onclick="memFlip('${lv}',${idx})">
+      <div class="mem-inner">
+        <div class="mem-front">🌍</div>
+        <div class="mem-back" id="mb-${lv}-${idx}"></div>
+      </div>
+    </div>`).join('');
+  deck.forEach((_,i)=>{document.getElementById('mb-'+lv+'-'+i).textContent=deck[i].face;});
+}
+function memFlip(lv,idx){
+  const st=MS[lv];
+  if(st.lock)return;
+  const card=document.getElementById('mc-'+lv+'-'+idx);
+  if(card.classList.contains('flipped')||card.classList.contains('matched'))return;
+  card.classList.add('flipped');
+  st.flipped.push(idx);
+  if(st.flipped.length<2)return;
+  st.lock=true;st.attempts++;
+  document.getElementById('ma-'+lv).textContent=st.attempts;
+  const [i1,i2]=st.flipped;
+  const c1=st.deck[i1],c2=st.deck[i2];
+  if(c1.id===c2.id&&c1.side!==c2.side){
+    setTimeout(()=>{
+      document.getElementById('mc-'+lv+'-'+i1).classList.add('matched');
+      document.getElementById('mc-'+lv+'-'+i2).classList.add('matched');
+      st.matched++;st.flipped=[];st.lock=false;
+      document.getElementById('mf-'+lv).textContent=st.matched;
+      if(st.matched===st.deck.length/2)document.getElementById('mw-'+lv).classList.add('show');
+    },400);
+  } else {
+    setTimeout(()=>{
+      document.getElementById('mc-'+lv+'-'+i1).classList.remove('flipped');
+      document.getElementById('mc-'+lv+'-'+i2).classList.remove('flipped');
+      st.flipped=[];st.lock=false;
+    },850);
+  }
+}
+
+// ============================================================
+// MATCHING (A2)
+// ============================================================
+let matchSel=null,matchDone=0;
+function renderMatch(){
+  const cities=Object.keys(cityRoleMap);
+  const roles=Object.values(cityRoleMap);
+  const sc=[...cities].sort(()=>Math.random()-.5);
+  const sr=[...roles].sort(()=>Math.random()-.5);
+  matchSel=null;matchDone=0;
+  document.getElementById('match-a2').innerHTML=`
+    <div class="match-cols">
+      <div class="match-col-header">City</div><div class="match-col-header">Role</div>
+      ${sc.map((c,i)=>
+        `<div class="match-item" id="mcity-${i}" data-v="${c}" data-side="city" onclick="matchClick(this)">${c}</div>
+         <div class="match-item" id="mrole-${i}" data-v="${sr[i]}" data-side="role" onclick="matchClick(this)">${sr[i]}</div>`
+      ).join('')}
+    </div>
+    <div class="feedback" id="match-fb"></div>
+    <button class="reset-btn" onclick="renderMatch()">🔄 Reset</button>`;
+}
+function matchClick(el){
+  if(el.classList.contains('matched-ok'))return;
+  if(!matchSel){el.classList.add('selected');matchSel=el;return;}
+  if(matchSel===el){el.classList.remove('selected');matchSel=null;return;}
+  if(matchSel.dataset.side===el.dataset.side){matchSel.classList.remove('selected');el.classList.add('selected');matchSel=el;return;}
+  const city=matchSel.dataset.side==='city'?matchSel.dataset.v:el.dataset.v;
+  const role=matchSel.dataset.side==='role'?matchSel.dataset.v:el.dataset.v;
+  const a=matchSel,b=el;
+  matchSel=null;
+  if(cityRoleMap[city]===role){
+    [a,b].forEach(x=>{x.classList.remove('selected');x.classList.add('matched-ok');});
+    matchDone++;
+    if(matchDone===4){const fb=document.getElementById('match-fb');fb.textContent='✅ All cities matched correctly!';fb.className='feedback show ok';}
+  } else {
+    [a,b].forEach(x=>x.classList.add('matched-wrong'));
+    setTimeout(()=>[a,b].forEach(x=>x.classList.remove('selected','matched-wrong')),600);
+  }
+}
+
+// ============================================================
+// WORD SEARCH
+// ============================================================
+function buildWS(words,cols,rows){
+  const AB='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const grid=Array.from({length:rows},()=>Array(cols).fill(''));
+  const placed=[];
+  const DIRS=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  for(const word of words){
+    const w=word.toUpperCase();
+    let ok=false;
+    for(let attempt=0;attempt<200&&!ok;attempt++){
+      const [dr,dc]=DIRS[Math.floor(Math.random()*DIRS.length)];
+      const r=Math.floor(Math.random()*rows),c=Math.floor(Math.random()*cols);
+      const cells=[];let valid=true;
+      for(let k=0;k<w.length;k++){
+        const nr=r+dr*k,nc=c+dc*k;
+        if(nr<0||nr>=rows||nc<0||nc>=cols){valid=false;break;}
+        if(grid[nr][nc]!==''&&grid[nr][nc]!==w[k]){valid=false;break;}
+        cells.push({r:nr,c:nc});
+      }
+      if(valid){cells.forEach(({r,c},k)=>grid[r][c]=w[k]);placed.push({word:w,cells});ok=true;}
+    }
+  }
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(!grid[r][c])grid[r][c]=AB[Math.floor(Math.random()*AB.length)];
+  return{grid,placed};
+}
+
+const WS={};
+function renderWS(words,gridId,listId,cols,rows){
+  const {grid,placed}=buildWS(words,cols,rows);
+  WS[gridId]={grid,placed,found:[],foundCount:0,selecting:false,start:null,sel:[]};
+  const el=document.getElementById(gridId);
+  el.innerHTML='';
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    const div=document.createElement('div');
+    div.className='ws-cell';div.textContent=grid[r][c];
+    div.dataset.r=r;div.dataset.c=c;
+    el.appendChild(div);
+  }
+  // Events
+  el.addEventListener('mousedown',e=>{const t=e.target.closest('.ws-cell');if(t)wsStart(gridId,+t.dataset.r,+t.dataset.c);});
+  el.addEventListener('mouseover',e=>{const t=e.target.closest('.ws-cell');if(t)wsMove(gridId,+t.dataset.r,+t.dataset.c);});
+  el.addEventListener('mouseup',()=>wsEnd(gridId));
+  el.addEventListener('touchstart',e=>{const t=e.target.closest('.ws-cell');if(t){e.preventDefault();wsStart(gridId,+t.dataset.r,+t.dataset.c);}},{passive:false});
+  el.addEventListener('touchmove',e=>{
+    const touch=e.touches[0];const t=document.elementFromPoint(touch.clientX,touch.clientY);
+    if(t&&t.classList.contains('ws-cell')){e.preventDefault();wsMove(gridId,+t.dataset.r,+t.dataset.c);}
+  },{passive:false});
+  el.addEventListener('touchend',()=>wsEnd(gridId));
+  document.getElementById(listId).innerHTML=placed.map(p=>`<span class="ws-word" id="wsw-${gridId}-${p.word}">${p.word}</span>`).join('');
+}
+function wsCell(gridId,r,c){
+  const el=document.getElementById(gridId);
+  const cols=parseInt(el.style.gridTemplateColumns);
+  return el.children[r*cols+c]||null;
+}
+function clearSelecting(gridId){
+  document.getElementById(gridId).querySelectorAll('.ws-cell.selecting').forEach(c=>c.classList.remove('selecting'));
+}
+function wsStart(gridId,r,c){
+  const st=WS[gridId];st.selecting=true;st.start={r,c};st.sel=[{r,c}];
+  clearSelecting(gridId);wsCell(gridId,r,c)?.classList.add('selecting');
+}
+function wsMove(gridId,r,c){
+  const st=WS[gridId];if(!st.selecting)return;
+  clearSelecting(gridId);
+  const{r:r0,c:c0}=st.start;
+  const dr=r-r0,dc=c-c0;
+  const len=Math.max(Math.abs(dr),Math.abs(dc));
+  if(!len){st.sel=[{r,c}];wsCell(gridId,r,c)?.classList.add('selecting');return;}
+  const nr_=dr===0?0:dr/Math.abs(dr),nc_=dc===0?0:dc/Math.abs(dc);
+  if(Math.abs(dr)!==Math.abs(dc)&&dr!==0&&dc!==0)return;
+  st.sel=[];
+  for(let i=0;i<=len;i++){const rr=r0+nr_*i,cc=c0+nc_*i;st.sel.push({r:rr,c:cc});wsCell(gridId,rr,cc)?.classList.add('selecting');}
+}
+function wsEnd(gridId){
+  const st=WS[gridId];if(!st.selecting){return;}st.selecting=false;
+  clearSelecting(gridId);
+  if(!st.sel.length)return;
+  const cols=parseInt(document.getElementById(gridId).style.gridTemplateColumns);
+  const str=st.sel.map(({r,c})=>st.grid[r][c]).join('');
+  const strR=str.split('').reverse().join('');
+  let match=null;
+  for(const p of st.placed)if(!st.found.includes(p.word)&&(p.word===str||p.word===strR)){match=p;break;}
+  if(match){
+    const cls='found-'+st.foundCount;st.foundCount++;
+    match.cells.forEach(({r,c})=>{const ch=wsCell(gridId,r,c);if(ch){ch.className='ws-cell '+cls;}});
+    st.found.push(match.word);
+    const wEl=document.getElementById('wsw-'+gridId+'-'+match.word);if(wEl)wEl.classList.add('found-word');
+  }
+  st.sel=[];st.start=null;
+}
+
+// ============================================================
+// NAVIGATION & PRINT
+// ============================================================
+function showLevel(lv){
+  document.getElementById('heroPage').style.display='none';
+  document.getElementById('page-'+lv).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goBack(){
+  document.querySelectorAll('.content-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('heroPage').style.display='';
+  window.scrollTo(0,0);
+}
+function doPrint(lv){
+  const hero=document.getElementById('heroPage');
+  const pages=document.querySelectorAll('.content-page');
+  hero.style.display='none';
+  pages.forEach(p=>{p.style.display=p.id==='page-'+lv?'block':'none';});
+  window.print();
+  setTimeout(()=>{
+    hero.style.display='';
+    pages.forEach(p=>{p.style.display='';p.classList.toggle('active',p.id==='page-'+lv);});
+  },1200);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderVocab(vocabA1,'vocab-a1');
+renderVocab(vocabA2,'vocab-a2');
+renderQuizA1();
+renderQuizA2();
+renderGaps();
+renderStarters(stA1,'st-a1','wr-a1');
+renderStarters(stA2,'st-a2','wr-a2');
+initMem('a1');
+initMem('a2');
+renderMatch();
+renderWS(wsA1,'wsg-a1','wsl-a1',10,10);
+renderWS(wsA2,'wsg-a2','wsl-a2',12,12);
+</script>
+</body>
+</html>
