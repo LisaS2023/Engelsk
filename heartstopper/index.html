@@ -365,9 +365,9 @@ body {
       <div class="content">
         <p>The beginning of Charlie and Nick’s story at school, where they first sit together and start to connect.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('TV Series','Episode 1','Meet','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 1','Meet','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 1','Meet','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_episode1.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_episode1.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_episode1.html'">B1</button>
         </div>
       </div>
     </div>
@@ -384,9 +384,9 @@ body {
       <div class="content">
         <p>Friendship grows and new feelings begin to appear as the story moves forward.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('TV Series','Episode 2','Crush','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 2','Crush','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 2','Crush','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_episode2.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_episode2.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_episode2.html'">B1</button>
         </div>
       </div>
     </div>
@@ -403,9 +403,9 @@ body {
       <div class="content">
         <p>The story deepens with stronger emotions and important moments between the characters.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('TV Series','Episode 3','Kiss','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 3','Kiss','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('TV Series','Episode 3','Kiss','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_episode3.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_episode3.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_episode3.html'">B1</button>
         </div>
       </div>
     </div>
@@ -436,9 +436,9 @@ body {
       <div class="content">
         <p>Vocabulary and reading work connected to the opening of the graphic novel.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 1','Part 1','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 1','Part 1','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 1','Part 1','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_part1.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_part1.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_part1.html'">B1</button>
         </div>
       </div>
     </div>
@@ -455,9 +455,9 @@ body {
       <div class="content">
         <p>Vocabulary and reading work connected to the middle part of the extract.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 2','Part 2','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 2','Part 2','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 2','Part 2','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_part2.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_part2.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_part2.html'">B1</button>
         </div>
       </div>
     </div>
@@ -474,90 +474,21 @@ body {
       <div class="content">
         <p>Vocabulary and reading work connected to the last part of the extract.</p>
         <div class="level-row">
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 3','Part 3','A1')">A1</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 3','Part 3','A2')">A2</button>
-          <button class="level-btn" onclick="openResource('Graphic Novel','Part 3','Part 3','B1')">B1</button>
+          <button class="level-btn" onclick="location.href='A1_part3.html'">A1</button>
+          <button class="level-btn" onclick="location.href='A2_part3.html'">A2</button>
+          <button class="level-btn" onclick="location.href='B1_part3.html'">B1</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="resourcePage" class="page hidden">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBackToSection()">← Back</button>
-    <div class="pill" id="resourcePill">TV Series • Episode 1 • A1</div>
-  </div>
-
-  <div class="resource-grid">
-    <div class="preview-card">
-      <img id="resourceImage" src="images/ep1.png" alt="Resource preview" loading="lazy">
-    </div>
-
-    <div class="resource-card">
-      <h3 id="resourceTitle">A1 • Episode 1 • “Meet”</h3>
-      <p id="resourceDescription">This is the selected route. Next step: connect this page to the finished learning resource for this exact episode and level.</p>
-
-      <div class="tag-row">
-        <div class="tag" id="tagTrack">TV Series</div>
-        <div class="tag" id="tagUnit">Episode 1</div>
-        <div class="tag" id="tagLevel">A1</div>
-      </div>
-
-      <ul class="list" id="resourceList">
-        <li>Vocabulary tasks</li>
-        <li>Comprehension work</li>
-        <li>Level-adapted activities</li>
-      </ul>
-
-      <div class="action-row">
-        <button class="action-btn primary" id="openRealResourceBtn" onclick="openActualResource()">Open resource</button>
-        <button class="action-btn" onclick="goBackToSection()">Go back</button>
-      </div>
-
-      <p class="note" id="resourceNote">Right now this page works as the full navigation structure. I can connect each route directly to its finished HTML resource next.</p>
-    </div>
-  </div>
-</section>
 
 <script>
 let previousSection = 'tvPage';
 let selectedRoute = null;
 
-const imageMap = {
-  'TV Series|Episode 1': 'images/ep1.png',
-  'TV Series|Episode 2': 'images/ep2.png',
-  'TV Series|Episode 3': 'images/ep3.png',
-  'Graphic Novel|Part 1': 'images/book.png',
-  'Graphic Novel|Part 2': 'images/book.png',
-  'Graphic Novel|Part 3': 'images/book.png'
-};
 
-const actualResources = {
-  'TV Series|Episode 1|A1': 'A1_episode1.html',
-  'TV Series|Episode 1|A2': 'A2_episode1.html',
-  'TV Series|Episode 1|B1': 'B1_episode1.html',
-
-  'TV Series|Episode 2|A1': 'A1_episode2.html',
-  'TV Series|Episode 2|A2': 'A2_episode2.html',
-  'TV Series|Episode 2|B1': 'B1_episode2.html',
-
-  'TV Series|Episode 3|A1': 'A1_episode3.html',
-  'TV Series|Episode 3|A2': 'A2_episode3.html',
-  'TV Series|Episode 3|B1': 'B1_episode3.html',
-
-  'Graphic Novel|Part 1|A1': 'A1_part1.html',
-  'Graphic Novel|Part 1|A2': 'A2_part1.html',
-  'Graphic Novel|Part 1|B1': 'B1_part1.html',
-
-  'Graphic Novel|Part 2|A1': 'A1_part2.html',
-  'Graphic Novel|Part 2|A2': 'A2_part2.html',
-  'Graphic Novel|Part 2|B1': 'B1_part2.html',
-
-  'Graphic Novel|Part 3|A1': 'A1_part3.html',
-  'Graphic Novel|Part 3|A2': 'A2_part3.html',
-  'Graphic Novel|Part 3|B1': 'B1_part3.html'
-};
 
 function openTV(e) {
   e.stopPropagation();
@@ -572,70 +503,10 @@ function openBook(e) {
 function goHome() {
   document.getElementById('tvPage').classList.add('hidden');
   document.getElementById('bookPage').classList.add('hidden');
-  document.getElementById('resourcePage').classList.add('hidden');
   document.getElementById('landingPage').classList.remove('hidden');
 }
 
-function openResource(track, unit, title, level) {
-  previousSection = track === 'TV Series' ? 'tvPage' : 'bookPage';
-  selectedRoute = { track, unit, title, level };
-
-  document.getElementById(previousSection).classList.add('hidden');
-  document.getElementById('resourcePage').classList.remove('hidden');
-
-  document.getElementById('resourcePill').textContent = track + ' • ' + unit + ' • ' + level;
-  document.getElementById('resourceTitle').textContent = level + ' • ' + unit + ' • “' + title + '”';
-  document.getElementById('resourceDescription').textContent =
-    'You selected ' + track + ', ' + unit + ', level ' + level + '. This page is ready as the hub for the exact learning resource.';
-  document.getElementById('tagTrack').textContent = track;
-  document.getElementById('tagUnit').textContent = unit;
-  document.getElementById('tagLevel').textContent = level;
-  document.getElementById('resourceImage').src = imageMap[track + '|' + unit];
-
-  const list = document.getElementById('resourceList');
-  if (track === 'TV Series') {
-    list.innerHTML =
-      '<li>Vocabulary linked to ' + title + '</li>' +
-      '<li>Comprehension work for ' + unit + '</li>' +
-      '<li>' + level + '-adapted activities</li>';
-  } else {
-    list.innerHTML =
-      '<li>Vocabulary from the graphic novel</li>' +
-      '<li>Reading support for ' + unit + '</li>' +
-      '<li>' + level + '-adapted activities</li>';
-  }
-
-  const key = track + '|' + unit + '|' + level;
-  const btn = document.getElementById('openRealResourceBtn');
-  const note = document.getElementById('resourceNote');
-  if (actualResources[key]) {
-    btn.style.display = 'inline-block';
-    btn.textContent = 'Open resource';
-    note.textContent = 'This route already has a connected HTML file.';
-  } else {
-    btn.style.display = 'inline-block';
-    btn.textContent = 'Resource not connected yet';
-    note.textContent = 'This route is ready in the structure, but the final HTML resource is not connected yet.';
-  }
-}
-
-function openActualResource() {
-  if (!selectedRoute) return;
-  const key = selectedRoute.track + '|' + selectedRoute.unit + '|' + selectedRoute.level;
-  const file = actualResources[key];
-  if (file) {
-    window.location.href = file;
-  } else {
-    alert('This route is not connected to a finished HTML file yet.');
-  }
-}
-
-function goBackToSection() {
-  document.getElementById('resourcePage').classList.add('hidden');
-  document.getElementById(previousSection).classList.remove('hidden');
-}
 </script>
 
 </body>
 </html>
-
