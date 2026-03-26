@@ -25,8 +25,6 @@
   .hero-btn small{display:block;font-size:0.78rem;font-weight:400;opacity:0.75;margin-top:0.2rem}
   .hero-btn.ndla-link{background:transparent;border-color:rgba(255,255,255,0.3);font-size:0.95rem;padding:0.75rem 2rem}
   .hero-btn.ndla-link:hover{background:rgba(255,255,255,0.1)}
-  .home-btn{position:fixed;top:1rem;right:1rem;z-index:1000;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);color:#fff;border:2px solid rgba(255,255,255,0.5);padding:0.45rem 1.1rem;border-radius:6px;font-family:var(--sans);font-weight:600;font-size:0.88rem;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:all 0.2s;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
-  .home-btn:hover{background:rgba(255,255,255,0.28);border-color:#fff;transform:translateY(-1px)}
   .progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--saffron),var(--green));z-index:9999;transition:width 0.3s;width:0%}
   .back-btn{position:fixed;top:1rem;left:1rem;z-index:999;background:var(--saffron);color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:6px;font-family:var(--sans);font-weight:600;font-size:0.9rem;cursor:pointer;display:none;box-shadow:0 2px 10px rgba(0,0,0,0.15);transition:background 0.2s}
   .back-btn:hover{background:var(--dark-saffron)}
@@ -93,14 +91,16 @@
   .ws-word.found{background:#E8F5E9;border-color:var(--correct);color:var(--correct);text-decoration:line-through}
   .ws-complete{display:none;background:linear-gradient(135deg,var(--green),var(--dark-green));color:#fff;padding:1.2rem;border-radius:10px;text-align:center;font-size:1.1rem;font-weight:700;margin-top:1rem}
   @media(max-width:600px){.hero-buttons{padding:0 1rem}.vocab-grid{grid-template-columns:repeat(2,1fr)}.fact-grid{grid-template-columns:1fr}.quiz-options{flex-direction:column}.section-inner{padding:0 1.2rem}.memory-grid{grid-template-columns:repeat(3,1fr)}.ws-cell{width:28px;height:28px;font-size:0.8rem}}
+  .hero-home-btn{position:absolute;top:1.2rem;right:1.2rem;z-index:20;display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1.2rem;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,0.5);border-radius:6px;color:#fff;font-family:var(--sans);font-size:0.9rem;font-weight:600;text-decoration:none;transition:all 0.2s}
+  .hero-home-btn:hover{background:rgba(255,255,255,0.28);border-color:#fff;transform:translateY(-1px)}
 </style>
 </head>
 <body>
 <div class="progress-bar" id="progressBar"></div>
 <button class="back-btn" id="backBtn" onclick="goHome()">← Tilbake</button>
-<a class="home-btn" href="https://lisas2023.github.io/Engelsk/" title="Tilbake til hjem">🏠 Hjem</a>
 
 <div class="hero" id="heroPage">
+  <a class="hero-home-btn" href="https://lisas2023.github.io/Engelsk/">🏠 Hjem</a>
   <div class="hero-content">
     <div class="hero-emblem">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -220,6 +220,17 @@
       <ul><li>India is in Asia.</li><li>Many people live in India.</li><li>Indian food is very good.</li><li>Bollywood makes many films.</li><li>Gandhi helped India become free.</li></ul>
     </div>
   </div></section>
+  <section><div class="section-inner">
+    <div style="text-align:center; padding:8px 0 8px 0;">
+      <button onclick="downloadPDF('level1')" 
+        style="padding:15px 30px; font-size:1rem; font-weight:600;
+        background:linear-gradient(135deg,#FF9933,#D47D1A);
+        color:white; border:none; border-radius:8px; cursor:pointer;
+        box-shadow:0 6px 20px rgba(0,0,0,0.15);">
+        📄 Download your answers as PDF
+      </button>
+    </div>
+  </div></section>
 </div>
 
 <!-- LEVEL 2 -->
@@ -331,6 +342,17 @@
       <ul><li>India is one of the most populous countries in the world.</li><li>There are many languages and religions in India.</li><li>Britain controlled India for a long time.</li><li>Mahatma Gandhi fought for independence without violence.</li><li>Today, India has a strong technology industry.</li><li>There are big contrasts between rich and poor.</li></ul>
     </div>
   </div></section>
+  <section><div class="section-inner">
+    <div style="text-align:center; padding:8px 0 8px 0;">
+      <button onclick="downloadPDF('level2')" 
+        style="padding:15px 30px; font-size:1rem; font-weight:600;
+        background:linear-gradient(135deg,#FF9933,#D47D1A);
+        color:white; border:none; border-radius:8px; cursor:pointer;
+        box-shadow:0 6px 20px rgba(0,0,0,0.15);">
+        📄 Download your answers as PDF
+      </button>
+    </div>
+  </div></section>
 </div>
 
 <script>
@@ -355,6 +377,111 @@ const wsData={ws1:{words:['INDIA','FOOD','CITY','FLAG','FILM','FREE','PEOPLE','B
 const wsState={};
 function initWordSearch(id){const d=wsData[id],sz=d.size,words=d.words.map(w=>w.toUpperCase());let grid=Array.from({length:sz},()=>Array(sz).fill(''));const placed=[];words.forEach(word=>{let att=0,ok=false;while(att<200&&!ok){att++;const dir=Math.random()<0.5?'H':'V';if(dir==='H'){const r=Math.floor(Math.random()*sz),c=Math.floor(Math.random()*(sz-word.length+1));let fit=true;for(let i=0;i<word.length;i++)if(grid[r][c+i]!==''&&grid[r][c+i]!==word[i]){fit=false;break}if(fit){for(let i=0;i<word.length;i++)grid[r][c+i]=word[i];placed.push({word,r,c,dir});ok=true}}else{const r=Math.floor(Math.random()*(sz-word.length+1)),c=Math.floor(Math.random()*sz);let fit=true;for(let i=0;i<word.length;i++)if(grid[r+i][c]!==''&&grid[r+i][c]!==word[i]){fit=false;break}if(fit){for(let i=0;i<word.length;i++)grid[r+i][c]=word[i];placed.push({word,r,c,dir});ok=true}}}});const L='ABCDEFGHIJKLMNOPQRSTUVWXYZ';for(let r=0;r<sz;r++)for(let c=0;c<sz;c++)if(grid[r][c]==='')grid[r][c]=L[Math.floor(Math.random()*26)];wsState[id]={grid,placed,found:[],sz,first:null};const gEl=document.getElementById(id+'Grid');gEl.style.gridTemplateColumns='repeat('+sz+',36px)';gEl.innerHTML='';for(let r=0;r<sz;r++)for(let c=0;c<sz;c++){const cell=document.createElement('div');cell.className='ws-cell';cell.textContent=grid[r][c];cell.dataset.r=r;cell.dataset.c=c;cell.addEventListener('click',()=>wsClick(id,r,c,cell));gEl.appendChild(cell)}const wEl=document.getElementById(id+'Words');wEl.innerHTML='';placed.forEach(p=>{const sp=document.createElement('span');sp.className='ws-word';sp.textContent=p.word;sp.id=id+'_w_'+p.word;wEl.appendChild(sp)});document.getElementById(id+'Complete').style.display='none'}
 function wsClick(id,r,c,cell){const s=wsState[id],gEl=document.getElementById(id+'Grid');if(!s.first){s.first={r,c};cell.classList.add('selected')}else{const fr=s.first.r,fc=s.first.c;gEl.querySelectorAll('.selected').forEach(e=>e.classList.remove('selected'));let m=null;s.placed.forEach(p=>{if(s.found.includes(p.word))return;if(p.dir==='H'){if((fr===p.r&&fc===p.c&&r===p.r&&c===p.c+p.word.length-1)||(r===p.r&&c===p.c&&fr===p.r&&fc===p.c+p.word.length-1))m=p}else{if((fr===p.r&&fc===p.c&&r===p.r+p.word.length-1&&c===p.c)||(r===p.r&&c===p.c&&fr===p.r+p.word.length-1&&fc===p.c))m=p}});if(m){s.found.push(m.word);for(let i=0;i<m.word.length;i++){const cr=m.dir==='H'?m.r:m.r+i,cc=m.dir==='H'?m.c+i:m.c;const fc=gEl.querySelector('[data-r="'+cr+'"][data-c="'+cc+'"]');if(fc)fc.classList.add('found')}const we=document.getElementById(id+'_w_'+m.word);if(we)we.classList.add('found');if(s.found.length===s.placed.length)document.getElementById(id+'Complete').style.display='block'}s.first=null}}
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+function getQuizAnswerRows(qid){
+  const quiz=document.getElementById(qid);
+  if(!quiz) return '<p>No quiz found.</p>';
+  const questions=[...quiz.querySelectorAll('.quiz-question')];
+  let rows='';
+  questions.forEach((q,index)=>{
+    const questionText=q.querySelector('p') ? q.querySelector('p').textContent.trim() : 'Question '+(index+1);
+    const chosen=q.querySelector('.quiz-btn.correct, .quiz-btn.wrong');
+    let answer='No answer';
+    let status='';
+    if(chosen){
+      answer=chosen.textContent.trim();
+      status=chosen.classList.contains('correct') ? 'Correct' : 'Wrong';
+    }
+    rows += '<tr><td style="padding:8px;border:1px solid #ddd;vertical-align:top;">'+escapeHtml(questionText)+'</td><td style="padding:8px;border:1px solid #ddd;vertical-align:top;">'+escapeHtml(answer)+'</td><td style="padding:8px;border:1px solid #ddd;vertical-align:top;">'+escapeHtml(status)+'</td></tr>';
+  });
+  return '<table style="width:100%;border-collapse:collapse;margin-top:10px;"><thead><tr><th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Question</th><th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Student answer</th><th style="text-align:left;padding:8px;border:1px solid #ddd;background:#f7f7f7;">Result</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function getMemoryStatus(id){
+  const state=memState[id];
+  if(!state) return 'Not started';
+  return 'Pairs found: ' + state.matched + ' / ' + state.tp + ' · Moves: ' + state.moves;
+}
+function getWordSearchStatus(id){
+  const state=wsState[id];
+  if(!state) return 'Not started';
+  const found = state.found && state.found.length ? state.found.join(', ') : 'No words found yet';
+  return 'Words found: ' + found;
+}
+function getWritingValue(id){
+  const el=document.getElementById(id);
+  if(!el) return 'No written answer.';
+  const value=el.value.trim();
+  return value ? escapeHtml(value).replace(/\n/g,'<br>') : 'No written answer.';
+}
+function downloadPDF(levelId){
+  let title = '';
+  let quizHtml = '';
+  let writingHtml = '';
+  let memoryStatus = '';
+  let wordSearchStatus = '';
+  let extraNote = '';
+
+  if(levelId === 'level1'){
+    title = 'Level 1 – A1';
+    quizHtml = getQuizAnswerRows('quiz1');
+    writingHtml = getWritingValue('write1');
+    memoryStatus = getMemoryStatus('mem1');
+    wordSearchStatus = getWordSearchStatus('ws1');
+    extraNote = 'Minitalk is an oral activity and is not saved automatically.';
+  } else if(levelId === 'level2'){
+    title = 'Level 2 – A2';
+    quizHtml = getQuizAnswerRows('quiz2');
+    writingHtml = getWritingValue('write2');
+    memoryStatus = getMemoryStatus('mem2');
+    wordSearchStatus = getWordSearchStatus('ws2');
+    extraNote = 'Discussion and minitalk are oral activities and are not saved automatically.';
+  } else {
+    return;
+  }
+
+  const content = `
+    <h1>Your Answers</h1>
+    <p><strong>${title}</strong></p>
+    <h2>Quiz answers</h2>
+    ${quizHtml}
+    <h2>Memory game</h2>
+    <p>${escapeHtml(memoryStatus)}</p>
+    <h2>Word search</h2>
+    <p>${escapeHtml(wordSearchStatus)}</p>
+    <h2>Writing task</h2>
+    <div style="padding:12px;background:#FFF8EC;border-left:4px solid #FF9933;border-radius:8px;white-space:pre-wrap;">${writingHtml}</div>
+    <h2>Oral tasks</h2>
+    <p>${escapeHtml(extraNote)}</p>
+  `;
+
+  const win = window.open('', '', 'width=900,height=700');
+  win.document.write(`
+    <html>
+      <head>
+        <title>Student Answers</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 30px; color:#222; line-height:1.6; }
+          h1 { color: #D47D1A; margin-bottom: 8px; }
+          h2 { margin-top: 24px; color:#333; }
+          table { font-size: 14px; }
+        </style>
+      </head>
+      <body>${content}</body>
+    </html>
+  `);
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
 </script>
 </body>
 </html>
