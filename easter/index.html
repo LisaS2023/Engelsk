@@ -3,943 +3,1228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lisa's English Language Lab 🧪</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<title>Easter Traditions — Innføringsklassen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #0d1117;
-  --panel:   #161b24;
-  --card:    #1c2333;
-  --border:  #2a3347;
-  --ink:     #e8edf5;
-  --body:    #9ba8c0;
-  --muted:   #5a6a84;
+:root{
+  --cream:#fdf6e8;--parchment:#f5ead0;--gold:#c8922a;--gold-light:#e8b84b;--gold-pale:#faecc8;
+  --rust:#b84a1a;--moss:#4a7a2e;--sky:#2e5a8a;--lav:#7a4ab8;
+  --text:#2a2018;--mid:#5a4a30;--soft:#8a7458;--hint:#b0a080;
+  --border:rgba(180,140,60,0.2);--surface:rgba(255,250,235,0.95);
+  --a1:#1e4fa8;--a1-bg:#eef3fc;--a1-border:#c2d3f5;
+  --a2:#1a7a4a;--a2-bg:#edf7f2;--a2-border:#b8e2cc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;min-height:100vh}
 
-  /* flask colours — rainbow lab */
-  --pink:    #ff4da6;
-  --red:     #ff4d4d;
-  --orange:  #ff8c42;
-  --yellow:  #ffd700;
-  --green:   #39d98a;
-  --teal:    #00c9b1;
-  --blue:    #4da6ff;
-  --purple:  #a855f7;
-  --white:   #ffffff;
-}
+/* texture */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.5}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+/* PAGE SYSTEM */
+.page{display:none;position:relative;z-index:1;min-height:100vh}
+.page.active{display:block}
 
-/* ── subtle grid ── */
-body::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
+/* ═══════════ LANDING ═══════════ */
+.landing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;position:relative;overflow:hidden}
+.land-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.land-eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.land-h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.08;color:var(--text);margin-bottom:.8rem;opacity:0;animation:fadeUp .9s .35s forwards}
+.land-h1 em{font-style:italic;color:var(--gold)}
+.land-divider{width:50px;height:2px;background:var(--gold);margin:1.2rem auto;opacity:0;animation:fadeUp .7s .5s forwards}
+.land-sub{font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--mid);max-width:440px;line-height:1.75;margin-bottom:3rem;opacity:0;animation:fadeUp .8s .6s forwards}
+.level-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:600px;width:100%;opacity:0;animation:fadeUp .9s .75s forwards}
+.lcard{background:var(--surface);border:2px solid var(--border);border-radius:22px;padding:2rem 1.6rem 1.8rem;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;text-align:left;position:relative;overflow:hidden}
+.lcard::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;border-radius:20px}
+.lcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(180,140,60,.12)}
+.lcard.a1:hover{border-color:var(--a1)}
+.lcard.a2:hover{border-color:var(--a2)}
+.lcard-badge{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.lcard.a1 .lcard-badge{background:var(--a1-bg);color:var(--a1);border:1px solid var(--a1-border)}
+.lcard.a2 .lcard-badge{background:var(--a2-bg);color:var(--a2);border:1px solid var(--a2-border)}
+.lcard h2{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:8px}
+.lcard p{font-size:13px;color:var(--soft);line-height:1.6;margin-bottom:16px;font-family:'Lora',serif;font-style:italic}
+.lcard-examples{display:flex;flex-direction:column;gap:5px;margin-bottom:18px}
+.lcard-ex{font-size:12px;color:var(--mid);padding:5px 10px;background:var(--parchment);border-radius:8px;line-height:1.4}
+.lcard-btn{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-radius:12px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;transition:background .15s}
+.lcard.a1 .lcard-btn{background:var(--a1-bg);color:var(--a1)}
+.lcard.a1:hover .lcard-btn{background:var(--a1);color:#fff}
+.lcard.a2 .lcard-btn{background:var(--a2-bg);color:var(--a2)}
+.lcard.a2:hover .lcard-btn{background:var(--a2);color:#fff}
+.arrow{font-size:16px;transition:transform .15s}
+.lcard:hover .arrow{transform:translateX(4px)}
+.land-meta{margin-top:2.5rem;font-size:11px;color:var(--hint);letter-spacing:.05em;opacity:0;animation:fadeUp .7s .9s forwards}
 
-/* ═══ HEADER ═══ */
-.site-header {
-  position: relative; z-index: 10;
-  background: rgba(13,17,23,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.logo {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem; color: var(--white);
-  display: flex; align-items: center; gap: 0.5rem;
-}
-.logo-flask { font-size: 1.3rem; }
-.logo em { font-style: italic; color: var(--teal); }
-.header-tag {
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-}
+/* ═══════════ NAV BAR ═══════════ */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(253,246,232,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:54px}
+.topbar-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text)}
+.topbar-title em{font-style:italic;color:var(--gold)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.level-pill{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:4px 12px;border-radius:20px}
+.pill-a1{background:var(--a1-bg);color:var(--a1);border:1px solid var(--a1-border)}
+.pill-a2{background:var(--a2-bg);color:var(--a2);border:1px solid var(--a2-border)}
+.back-btn{font-size:12px;color:var(--soft);cursor:pointer;padding:5px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-family:'DM Sans',sans-serif;transition:all .15s}
+.back-btn:hover{background:var(--parchment);color:var(--text)}
 
-/* ═══ HERO ═══ */
-.hero {
-  position: relative; z-index: 1;
-  padding: 5rem 1rem 4rem; text-align: center; overflow: hidden;
-}
+/* ═══════════ TAB NAV ═══════════ */
+.tab-nav{max-width:960px;margin:0 auto;padding:0 2rem;display:flex;gap:4px;border-bottom:1px solid var(--border);background:var(--parchment)}
+.tnav{padding:14px 20px;font-size:13px;font-weight:500;cursor:pointer;background:none;border:none;color:var(--soft);border-bottom:3px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.tnav.on{color:var(--gold);border-bottom-color:var(--gold)}
 
-/* glowing orbs — like coloured flask light */
-.orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(80px); pointer-events: none; opacity: 0.18;
-}
-.orb-1 { width:500px; height:500px; background:var(--teal);   top:-150px; left:-100px; }
-.orb-2 { width:400px; height:400px; background:var(--purple); top:-100px; right:-80px; }
-.orb-3 { width:350px; height:350px; background:var(--orange); bottom:-50px; left:30%; }
+/* ═══════════ CONTENT AREA ═══════════ */
+.content-area{max-width:960px;margin:0 auto;padding:2.5rem 2rem 4rem}
+.tab-panel{display:none}
+.tab-panel.on{display:block}
 
-.hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+/* section header */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:1.4rem}
+.sec-icon{width:38px;height:38px;border-radius:50%;background:var(--gold-pale);border:1.5px solid var(--gold-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-eyebrow{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--hint);margin-bottom:2px}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--text)}
+section{margin-bottom:3rem}
 
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-  border-radius: 99px; padding: 0.35rem 1.1rem;
-  font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--teal);
-  margin-bottom: 1.5rem;
-}
-.badge-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
-  box-shadow: 0 0 8px var(--teal); animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.4)} }
+/* assignment block */
+.assign-box{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;overflow:hidden}
+.assign-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:8px}
+.assign-inner{padding:1.8rem}
+.assign-inner>p{font-family:'Lora',serif;font-size:14px;color:var(--mid);line-height:1.75;margin-bottom:12px}
+.task-list{list-style:none;margin-bottom:14px}
+.task-list li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--mid);line-height:1.5}
+.task-list li:last-child{border-bottom:none}
+.tnum{width:22px;height:22px;border-radius:50%;background:var(--gold-pale);border:1px solid var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--gold);flex-shrink:0;margin-top:1px}
+.task-list strong{font-weight:500;color:var(--text)}
+.adiv{border:none;border-top:1px solid var(--border);margin:14px 0}
+.lang-box{background:var(--parchment);border-left:3px solid var(--gold-light);border-radius:0 10px 10px 0;padding:13px 16px;font-family:'Lora',serif;font-size:13px;color:var(--mid);line-height:1.8;margin-bottom:12px}
+.lang-box em{font-style:normal;font-weight:500;color:var(--gold)}
 
-.hero-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  color: var(--white); line-height: 1.05; margin-bottom: 1rem;
-}
-.hero-title .highlight {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--teal), var(--blue), var(--purple));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.hero-sub {
-  font-size: 1.05rem; color: var(--body); line-height: 1.7;
-  max-width: 500px; margin: 0 auto 2rem;
-}
+/* steps */
+.steps-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.step{background:var(--surface);border:1.5px solid var(--border);border-radius:13px;padding:13px 8px;text-align:center;transition:border-color .2s,transform .2s}
+.step:hover{border-color:var(--gold-light);transform:translateY(-2px)}
+.step-n{font-size:10px;font-weight:500;color:var(--gold);letter-spacing:.05em;margin-bottom:4px}
+.step-t{font-size:12px;font-weight:500;color:var(--text);line-height:1.3}
 
-/* ── flask row ── */
-.flask-row-wrap {
-  display: flex; flex-direction: column; align-items: center; gap: 1rem;
-  margin: 2.2rem 0;
-}
-.flask-row {
-  display: flex; justify-content: center; align-items: flex-end;
-  gap: 1.2rem; flex-wrap: wrap;
-}
-.flask-item {
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  cursor: default;
-}
-.flask {
-  position: relative; width: 44px; height: 60px;
-  filter: drop-shadow(0 0 12px var(--fc));
-  animation: floatFlask 3s ease-in-out infinite;
-}
-.flask-item:nth-child(2) .flask { animation-delay: 0.4s; }
-.flask-item:nth-child(3) .flask { animation-delay: 0.8s; }
-.flask-item:nth-child(4) .flask { animation-delay: 1.2s; }
-.flask-item:nth-child(5) .flask { animation-delay: 1.6s; }
-@keyframes floatFlask { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+/* country cards */
+.countries-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.ccard{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .2s}
+.ccard:hover{transform:translateY(-3px)}
+.ccard-head{padding:14px 16px 12px;border-bottom:1.5px solid var(--border);display:flex;align-items:center;gap:11px}
+.emblem{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;letter-spacing:.04em}
+.cname{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text)}
+.csub{font-size:11px;color:var(--soft);font-style:italic;font-family:'Lora',serif;margin-top:1px}
+.trad{display:flex;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border);transition:background .15s;align-items:flex-start}
+.trad:hover{background:var(--gold-pale)}
+.trad:last-child{border-bottom:none}
+.tdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.tname{font-size:12.5px;font-weight:500;color:var(--text)}
+.tdesc{font-size:11.5px;color:var(--soft);line-height:1.45;margin-top:1px;font-family:'Lora',serif;font-style:italic}
+.home-card{background:linear-gradient(135deg,#f8f0ff,#ede0ff);border:1.5px dashed #c8a0e8;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:2rem;text-align:center;min-height:220px;transition:border-color .2s}
+.home-card:hover{border-color:#a870d0}
+.home-plus{width:40px;height:40px;border-radius:50%;background:#fff;border:1.5px solid #c8a0e8;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--lav)}
+.home-card .ht{font-family:'Playfair Display',serif;font-size:1rem;color:var(--lav)}
+.home-card .hs{font-size:12px;color:#8a6aaa;max-width:160px;line-height:1.5;font-family:'Lora',serif;font-style:italic}
+.ctip{margin-top:12px;background:var(--gold-pale);border:1.5px solid var(--gold-light);border-radius:13px;padding:13px 16px;display:flex;gap:11px;align-items:flex-start}
+.ctip-icon{width:30px;height:30px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ctip p{font-size:13px;color:var(--mid);line-height:1.6}
+.ctip b{font-weight:500;color:var(--gold)}
 
-.flask svg { width: 100%; height: 100%; }
-.flask-label {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted);
-}
-.flask-item:hover .flask-label { color: var(--white); }
+/* vocab pills */
+.pill-tabs{display:flex;gap:6px;margin-bottom:14px}
+.ptab{padding:6px 18px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--soft);font-family:'DM Sans',sans-serif;transition:all .15s}
+.ptab.on{background:var(--text);border-color:var(--text);color:var(--cream)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.vpill{background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:9px 12px;transition:border-color .15s,transform .15s}
+.vpill:hover{border-color:var(--gold-light);transform:translateY(-1px)}
+.vword{font-family:'Playfair Display',serif;font-size:14px;color:var(--text)}
+.vdef{font-size:11px;color:var(--soft);margin-top:2px;font-style:italic}
 
-/* category flask row */
-.cat-flask-row {
-  display: flex; justify-content: center; align-items: flex-end;
-  gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem;
-}
-.cat-flask-item {
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  cursor: pointer; transition: transform 0.2s;
-}
-.cat-flask-item:hover { transform: translateY(-4px); }
-.cat-flask-item .flask-label {
-  font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
+/* starters */
+.starter{border-left:3px solid var(--gold-light);padding:9px 14px;margin-bottom:8px;background:var(--surface);border-radius:0 11px 11px 0;font-family:'Lora',serif;font-size:13.5px;color:var(--mid);line-height:1.65;transition:border-left-color .15s,background .15s}
+.starter:hover{border-left-color:var(--gold);background:var(--gold-pale)}
+.starter b{font-weight:500;color:var(--gold);font-style:normal}
 
-/* ═══ CATEGORY BAR ═══ */
-.category-bar {
-  position: relative; z-index: 1;
-  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem 0;
-  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-}
-.cbtn {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 6px; padding: 0.45rem 1.1rem;
-  font-size: 0.8rem; font-weight: 600; color: var(--body);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.cbtn:hover { border-color: var(--blue); color: var(--blue); }
-.cbtn.active { background: rgba(77,166,255,0.12); border-color: var(--blue); color: var(--blue); }
-.cat-divider {
-  max-width: 960px; margin: 0.8rem auto 0;
-  border: none; border-top: 1px solid var(--border);
-}
+/* ═══════════ EXERCISES ═══════════ */
+.ex-section{margin-bottom:2.5rem}
+.ex-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:4px}
+.ex-instruction{font-size:13px;color:var(--soft);font-style:italic;font-family:'Lora',serif;margin-bottom:16px}
+.ex-score{font-size:13px;font-weight:500;margin-top:12px;padding:8px 14px;border-radius:10px;display:none}
+.ex-score.show{display:inline-block}
+.ex-score.good{background:#edf7f2;color:#1a7a4a}
+.ex-score.ok{background:#faecc8;color:#7a5010}
 
-/* ═══ CATEGORY BAR ═══ */
-.category-bar {
-  position: relative; z-index: 1;
-  max-width: 960px; margin: 0 auto; padding: 1.2rem 1rem 0;
-  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-}
-.cbtn {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 6px; padding: 0.45rem 1.1rem;
-  font-size: 0.8rem; font-weight: 600; color: var(--body);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.cbtn:hover { border-color: var(--blue); color: var(--blue); }
-.cbtn.active { background: rgba(77,166,255,0.12); border-color: var(--blue); color: var(--blue); }
+/* Match exercise */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match-col{display:flex;flex-direction:column;gap:7px}
+.match-item{padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);font-size:13px;cursor:pointer;transition:all .15s;background:var(--surface);user-select:none;line-height:1.4}
+.match-item.word{font-weight:500;color:var(--text);font-family:'Playfair Display',serif;font-size:14px}
+.match-item.def{color:var(--mid);font-family:'Lora',serif;font-style:italic}
+.match-item.selected{border-color:var(--gold);background:var(--gold-pale)}
+.match-item.correct{border-color:#1a7a4a;background:#edf7f2;color:#1a7a4a;cursor:default}
+.match-item.wrong{border-color:#b84a1a;background:#fdf1ec;animation:shake .3s}
+.match-btn{margin-top:10px;padding:9px 20px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold-pale);color:var(--gold);font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.match-btn:hover{background:var(--gold);color:#fff}
 
-/* ═══ FILTER BAR ═══ */
-.filter-bar {
-  position: relative; z-index: 1;
-  max-width: 960px; margin: 0 auto; padding: 0.6rem 1rem 0.8rem;
-  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-}
-.filter-label {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--muted); padding-right: 0.25rem;
-}
-.fbtn {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 6px; padding: 0.4rem 1rem;
-  font-size: 0.8rem; font-weight: 600; color: var(--body);
-  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.fbtn:hover { border-color: var(--teal); color: var(--teal); }
-.fbtn.active { background: rgba(0,201,177,0.12); border-color: var(--teal); color: var(--teal); }
-.fcount { margin-left: auto; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+/* Fill in blank */
+.blank-list{display:flex;flex-direction:column;gap:10px}
+.blank-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--mid);font-family:'Lora',serif;padding:10px 14px;background:var(--surface);border-radius:11px;border:1.5px solid var(--border);line-height:1.7}
+.blank-item input{border:none;border-bottom:2px solid var(--gold-light);background:transparent;font-family:'Lora',serif;font-size:14px;color:var(--text);width:110px;padding:2px 4px;outline:none;transition:border-color .15s}
+.blank-item input:focus{border-color:var(--gold)}
+.blank-item input.correct{border-color:#1a7a4a;color:#1a7a4a}
+.blank-item input.wrong{border-color:#b84a1a;color:#b84a1a}
+.blank-item .hint{font-size:11px;color:var(--hint);font-style:italic}
 
-/* ═══ CATEGORY SECTIONS ═══ */
-.cat-section { margin-bottom: 3rem; }
-.cat-section.hidden { display: none; }
+/* Word bank */
+.wordbank{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;padding:12px;background:var(--parchment);border-radius:11px;border:1px solid var(--border)}
+.wbank-word{padding:5px 12px;border-radius:20px;background:var(--surface);border:1.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.wbank-word:hover{border-color:var(--gold-light);background:var(--gold-pale)}
+.wbank-word.used{opacity:.35;pointer-events:none;text-decoration:line-through}
 
-/* ═══ MAIN ═══ */
-main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 2rem 1rem 6rem; }
+/* True/False */
+.tf-list{display:flex;flex-direction:column;gap:9px}
+.tf-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:11px}
+.tf-stmt{font-size:13.5px;color:var(--mid);font-family:'Lora',serif;flex:1;line-height:1.5}
+.tf-btns{display:flex;gap:6px;flex-shrink:0}
+.tf-btn{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--soft);font-family:'DM Sans',sans-serif;transition:all .15s}
+.tf-btn:hover{background:var(--parchment)}
+.tf-btn.selected{background:var(--gold-pale);border-color:var(--gold);color:var(--gold);font-weight:500}
+.tf-btn.correct{background:#edf7f2;border-color:#1a7a4a;color:#1a7a4a}
+.tf-btn.wrong{background:#fdf1ec;border-color:#b84a1a;color:#b84a1a}
 
-.section-label {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--muted);
-  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem;
-}
-.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+/* Sentence builder */
+.sb-words{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.sb-word{padding:6px 14px;border-radius:20px;background:var(--surface);border:1.5px solid var(--border);font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.sb-word:hover{border-color:var(--gold-light);background:var(--gold-pale)}
+.sb-word.placed{opacity:.35;pointer-events:none}
+.sb-drop{min-height:44px;border:2px dashed var(--border);border-radius:11px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--parchment);margin-bottom:8px;cursor:pointer}
+.sb-placed{padding:5px 12px;border-radius:16px;background:var(--gold-pale);border:1.5px solid var(--gold-light);font-size:13px;font-weight:500;color:var(--gold);cursor:pointer;font-family:'DM Sans',sans-serif}
+.sb-placed:hover{background:var(--gold);color:#fff}
 
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 1.2rem; }
+/* reset btn */
+.reset-btn{font-size:12px;color:var(--soft);cursor:pointer;padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:none;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:6px}
+.reset-btn:hover{background:var(--parchment);color:var(--text)}
 
-/* ── card ── */
-.res-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.5rem;
-  text-decoration: none; color: var(--ink);
-  display: flex; flex-direction: column; gap: 0.8rem;
-  transition: all 0.2s; position: relative; overflow: hidden;
-}
-.res-card::before {
-  content: ''; position: absolute; inset: 0; opacity: 0;
-  transition: opacity 0.2s; pointer-events: none; border-radius: 14px;
-}
-.res-card:hover { transform: translateY(-3px); border-color: var(--cc); box-shadow: 0 0 30px rgba(0,0,0,0.4), 0 0 0 1px var(--cc); }
-.res-card:hover::before { opacity: 1; }
-.res-card.coming { opacity: 0.45; pointer-events: none; }
+/* check btn */
+.check-btn{padding:9px 22px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold-pale);color:var(--gold);font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:10px}
+.check-btn:hover{background:var(--gold);color:#fff}
 
-/* glow colour per category */
-.res-card.cat-explore  { --cc: var(--red);   } .res-card.cat-explore::before  { background: radial-gradient(ellipse at top, rgba(255,77,77,0.06),   transparent 60%); }
-.res-card.cat-topic    { --cc: var(--green);  } .res-card.cat-topic::before    { background: radial-gradient(ellipse at top, rgba(57,217,138,0.06),  transparent 60%); }
-.res-card.cat-everyday { --cc: var(--pink);   } .res-card.cat-everyday::before { background: radial-gradient(ellipse at top, rgba(255,77,166,0.06),   transparent 60%); }
-.res-card.cat-games    { --cc: var(--orange); } .res-card.cat-games::before    { background: radial-gradient(ellipse at top, rgba(255,140,66,0.06),   transparent 60%); }
+/* progress bar */
+.progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:2rem;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s}
 
-/* coloured top line */
-.res-card::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  border-radius: 14px 14px 0 0;
-  background: linear-gradient(90deg, var(--cc), transparent);
-}
+.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes floatIn{from{opacity:0;transform:translateY(20px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes petalFall{0%{transform:translateY(-20px) rotate(0);opacity:0}10%{opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
-.card-head { display: flex; align-items: flex-start; gap: 1rem; }
-.card-icon {
-  width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
-  border: 1px solid var(--border);
-}
-.cat-explore  .card-icon { background: rgba(255,77,77,0.1);   box-shadow: 0 0 12px rgba(255,77,77,0.15); }
-.cat-topic    .card-icon { background: rgba(57,217,138,0.1);  box-shadow: 0 0 12px rgba(57,217,138,0.15); }
-.cat-everyday .card-icon { background: rgba(255,77,166,0.1);  box-shadow: 0 0 12px rgba(255,77,166,0.15); }
-.cat-games    .card-icon { background: rgba(255,140,66,0.1);  box-shadow: 0 0 12px rgba(255,140,66,0.15); }
-.coming .card-icon { background: rgba(255,255,255,0.04); }
+.egg-sway{animation:sway 6s ease-in-out infinite;transform-origin:center bottom}
+.deco{position:absolute;opacity:0;animation:floatIn 1.2s forwards}
+.petal{position:absolute;width:10px;height:14px;border-radius:50% 0 50% 0;opacity:0;animation:petalFall linear infinite;pointer-events:none}
 
-.card-level { font-size: 0.63rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.2rem; color: var(--cc); }
-.coming .card-level { color: var(--muted); }
-.card-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--white); line-height: 1.25; }
-.card-desc  { font-size: 0.85rem; color: var(--body); line-height: 1.6; flex: 1; }
+footer{background:var(--parchment);border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center}
+footer p{font-size:11px;color:var(--hint)}
 
-.card-tags  { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.card-tag {
-  font-size: 0.67rem; font-weight: 600; padding: 0.2rem 0.6rem;
-  border-radius: 4px; border: 1px solid var(--border);
-  background: rgba(255,255,255,0.04); color: var(--body);
-}
-.pre-a1 .card-tag { border-color: rgba(57,217,138,0.25); color: var(--green); background: rgba(57,217,138,0.06); }
-.a2     .card-tag { border-color: rgba(77,166,255,0.25);  color: var(--blue);  background: rgba(77,166,255,0.06); }
-.b1     .card-tag { border-color: rgba(255,140,66,0.25);  color: var(--orange);background: rgba(255,140,66,0.06); }
-.b2     .card-tag { border-color: rgba(168,85,247,0.25);  color: var(--purple);background: rgba(168,85,247,0.06); }
-
-.card-btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-size: 0.83rem; font-weight: 600; padding: 0.5rem 1rem;
-  border-radius: 7px; border: 1px solid var(--cc);
-  background: transparent; color: var(--cc);
-  cursor: pointer; font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s; margin-top: 0.2rem; text-decoration: none; width: fit-content;
-}
-.res-card:hover .card-btn { background: var(--cc); color: var(--bg); }
-.coming .card-btn { border-color: var(--border); color: var(--muted); cursor: default; }
-
-/* multi-level card (pink accent) */
-.res-card.multi { --cc: var(--pink); }
-.res-card.multi::before { background: radial-gradient(ellipse at top, rgba(255,77,166,0.06), transparent 60%); }
-.multi .card-icon { background: rgba(255,77,166,0.1); box-shadow: 0 0 12px rgba(255,77,166,0.15); }
-.multi .card-tag  { border-color: rgba(255,77,166,0.25); color: var(--pink); background: rgba(255,77,166,0.06); }
-
-/* games card (yellow/gold accent) */
-.res-card.game { --cc: var(--yellow); }
-.res-card.game::before { background: radial-gradient(ellipse at top, rgba(255,215,0,0.06), transparent 60%); }
-.game .card-icon { background: rgba(255,215,0,0.1); box-shadow: 0 0 12px rgba(255,215,0,0.15); }
-.game .card-tag  { border-color: rgba(255,215,0,0.25); color: var(--yellow); background: rgba(255,215,0,0.06); }
-.coming-badge {
-  position: absolute; top: 1rem; right: 1rem;
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 4px; padding: 0.15rem 0.5rem;
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--muted);
-}
-
-/* ═══ FOOTER ═══ */
-footer {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border);
-  padding: 1.8rem 1rem; text-align: center;
-  font-size: 0.78rem; color: var(--muted); font-weight: 500;
-}
-footer .ft-logo { color: var(--teal); font-weight: 700; }
-
-@media(max-width:520px) {
-  .cards-grid { grid-template-columns: 1fr; }
-  .flask-row { gap: 0.8rem; }
-  .hero-title { font-size: 2.4rem; }
-  .site-header { padding: 0.9rem 1rem; }
-  .filter-bar { padding: 1rem; }
+@media(max-width:640px){
+  .level-cards{grid-template-columns:1fr}
+  .steps-row{grid-template-columns:repeat(2,1fr)}
+  .countries-grid{grid-template-columns:1fr}
+  .match-grid{grid-template-columns:1fr}
+  .land-h1{font-size:2.2rem}
+  .tab-nav{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tnav{padding:12px 14px;font-size:12px}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="logo">
-    <span class="logo-flask">🧪</span>
-    Lisa's <em>&nbsp;English</em>&nbsp;Language Lab
+<!-- ═══════════════════════════════════════
+     PAGE 0 — LANDING
+═══════════════════════════════════════ -->
+<div id="page-land" class="page active">
+<div class="landing">
+  <div class="land-bg">
+    <svg style="position:absolute;top:-80px;left:-100px;opacity:.15" width="500" height="500"><circle cx="250" cy="250" r="250" fill="#c8922a"/></svg>
+    <svg style="position:absolute;bottom:-100px;right:-80px;opacity:.1" width="400" height="400"><circle cx="200" cy="200" r="200" fill="#4a7a2e"/></svg>
+    <!-- egg left -->
+    <svg class="deco egg-sway" style="left:5%;top:15%;animation-delay:.6s" width="64" height="80" viewBox="0 0 64 80">
+      <ellipse cx="32" cy="42" rx="28" ry="36" fill="#faecc8" stroke="#c8922a" stroke-width="2"/>
+      <path d="M10 42 Q32 30 54 42" stroke="#c8922a" stroke-width="1.5" fill="none" opacity=".5"/>
+      <circle cx="22" cy="32" r="4" fill="#e8b84b" opacity=".7"/>
+      <circle cx="42" cy="28" r="3" fill="#b84a1a" opacity=".6"/>
+    </svg>
+    <!-- egg right -->
+    <svg class="deco egg-sway" style="right:7%;top:20%;animation-delay:.8s" width="50" height="62" viewBox="0 0 50 62">
+      <ellipse cx="25" cy="33" rx="22" ry="28" fill="#edf7f2" stroke="#4a7a2e" stroke-width="2"/>
+      <path d="M6 33 Q25 22 44 33" stroke="#4a7a2e" stroke-width="1.5" fill="none" opacity=".5"/>
+      <circle cx="18" cy="25" r="3.5" fill="#1a7a4a" opacity=".6"/>
+    </svg>
+    <!-- flower -->
+    <svg class="deco" style="right:18%;top:8%;animation-delay:1s" width="44" height="44" viewBox="0 0 44 44">
+      <g transform="translate(22,22)">
+        <ellipse rx="5" ry="12" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <ellipse rx="5" ry="12" transform="rotate(60)" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <ellipse rx="5" ry="12" transform="rotate(120)" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <ellipse rx="5" ry="12" transform="rotate(180)" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <ellipse rx="5" ry="12" transform="rotate(240)" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <ellipse rx="5" ry="12" transform="rotate(300)" fill="#faecc8" stroke="#c8922a" stroke-width="1.2"/>
+        <circle r="7" fill="#c8922a"/><circle r="4" fill="#faecc8"/>
+      </g>
+    </svg>
+    <!-- chick -->
+    <svg class="deco" style="left:12%;bottom:12%;animation-delay:1.1s" width="48" height="48" viewBox="0 0 48 48">
+      <ellipse cx="24" cy="30" rx="16" ry="13" fill="#f5d020"/>
+      <circle cx="24" cy="16" r="11" fill="#f5d020"/>
+      <circle cx="20" cy="13" r="2.5" fill="#2a2018"/>
+      <circle cx="28" cy="13" r="2.5" fill="#2a2018"/>
+      <path d="M21 19 L24 22 L27 19" fill="#e8922a"/>
+    </svg>
+    <!-- bunny -->
+    <svg class="deco" style="right:10%;bottom:8%;animation-delay:.9s" width="52" height="64" viewBox="0 0 52 64">
+      <ellipse cx="26" cy="46" rx="18" ry="15" fill="#f0e8d8"/>
+      <circle cx="26" cy="26" r="13" fill="#f0e8d8"/>
+      <ellipse cx="18" cy="8" rx="5" ry="13" fill="#f0e8d8" stroke="#d4c4a8" stroke-width="1"/>
+      <ellipse cx="34" cy="8" rx="5" ry="13" fill="#f0e8d8" stroke="#d4c4a8" stroke-width="1"/>
+      <ellipse cx="18" cy="8" rx="3" ry="10" fill="#f4b8c8" opacity=".6"/>
+      <ellipse cx="34" cy="8" rx="3" ry="10" fill="#f4b8c8" opacity=".6"/>
+      <circle cx="22" cy="23" r="2.5" fill="#5a4a30"/>
+      <circle cx="30" cy="23" r="2.5" fill="#5a4a30"/>
+      <ellipse cx="26" cy="28" rx="3" ry="2" fill="#f4b8c8"/>
+    </svg>
+    <!-- petals -->
+    <div class="petal" style="left:20%;background:#f5d0a8;animation-duration:8s;animation-delay:0s;top:-20px"></div>
+    <div class="petal" style="left:40%;background:#f0c0d0;animation-duration:10s;animation-delay:2s;top:-20px"></div>
+    <div class="petal" style="left:65%;background:#f5d0a8;animation-duration:7s;animation-delay:4s;top:-20px"></div>
+    <div class="petal" style="left:80%;background:#c8e0b8;animation-duration:9s;animation-delay:1s;top:-20px"></div>
   </div>
-  <div class="header-tag">Videregående · English</div>
-</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="badge-dot"></span> Interactive English Resources</div>
+  <div class="land-eyebrow">Week 13 · Culture and Diversity · Innføringsklassen</div>
+  <h1 class="land-h1">Easter <em>traditions</em><br>around the world</h1>
+  <div class="land-divider"></div>
+  <p class="land-sub">Choose your level to get started. You will find your assignment, country traditions, vocabulary, and exercises.</p>
 
-    <h1 class="hero-title">
-      Lisa's English<br><span class="highlight">Language Lab</span> 🧪
-    </h1>
-    <p class="hero-sub">Experiment with English. Open any task directly in your browser — no login, no download required.</p>
-
-    <!-- FLASK ROW — one per level -->
-    <div class="flask-row-wrap">
-    <div class="flask-row">
-
-      <div class="flask-item">
-        <div class="flask" style="--fc:var(--green)">
-          <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(57,217,138,0.25)" stroke="rgba(57,217,138,0.6)" stroke-width="1.5"/>
-            <path d="M14 20 L4 52 Q3 58 10 58 H34 Q41 58 40 52 L30 20 Z" fill="rgba(57,217,138,0.18)" stroke="rgba(57,217,138,0.6)" stroke-width="1.5"/>
-            <ellipse cx="22" cy="50" rx="12" ry="5" fill="rgba(57,217,138,0.35)"/>
-            <circle cx="14" cy="42" r="2.5" fill="rgba(57,217,138,0.6)"/>
-            <circle cx="28" cy="46" r="1.8" fill="rgba(57,217,138,0.5)"/>
-            <circle cx="20" cy="38" r="1.5" fill="rgba(57,217,138,0.4)"/>
-          </svg>
-        </div>
-        <div class="flask-label" style="color:var(--green)">Pre-A1</div>
+  <div class="level-cards">
+    <div class="lcard a1" onclick="goLevel('a1')">
+      <div class="lcard-badge">A1 · Level 1</div>
+      <h2>Beginner</h2>
+      <p>Short sentences and key words. You write 2 things about each country.</p>
+      <div class="lcard-examples">
+        <div class="lcard-ex">"In Norway, people give eggs."</div>
+        <div class="lcard-ex">Words: same · different · good · nice</div>
       </div>
-
-      <div class="flask-item">
-        <div class="flask" style="--fc:var(--teal); height:70px;">
-          <svg viewBox="0 0 44 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(0,201,177,0.2)" stroke="rgba(0,201,177,0.6)" stroke-width="1.5"/>
-            <path d="M14 20 L4 56 Q3 64 10 64 H34 Q41 64 40 56 L30 20 Z" fill="rgba(0,201,177,0.15)" stroke="rgba(0,201,177,0.6)" stroke-width="1.5"/>
-            <ellipse cx="22" cy="56" rx="12" ry="5" fill="rgba(0,201,177,0.3)"/>
-            <circle cx="16" cy="44" r="3" fill="rgba(0,201,177,0.55)"/>
-            <circle cx="29" cy="50" r="2" fill="rgba(0,201,177,0.45)"/>
-          </svg>
-        </div>
-        <div class="flask-label" style="color:var(--teal)">A1</div>
+      <div class="lcard-btn">Start here <span class="arrow">→</span></div>
+    </div>
+    <div class="lcard a2" onclick="goLevel('a2')">
+      <div class="lcard-badge">A2 · Level 2</div>
+      <h2>Elementary</h2>
+      <p>Simple comparisons and opposites. You write 3–4 things about each country.</p>
+      <div class="lcard-examples">
+        <div class="lcard-ex">"Norway and UK are different."</div>
+        <div class="lcard-ex">Words: bigger · respect · community</div>
       </div>
-
-      <div class="flask-item">
-        <div class="flask" style="--fc:var(--blue); width:52px; height:72px;">
-          <svg viewBox="0 0 52 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="2" width="12" height="18" rx="3" fill="rgba(77,166,255,0.2)" stroke="rgba(77,166,255,0.65)" stroke-width="1.5"/>
-            <path d="M16 20 L4 58 Q3 68 12 68 H40 Q49 68 48 58 L36 20 Z" fill="rgba(77,166,255,0.15)" stroke="rgba(77,166,255,0.65)" stroke-width="1.5"/>
-            <ellipse cx="26" cy="60" rx="14" ry="5.5" fill="rgba(77,166,255,0.3)"/>
-            <circle cx="16" cy="48" r="3.5" fill="rgba(77,166,255,0.55)"/>
-            <circle cx="32" cy="54" r="2.5" fill="rgba(77,166,255,0.45)"/>
-            <circle cx="22" cy="40" r="2" fill="rgba(77,166,255,0.4)"/>
-          </svg>
-        </div>
-        <div class="flask-label" style="color:var(--blue)">A2</div>
-      </div>
-
-      <div class="flask-item">
-        <div class="flask" style="--fc:var(--orange); height:65px;">
-          <svg viewBox="0 0 44 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(255,140,66,0.2)" stroke="rgba(255,140,66,0.65)" stroke-width="1.5"/>
-            <path d="M14 20 L4 53 Q3 61 10 61 H34 Q41 61 40 53 L30 20 Z" fill="rgba(255,140,66,0.15)" stroke="rgba(255,140,66,0.65)" stroke-width="1.5"/>
-            <ellipse cx="22" cy="53" rx="12" ry="5" fill="rgba(255,140,66,0.3)"/>
-            <circle cx="17" cy="43" r="3" fill="rgba(255,140,66,0.55)"/>
-            <circle cx="28" cy="49" r="2" fill="rgba(255,140,66,0.45)"/>
-          </svg>
-        </div>
-        <div class="flask-label" style="color:var(--orange)">B1</div>
-      </div>
-
-      <div class="flask-item">
-        <div class="flask" style="--fc:var(--purple);">
-          <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="2" width="8" height="18" rx="2" fill="rgba(168,85,247,0.2)" stroke="rgba(168,85,247,0.65)" stroke-width="1.5"/>
-            <path d="M14 20 L4 52 Q3 58 10 58 H34 Q41 58 40 52 L30 20 Z" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,0.65)" stroke-width="1.5"/>
-            <ellipse cx="22" cy="50" rx="12" ry="5" fill="rgba(168,85,247,0.3)"/>
-            <circle cx="15" cy="40" r="2.5" fill="rgba(168,85,247,0.55)"/>
-            <circle cx="29" cy="46" r="2" fill="rgba(168,85,247,0.45)"/>
-          </svg>
-        </div>
-        <div class="flask-label" style="color:var(--purple)">B2</div>
-      </div>
-
-    </div><!-- /flask-row -->
-    </div><!-- /flask-row-wrap -->
-
-
+      <div class="lcard-btn">Start here <span class="arrow">→</span></div>
+    </div>
   </div>
-</section>
-
-<!-- CATEGORY BAR -->
-<div class="category-bar">
-  <button class="cbtn active" onclick="filterCat('all',this)">All categories</button>
-  <button class="cbtn" data-cat="explore" onclick="filterCat('explore',this)">🌍 Explore the World</button>
-  <button class="cbtn" data-cat="topic" onclick="filterCat('topic',this)">📚 Topic Units</button>
-  <button class="cbtn" data-cat="everyday" onclick="filterCat('everyday',this)">💬 Everyday English</button>
-  <button class="cbtn" data-cat="games" onclick="filterCat('games',this)">🎮 Games & Puzzles</button>
+  <p class="land-meta">English · Innføringsklassen · Spring 2025</p>
 </div>
+</div><!-- /page-land -->
 
-<div class="filter-bar">
-  <span class="fcount" id="fcount"></span>
-</div>
 
-<!-- CARDS -->
-<main>
-
-  <!-- 🌍 EXPLORE THE WORLD -->
-  <div class="cat-section" id="cat-explore" data-cat="explore">
-    <div class="section-label">🌍 Explore the World</div>
-    <div class="cards-grid">
-
-      <a class="res-card cat-explore" href="london/index.html" data-level="a2" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon" style="padding:0;overflow:hidden;">
-            <svg viewBox="0 0 46 46" width="46" height="46" xmlns="http://www.w3.org/2000/svg">
-              <!-- body -->
-              <rect x="4" y="12" width="38" height="22" rx="3" fill="#cc0000"/>
-              <!-- upper deck windows -->
-              <rect x="8"  y="15" width="8" height="7" rx="1.5" fill="#b3d9f7" opacity="0.9"/>
-              <rect x="19" y="15" width="8" height="7" rx="1.5" fill="#b3d9f7" opacity="0.9"/>
-              <rect x="30" y="15" width="8" height="7" rx="1.5" fill="#b3d9f7" opacity="0.9"/>
-              <!-- lower deck windows -->
-              <rect x="8"  y="25" width="8" height="6" rx="1.5" fill="#b3d9f7" opacity="0.9"/>
-              <rect x="19" y="25" width="8" height="6" rx="1.5" fill="#b3d9f7" opacity="0.9"/>
-              <!-- door -->
-              <rect x="30" y="24" width="9" height="10" rx="1" fill="#a00000"/>
-              <!-- deck divider line -->
-              <rect x="4" y="23" width="38" height="1.5" fill="#990000"/>
-              <!-- wheels -->
-              <circle cx="12" cy="35" r="4.5" fill="#222"/>
-              <circle cx="12" cy="35" r="2"   fill="#555"/>
-              <circle cx="34" cy="35" r="4.5" fill="#222"/>
-              <circle cx="34" cy="35" r="2"   fill="#555"/>
-              <!-- front -->
-              <rect x="4" y="12" width="5" height="22" rx="2" fill="#bb0000"/>
-            </svg>
-          </div>
-          <div>
-            <div class="card-level">Pre-A1 &amp; A2 · Street View</div>
-            <div class="card-title">London Tasks</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore 7 London landmarks using Street View. Two levels — beginners find items and build sentences, while A2 students read intel, match vocabulary and write field reports.</div>
-        <div class="card-tags">
-          <span class="card-tag">🔍 Find items</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">⚡ Speed bonus</span>
-          <span class="card-tag">2 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-explore" href="newyork/index.html" data-level="a2" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🗽</div>
-          <div>
-            <div class="card-level">A1 &amp; A2 · Street View</div>
-            <div class="card-title">New York City</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore the streets of Manhattan. Reading, writing and vocabulary tasks set across iconic NYC neighbourhoods.</div>
-        <div class="card-tags">
-          <span class="card-tag">🗽 Street View</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-explore" href="canada/index.html" data-level="a1" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🍁</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Country study</div>
-            <div class="card-title">Canada</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore Canada's landscapes, cities and culture. Vocabulary, reading and writing tasks across three levels — from simple facts about Canadian life to more complex cultural topics.</div>
-        <div class="card-tags">
-          <span class="card-tag">🍁 Culture</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-explore" href="india/index.html" data-level="a1" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🕌</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Country study</div>
-            <div class="card-title">India</div>
-          </div>
-        </div>
-        <div class="card-desc">Discover India's rich history, traditions and diversity. Reading, vocabulary and writing tasks across three levels — from basic facts to exploring culture and society in depth.</div>
-        <div class="card-tags">
-          <span class="card-tag">🕌 Culture</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-explore" href="southafrica/index.html" data-level="a1" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🌍</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Country study</div>
-            <div class="card-title">South Africa</div>
-          </div>
-        </div>
-        <div class="card-desc">Discover South Africa's landscapes, cultures and history. Reading, vocabulary and writing tasks across three levels — from everyday life to exploring the Rainbow Nation's rich diversity.</div>
-        <div class="card-tags">
-          <span class="card-tag">🌍 Culture</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <div class="res-card coming" data-level="b2" data-cat="explore">
-        <div class="coming-badge">Coming soon</div>
-        <div class="card-head">
-          <div class="card-icon">🔒</div>
-          <div>
-            <div class="card-level">B2 · Coming soon</div>
-            <div class="card-title">Dublin & Ireland</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore Irish culture and history through immersive Street View tasks.</div>
-        <div class="card-tags"><span class="card-tag">☘️ Street View</span></div>
-        <div class="card-btn">Coming soon</div>
-      </div>
-
-      <a class="res-card cat-explore" href="australia/index.html" data-level="a1" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🦘</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Country study</div>
-            <div class="card-title">Australia</div>
-          </div>
-        </div>
-        <div class="card-desc">Discover Sydney, the Outback and Australian culture. Reading, vocabulary and writing tasks across three levels — from everyday Australian life to deeper cultural topics.</div>
-        <div class="card-tags">
-          <span class="card-tag">🦘 Culture</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-explore" href="newzealand/index.html" data-level="a1" data-cat="explore">
-        <div class="card-head">
-          <div class="card-icon">🥝</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Country study</div>
-            <div class="card-title">New Zealand</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore the landscapes and culture of Aotearoa. Vocabulary, reading and writing tasks across three levels — from basic facts to Māori culture and New Zealand society.</div>
-        <div class="card-tags">
-          <span class="card-tag">🥝 Culture</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
+<!-- ═══════════════════════════════════════
+     PAGE A1
+═══════════════════════════════════════ -->
+<div id="page-a1" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Easter <em>traditions</em></div>
+    <div class="topbar-right">
+      <span class="level-pill pill-a1">A1 · Level 1</span>
+      <button class="back-btn" onclick="goHome()">← Choose level</button>
     </div>
   </div>
 
-  <!-- 📚 TOPIC UNITS -->
-  <div class="cat-section" id="cat-topic" data-cat="topic">
-    <div class="section-label">📚 Topic Units</div>
-    <div class="cards-grid">
+  <div class="tab-nav">
+    <button class="tnav on" onclick="switchTab('a1','task',this)">Assignment</button>
+    <button class="tnav" onclick="switchTab('a1','guide',this)">Traditions guide</button>
+    <button class="tnav" onclick="switchTab('a1','vocab',this)">Vocabulary</button>
+    <button class="tnav" onclick="switchTab('a1','ex',this)">Exercises</button>
+  </div>
 
-      <a class="res-card cat-topic" href="skabma/index.html" data-level="pre-a1" data-cat="topic">
-        <div class="card-head">
-          <div class="card-icon">🥁</div>
-          <div>
-            <div class="card-level">Pre-A1 &amp; A2 · Sámi culture</div>
-            <div class="card-title">Skábma – Snowfall</div>
+  <div class="content-area">
+
+    <!-- ASSIGNMENT -->
+    <div id="a1-task" class="tab-panel on">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4h12M3 9h8M3 14h10" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">Your task</div><div class="sec-title">The assignment — A1</div></div>
+        </div>
+        <div class="assign-box">
+          <div class="assign-inner">
+            <div style="display:inline-block;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px;background:var(--a1-bg);color:var(--a1);border:1px solid var(--a1-border)">A1 — Breakthrough</div>
+            <h3>Easter project — Canva</h3>
+            <p>We make a Canva project about Easter! Look at the guide. Find <strong>good</strong> and <strong>nice</strong> things people do at Easter.</p>
+            <hr class="adiv">
+            <p><strong>What to do:</strong></p>
+            <ul class="task-list">
+              <li><div class="tnum">1</div>Open Canva. Choose a template.</li>
+              <li><div class="tnum">2</div>Make 4 parts: <strong>Norway · UK · USA · my country</strong></li>
+              <li><div class="tnum">3</div>Write <strong>2 things</strong> people do at Easter. Use words from the vocabulary list.</li>
+              <li><div class="tnum">4</div>Add pictures. Use colors.</li>
+              <li><div class="tnum">5</div>Save. Show the class.</li>
+            </ul>
+            <hr class="adiv">
+            <p><strong>Write like this:</strong></p>
+            <div class="lang-box">
+              "In Norway, people <em>give</em> eggs."<br>
+              "In the UK, people <em>eat</em> hot cross buns."<br>
+              "In my country, people <em>eat / give / make</em> ..."<br>
+              "Norway and the UK are <em>the same</em>." &nbsp;/&nbsp; "They are <em>different</em>."
+            </div>
+            <p style="font-size:13px;color:var(--soft);font-family:'Lora',serif;font-style:italic">Use the <strong style="font-style:normal;color:var(--text)">Traditions guide</strong> tab to find information about each country.</p>
           </div>
         </div>
-        <div class="card-desc">Based on the Sámi video game. Learn vocabulary, read the story, fill in gaps, answer questions and write about Áilu's journey.</div>
-        <div class="card-tags">
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">❤️ Lives</span>
-          <span class="card-tag">2 levels</span>
+      </section>
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#c8922a" stroke-width="1.7"/><path d="M6 9l2 2 4-4" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="sec-eyebrow">How to</div><div class="sec-title">Steps in Canva</div></div>
         </div>
-        <div class="card-btn">Open task →</div>
-      </a>
+        <div class="steps-row">
+          <div class="step"><div class="step-n">01</div><div class="step-t">Open Canva</div></div>
+          <div class="step"><div class="step-n">02</div><div class="step-t">Choose template</div></div>
+          <div class="step"><div class="step-n">03</div><div class="step-t">Add 4 titles</div></div>
+          <div class="step"><div class="step-n">04</div><div class="step-t">Write traditions</div></div>
+          <div class="step"><div class="step-n">05</div><div class="step-t">Add pictures</div></div>
+          <div class="step"><div class="step-n">06</div><div class="step-t">Add colors</div></div>
+          <div class="step"><div class="step-n">07</div><div class="step-t">Check your work</div></div>
+          <div class="step"><div class="step-n">08</div><div class="step-t">Save</div></div>
+          <div class="step"><div class="step-n">09</div><div class="step-t">Share with class</div></div>
+        </div>
+      </section>
+    </div>
 
-      <a class="res-card cat-topic" href="national days/index.html" data-level="b1" data-cat="topic">
-        <div class="card-head">
-          <div class="card-icon">🎉</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Culture</div>
-            <div class="card-title">National Days</div>
+    <!-- GUIDE -->
+    <div id="a1-guide" class="tab-panel">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 3.5 5.5 3.5 10a5.5 5.5 0 0011 0C14.5 5.5 9 2 9 2z" stroke="#c8922a" stroke-width="1.7" fill="none"/></svg></div>
+          <div><div class="sec-eyebrow">Research help</div><div class="sec-title">What to write about each country</div></div>
+        </div>
+        <div class="countries-grid">
+          <div class="ccard" style="border-top:4px solid var(--a1)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,var(--a1-bg),var(--cream))">
+              <div class="emblem" style="background:var(--a1-bg);color:var(--a1);border:1.5px solid var(--a1-border)">NO</div>
+              <div><div class="cname">Norway</div><div class="csub">Påske</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Cardboard eggs</div><div class="tdesc">Big cardboard eggs filled with candy and gifts</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Cabin trips</div><div class="tdesc">Families go to the mountains to ski</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Crime books — påskekrim</div><div class="tdesc">People read crime books at Easter</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Yellow color</div><div class="tdesc">Yellow chicks and flowers everywhere</div></div></div>
+          </div>
+          <div class="ccard" style="border-top:4px solid var(--a2)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,var(--a2-bg),var(--cream))">
+              <div class="emblem" style="background:var(--a2-bg);color:var(--a2);border:1.5px solid var(--a2-border)">GB</div>
+              <div><div class="cname">United Kingdom</div><div class="csub">Easter</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Chocolate eggs</div><div class="tdesc">Big chocolate eggs as gifts</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Hot cross buns</div><div class="tdesc">Sweet bread with a cross on top</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Egg rolling</div><div class="tdesc">Roll eggs down a hill — a fun game!</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Easter bunny</div><div class="tdesc">The bunny hides eggs for children</div></div></div>
+          </div>
+          <div class="ccard" style="border-top:4px solid var(--rust)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,#fdf1ec,var(--cream))">
+              <div class="emblem" style="background:#fdf1ec;color:var(--rust);border:1.5px solid #f0c4ad">US</div>
+              <div><div class="cname">United States</div><div class="csub">Easter</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Egg hunt</div><div class="tdesc">Children find hidden eggs in the garden</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Easter basket</div><div class="tdesc">The bunny brings candy and gifts</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Dyeing eggs</div><div class="tdesc">Families paint eggs with bright colors</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Church</div><div class="tdesc">Many families go to church together</div></div></div>
+          </div>
+          <div class="home-card">
+            <div class="home-plus">+</div>
+            <p class="ht">Your home country</p>
+            <p class="hs">Write 2 things people do at Easter or spring in your country.</p>
           </div>
         </div>
-        <div class="card-desc">Explore national celebrations and traditions. Learn vocabulary, read about different national days, and discuss what makes each country's culture unique.</div>
-        <div class="card-tags">
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">🤖 AI feedback</span>
-          <span class="card-tag">3 levels</span>
+        <div class="ctip">
+          <div class="ctip-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#fdf6e8" stroke-width="1.4"/><path d="M7 4.5v3M7 9.5v.5" stroke="#fdf6e8" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <p><b>Canva tip —</b> Use blue for Norway, green for UK, and orange for USA. Add one picture for each country.</p>
         </div>
-        <div class="card-btn">Open task →</div>
-      </a>
+      </section>
+    </div>
 
-      <a class="res-card cat-topic" href="easter/index.html" data-level="a1" data-cat="topic">
-        <div class="card-head">
-          <div class="card-icon">🐣</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1*</div>
-            <div class="card-title">Easter</div>
-          </div>
+    <!-- VOCAB A1 -->
+    <div id="a1-vocab" class="tab-panel">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="#c8922a" stroke-width="1.7"/><path d="M6 6h6M6 9h4M6 12h5" stroke="#c8922a" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">A1 words</div><div class="sec-title">Key vocabulary</div></div>
         </div>
-        <div class="card-desc">Explore Easter traditions and vocabulary in English. Tasks at two active levels — A1 and A2 — with a B1 level coming soon. Learn about customs, symbols and celebrations.</div>
-        <div class="card-tags">
-          <span class="card-tag">🐣 Traditions</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">A1 · A2 active</span>
-          <span class="card-tag">🔒 B1 coming soon</span>
+        <p style="font-size:13px;color:var(--soft);font-family:'Lora',serif;font-style:italic;margin-bottom:16px">These are the most important words for this project. Learn them!</p>
+        <div class="vgrid">
+          <div class="vpill"><div class="vword">same</div><div class="vdef">lik — not different</div></div>
+          <div class="vpill"><div class="vword">different</div><div class="vdef">ulik — not the same</div></div>
+          <div class="vpill"><div class="vword">good</div><div class="vdef">bra — nice, positive</div></div>
+          <div class="vpill"><div class="vword">nice</div><div class="vdef">hyggelig — pleasant</div></div>
+          <div class="vpill"><div class="vword">kind</div><div class="vdef">snill — caring to others</div></div>
+          <div class="vpill"><div class="vword">fair</div><div class="vdef">rettferdig — equal, just</div></div>
+          <div class="vpill"><div class="vword">people</div><div class="vdef">folk — persons, humans</div></div>
+          <div class="vpill"><div class="vword">friend</div><div class="vdef">venn — a person you like</div></div>
+          <div class="vpill"><div class="vword">help</div><div class="vdef">hjelpe — to assist</div></div>
+          <div class="vpill"><div class="vword">love</div><div class="vdef">kjærlighet — strong care</div></div>
+          <div class="vpill"><div class="vword">care</div><div class="vdef">bry seg — to think of others</div></div>
+          <div class="vpill"><div class="vword">egg</div><div class="vdef">påskeegg — Easter egg</div></div>
+          <div class="vpill"><div class="vword">give</div><div class="vdef">gi — to give a gift</div></div>
+          <div class="vpill"><div class="vword">eat</div><div class="vdef">spise — to have food</div></div>
+          <div class="vpill"><div class="vword">country</div><div class="vdef">land — e.g. Norway, UK</div></div>
+          <div class="vpill"><div class="vword">family</div><div class="vdef">familie — your people at home</div></div>
         </div>
-        <div class="card-btn">Open task →</div>
-      </a>
+      </section>
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 5h10M4 9h7M4 13h9" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">Writing help</div><div class="sec-title">Sentence starters</div></div>
+        </div>
+        <div class="starter">In Norway, people <b>eat eggs.</b></div>
+        <div class="starter">In the UK, people <b>give chocolate.</b></div>
+        <div class="starter">In the USA, children <b>find eggs.</b></div>
+        <div class="starter">In my country, people <b>eat / give / make ...</b></div>
+        <div class="starter">Norway and the UK are <b>the same.</b></div>
+        <div class="starter">Norway and the USA are <b>different.</b></div>
+        <div class="starter">I think Easter is <b>good / nice / fun.</b></div>
+      </section>
+    </div>
 
-      <a class="res-card cat-topic" href="heartstopper/index.html" data-level="a1" data-cat="topic">
-        <div class="card-head">
-          <div class="card-icon">🌿</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · TV &amp; Literature</div>
-            <div class="card-title">Heartstopper</div>
-          </div>
+    <!-- EXERCISES A1 -->
+    <div id="a1-ex" class="tab-panel">
+      <div style="margin-bottom:1.5rem">
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 5.4H17l-4.9 3.6 1.8 5.4L9 13l-4.9 3.4 1.8-5.4L1 7.4h6.2z" stroke="#c8922a" stroke-width="1.5" fill="none"/></svg></div>
+          <div><div class="sec-eyebrow">Practice</div><div class="sec-title">Vocabulary exercises — A1</div></div>
         </div>
-        <div class="card-desc">Explore the world of Heartstopper — both the Netflix TV series and the graphic novel. Vocabulary, reading and writing tasks across three levels, covering characters, themes and storytelling.</div>
-        <div class="card-tags">
-          <span class="card-tag">📺 TV series</span>
-          <span class="card-tag">📚 Graphic novel</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-topic" href="music/index.html" data-level="a1" data-cat="topic">
-        <div class="card-head">
-          <div class="card-icon">🎵</div>
-          <div>
-            <div class="card-level">A1 &amp; A2 · Topic unit</div>
-            <div class="card-title">Music</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore the world of music in English. Learn vocabulary for genres, instruments and artists, read about music culture, and complete tasks at two levels.</div>
-        <div class="card-tags">
-          <span class="card-tag">🎵 Music</span>
-          <span class="card-tag">🔤 Vocabulary</span>
-          <span class="card-tag">📖 Reading</span>
-          <span class="card-tag">✍️ Writing</span>
-          <span class="card-tag">2 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <div class="res-card coming" data-level="b1" data-cat="topic">
-        <div class="coming-badge">Coming soon</div>
-        <div class="card-head">
-          <div class="card-icon">🔒</div>
-          <div>
-            <div class="card-level">A2 · B1 · Coming soon</div>
-            <div class="card-title">Identity & Values</div>
-          </div>
-        </div>
-        <div class="card-desc">Explore themes of pride, inclusion and diversity. Vocabulary, reading and discussion tasks about respect, identity and who we are.</div>
-        <div class="card-tags"><span class="card-tag">🤝 Inclusion</span><span class="card-tag">💬 Discussion</span><span class="card-tag">✍️ Writing</span></div>
-        <div class="card-btn">Coming soon</div>
       </div>
 
+      <!-- EX 1: Match word to picture-description -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 1 — Match the word</div>
+        <div class="ex-instruction">Click a word, then click the matching meaning.</div>
+        <div class="match-grid" id="a1-match">
+          <div class="match-col" id="a1-words">
+            <div class="match-item word" data-pair="1" onclick="selectMatch(this,'a1')">same</div>
+            <div class="match-item word" data-pair="2" onclick="selectMatch(this,'a1')">give</div>
+            <div class="match-item word" data-pair="3" onclick="selectMatch(this,'a1')">kind</div>
+            <div class="match-item word" data-pair="4" onclick="selectMatch(this,'a1')">family</div>
+            <div class="match-item word" data-pair="5" onclick="selectMatch(this,'a1')">different</div>
+          </div>
+          <div class="match-col" id="a1-defs">
+            <div class="match-item def" data-pair="3" onclick="selectMatch(this,'a1')">snill — caring to others</div>
+            <div class="match-item def" data-pair="5" onclick="selectMatch(this,'a1')">ulik — not the same</div>
+            <div class="match-item def" data-pair="1" onclick="selectMatch(this,'a1')">lik — not different</div>
+            <div class="match-item def" data-pair="4" onclick="selectMatch(this,'a1')">familie — your people at home</div>
+            <div class="match-item def" data-pair="2" onclick="selectMatch(this,'a1')">gi — to give a gift</div>
+          </div>
+        </div>
+        <div class="ex-score" id="a1-match-score"></div>
+        <div style="margin-top:10px"><button class="reset-btn" onclick="resetMatch('a1')">Reset</button></div>
+      </div>
+
+      <!-- EX 2: Fill in the blank with word bank -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 2 — Fill in the blank</div>
+        <div class="ex-instruction">Click a word from the box, then click the blank sentence.</div>
+        <div class="wordbank" id="a1-bank">
+          <div class="wbank-word" onclick="pickBank(this,'a1')">give</div>
+          <div class="wbank-word" onclick="pickBank(this,'a1')">eat</div>
+          <div class="wbank-word" onclick="pickBank(this,'a1')">find</div>
+          <div class="wbank-word" onclick="pickBank(this,'a1')">same</div>
+          <div class="wbank-word" onclick="pickBank(this,'a1')">different</div>
+          <div class="wbank-word" onclick="pickBank(this,'a1')">nice</div>
+        </div>
+        <div class="blank-list">
+          <div class="blank-item" data-answer="give" onclick="fillBlank(this,'a1')">In Norway, people <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> cardboard eggs. <span class="hint">(gi)</span></div>
+          <div class="blank-item" data-answer="eat" onclick="fillBlank(this,'a1')">In the UK, people <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> hot cross buns. <span class="hint">(spise)</span></div>
+          <div class="blank-item" data-answer="find" onclick="fillBlank(this,'a1')">In the USA, children <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> hidden eggs. <span class="hint">(finne)</span></div>
+          <div class="blank-item" data-answer="same" onclick="fillBlank(this,'a1')">Norway and the UK are the <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span>. <span class="hint">(lik)</span></div>
+          <div class="blank-item" data-answer="different" onclick="fillBlank(this,'a1')">Norway and the USA are <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span>. <span class="hint">(ulik)</span></div>
+          <div class="blank-item" data-answer="nice" onclick="fillBlank(this,'a1')">I think Easter is <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span>. <span class="hint">(hyggelig)</span></div>
+        </div>
+        <button class="check-btn" onclick="checkBlanks('a1')">Check answers</button>
+        <button class="reset-btn" onclick="resetBlanks('a1')">Reset</button>
+        <div class="ex-score" id="a1-blank-score"></div>
+      </div>
+
+      <!-- EX 3: True / False A1 -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 3 — True or False?</div>
+        <div class="ex-instruction">Read each sentence. Click True or False. Then check your answers.</div>
+        <div class="tf-list" id="a1-tf">
+          <div class="tf-item">
+            <div class="tf-stmt">In Norway, people give cardboard eggs filled with candy.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">In the UK, people eat hot cross buns on Easter.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">In the USA, children give cardboard eggs to their family.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">Norway and the UK are the same — they both give eggs at Easter.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">"Kind" means the same as "ulik" in Norwegian.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
+          <button class="check-btn" onclick="checkTFAll('a1-tf','a1-tf-score')">Check answers</button>
+          <button class="reset-btn" onclick="resetTF('a1-tf','a1-tf-score')">Reset</button>
+          <div class="ex-score" id="a1-tf-score"></div>
+        </div>
+      </div>
+
+    </div><!-- /a1-ex -->
+  </div><!-- /content-area -->
+  <footer><p>Easter Traditions · A1 Level · Week 13 · Culture and Diversity · Innføringsklassen</p></footer>
+</div><!-- /page-a1 -->
+
+
+<!-- ═══════════════════════════════════════
+     PAGE A2
+═══════════════════════════════════════ -->
+<div id="page-a2" class="page">
+  <div class="topbar">
+    <div class="topbar-title">Easter <em>traditions</em></div>
+    <div class="topbar-right">
+      <span class="level-pill pill-a2">A2 · Level 2</span>
+      <button class="back-btn" onclick="goHome()">← Choose level</button>
     </div>
   </div>
 
-  <!-- 💬 EVERYDAY ENGLISH -->
-  <div class="cat-section" id="cat-everyday" data-cat="everyday">
-    <div class="section-label">💬 Everyday English</div>
-    <div class="cards-grid">
-
-      <a class="res-card cat-everyday" href="listenup/index.html" data-level="a1" data-cat="everyday">
-        <div class="card-head">
-          <div class="card-icon">🎧</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · Listening</div>
-            <div class="card-title">Listen Up!</div>
-          </div>
-        </div>
-        <div class="card-desc">Practise your listening skills with real-life conversations and scenarios. Three levels — from short everyday phrases to longer, more complex dialogues.</div>
-        <div class="card-tags">
-          <span class="card-tag">🎧 Listening</span>
-          <span class="card-tag">💬 Conversations</span>
-          <span class="card-tag">✅ Quiz</span>
-          <span class="card-tag">3 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-everyday" href="grammatikk/index.html" data-level="a2" data-cat="everyday">
-        <div class="card-head">
-          <div class="card-icon">📝</div>
-          <div>
-            <div class="card-level">A1 &amp; A2 · Grammar</div>
-            <div class="card-title">Grammar Skills</div>
-          </div>
-        </div>
-        <div class="card-desc">Master English grammar through interactive exercises. Covers nouns, verbs, adjectives, prepositions, pronouns, articles, sentence structure, conjunctions and quantifiers — at two levels.</div>
-        <div class="card-tags">
-          <span class="card-tag">📝 Grammar</span>
-          <span class="card-tag">✅ Quiz</span>
-          <span class="card-tag">9 categories</span>
-          <span class="card-tag">2 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-everyday" href="vocabulary/Index.html" data-level="a1" data-cat="everyday">
-        <div class="card-head">
-          <div class="card-icon">📖</div>
-          <div>
-            <div class="card-level">A1 &amp; A2 · Vocabulary</div>
-            <div class="card-title">Vocabulary Explorer</div>
-          </div>
-        </div>
-        <div class="card-desc">Build useful English across eight topics — Daily Life, School, Food, People, Feelings, Places, Time and Classroom English. A1 &amp; A2 words practised in random sessions of 10.</div>
-        <div class="card-tags">
-          <span class="card-tag">📚 Learn</span>
-          <span class="card-tag">🎯 Practice</span>
-          <span class="card-tag">🗣️ Speak</span>
-          <span class="card-tag">✅ Quiz</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <div class="res-card coming" data-level="a2" data-cat="everyday">
-        <div class="coming-badge">Coming soon</div>
-        <div class="card-head">
-          <div class="card-icon">🔒</div>
-          <div>
-            <div class="card-level">A1 · A2 · Coming soon</div>
-            <div class="card-title">Real-Life English</div>
-          </div>
-        </div>
-        <div class="card-desc">Practise English in everyday situations — shopping, asking for directions, ordering food and reading signs. Tasks based on real-world language use.</div>
-        <div class="card-tags"><span class="card-tag">🛒 Shopping</span><span class="card-tag">🗺️ Directions</span><span class="card-tag">🍽️ Ordering</span></div>
-        <div class="card-btn">Coming soon</div>
-      </div>
-
-    </div>
+  <div class="tab-nav">
+    <button class="tnav on" onclick="switchTab('a2','task',this)">Assignment</button>
+    <button class="tnav" onclick="switchTab('a2','guide',this)">Traditions guide</button>
+    <button class="tnav" onclick="switchTab('a2','vocab',this)">Vocabulary</button>
+    <button class="tnav" onclick="switchTab('a2','ex',this)">Exercises</button>
   </div>
 
-  <!-- 🎮 GAMES & PUZZLES -->
-  <div class="cat-section" id="cat-games" data-cat="games">
-    <div class="section-label">🎮 Games & Puzzles</div>
-    <div class="cards-grid">
+  <div class="content-area">
 
-      <a class="res-card cat-games" href="games/index.html" data-level="a1" data-cat="games">
-        <div class="card-head">
-          <div class="card-icon">🎮</div>
-          <div>
-            <div class="card-level">A1 · A2 · B1 · 9 activities</div>
-            <div class="card-title">English Games &amp; Puzzles</div>
+    <!-- ASSIGNMENT A2 -->
+    <div id="a2-task" class="tab-panel on">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4h12M3 9h8M3 14h10" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">Your task</div><div class="sec-title">The assignment — A2</div></div>
+        </div>
+        <div class="assign-box">
+          <div class="assign-inner">
+            <div style="display:inline-block;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px;background:var(--a2-bg);color:var(--a2);border:1px solid var(--a2-border)">A2 — Waystage</div>
+            <h3>Easter traditions — Canva project</h3>
+            <p>Make a Canva project about Easter traditions. Compare what people do in <strong>four countries</strong>. What is the <strong>same</strong>? What is <strong>different</strong>? Use comparatives.</p>
+            <hr class="adiv">
+            <p><strong>Your task:</strong></p>
+            <ul class="task-list">
+              <li><div class="tnum">1</div>Open Canva and choose a template</li>
+              <li><div class="tnum">2</div>Make a section for each country: <strong>Norway · UK · USA · your home country</strong></li>
+              <li><div class="tnum">3</div>Write <strong>3–4 traditions</strong> for each country</li>
+              <li><div class="tnum">4</div>Compare: What is the same? What is different? Use <em>but</em>, <em>and</em>, <em>bigger</em>, <em>more</em>.</li>
+              <li><div class="tnum">5</div>Add pictures, use colors, save and share</li>
+            </ul>
+            <hr class="adiv">
+            <p><strong>Language focus — comparatives and opposites (uke 13):</strong></p>
+            <div class="lang-box">
+              "In Norway, people give cardboard eggs. In the UK, people give chocolate eggs. They are <em>different</em>."<br><br>
+              "Norway and the UK are <em>the same</em> — both countries give eggs."<br><br>
+              "In the USA, Easter is <em>bigger than</em> in Norway. It is <em>more</em> colorful."<br><br>
+              "In my country, Easter is <em>similar to</em> / <em>different from</em> Norway because ..."
+            </div>
+            <p><strong>Remember — respect and community:</strong></p>
+            <div class="lang-box">
+              "I think it is important to <em>respect</em> different traditions."<br>
+              "Easter brings <em>community</em> and <em>kindness</em> to families."
+            </div>
           </div>
         </div>
-        <div class="card-desc">Nine interactive games across three levels — picture quizzes, word matching and spelling (A1), sentence building, gap fill and translation (A2), idioms, grammar and reading (B1).</div>
-        <div class="card-tags">
-          <span class="card-tag">🖼️ Picture quiz</span>
-          <span class="card-tag">🔗 Word match</span>
-          <span class="card-tag">🧩 Sentence builder</span>
-          <span class="card-tag">💬 Idioms</span>
-          <span class="card-tag">🔍 Spot the error</span>
+      </section>
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#c8922a" stroke-width="1.7"/><path d="M6 9l2 2 4-4" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><div class="sec-eyebrow">How to</div><div class="sec-title">Steps in Canva</div></div>
         </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <a class="res-card cat-games" href="wordsearch/index.html" data-level="a2" data-cat="games">
-        <div class="card-head">
-          <div class="card-icon">🔍</div>
-          <div>
-            <div class="card-level">A1 &amp; A2 · Word Search</div>
-            <div class="card-title">Word Search Studio</div>
-          </div>
+        <div class="steps-row">
+          <div class="step"><div class="step-n">01</div><div class="step-t">Open Canva</div></div>
+          <div class="step"><div class="step-n">02</div><div class="step-t">Choose template</div></div>
+          <div class="step"><div class="step-n">03</div><div class="step-t">Add 4 country titles</div></div>
+          <div class="step"><div class="step-n">04</div><div class="step-t">Research traditions</div></div>
+          <div class="step"><div class="step-n">05</div><div class="step-t">Write &amp; compare</div></div>
+          <div class="step"><div class="step-n">06</div><div class="step-t">Add pictures</div></div>
+          <div class="step"><div class="step-n">07</div><div class="step-t">Make it colorful</div></div>
+          <div class="step"><div class="step-n">08</div><div class="step-t">Review work</div></div>
+          <div class="step"><div class="step-n">09</div><div class="step-t">Save &amp; share</div></div>
         </div>
-        <div class="card-desc">Find hidden words in interactive vocabulary puzzles. 10 topics, 8 words per puzzle — A1 uses smaller grids and easier vocabulary, A2 uses larger grids and more demanding word sets.</div>
-        <div class="card-tags">
-          <span class="card-tag">🔍 Word search</span>
-          <span class="card-tag">📖 Vocabulary</span>
-          <span class="card-tag">10 topics</span>
-          <span class="card-tag">2 levels</span>
-        </div>
-        <div class="card-btn">Open task →</div>
-      </a>
-
-      <div class="res-card coming" data-level="a1" data-cat="games">
-        <div class="coming-badge">Coming soon</div>
-        <div class="card-head">
-          <div class="card-icon">🔒</div>
-          <div>
-            <div class="card-level">A1 · A2 · Coming soon</div>
-            <div class="card-title">Word Bingo</div>
-          </div>
-        </div>
-        <div class="card-desc">Listen to the word, find it on your bingo board. A fun whole-class or solo vocabulary game.</div>
-        <div class="card-tags"><span class="card-tag">🎱 Bingo</span><span class="card-tag">🎧 Listening</span></div>
-        <div class="card-btn">Coming soon</div>
-      </div>
-
-      <div class="res-card coming" data-level="a1" data-cat="games">
-        <div class="coming-badge">Coming soon</div>
-        <div class="card-head">
-          <div class="card-icon">🔒</div>
-          <div>
-            <div class="card-level">A1 · A2 · Coming soon</div>
-            <div class="card-title">Memory Cards</div>
-          </div>
-        </div>
-        <div class="card-desc">Flip and match word pairs — pictures with words, or English with Norwegian. Train vocabulary while testing your memory.</div>
-        <div class="card-tags"><span class="card-tag">🎴 Memory</span><span class="card-tag">🔤 Vocabulary</span></div>
-        <div class="card-btn">Coming soon</div>
-      </div>
-
+      </section>
     </div>
-  </div>
 
-</main>
+    <!-- GUIDE A2 -->
+    <div id="a2-guide" class="tab-panel">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 3.5 5.5 3.5 10a5.5 5.5 0 0011 0C14.5 5.5 9 2 9 2z" stroke="#c8922a" stroke-width="1.7" fill="none"/></svg></div>
+          <div><div class="sec-eyebrow">Research help</div><div class="sec-title">Traditions — what to write</div></div>
+        </div>
+        <div class="countries-grid">
+          <div class="ccard" style="border-top:4px solid var(--a1)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,var(--a1-bg),var(--cream))">
+              <div class="emblem" style="background:var(--a1-bg);color:var(--a1);border:1.5px solid var(--a1-border)">NO</div>
+              <div><div class="cname">Norway</div><div class="csub">Påske</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Cardboard eggs</div><div class="tdesc">Large cardboard eggs filled with candy — a uniquely Norwegian tradition</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Cabin trips — hytteliv</div><div class="tdesc">Families ski and relax in mountain cabins during Easter</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Crime novels — påskekrim</div><div class="tdesc">Norwegians read crime books — a beloved national habit</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Birch branches — påskeris</div><div class="tdesc">Branches with colorful feathers, placed in vases at home</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a1)"></div><div><div class="tname">Yellow everywhere</div><div class="tdesc">Yellow chicks and daffodils are the symbol of Norwegian Easter</div></div></div>
+          </div>
+          <div class="ccard" style="border-top:4px solid var(--a2)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,var(--a2-bg),var(--cream))">
+              <div class="emblem" style="background:var(--a2-bg);color:var(--a2);border:1.5px solid var(--a2-border)">GB</div>
+              <div><div class="cname">United Kingdom</div><div class="csub">Easter</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Chocolate eggs</div><div class="tdesc">Large foil-wrapped chocolate eggs given as gifts</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Hot cross buns</div><div class="tdesc">Spiced sweet bread rolls with a cross, eaten on Good Friday</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Egg rolling</div><div class="tdesc">Boiled eggs rolled down a hill — a classic British game</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Easter bunny</div><div class="tdesc">The bunny hides chocolate eggs for children to find</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--a2)"></div><div><div class="tname">Simnel cake</div><div class="tdesc">A fruit cake with marzipan on top — a British Easter classic</div></div></div>
+          </div>
+          <div class="ccard" style="border-top:4px solid var(--rust)">
+            <div class="ccard-head" style="background:linear-gradient(90deg,#fdf1ec,var(--cream))">
+              <div class="emblem" style="background:#fdf1ec;color:var(--rust);border:1.5px solid #f0c4ad">US</div>
+              <div><div class="cname">United States</div><div class="csub">Easter</div></div>
+            </div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Egg hunt</div><div class="tdesc">Children search for hidden plastic eggs filled with candy</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Easter basket</div><div class="tdesc">The Easter bunny leaves a basket with candy and small gifts</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">White House egg roll</div><div class="tdesc">A famous Easter Monday event on the White House lawn in D.C.</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Church services</div><div class="tdesc">Many American families attend Easter Sunday church together</div></div></div>
+            <div class="trad"><div class="tdot" style="background:var(--rust)"></div><div><div class="tname">Dyeing eggs</div><div class="tdesc">Families color hard-boiled eggs with dye kits</div></div></div>
+          </div>
+          <div class="home-card">
+            <div class="home-plus">+</div>
+            <p class="ht">Your home country</p>
+            <p class="hs">Write 3–4 traditions. Compare them to the other countries using "same", "different", "bigger".</p>
+          </div>
+        </div>
+        <div class="ctip">
+          <div class="ctip-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#fdf6e8" stroke-width="1.4"/><path d="M7 4.5v3M7 9.5v.5" stroke="#fdf6e8" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <p><b>Canva tip —</b> Use one color per country and add a "compare" section where you write what is the same and what is different between countries.</p>
+        </div>
+      </section>
+    </div>
 
-<footer>
-  <span class="ft-logo">🧪 Lisa's English Language Lab</span> &nbsp;·&nbsp; All tasks open in your browser &nbsp;·&nbsp; No login required
-</footer>
+    <!-- VOCAB A2 -->
+    <div id="a2-vocab" class="tab-panel">
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="#c8922a" stroke-width="1.7"/><path d="M6 6h6M6 9h4M6 12h5" stroke="#c8922a" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">A2 words</div><div class="sec-title">Key vocabulary — uke 13</div></div>
+        </div>
+        <p style="font-size:13px;color:var(--soft);font-family:'Lora',serif;font-style:italic;margin-bottom:16px">Words from the curriculum for week 13. Use these in your Canva project!</p>
+        <div class="vgrid">
+          <div class="vpill"><div class="vword">respect</div><div class="vdef">respekt — treating others well</div></div>
+          <div class="vpill"><div class="vword">difference</div><div class="vdef">forskjell — what makes things ulike</div></div>
+          <div class="vpill"><div class="vword">fairness</div><div class="vdef">rettferdighet — treating people equally</div></div>
+          <div class="vpill"><div class="vword">community</div><div class="vdef">fellesskap — people together</div></div>
+          <div class="vpill"><div class="vword">kindness</div><div class="vdef">vennlighet — being kind to others</div></div>
+          <div class="vpill"><div class="vword">together</div><div class="vdef">sammen — with other people</div></div>
+          <div class="vpill"><div class="vword">rights</div><div class="vdef">rettigheter — what everyone deserves</div></div>
+          <div class="vpill"><div class="vword">inclusion</div><div class="vdef">inkludering — including everyone</div></div>
+          <div class="vpill"><div class="vword">equality</div><div class="vdef">likhet — same rights for all</div></div>
+          <div class="vpill"><div class="vword">empathy</div><div class="vdef">empati — understanding others' feelings</div></div>
+          <div class="vpill"><div class="vword">bigger than</div><div class="vdef">større enn — comparative</div></div>
+          <div class="vpill"><div class="vword">more / less</div><div class="vdef">mer / mindre — comparative</div></div>
+          <div class="vpill"><div class="vword">similar to</div><div class="vdef">lik — almost the same as</div></div>
+          <div class="vpill"><div class="vword">different from</div><div class="vdef">forskjellig fra — not like</div></div>
+        </div>
+      </section>
+      <section>
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 5h10M4 9h7M4 13h9" stroke="#c8922a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div><div class="sec-eyebrow">Writing help</div><div class="sec-title">Sentence starters — A2</div></div>
+        </div>
+        <div class="starter">In Norway, people give cardboard eggs. In the UK, people give chocolate eggs. They are <b>different.</b></div>
+        <div class="starter">Norway and the UK are <b>the same</b> — both countries give eggs at Easter.</div>
+        <div class="starter">In the USA, Easter is <b>bigger than</b> in Norway. It is <b>more</b> colorful.</div>
+        <div class="starter">Easter in my country is <b>similar to</b> Norway <b>but</b> we also ...</div>
+        <div class="starter">Easter in my country is <b>different from</b> the UK because ...</div>
+        <div class="starter">I think it is important to <b>respect</b> different traditions <b>because</b> ...</div>
+      </section>
+    </div>
+
+    <!-- EXERCISES A2 -->
+    <div id="a2-ex" class="tab-panel">
+      <div style="margin-bottom:1.5rem">
+        <div class="sec-head">
+          <div class="sec-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 5.4H17l-4.9 3.6 1.8 5.4L9 13l-4.9 3.4 1.8-5.4L1 7.4h6.2z" stroke="#c8922a" stroke-width="1.5" fill="none"/></svg></div>
+          <div><div class="sec-eyebrow">Practice</div><div class="sec-title">Vocabulary exercises — A2</div></div>
+        </div>
+      </div>
+
+      <!-- EX 1: Match A2 -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 1 — Match the word</div>
+        <div class="ex-instruction">Click a word, then click the matching meaning.</div>
+        <div class="match-grid" id="a2-match">
+          <div class="match-col" id="a2-words">
+            <div class="match-item word" data-pair="1" onclick="selectMatch(this,'a2')">respect</div>
+            <div class="match-item word" data-pair="2" onclick="selectMatch(this,'a2')">community</div>
+            <div class="match-item word" data-pair="3" onclick="selectMatch(this,'a2')">equality</div>
+            <div class="match-item word" data-pair="4" onclick="selectMatch(this,'a2')">empathy</div>
+            <div class="match-item word" data-pair="5" onclick="selectMatch(this,'a2')">inclusion</div>
+          </div>
+          <div class="match-col" id="a2-defs">
+            <div class="match-item def" data-pair="4" onclick="selectMatch(this,'a2')">empati — understanding others' feelings</div>
+            <div class="match-item def" data-pair="1" onclick="selectMatch(this,'a2')">respekt — treating others well</div>
+            <div class="match-item def" data-pair="5" onclick="selectMatch(this,'a2')">inkludering — including everyone</div>
+            <div class="match-item def" data-pair="3" onclick="selectMatch(this,'a2')">likhet — same rights for all</div>
+            <div class="match-item def" data-pair="2" onclick="selectMatch(this,'a2')">fellesskap — people together</div>
+          </div>
+        </div>
+        <div class="ex-score" id="a2-match-score"></div>
+        <div style="margin-top:10px"><button class="reset-btn" onclick="resetMatch('a2')">Reset</button></div>
+      </div>
+
+      <!-- EX 2: Fill in blank A2 -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 2 — Fill in the blank</div>
+        <div class="ex-instruction">Click a word from the box, then click the right sentence.</div>
+        <div class="wordbank" id="a2-bank">
+          <div class="wbank-word" onclick="pickBank(this,'a2')">bigger than</div>
+          <div class="wbank-word" onclick="pickBank(this,'a2')">similar to</div>
+          <div class="wbank-word" onclick="pickBank(this,'a2')">different from</div>
+          <div class="wbank-word" onclick="pickBank(this,'a2')">respect</div>
+          <div class="wbank-word" onclick="pickBank(this,'a2')">community</div>
+          <div class="wbank-word" onclick="pickBank(this,'a2')">more</div>
+        </div>
+        <div class="blank-list">
+          <div class="blank-item" data-answer="bigger than" onclick="fillBlank(this,'a2')">In the USA, Easter is <span class="blank-slot" style="display:inline-block;min-width:100px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> in Norway. <span class="hint">(størst)</span></div>
+          <div class="blank-item" data-answer="similar to" onclick="fillBlank(this,'a2')">Easter in my country is <span class="blank-slot" style="display:inline-block;min-width:100px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> Norway. <span class="hint">(lik)</span></div>
+          <div class="blank-item" data-answer="different from" onclick="fillBlank(this,'a2')">The USA is <span class="blank-slot" style="display:inline-block;min-width:110px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> Norway. <span class="hint">(forskjellig fra)</span></div>
+          <div class="blank-item" data-answer="respect" onclick="fillBlank(this,'a2')">It is important to <span class="blank-slot" style="display:inline-block;min-width:100px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> different traditions. <span class="hint">(respektere)</span></div>
+          <div class="blank-item" data-answer="community" onclick="fillBlank(this,'a2')">Easter brings <span class="blank-slot" style="display:inline-block;min-width:110px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> to families. <span class="hint">(fellesskap)</span></div>
+          <div class="blank-item" data-answer="more" onclick="fillBlank(this,'a2')">The USA is <span class="blank-slot" style="display:inline-block;min-width:80px;border-bottom:2px solid var(--gold-light);margin:0 6px;height:20px;cursor:pointer"></span> colorful than Norway. <span class="hint">(mer)</span></div>
+        </div>
+        <button class="check-btn" onclick="checkBlanks('a2')">Check answers</button>
+        <button class="reset-btn" onclick="resetBlanks('a2')">Reset</button>
+        <div class="ex-score" id="a2-blank-score"></div>
+      </div>
+
+      <!-- EX 3: Sentence builder A2 -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 3 — Build the sentence</div>
+        <div class="ex-instruction">Click the words in the right order to make a correct sentence. Click a placed word to remove it.</div>
+
+        <div style="margin-bottom:20px">
+          <p style="font-size:12px;color:var(--soft);margin-bottom:8px;font-family:'Lora',serif;font-style:italic">Sentence 1</p>
+          <div class="sb-words" id="sb1-words">
+            <div class="sb-word" onclick="placeWord(this,'sb1')">is</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">Easter</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">bigger than</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">USA</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">the</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">in</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">Norway</div>
+            <div class="sb-word" onclick="placeWord(this,'sb1')">in</div>
+          </div>
+          <div class="sb-drop" id="sb1-drop" onclick="removeLastWord('sb1')"><span style="font-size:12px;color:var(--hint);font-style:italic">Click words above to build your sentence...</span></div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="check-btn" onclick="checkSentence('sb1','Easter in the USA is bigger than in Norway')">Check</button>
+            <button class="reset-btn" onclick="resetSentence('sb1')">Reset</button>
+            <span id="sb1-result" style="font-size:13px;font-weight:500;display:none"></span>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:12px;color:var(--soft);margin-bottom:8px;font-family:'Lora',serif;font-style:italic">Sentence 2</p>
+          <div class="sb-words" id="sb2-words">
+            <div class="sb-word" onclick="placeWord(this,'sb2')">and</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">Norway</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">eggs</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">UK</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">give</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">the</div>
+            <div class="sb-word" onclick="placeWord(this,'sb2')">both</div>
+          </div>
+          <div class="sb-drop" id="sb2-drop" onclick="removeLastWord('sb2')"><span style="font-size:12px;color:var(--hint);font-style:italic">Click words above to build your sentence...</span></div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="check-btn" onclick="checkSentence('sb2','Norway and the UK both give eggs')">Check</button>
+            <button class="reset-btn" onclick="resetSentence('sb2')">Reset</button>
+            <span id="sb2-result" style="font-size:13px;font-weight:500;display:none"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EX 4: True / False A2 -->
+      <div class="ex-section">
+        <div class="ex-title">Exercise 4 — True or False?</div>
+        <div class="ex-instruction">Read each sentence. Click True or False. Then check your answers.</div>
+        <div class="tf-list" id="a2-tf">
+          <div class="tf-item">
+            <div class="tf-stmt">Norway and the UK are the same — both countries give eggs at Easter.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">In the USA, Easter is smaller than in Norway.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">"Respect" means the same as "respekt" in Norwegian.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">"Different from" is used when two things are the same.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
+            </div>
+          </div>
+          <div class="tf-item">
+            <div class="tf-stmt">"Community" means fellesskap — people together.</div>
+            <div class="tf-btns">
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
+          <button class="check-btn" onclick="checkTFAll('a2-tf','a2-tf-score')">Check answers</button>
+          <button class="reset-btn" onclick="resetTF('a2-tf','a2-tf-score')">Reset</button>
+          <div class="ex-score" id="a2-tf-score"></div>
+        </div>
+      </div>
+
+    </div><!-- /a2-ex -->
+  </div><!-- /content-area -->
+  <footer><p>Easter Traditions · A2 Level · Week 13 · Culture and Diversity · Innføringsklassen</p></footer>
+</div><!-- /page-a2 -->
 
 <script>
-let activeCat = 'all';
-let activeLevel = 'all';
-
-function filterCat(cat, btn) {
-  activeCat = cat;
-  document.querySelectorAll('.cbtn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  applyFilters();
-}
-
-function filterLevel(level, pill) {
-  // Toggle off if already active
-  if (activeLevel === level) {
-    activeLevel = 'all';
-    document.querySelectorAll('.lpill').forEach(p => p.classList.add('active-pill'));
-  } else {
-    activeLevel = level;
-    document.querySelectorAll('.lpill').forEach(p => p.classList.remove('active-pill'));
-    pill.classList.add('active-pill');
+/* ── FISHER-YATES SHUFFLE ── */
+function shuffleBank(bankId){
+  var bank=document.getElementById(bankId);
+  if(!bank)return;
+  var items=Array.from(bank.querySelectorAll('.wbank-word'));
+  for(var i=items.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    bank.appendChild(i%2===0?items[j]:items[i]);
+    var tmp=items[i];items[i]=items[j];items[j]=tmp;
   }
-  applyFilters();
+  items.forEach(function(el){bank.appendChild(el);});
+}
+function shuffleAllBanks(){
+  shuffleBank('a1-bank');
+  shuffleBank('a2-bank');
+}
+document.addEventListener('DOMContentLoaded',shuffleAllBanks);
+
+/* ── PAGE NAV ── */
+function goLevel(lvl){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('page-'+lvl).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('page-land').classList.add('active');
+  window.scrollTo(0,0);
 }
 
-function applyFilters() {
-  document.querySelectorAll('.cat-section').forEach(section => {
-    const catMatch = activeCat === 'all' || section.dataset.cat === activeCat;
-    section.classList.toggle('hidden', !catMatch);
-  });
-
-  let available = 0;
-  document.querySelectorAll('.res-card').forEach(card => {
-    const levelMatch = activeLevel === 'all' || card.dataset.level === activeLevel;
-    card.style.display = levelMatch ? '' : 'none';
-    if (levelMatch && !card.classList.contains('coming')) available++;
-  });
-
-  document.getElementById('fcount').textContent = available + ' task' + (available !== 1 ? 's' : '') + ' available';
+/* ── TAB NAV ── */
+function switchTab(level,tab,el){
+  document.querySelectorAll('#page-'+level+' .tab-panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('#page-'+level+' .tnav').forEach(function(t){t.classList.remove('on');});
+  document.getElementById(level+'-'+tab).classList.add('on');
+  el.classList.add('on');
 }
 
-// Run on load to set correct count
-document.addEventListener('DOMContentLoaded', applyFilters);
+/* ── MATCH EXERCISE ── */
+var matchState={a1:{sel:null,done:0},a2:{sel:null,done:0}};
+
+function resetMatch(lvl){
+  matchState[lvl]={sel:null,done:0};
+  document.querySelectorAll('#'+lvl+'-match .match-item').forEach(function(el){
+    el.classList.remove('correct','wrong','selected');
+  });
+  var sc=document.getElementById(lvl+'-match-score');
+  if(sc){sc.className='ex-score';sc.textContent='';}
+}
+
+function selectMatch(el,lvl){
+  if(el.classList.contains('correct'))return;
+  var state=matchState[lvl];
+  var isWord=el.classList.contains('word');
+
+  /* toggle off if clicking same item */
+  if(state.sel===el){
+    el.classList.remove('selected');
+    state.sel=null;
+    return;
+  }
+
+  /* if nothing selected yet, select this */
+  if(!state.sel){
+    el.classList.add('selected');
+    state.sel=el;
+    return;
+  }
+
+  var prevIsWord=state.sel.classList.contains('word');
+
+  /* must select one word + one def */
+  if(isWord===prevIsWord){
+    state.sel.classList.remove('selected');
+    el.classList.add('selected');
+    state.sel=el;
+    return;
+  }
+
+  /* check pair */
+  if(el.dataset.pair===state.sel.dataset.pair){
+    el.classList.remove('selected');
+    state.sel.classList.remove('selected');
+    el.classList.add('correct');
+    state.sel.classList.add('correct');
+    state.done++;
+    state.sel=null;
+    var total=document.querySelectorAll('#'+lvl+'-match .match-item.word').length;
+    if(state.done===total){
+      var sc=document.getElementById(lvl+'-match-score');
+      sc.textContent='Great job! All '+total+' matched correctly!';
+      sc.className='ex-score show good';
+    }
+  } else {
+    var wrongPrev=state.sel;
+    el.classList.add('wrong');
+    wrongPrev.classList.add('wrong');
+    state.sel=null;
+    setTimeout(function(){
+      el.classList.remove('wrong','selected');
+      wrongPrev.classList.remove('wrong','selected');
+    },700);
+  }
+}
+
+/* ── FILL IN BLANK ── */
+var bankState={a1:{picked:null,pickedEl:null},a2:{picked:null,pickedEl:null}};
+
+function pickBank(el,lvl){
+  /* deselect previous */
+  if(bankState[lvl].pickedEl){
+    bankState[lvl].pickedEl.style.borderColor='';
+    bankState[lvl].pickedEl.style.background='';
+  }
+  bankState[lvl].picked=el.textContent.trim();
+  bankState[lvl].pickedEl=el;
+  el.style.borderColor='var(--gold)';
+  el.style.background='var(--gold-pale)';
+}
+
+function fillBlank(el,lvl){
+  if(!bankState[lvl].picked)return;
+  /* only fill if not already filled */
+  if(el.dataset.filled)return;
+  var slot=el.querySelector('.blank-slot');
+  slot.textContent=bankState[lvl].picked;
+  slot.style.color='var(--text)';
+  slot.style.fontWeight='500';
+  el.dataset.filled=bankState[lvl].picked;
+  /* mark word as used */
+  var bankEl=bankState[lvl].pickedEl;
+  if(bankEl){bankEl.classList.add('used');bankEl.style.borderColor='';bankEl.style.background='';}
+  bankState[lvl].picked=null;
+  bankState[lvl].pickedEl=null;
+}
+
+function checkBlanks(lvl){
+  var items=document.querySelectorAll('#'+lvl+'-ex .blank-item');
+  var correct=0;
+  items.forEach(function(item){
+    var slot=item.querySelector('.blank-slot');
+    var filled=(item.dataset.filled||'').trim().toLowerCase();
+    var answer=item.dataset.answer.trim().toLowerCase();
+    if(!filled){return;}
+    if(filled===answer){
+      slot.style.color='#1a7a4a';
+      slot.style.borderBottomColor='#1a7a4a';
+      correct++;
+    } else {
+      slot.style.color='#b84a1a';
+      slot.style.borderBottomColor='#b84a1a';
+    }
+  });
+  var answered=Array.from(items).filter(function(i){return i.dataset.filled;}).length;
+  var sc=document.getElementById(lvl+'-blank-score');
+  sc.textContent=correct+' / '+items.length+' correct'+(correct===items.length?' — Perfect! 🎉':'');
+  sc.className='ex-score show '+(correct===items.length?'good':'ok');
+}
+
+function resetBlanks(lvl){
+  var items=document.querySelectorAll('#'+lvl+'-ex .blank-item');
+  items.forEach(function(item){
+    var slot=item.querySelector('.blank-slot');
+    slot.textContent='';
+    slot.style.color='';
+    slot.style.borderBottomColor='var(--gold-light)';
+    delete item.dataset.filled;
+  });
+  document.querySelectorAll('#'+lvl+'-bank .wbank-word').forEach(function(w){
+    w.classList.remove('used');
+    w.style.borderColor='';
+    w.style.background='';
+  });
+  bankState[lvl].picked=null;
+  bankState[lvl].pickedEl=null;
+  var sc=document.getElementById(lvl+'-blank-score');
+  sc.className='ex-score';
+  sc.textContent='';
+  shuffleBank(lvl+'-bank');
+}
+
+/* ── TRUE / FALSE ── */
+function selectTF(el){
+  /* toggle selection within the row */
+  var row=el.closest('.tf-item');
+  row.querySelectorAll('.tf-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+}
+
+function checkTFAll(listId,scoreId){
+  var items=document.querySelectorAll('#'+listId+' .tf-item');
+  var correct=0;
+  items.forEach(function(item){
+    var selected=item.querySelector('.tf-btn.selected');
+    var btns=item.querySelectorAll('.tf-btn');
+    /* correct answer: data-correct="true" on the True button means True is right answer */
+    var trueBtn=item.querySelector('.tf-btn[data-answer="true"]');
+    var correctAnswer=trueBtn.dataset.correct==='true'?'true':'false';
+
+    btns.forEach(function(b){b.classList.remove('correct','wrong');});
+
+    if(!selected){return;} /* not answered */
+
+    var givenAnswer=selected.dataset.answer;
+    if(givenAnswer===correctAnswer){
+      selected.classList.add('correct');
+      correct++;
+    } else {
+      selected.classList.add('wrong');
+      /* show which was right */
+      btns.forEach(function(b){
+        if(b.dataset.answer===correctAnswer)b.classList.add('correct');
+      });
+    }
+  });
+  var total=items.length;
+  var sc=document.getElementById(scoreId);
+  sc.textContent=correct+' / '+total+' correct'+(correct===total?' — Excellent! 🎉':'');
+  sc.className='ex-score show '+(correct===total?'good':'ok');
+}
+
+function resetTF(listId,scoreId){
+  document.querySelectorAll('#'+listId+' .tf-btn').forEach(function(b){
+    b.classList.remove('selected','correct','wrong');
+  });
+  var sc=document.getElementById(scoreId);
+  sc.className='ex-score';
+  sc.textContent='';
+}
+
+/* ── SENTENCE BUILDER ── */
+var sbState={sb1:[],sb2:[]};
+
+function placeWord(el,id){
+  if(el.classList.contains('placed'))return;
+  el.classList.add('placed');
+  sbState[id].push({text:el.textContent.trim(),el:el});
+  renderSB(id);
+}
+
+function renderSB(id){
+  var drop=document.getElementById(id+'-drop');
+  if(!sbState[id].length){
+    drop.innerHTML='<span style="font-size:12px;color:var(--hint);font-style:italic">Click words above to build your sentence...</span>';
+    return;
+  }
+  drop.innerHTML='';
+  sbState[id].forEach(function(entry,idx){
+    var span=document.createElement('span');
+    span.className='sb-placed';
+    span.title='Click to remove';
+    span.textContent=entry.text;
+    span.onclick=function(){removePlacedAt(id,idx);};
+    drop.appendChild(span);
+    if(idx<sbState[id].length-1){
+      var sp=document.createElement('span');
+      sp.textContent=' ';
+      drop.appendChild(sp);
+    }
+  });
+}
+
+function removePlacedAt(id,idx){
+  var entry=sbState[id].splice(idx,1)[0];
+  entry.el.classList.remove('placed');
+  renderSB(id);
+  var res=document.getElementById(id+'-result');
+  if(res)res.style.display='none';
+}
+
+function checkSentence(id,correct){
+  var built=sbState[id].map(function(e){return e.text;}).join(' ').trim();
+  var res=document.getElementById(id+'-result');
+  res.style.display='inline';
+  if(built.toLowerCase()===correct.toLowerCase()){
+    res.textContent='Correct! 🎉';
+    res.style.color='#1a7a4a';
+  } else {
+    res.textContent='Not quite — try again!';
+    res.style.color='#b84a1a';
+  }
+}
+
+function resetSentence(id){
+  sbState[id].forEach(function(e){e.el.classList.remove('placed');});
+  sbState[id]=[];
+  renderSB(id);
+  var res=document.getElementById(id+'-result');
+  if(res){res.style.display='none';res.textContent='';}
+}
 </script>
 </body>
 </html>
