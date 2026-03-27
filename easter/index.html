@@ -186,6 +186,7 @@ section{margin-bottom:3rem}
 .tf-btns{display:flex;gap:6px;flex-shrink:0}
 .tf-btn{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--soft);font-family:'DM Sans',sans-serif;transition:all .15s}
 .tf-btn:hover{background:var(--parchment)}
+.tf-btn.selected{background:var(--gold-pale);border-color:var(--gold);color:var(--gold);font-weight:500}
 .tf-btn.correct{background:#edf7f2;border-color:#1a7a4a;color:#1a7a4a}
 .tf-btn.wrong{background:#fdf1ec;border-color:#b84a1a;color:#b84a1a}
 
@@ -525,6 +526,7 @@ footer p{font-size:11px;color:var(--hint)}
           </div>
         </div>
         <div class="ex-score" id="a1-match-score"></div>
+        <div style="margin-top:10px"><button class="reset-btn" onclick="resetMatch('a1')">Reset</button></div>
       </div>
 
       <!-- EX 2: Fill in the blank with word bank -->
@@ -552,46 +554,51 @@ footer p{font-size:11px;color:var(--hint)}
         <div class="ex-score" id="a1-blank-score"></div>
       </div>
 
-      <!-- EX 3: True / False -->
+      <!-- EX 3: True / False A1 -->
       <div class="ex-section">
         <div class="ex-title">Exercise 3 — True or False?</div>
-        <div class="ex-instruction">Read each sentence. Click True or False.</div>
-        <div class="tf-list">
+        <div class="ex-instruction">Read each sentence. Click True or False. Then check your answers.</div>
+        <div class="tf-list" id="a1-tf">
           <div class="tf-item">
             <div class="tf-stmt">In Norway, people give cardboard eggs filled with candy.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">In the UK, people eat hot cross buns on Easter.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">In the USA, children give cardboard eggs to their family.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">Norway and the UK are the same — they both give eggs at Easter.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">"Kind" means the same as "ulik" in Norwegian.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
             </div>
           </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
+          <button class="check-btn" onclick="checkTFAll('a1-tf','a1-tf-score')">Check answers</button>
+          <button class="reset-btn" onclick="resetTF('a1-tf','a1-tf-score')">Reset</button>
+          <div class="ex-score" id="a1-tf-score"></div>
         </div>
       </div>
 
@@ -801,6 +808,7 @@ footer p{font-size:11px;color:var(--hint)}
           </div>
         </div>
         <div class="ex-score" id="a2-match-score"></div>
+        <div style="margin-top:10px"><button class="reset-btn" onclick="resetMatch('a2')">Reset</button></div>
       </div>
 
       <!-- EX 2: Fill in blank A2 -->
@@ -876,43 +884,48 @@ footer p{font-size:11px;color:var(--hint)}
       <!-- EX 4: True / False A2 -->
       <div class="ex-section">
         <div class="ex-title">Exercise 4 — True or False?</div>
-        <div class="ex-instruction">Read each sentence. Click True or False.</div>
-        <div class="tf-list">
+        <div class="ex-instruction">Read each sentence. Click True or False. Then check your answers.</div>
+        <div class="tf-list" id="a2-tf">
           <div class="tf-item">
             <div class="tf-stmt">Norway and the UK are the same — both countries give eggs at Easter.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">In the USA, Easter is smaller than in Norway.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">"Respect" means the same as "respekt" in Norwegian.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">"Different from" is used when two things are the same.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="false">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="false">False</button>
             </div>
           </div>
           <div class="tf-item">
             <div class="tf-stmt">"Community" means fellesskap — people together.</div>
             <div class="tf-btns">
-              <button class="tf-btn" data-correct="true" onclick="checkTF(this)">True</button>
-              <button class="tf-btn" data-correct="false" onclick="checkTF(this)">False</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="true" data-correct="true">True</button>
+              <button class="tf-btn" onclick="selectTF(this)" data-answer="false" data-correct="true">False</button>
             </div>
           </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
+          <button class="check-btn" onclick="checkTFAll('a2-tf','a2-tf-score')">Check answers</button>
+          <button class="reset-btn" onclick="resetTF('a2-tf','a2-tf-score')">Reset</button>
+          <div class="ex-score" id="a2-tf-score"></div>
         </div>
       </div>
 
@@ -922,24 +935,17 @@ footer p{font-size:11px;color:var(--hint)}
 </div><!-- /page-a2 -->
 
 <script>
-/* ── SHUFFLE ── */
+/* ── FISHER-YATES SHUFFLE ── */
 function shuffleBank(bankId){
   var bank=document.getElementById(bankId);
   if(!bank)return;
-  var words=Array.from(bank.querySelectorAll('.wbank-word'));
-  for(var i=words.length-1;i>0;i--){
-    var j=Math.floor(Math.random()*(i+1));
-    bank.appendChild(words[j]);
-    words.splice(j,1);
-    words.splice(i,0,bank.children[i]);
-  }
-  /* re-shuffle by appending in random order */
   var items=Array.from(bank.querySelectorAll('.wbank-word'));
-  for(var k=items.length-1;k>0;k--){
-    var r=Math.floor(Math.random()*(k+1));
-    bank.insertBefore(items[r],items[k]);
-    var tmp=items[k];items[k]=items[r];items[r]=tmp;
+  for(var i=items.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    bank.appendChild(i%2===0?items[j]:items[i]);
+    var tmp=items[i];items[i]=items[j];items[j]=tmp;
   }
+  items.forEach(function(el){bank.appendChild(el);});
 }
 function shuffleAllBanks(){
   shuffleBank('a1-bank');
@@ -949,161 +955,275 @@ document.addEventListener('DOMContentLoaded',shuffleAllBanks);
 
 /* ── PAGE NAV ── */
 function goLevel(lvl){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+lvl).classList.add('active');
   window.scrollTo(0,0);
 }
 function goHome(){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-land').classList.add('active');
   window.scrollTo(0,0);
 }
 
 /* ── TAB NAV ── */
 function switchTab(level,tab,el){
-  var prefix=level+'-';
-  document.querySelectorAll('#page-'+level+' .tab-panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('#page-'+level+' .tnav').forEach(t=>t.classList.remove('on'));
-  document.getElementById(prefix+tab).classList.add('on');
+  document.querySelectorAll('#page-'+level+' .tab-panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('#page-'+level+' .tnav').forEach(function(t){t.classList.remove('on');});
+  document.getElementById(level+'-'+tab).classList.add('on');
   el.classList.add('on');
 }
 
 /* ── MATCH EXERCISE ── */
-var matchState={a1:{sel:null,done:[]},a2:{sel:null,done:[]}};
+var matchState={a1:{sel:null,done:0},a2:{sel:null,done:0}};
+
+function resetMatch(lvl){
+  matchState[lvl]={sel:null,done:0};
+  document.querySelectorAll('#'+lvl+'-match .match-item').forEach(function(el){
+    el.classList.remove('correct','wrong','selected');
+  });
+  var sc=document.getElementById(lvl+'-match-score');
+  if(sc){sc.className='ex-score';sc.textContent='';}
+}
+
 function selectMatch(el,lvl){
   if(el.classList.contains('correct'))return;
   var state=matchState[lvl];
-  var pair=el.dataset.pair;
-  var isWord=el.parentElement.id===lvl+'-words';
+  var isWord=el.classList.contains('word');
+
+  /* toggle off if clicking same item */
+  if(state.sel===el){
+    el.classList.remove('selected');
+    state.sel=null;
+    return;
+  }
+
+  /* if nothing selected yet, select this */
   if(!state.sel){
-    if(!el.classList.contains('selected'))el.classList.add('selected');
+    el.classList.add('selected');
     state.sel=el;
+    return;
+  }
+
+  var prevIsWord=state.sel.classList.contains('word');
+
+  /* must select one word + one def */
+  if(isWord===prevIsWord){
+    state.sel.classList.remove('selected');
+    el.classList.add('selected');
+    state.sel=el;
+    return;
+  }
+
+  /* check pair */
+  if(el.dataset.pair===state.sel.dataset.pair){
+    el.classList.remove('selected');
+    state.sel.classList.remove('selected');
+    el.classList.add('correct');
+    state.sel.classList.add('correct');
+    state.done++;
+    state.sel=null;
+    var total=document.querySelectorAll('#'+lvl+'-match .match-item.word').length;
+    if(state.done===total){
+      var sc=document.getElementById(lvl+'-match-score');
+      sc.textContent='Great job! All '+total+' matched correctly!';
+      sc.className='ex-score show good';
+    }
   } else {
-    var prev=state.sel;
-    if(prev===el){prev.classList.remove('selected');state.sel=null;return;}
-    var prevIsWord=prev.parentElement.id===lvl+'-words';
-    if((isWord&&prevIsWord)||(!isWord&&!prevIsWord)){
-      prev.classList.remove('selected');el.classList.add('selected');state.sel=el;return;
-    }
-    if(el.dataset.pair===prev.dataset.pair){
-      el.classList.remove('selected');prev.classList.remove('selected');
-      el.classList.add('correct');prev.classList.add('correct');
-      state.done.push(pair);state.sel=null;
-      var total=document.querySelectorAll('#'+lvl+'-match .match-item.word').length;
-      if(state.done.length===total){
-        var sc=document.getElementById(lvl+'-match-score');
-        sc.textContent='Great job! All '+total+' matched correctly!';
-        sc.className='ex-score show good';
-      }
-    } else {
-      el.classList.add('wrong');prev.classList.add('wrong');
-      setTimeout(()=>{el.classList.remove('wrong','selected');prev.classList.remove('wrong','selected');state.sel=null;},600);
-    }
+    var wrongPrev=state.sel;
+    el.classList.add('wrong');
+    wrongPrev.classList.add('wrong');
+    state.sel=null;
+    setTimeout(function(){
+      el.classList.remove('wrong','selected');
+      wrongPrev.classList.remove('wrong','selected');
+    },700);
   }
 }
 
 /* ── FILL IN BLANK ── */
-var bankState={a1:{picked:null},a2:{picked:null}};
+var bankState={a1:{picked:null,pickedEl:null},a2:{picked:null,pickedEl:null}};
+
 function pickBank(el,lvl){
-  document.querySelectorAll('#'+lvl+'-bank .wbank-word').forEach(w=>w.style.borderColor='');
+  /* deselect previous */
+  if(bankState[lvl].pickedEl){
+    bankState[lvl].pickedEl.style.borderColor='';
+    bankState[lvl].pickedEl.style.background='';
+  }
   bankState[lvl].picked=el.textContent.trim();
+  bankState[lvl].pickedEl=el;
   el.style.borderColor='var(--gold)';
   el.style.background='var(--gold-pale)';
 }
+
 function fillBlank(el,lvl){
   if(!bankState[lvl].picked)return;
+  /* only fill if not already filled */
+  if(el.dataset.filled)return;
   var slot=el.querySelector('.blank-slot');
   slot.textContent=bankState[lvl].picked;
   slot.style.color='var(--text)';
   slot.style.fontWeight='500';
   el.dataset.filled=bankState[lvl].picked;
-  var bankEl=Array.from(document.querySelectorAll('#'+lvl+'-bank .wbank-word')).find(w=>w.textContent.trim()===bankState[lvl].picked&&!w.classList.contains('used'));
+  /* mark word as used */
+  var bankEl=bankState[lvl].pickedEl;
   if(bankEl){bankEl.classList.add('used');bankEl.style.borderColor='';bankEl.style.background='';}
   bankState[lvl].picked=null;
-  document.querySelectorAll('#'+lvl+'-bank .wbank-word').forEach(w=>{w.style.borderColor='';w.style.background='';});
+  bankState[lvl].pickedEl=null;
 }
+
 function checkBlanks(lvl){
   var items=document.querySelectorAll('#'+lvl+'-ex .blank-item');
   var correct=0;
-  items.forEach(item=>{
+  items.forEach(function(item){
     var slot=item.querySelector('.blank-slot');
     var filled=(item.dataset.filled||'').trim().toLowerCase();
     var answer=item.dataset.answer.trim().toLowerCase();
-    if(filled===answer){slot.style.color='#1a7a4a';slot.style.borderBottomColor='#1a7a4a';correct++;}
-    else if(filled){slot.style.color='#b84a1a';slot.style.borderBottomColor='#b84a1a';}
+    if(!filled){return;}
+    if(filled===answer){
+      slot.style.color='#1a7a4a';
+      slot.style.borderBottomColor='#1a7a4a';
+      correct++;
+    } else {
+      slot.style.color='#b84a1a';
+      slot.style.borderBottomColor='#b84a1a';
+    }
   });
+  var answered=Array.from(items).filter(function(i){return i.dataset.filled;}).length;
   var sc=document.getElementById(lvl+'-blank-score');
-  sc.textContent=correct+' / '+items.length+' correct'+(correct===items.length?' — Perfect!':'');
+  sc.textContent=correct+' / '+items.length+' correct'+(correct===items.length?' — Perfect! 🎉':'');
   sc.className='ex-score show '+(correct===items.length?'good':'ok');
 }
+
 function resetBlanks(lvl){
   var items=document.querySelectorAll('#'+lvl+'-ex .blank-item');
-  items.forEach(item=>{
+  items.forEach(function(item){
     var slot=item.querySelector('.blank-slot');
     slot.textContent='';
     slot.style.color='';
     slot.style.borderBottomColor='var(--gold-light)';
     delete item.dataset.filled;
   });
-  document.querySelectorAll('#'+lvl+'-bank .wbank-word').forEach(w=>{w.classList.remove('used');w.style.borderColor='';w.style.background='';});
+  document.querySelectorAll('#'+lvl+'-bank .wbank-word').forEach(function(w){
+    w.classList.remove('used');
+    w.style.borderColor='';
+    w.style.background='';
+  });
   bankState[lvl].picked=null;
+  bankState[lvl].pickedEl=null;
   var sc=document.getElementById(lvl+'-blank-score');
   sc.className='ex-score';
+  sc.textContent='';
   shuffleBank(lvl+'-bank');
 }
 
-/* ── TRUE/FALSE ── */
-function checkTF(el){
+/* ── TRUE / FALSE ── */
+function selectTF(el){
+  /* toggle selection within the row */
   var row=el.closest('.tf-item');
-  if(row.querySelector('.correct'))return;
-  var isTrue=el.textContent.trim()==='True';
-  var correct=el.dataset.correct==='true'?isTrue:!isTrue;
-  if(correct){el.classList.add('correct');}
-  else{el.classList.add('wrong');setTimeout(()=>{el.classList.remove('wrong');},600);}
+  row.querySelectorAll('.tf-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+}
+
+function checkTFAll(listId,scoreId){
+  var items=document.querySelectorAll('#'+listId+' .tf-item');
+  var correct=0;
+  items.forEach(function(item){
+    var selected=item.querySelector('.tf-btn.selected');
+    var btns=item.querySelectorAll('.tf-btn');
+    /* correct answer: data-correct="true" on the True button means True is right answer */
+    var trueBtn=item.querySelector('.tf-btn[data-answer="true"]');
+    var correctAnswer=trueBtn.dataset.correct==='true'?'true':'false';
+
+    btns.forEach(function(b){b.classList.remove('correct','wrong');});
+
+    if(!selected){return;} /* not answered */
+
+    var givenAnswer=selected.dataset.answer;
+    if(givenAnswer===correctAnswer){
+      selected.classList.add('correct');
+      correct++;
+    } else {
+      selected.classList.add('wrong');
+      /* show which was right */
+      btns.forEach(function(b){
+        if(b.dataset.answer===correctAnswer)b.classList.add('correct');
+      });
+    }
+  });
+  var total=items.length;
+  var sc=document.getElementById(scoreId);
+  sc.textContent=correct+' / '+total+' correct'+(correct===total?' — Excellent! 🎉':'');
+  sc.className='ex-score show '+(correct===total?'good':'ok');
+}
+
+function resetTF(listId,scoreId){
+  document.querySelectorAll('#'+listId+' .tf-btn').forEach(function(b){
+    b.classList.remove('selected','correct','wrong');
+  });
+  var sc=document.getElementById(scoreId);
+  sc.className='ex-score';
+  sc.textContent='';
 }
 
 /* ── SENTENCE BUILDER ── */
 var sbState={sb1:[],sb2:[]};
+
 function placeWord(el,id){
   if(el.classList.contains('placed'))return;
   el.classList.add('placed');
-  sbState[id].push(el.textContent.trim());
+  sbState[id].push({text:el.textContent.trim(),el:el});
   renderSB(id);
 }
-function removeLastWord(id){
-  if(!sbState[id].length)return;
-  var word=sbState[id].pop();
-  var wordEls=document.querySelectorAll('#'+id+'-words .sb-word');
-  var toRestore=Array.from(wordEls).reverse().find(w=>w.classList.contains('placed')&&w.textContent.trim()===word);
-  if(toRestore)toRestore.classList.remove('placed');
-  renderSB(id);
-}
+
 function renderSB(id){
   var drop=document.getElementById(id+'-drop');
-  if(!sbState[id].length){drop.innerHTML='<span style="font-size:12px;color:var(--hint);font-style:italic">Click words above to build your sentence...</span>';return;}
-  drop.innerHTML=sbState[id].map(w=>'<span class="sb-placed" onclick="removePlaced(\''+id+'\',\''+w+'\')" title="click to remove">'+w+'</span>').join(' ');
+  if(!sbState[id].length){
+    drop.innerHTML='<span style="font-size:12px;color:var(--hint);font-style:italic">Click words above to build your sentence...</span>';
+    return;
+  }
+  drop.innerHTML='';
+  sbState[id].forEach(function(entry,idx){
+    var span=document.createElement('span');
+    span.className='sb-placed';
+    span.title='Click to remove';
+    span.textContent=entry.text;
+    span.onclick=function(){removePlacedAt(id,idx);};
+    drop.appendChild(span);
+    if(idx<sbState[id].length-1){
+      var sp=document.createElement('span');
+      sp.textContent=' ';
+      drop.appendChild(sp);
+    }
+  });
 }
-function removePlaced(id,word){
-  var idx=sbState[id].lastIndexOf(word);
-  if(idx>-1)sbState[id].splice(idx,1);
-  var wordEls=document.querySelectorAll('#'+id+'-words .sb-word');
-  var toRestore=Array.from(wordEls).reverse().find(w=>w.classList.contains('placed')&&w.textContent.trim()===word);
-  if(toRestore)toRestore.classList.remove('placed');
-  renderSB(id);
-}
-function checkSentence(id,correct){
-  var built=sbState[id].join(' ').trim();
-  var res=document.getElementById(id+'-result');
-  res.style.display='inline';
-  if(built.toLowerCase()===correct.toLowerCase()){res.textContent='Correct!';res.style.color='#1a7a4a';}
-  else{res.textContent='Not quite — try again!';res.style.color='#b84a1a';}
-}
-function resetSentence(id){
-  sbState[id]=[];
-  document.querySelectorAll('#'+id+'-words .sb-word').forEach(w=>w.classList.remove('placed'));
+
+function removePlacedAt(id,idx){
+  var entry=sbState[id].splice(idx,1)[0];
+  entry.el.classList.remove('placed');
   renderSB(id);
   var res=document.getElementById(id+'-result');
   if(res)res.style.display='none';
+}
+
+function checkSentence(id,correct){
+  var built=sbState[id].map(function(e){return e.text;}).join(' ').trim();
+  var res=document.getElementById(id+'-result');
+  res.style.display='inline';
+  if(built.toLowerCase()===correct.toLowerCase()){
+    res.textContent='Correct! 🎉';
+    res.style.color='#1a7a4a';
+  } else {
+    res.textContent='Not quite — try again!';
+    res.style.color='#b84a1a';
+  }
+}
+
+function resetSentence(id){
+  sbState[id].forEach(function(e){e.el.classList.remove('placed');});
+  sbState[id]=[];
+  renderSB(id);
+  var res=document.getElementById(id+'-result');
+  if(res){res.style.display='none';res.textContent='';}
 }
 </script>
 </body>
