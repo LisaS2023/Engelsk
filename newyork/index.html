@@ -151,6 +151,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .ws-wordlist{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
 .ws-word{background:#EFF6FF;border:2px solid #93c5fd;border-radius:99px;padding:5px 14px;font-weight:800;font-size:.88rem;color:#1d4ed8;transition:all .3s;}
 .ws-word.crossed{background:#dcfce7;border-color:var(--g);color:#14532d;text-decoration:line-through;opacity:.7;}
+.ws-miss{background:#fecaca !important;border-color:#f87171 !important;animation:wrongShake .35s;}
 .ws-wrap{text-align:center;}
 .ws-msg{font-weight:800;font-size:.9rem;margin-top:8px;min-height:20px;color:#16a34a;}
 /* EN-NO MATCH */
@@ -470,79 +471,220 @@ function goMenu(){showScreen('screenMenu');}
 // ══════════════════════════════════════════
 // WORDSEARCH ENGINE
 // ══════════════════════════════════════════
-function buildWordSearch(words,size){
-  // returns {grid,placed} where grid is size×size array of letters
-  const G=[];for(let r=0;r<size;r++){G.push([]);for(let c=0;c<size;c++)G[r].push('');}
-  const dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
-  const placed=[];
-  const alpha='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  for(const word of words){
-    const W=word.toUpperCase();let ok=false;
-    for(let attempt=0;attempt<200&&!ok;attempt++){
-      const dir=dirs[~~(Math.random()*dirs.length)];
-      const maxR=size-dir[0]*(W.length-1);const maxC=size-dir[1]*(W.length-1);
-      const minR=-(dir[0]<0?dir[0]*(W.length-1):0);const minC=-(dir[1]<0?dir[1]*(W.length-1):0);
-      if(maxR<=minR||maxC<=minC)continue;
-      const sr=minR+~~(Math.random()*(maxR-minR));const sc=minC+~~(Math.random()*(maxC-minC));
-      let canPlace=true;
-      for(let i=0;i<W.length;i++){const r=sr+dir[0]*i,c=sc+dir[1]*i;if(r<0||r>=size||c<0||c>=size){canPlace=false;break;}if(G[r][c]!==''&&G[r][c]!==W[i]){canPlace=false;break;}}
-      if(canPlace){for(let i=0;i<W.length;i++)G[sr+dir[0]*i][sc+dir[1]*i]=W[i];placed.push({word:W,sr,sc,dir});ok=true;}
-    }
-  }
-  for(let r=0;r<size;r++)for(let c=0;c<size;c++)if(G[r][c]==='')G[r][c]=alpha[~~(Math.random()*26)];
-  return {grid:G,placed};
-}
-
-function renderWordSearch(containerId,words,size,prefix,doneCallback){
-  const {grid,placed}=buildWordSearch(words,size);
-  let sel=[];let found=new Set();let foundCells=new Set();
-  const wrapId=prefix+'_ws';
-  const gridId=prefix+'_wsgrid';
-  const msgId=prefix+'_wsmsg';
-  const el=$(containerId);
-  const wordListHtml=words.map((w,i)=>'<span class="ws-word" id="'+prefix+'_wsw'+i+'">'+w.toUpperCase()+'</span>').join('');
-  // build grid html
-  let gridHtml='<div class="ws-grid" id="'+gridId+'" style="grid-template-columns:repeat('+size+',1fr)">';
-  for(let r=0;r<size;r++)for(let c=0;c<size;c++)gridHtml+='<div class="ws-cell" id="'+prefix+'_c'+r+'_'+c+'" data-r="'+r+'" data-c="'+c+'">'+grid[r][c]+'</div>';
-  gridHtml+='</div>';
-  el.innerHTML='<div class="ws-wrap">'+gridHtml+'<div class="ws-wordlist">'+wordListHtml+'</div><div class="ws-msg" id="'+msgId+'"></div></div>';
-
-  function cellKey(r,c){return r+','+c;}
-  function clearSel(){sel.forEach(({r,c})=>{const cl=$(prefix+'_c'+r+'_'+c);if(cl&&!foundCells.has(cellKey(r,c)))cl.classList.remove('sel');});sel=[];}
-  function checkSel(){
-    if(sel.length<2)return;
-    // check if sel forms a straight line
-    const dr=sel[sel.length-1].r-sel[0].r,dc=sel[sel.length-1].c-sel[0].c;
-    const len=sel.length;
-    for(let i=0;i<len;i++){if(sel[i].r!==sel[0].r+Math.round(dr/Math.max(len-1,1))*i||sel[i].c!==sel[0].c+Math.round(dc/Math.max(len-1,1))*i)return;}
-    const str=sel.map(({r,c})=>grid[r][c]).join('');
-    const rev=str.split('').reverse().join('');
-    for(const p of placed){
-      if(found.has(p.word))continue;
-      if(str===p.word||rev===p.word){
-        found.add(p.word);
-        sel.forEach(({r,c})=>{foundCells.add(cellKey(r,c));const cl=$(prefix+'_c'+r+'_'+c);if(cl){cl.classList.remove('sel');cl.classList.add('found','found-flash');}});
-        const wi=words.findIndex(w=>w.toUpperCase()===p.word);
-        if(wi>=0){const wEl=$(prefix+'_wsw'+wi);if(wEl)wEl.classList.add('crossed');}
-        sel=[];confetti(8);toast('✅ Found: '+p.word+' +5',false);
-        if(typeof window[prefix+'_wsScore']==='function')window[prefix+'_wsScore'](5);
-        if(found.size===words.length){$(msgId).textContent='🎉 All words found! Well done!';$(msgId).style.color='#16a34a';if(doneCallback)doneCallback();}
-        return;
+function buildWordSearch(words, size, hvOnly) {
+  const G = [];
+  for (let r = 0; r < size; r++) { G.push([]); for (let c = 0; c < size; c++) G[r].push(''); }
+  // hvOnly = horizontal + vertical only; else add diagonals too
+  const dirs = hvOnly
+    ? [[0,1],[1,0],[0,-1],[-1,0]]
+    : [[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  const placed = [];
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (const word of words) {
+    const W = word.toUpperCase(); let ok = false;
+    for (let attempt = 0; attempt < 300 && !ok; attempt++) {
+      const dir = dirs[~~(Math.random() * dirs.length)];
+      const sr = ~~(Math.random() * size), sc = ~~(Math.random() * size);
+      let canPlace = true;
+      for (let i = 0; i < W.length; i++) {
+        const r = sr + dir[0]*i, c = sc + dir[1]*i;
+        if (r < 0 || r >= size || c < 0 || c >= size) { canPlace = false; break; }
+        if (G[r][c] !== '' && G[r][c] !== W[i]) { canPlace = false; break; }
+      }
+      if (canPlace) {
+        for (let i = 0; i < W.length; i++) G[sr+dir[0]*i][sc+dir[1]*i] = W[i];
+        placed.push({ word: W, sr, sc, dir }); ok = true;
       }
     }
   }
-  document.getElementById(gridId).addEventListener('click',function(e){
-    const cell=e.target.closest('.ws-cell');if(!cell)return;
-    const r=parseInt(cell.dataset.r),c=parseInt(cell.dataset.c);
-    if(foundCells.has(cellKey(r,c)))return;
-    const exists=sel.findIndex(s=>s.r===r&&s.c===c);
-    if(exists>=0){clearSel();return;}
-    sel.push({r,c});cell.classList.add('sel');
-    checkSel();
-    // auto-clear after 8 cells if no match
-    if(sel.length>=8)clearSel();
-  });
+  for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (G[r][c]==='') G[r][c] = alpha[~~(Math.random()*26)];
+  return { grid: G, placed };
 }
+
+function renderWordSearch(containerId, words, size, prefix, doneCallback, hvOnly) {
+  const { grid, placed } = buildWordSearch(words, size, hvOnly);
+  let found = new Set();
+  let foundCells = new Set();
+  // drag state
+  let isDragging = false;
+  let dragStart = null;  // {r,c}
+  let dragCells = [];    // cells currently highlighted during drag
+
+  const gridId = prefix + '_wsgrid';
+  const msgId  = prefix + '_wsmsg';
+  const el = $(containerId);
+
+  const wordListHtml = words.map((w,i) =>
+    '<span class="ws-word" id="'+prefix+'_wsw'+i+'">'+w.toUpperCase()+'</span>'
+  ).join('');
+
+  let gridHtml = '<div class="ws-grid" id="'+gridId+'" style="grid-template-columns:repeat('+size+',1fr);touch-action:none;">';
+  for (let r = 0; r < size; r++)
+    for (let c = 0; c < size; c++)
+      gridHtml += '<div class="ws-cell" id="'+prefix+'_c'+r+'_'+c+'" data-r="'+r+'" data-c="'+c+'">'+grid[r][c]+'</div>';
+  gridHtml += '</div>';
+
+  el.innerHTML = '<div class="ws-wrap">'
+    + '<p style="font-size:.8rem;font-weight:700;color:#64748b;margin-bottom:8px;">👆 Drag across the letters to find the words!</p>'
+    + gridHtml
+    + '<div class="ws-wordlist">'+wordListHtml+'</div>'
+    + '<div class="ws-msg" id="'+msgId+'"></div></div>';
+
+  function cellKey(r, c) { return r + ',' + c; }
+
+  function cellAt(r, c) { return $(prefix + '_c' + r + '_' + c); }
+
+  // Given start cell and current cell, compute the straight H/V/diagonal line between them
+  // If hvOnly, only return cells if direction is H or V
+  function getCellsBetween(r0, c0, r1, c1) {
+    const dr = r1 - r0, dc = c1 - c0;
+    // determine direction
+    let stepR = 0, stepC = 0;
+    if (dr === 0 && dc === 0) return [{ r: r0, c: c0 }];
+    if (dr === 0) { stepC = dc > 0 ? 1 : -1; }
+    else if (dc === 0) { stepR = dr > 0 ? 1 : -1; }
+    else if (Math.abs(dr) === Math.abs(dc)) {
+      if (hvOnly) return []; // no diagonals for A1
+      stepR = dr > 0 ? 1 : -1;
+      stepC = dc > 0 ? 1 : -1;
+    } else {
+      return []; // not a valid straight line
+    }
+    const cells = [];
+    let r = r0, c = c0;
+    while (r >= 0 && r < size && c >= 0 && c < size) {
+      cells.push({ r, c });
+      if (r === r1 && c === c1) break;
+      r += stepR; c += stepC;
+      if (cells.length > size + 2) break; // safety
+    }
+    return cells;
+  }
+
+  function clearDragHighlight() {
+    dragCells.forEach(({ r, c }) => {
+      if (!foundCells.has(cellKey(r, c))) {
+        const cl = cellAt(r, c);
+        if (cl) cl.classList.remove('sel');
+      }
+    });
+    dragCells = [];
+  }
+
+  function highlightDrag(cells) {
+    clearDragHighlight();
+    dragCells = cells;
+    cells.forEach(({ r, c }) => {
+      if (!foundCells.has(cellKey(r, c))) {
+        const cl = cellAt(r, c);
+        if (cl) cl.classList.add('sel');
+      }
+    });
+  }
+
+  function tryFoundDrag(cells) {
+    if (cells.length < 2) { clearDragHighlight(); return; }
+    const str = cells.map(({ r, c }) => grid[r][c]).join('');
+    const rev = str.split('').reverse().join('');
+    for (const p of placed) {
+      if (found.has(p.word)) continue;
+      if (str === p.word || rev === p.word) {
+        found.add(p.word);
+        cells.forEach(({ r, c }) => {
+          foundCells.add(cellKey(r, c));
+          const cl = cellAt(r, c);
+          if (cl) { cl.classList.remove('sel'); cl.classList.add('found', 'found-flash'); }
+        });
+        dragCells = [];
+        const wi = words.findIndex(w => w.toUpperCase() === p.word);
+        if (wi >= 0) { const wEl = $(prefix+'_wsw'+wi); if (wEl) wEl.classList.add('crossed'); }
+        confetti(8);
+        toast('✅ Found: ' + p.word + ' +5', false);
+        if (typeof window[prefix + '_wsScore'] === 'function') window[prefix + '_wsScore'](5);
+        if (found.size === words.length) {
+          $(msgId).textContent = '🎉 All words found! Well done!';
+          $(msgId).style.color = '#16a34a';
+          if (doneCallback) doneCallback();
+        }
+        return;
+      }
+    }
+    // not found — flash red briefly then clear
+    cells.forEach(({ r, c }) => {
+      if (!foundCells.has(cellKey(r, c))) {
+        const cl = cellAt(r, c);
+        if (cl) { cl.classList.remove('sel'); cl.classList.add('ws-miss'); setTimeout(() => cl.classList.remove('ws-miss'), 400); }
+      }
+    });
+    dragCells = [];
+  }
+
+  function getCellFromPoint(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return null;
+    const cell = el.closest('.ws-cell');
+    if (!cell) return null;
+    return { r: parseInt(cell.dataset.r), c: parseInt(cell.dataset.c) };
+  }
+
+  const gridEl = $(gridId);
+
+  // ── MOUSE events ──
+  gridEl.addEventListener('mousedown', function(e) {
+    const cell = e.target.closest('.ws-cell'); if (!cell) return;
+    e.preventDefault();
+    isDragging = true;
+    dragStart = { r: parseInt(cell.dataset.r), c: parseInt(cell.dataset.c) };
+    highlightDrag([dragStart]);
+  });
+
+  gridEl.addEventListener('mousemove', function(e) {
+    if (!isDragging || !dragStart) return;
+    e.preventDefault();
+    const pos = getCellFromPoint(e.clientX, e.clientY); if (!pos) return;
+    const cells = getCellsBetween(dragStart.r, dragStart.c, pos.r, pos.c);
+    if (cells.length) highlightDrag(cells);
+  });
+
+  window.addEventListener('mouseup', function(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    if (dragCells.length >= 2) tryFoundDrag([...dragCells]);
+    else clearDragHighlight();
+    dragStart = null;
+  });
+
+  // ── TOUCH events ──
+  gridEl.addEventListener('touchstart', function(e) {
+    const touch = e.touches[0];
+    const cell = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (!cell || !cell.closest('.ws-cell')) return;
+    e.preventDefault();
+    isDragging = true;
+    const c = cell.closest('.ws-cell');
+    dragStart = { r: parseInt(c.dataset.r), c: parseInt(c.dataset.c) };
+    highlightDrag([dragStart]);
+  }, { passive: false });
+
+  gridEl.addEventListener('touchmove', function(e) {
+    if (!isDragging || !dragStart) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const pos = getCellFromPoint(touch.clientX, touch.clientY); if (!pos) return;
+    const cells = getCellsBetween(dragStart.r, dragStart.c, pos.r, pos.c);
+    if (cells.length) highlightDrag(cells);
+  }, { passive: false });
+
+  gridEl.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    e.preventDefault();
+    if (dragCells.length >= 2) tryFoundDrag([...dragCells]);
+    else clearDragHighlight();
+    dragStart = null;
+  }, { passive: false });
+}
+
 
 // ══════════════════════════════════════════
 // EN-NO MATCH ENGINE
@@ -811,7 +953,7 @@ function a1Render(i){
   // fill lang activity
   const la=L.langAct;
   if(la.type==='wordsearch'){
-    renderWordSearch('a1langBox',la.words,la.size,'a1lang',function(){a1langDone=true;a1CheckNext();});
+    renderWordSearch('a1langBox',la.words,la.size,'a1lang',function(){a1langDone=true;a1CheckNext();},true);
   } else if(la.type==='enno'){
     renderEnNoMatch('a1langBox',la.pairs,'a1lang',function(){a1langDone=true;a1CheckNext();});
     window['a1lang_enno'].scoreCallback=function(pts){a1AddScore(pts);};
@@ -1033,7 +1175,7 @@ function a2Render(idx){
 
   const la=L.langAct;
   if(la.type==='wordsearch'){
-    renderWordSearch('a2langBox',la.words,la.size,'a2lang',function(){a2langDone=true;a2CheckNext();});
+    renderWordSearch('a2langBox',la.words,la.size,'a2lang',function(){a2langDone=true;a2CheckNext();},false);
   } else if(la.type==='enno'){
     renderEnNoMatch('a2langBox',la.pairs,'a2lang',function(){a2langDone=true;a2CheckNext();});
     window['a2lang_enno'].scoreCallback=function(pts){a2AddScore(pts);};
