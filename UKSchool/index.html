@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Schools in the UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e1a2b;--navy2:#162236;--navy3:#1e3050;
+  --red:#c0392b;--red2:#e74c3c;--gold:#f0c040;
+  --text:#f0f4f8;--muted:#8fa8c8;--border:rgba(255,255,255,0.10);
+  --shadow:0 8px 32px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh}
+
+/* LANDING */
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;position:relative;overflow:hidden}
+.ujbg{position:absolute;inset:0;background:linear-gradient(transparent 48%,rgba(192,57,43,.18) 48%,rgba(192,57,43,.18) 52%,transparent 52%),linear-gradient(90deg,transparent 48%,rgba(192,57,43,.12) 48%,rgba(192,57,43,.12) 52%,transparent 52%);pointer-events:none}
+.home-inner{position:relative;z-index:1;text-align:center;max-width:920px;width:100%}
+.flag-icon{font-size:4rem;margin-bottom:16px;display:block;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5))}
+.home-inner h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em}
+.home-inner h1 span{color:var(--red2)}
+.home-sub{color:var(--muted);font-size:1.05rem;max-width:580px;margin:0 auto 36px;line-height:1.6}
+.level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.level-card{background:linear-gradient(145deg,var(--navy2),var(--navy3));border:1px solid var(--border);border-radius:20px;padding:24px 20px;cursor:pointer;text-align:left;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.level-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac,var(--red2));border-radius:20px 20px 0 0}
+.level-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(255,255,255,.22)}
+.level-tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.08);border:1px solid var(--border);margin-bottom:12px;letter-spacing:.05em}
+.level-card h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;margin-bottom:6px}
+.level-card p{color:var(--muted);font-size:.88rem;line-height:1.5}
+
+/* RESOURCE */
+#resource{display:none;padding:0 0 60px}
+.topbar{background:rgba(14,26,43,.95);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.back-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;transition:background .15s}
+.back-btn:hover{background:rgba(255,255,255,.12)}
+.topbar-pill{padding:6px 14px;border-radius:999px;background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.4);font-size:.85rem;font-weight:700;color:#f5a9a9}
+.nav-jump{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:10px;cursor:pointer;font-size:.82rem;font-family:'DM Sans',sans-serif;transition:background .15s}
+.nav-jump:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.main-content{max-width:1060px;margin:0 auto;padding:28px 20px}
+.resource-header{background:linear-gradient(135deg,rgba(192,57,43,.15),rgba(14,26,43,.6));border:1px solid var(--border);border-radius:24px;padding:28px 32px;margin-bottom:24px}
+.resource-header h2{font-family:'Fraunces',serif;font-size:2rem;font-weight:900}
+.resource-header p{color:var(--muted);margin-top:8px;line-height:1.6}
+.prog-wrap{margin-top:18px}
+.prog-label{font-size:.82rem;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--border);overflow:hidden}
+.prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:999px;transition:width .4s ease}
+.section-card{background:var(--navy2);border:1px solid var(--border);border-radius:22px;padding:24px;margin-bottom:22px}
+.section-card h2{font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:6px}
+.section-hint{color:var(--muted);font-size:.88rem;margin-bottom:18px;line-height:1.5}
+
+/* VOCAB drag */
+.vocab-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.vocab-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;transition:border-color .2s}
+.vocab-emoji{font-size:2.4rem;margin-bottom:6px;display:block}
+.spk{background:none;border:none;cursor:pointer;font-size:1rem;opacity:.6;transition:opacity .15s;padding:0 2px;vertical-align:middle;line-height:1}
+.spk:hover{opacity:1}
+.dropzone{min-height:40px;border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:6px;margin-top:8px;font-weight:700;color:#dbeafe;font-size:.9rem;transition:border-color .2s;display:flex;align-items:center;justify-content:center}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.drag-chip{background:#dbeafe;color:#0e1a2b;padding:8px 14px;border-radius:10px;cursor:grab;font-weight:700;user-select:none;font-size:.92rem;transition:transform .15s,box-shadow .15s}
+.drag-chip:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+
+/* VOCAB click (Pre-A1) */
+.vt-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.vt-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;padding:14px 12px;text-align:center;cursor:pointer;transition:background .2s,border-color .2s;user-select:none}
+.vt-card:hover,.vt-card.flipped{background:rgba(192,57,43,.15);border-color:rgba(192,57,43,.5)}
+.vt-emoji{font-size:2.2rem;display:block;margin-bottom:6px}
+.vt-word{font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;gap:6px}
+.vt-no{margin-top:6px;font-size:.85rem;color:#f5a9a9;display:none}
+.vt-card.flipped .vt-no{display:block}
+.vt-hint{font-size:.72rem;color:var(--muted);margin-top:4px}
+
+/* READING */
+.reading-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-bottom:22px}
+@media(max-width:700px){.reading-wrap{grid-template-columns:1fr}}
+.reading-text{background:rgba(255,255,255,.03);border-left:4px solid var(--red);border-radius:16px;padding:20px;line-height:1.75}
+.reading-text p{margin-bottom:10px}
+.reading-text strong{color:var(--gold)}
+.tw{cursor:help;border-bottom:2px dotted var(--red2);color:#e8d5c4;font-weight:600;position:relative}
+.tw .tw-tip{visibility:hidden;opacity:0;background:#162236;border:1px solid var(--red2);color:#f5a9a9;text-align:center;padding:4px 10px;border-radius:8px;font-size:.82rem;font-weight:700;white-space:nowrap;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);z-index:50;pointer-events:none;transition:opacity .15s}
+.tw:hover .tw-tip,.tw.active .tw-tip{visibility:visible;opacity:1}
+.kw-list{list-style:none}
+.kw-list li{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;gap:10px;font-size:.9rem;line-height:1.4;align-items:center}
+.kw-list li:last-child{border-bottom:none}
+.kw-en{font-weight:700;min-width:130px;display:flex;align-items:center;gap:6px}
+.kw-no{color:var(--muted)}
+
+/* TASKS shared */
+.task-block{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px}
+.task-q{font-weight:700;font-size:1rem;margin-bottom:4px}
+.task-hint{color:var(--muted);font-size:.82rem;margin-bottom:12px;display:block}
+.feedback{margin-top:10px;font-weight:700;font-size:.9rem;min-height:1.2em}
+.feedback.good{color:#86efac}
+.feedback.bad{color:#fca5a5}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--red),#8b0000);color:white;border:none;border-radius:12px;padding:10px 20px;font-size:.92rem;font-weight:700;cursor:pointer;margin-top:12px;font-family:'DM Sans',sans-serif;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(192,57,43,.4)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-g{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted)}
+
+/* MCQ */
+.options{display:flex;flex-direction:column;gap:8px}
+.opt-label{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid var(--border);padding:10px 14px;border-radius:12px;cursor:pointer;transition:background .15s;font-size:.95rem}
+.opt-label:hover{background:rgba(255,255,255,.09)}
+
+/* True/False */
+.tf-row{display:flex;flex-direction:column;gap:10px}
+.tf-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.tf-stmt{font-size:.95rem;margin-bottom:8px}
+.tf-btns{display:flex;gap:8px}
+.tf-btn{padding:7px 18px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-weight:700;font-size:.88rem;transition:background .15s;background:rgba(255,255,255,.05);color:var(--text);font-family:'DM Sans',sans-serif}
+.tf-btn.true-btn:hover{background:rgba(46,204,113,.2);border-color:#2ecc71}
+.tf-btn.false-btn:hover{background:rgba(231,76,60,.2);border-color:#e74c3c}
+.tf-btn.correct{background:rgba(46,204,113,.25);border-color:#2ecc71;color:#86efac}
+.tf-btn.wrong{background:rgba(231,76,60,.2);border-color:#e74c3c;color:#fca5a5}
+
+/* Listen */
+.listen-col{display:flex;flex-direction:column;gap:10px}
+.listen-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:14px}
+.listen-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.listen-play{background:var(--red);border:none;border-radius:50%;width:40px;height:40px;color:white;font-size:1rem;cursor:pointer;flex-shrink:0;transition:transform .15s,background .15s;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif}
+.listen-play:hover{background:var(--red2);transform:scale(1.08)}
+.listen-label{font-size:.9rem;color:var(--muted);font-style:italic}
+.listen-opts{display:flex;gap:8px;flex-wrap:wrap}
+.listen-opt{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:10px;padding:8px 16px;cursor:pointer;font-weight:700;font-size:.9rem;transition:background .15s;color:var(--text);font-family:'DM Sans',sans-serif}
+.listen-opt:hover{background:rgba(255,255,255,.12)}
+.listen-opt.correct{background:rgba(46,204,113,.25);border-color:#2ecc71;color:#86efac}
+.listen-opt.wrong{background:rgba(231,76,60,.2);border-color:#e74c3c;color:#fca5a5}
+
+/* Emoji quiz */
+.eq-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.eq-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center}
+.eq-emojis{font-size:2rem;margin-bottom:8px;letter-spacing:4px;line-height:1.4}
+.eq-opts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.eq-opt{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:10px;padding:7px 10px;cursor:pointer;font-size:.88rem;font-weight:600;transition:background .15s;color:var(--text);font-family:'DM Sans',sans-serif;text-align:left}
+.eq-opt:hover{background:rgba(255,255,255,.12)}
+.eq-opt.correct{background:rgba(46,204,113,.25);border-color:#2ecc71;color:#86efac}
+.eq-opt.wrong{background:rgba(231,76,60,.2);border-color:#e74c3c;color:#fca5a5}
+
+/* Find the mistake */
+.ftm-tip{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.3);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:.85rem;color:var(--gold)}
+.ftm-sentence{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
+.ftm-text{font-size:.97rem;margin-bottom:8px;line-height:1.6}
+.mw{text-decoration:underline wavy #f0c040;cursor:pointer;font-weight:700;color:#fde68a;border-radius:4px;padding:0 2px;transition:background .15s}
+.mw:hover{background:rgba(240,192,64,.15)}
+.ftm-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ftm-lbl{font-size:.82rem;color:var(--muted)}
+.ftm-inp{background:rgba(255,255,255,.08);border:2px solid var(--border);border-radius:8px;color:var(--text);padding:6px 10px;font-size:.9rem;font-family:'DM Sans',sans-serif;width:160px;transition:border-color .2s}
+.ftm-inp.ok{border-color:#2ecc71}
+.ftm-inp.no{border-color:#e74c3c}
+.ftm-chk{background:var(--red);border:none;border-radius:8px;color:white;padding:6px 14px;cursor:pointer;font-weight:700;font-size:.82rem;font-family:'DM Sans',sans-serif;transition:background .15s}
+.ftm-chk:hover{background:var(--red2)}
+
+/* Fill blank */
+.fitb-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.fitb-chip{background:#dbeafe;color:#0e1a2b;padding:5px 12px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.88rem;transition:opacity .2s,transform .15s}
+.fitb-chip:hover{transform:scale(1.05)}
+.fitb-chip.used{opacity:.35;cursor:default;pointer-events:none}
+.fitb-sent{font-size:1rem;line-height:2;margin-bottom:6px}
+.fitb-inp{display:inline-block;min-width:90px;background:rgba(255,255,255,.08);border:2px solid var(--border);border-radius:8px;color:var(--text);padding:2px 8px;font-size:1rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;text-align:center}
+.fitb-inp.ok{border-color:#2ecc71}
+.fitb-inp.no{border-color:#e74c3c}
+
+/* Sort */
+.sort-con{display:flex;flex-direction:column;gap:8px}
+.sort-item{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:grab;display:flex;align-items:center;gap:10px;font-size:.93rem;user-select:none;transition:background .15s}
+.sort-item:hover{background:rgba(255,255,255,.09)}
+.sort-item.dragging{opacity:.4}
+.sort-handle{color:var(--muted);font-size:1.1rem}
+
+/* Write */
+.task-inp{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:10px 14px;font-size:.95rem;font-family:'DM Sans',sans-serif;margin-top:8px;resize:vertical}
+.task-inp::placeholder{color:var(--muted)}
+
+/* Print bar */
+.print-bar{position:sticky;bottom:14px;background:rgba(14,26,43,.95);border:1px solid var(--border);border-radius:18px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;backdrop-filter:blur(12px);box-shadow:var(--shadow);margin-top:28px}
+.print-done{color:#86efac;font-weight:700}
+.print-hint{color:var(--muted);font-size:.82rem}
+
+@media print{
+  body{background:white;color:black}
+  .topbar,.back-btn,.nav-jump,.print-bar,.btn,.fitb-bank,.word-bank,.listen-play,.eq-opts,.tf-btns,.ftm-chk{display:none!important}
+  #home{display:none!important}
+  #resource{display:block!important}
+  .section-card,.task-block,.reading-text,.vt-card,.listen-card,.eq-card,.ftm-sentence{background:white;border-color:#ccc;color:black}
+  .vt-no{display:block!important;color:#555}
+  .feedback{border:1px solid #ccc;min-height:36px;color:black}
+  textarea,.task-inp,.ftm-inp{border:1px solid #aaa;min-height:60px;background:white;color:black}
+  .fitb-inp{border:1px solid #888;color:black;background:white}
+  .kw-no,.muted,.task-hint,.section-hint{color:#555}
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<section id="home">
+  <div class="ujbg"></div>
+  <div class="home-inner">
+    <span class="flag-icon">🇬🇧</span>
+    <h1>Schools in the <span>United Kingdom</span></h1>
+    <p class="home-sub">Choose your level to begin. Work through vocabulary, listening, reading, and activities. When you finish, you can save your work as a PDF.</p>
+    <div class="level-grid">
+      <div class="level-card" style="--ac:#64b5f6" onclick="startLevel('PreA1')">
+        <div class="level-tag">Pre-A1</div><h3>Beginner</h3>
+        <p>Very simple words, pictures, and short sentences.</p>
+      </div>
+      <div class="level-card" style="--ac:#81c784" onclick="startLevel('A1')">
+        <div class="level-tag">A1</div><h3>Simple words and sentences</h3>
+        <p>Match words, listen, read a short text, answer questions.</p>
+      </div>
+      <div class="level-card" style="--ac:#ffb74d" onclick="startLevel('A2')">
+        <div class="level-tag">A2</div><h3>A little more detail</h3>
+        <p>More school words, longer reading, find mistakes, and short written answers.</p>
+      </div>
+      <div class="level-card" style="--ac:#f06292" onclick="startLevel('B1')">
+        <div class="level-tag">B1</div><h3>Reflect and compare</h3>
+        <p>Read more about the UK system, find mistakes, and compare with your own school.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCE -->
+<section id="resource">
+  <div class="topbar">
+    <button class="back-btn" onclick="goHome()">← Velg nivå</button>
+    <div class="topbar-pill" id="levelPill">Level</div>
+    <button class="nav-jump" onclick="scrollTo2('vocabSection')">🔤 Vocab</button>
+    <button class="nav-jump" onclick="scrollTo2('readingSection')">📖 Reading</button>
+    <button class="nav-jump" onclick="scrollTo2('tasksSection')">✏️ Activities</button>
+  </div>
+  <div class="main-content">
+    <div class="resource-header">
+      <h2 id="rTitle">Schools in the UK</h2>
+      <p id="rIntro"></p>
+      <div class="prog-wrap">
+        <div class="prog-label" id="progLabel">0 of 0 activities completed</div>
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      </div>
+    </div>
+
+    <div class="section-card" id="vocabSection">
+      <h2>1. Vocabulary</h2>
+      <div class="section-hint" id="vocabHint"></div>
+      <div id="clickVocabArea" style="display:none">
+        <div class="vt-grid" id="clickVocabGrid"></div>
+        <div class="feedback" id="clickVocabFb" style="margin-top:12px"></div>
+        <button class="btn" style="margin-top:12px" onclick="markClickVocab()">I have learned these words ✓</button>
+      </div>
+      <div id="dragVocabArea" style="display:none">
+        <div class="vocab-grid" id="vocabGrid"></div>
+        <div class="word-bank" id="wordBank"></div>
+        <div class="feedback" id="vocabFb"></div>
+        <button class="btn" style="margin-top:12px" onclick="checkVocab()">Check vocabulary</button>
+      </div>
+    </div>
+
+    <div class="reading-wrap" id="readingSection">
+      <div class="section-card" style="margin-bottom:0">
+        <h2>2. Read</h2>
+        <div class="reading-text" id="readingText"></div>
+      </div>
+      <div class="section-card" style="margin-bottom:0">
+        <h2>Key words</h2>
+        <ul class="kw-list" id="keyWordsList"></ul>
+      </div>
+    </div>
+
+    <div class="section-card" id="tasksSection" style="margin-top:22px">
+      <h2>3. Activities</h2>
+      <div id="tasksContainer"></div>
+    </div>
+
+    <div class="print-bar">
+      <div>
+        <div id="printMsg">Finish all activities to unlock printing.</div>
+        <div class="print-hint">Tip: Choose «Save as PDF» in the print window.</div>
+      </div>
+      <button class="btn" id="printBtn" onclick="doPrint()" disabled>Save to PDF</button>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── TTS ──────────────────────────────────────────────────
+function speak(t){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang='en-GB';
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// ── tooltip helper ───────────────────────────────────────
+function tw(word,no){
+  return `<span class="tw" onclick="this.classList.toggle('active')">${word}<span class="tw-tip">${no}</span></span>`;
+}
+
+// ── DATA ─────────────────────────────────────────────────
+const LD = {
+
+PreA1:{
+  intro:"Beginner level. Click a word card to see the Norwegian translation. Press 🔊 to hear the word. Then do the activities!",
+  vocabMode:'click',
+  vocab:[
+    {word:"school",  no:"skole",  emoji:"🏫"},
+    {word:"teacher", no:"lærer",  emoji:"🧑‍🏫"},
+    {word:"book",    no:"bok",    emoji:"📘"},
+    {word:"friend",  no:"venn",   emoji:"👫"},
+    {word:"lunch",   no:"lunsj",  emoji:"🍎"},
+    {word:"desk",    no:"pult",   emoji:"🪑"},
+    {word:"bag",     no:"sekk",   emoji:"🎒"},
+    {word:"home",    no:"hjem",   emoji:"🏠"},
+  ],
+  readingText:`
+    <p>Hi! My name is Sam.</p>
+    <p>I go to ${tw('school','skole')}.</p>
+    <p>I see my ${tw('teacher','lærer')}.</p>
+    <p>I sit at my ${tw('desk','pult')}.</p>
+    <p>I read a ${tw('book','bok')}.</p>
+    <p>I eat ${tw('lunch','lunsj')} with my ${tw('friend','venn')}.</p>
+    <p>I put my things in my ${tw('bag','sekk')}.</p>
+    <p>I go ${tw('home','hjem')}.</p>
+  `,
+  keywords:[
+    {en:"school", no:"skole"},{en:"teacher",no:"lærer"},
+    {en:"book",   no:"bok"}, {en:"friend", no:"venn"},
+    {en:"lunch",  no:"lunsj"},{en:"home",  no:"hjem"},
+  ],
+  tasks:[
+    {id:"li1", type:"listenChoose",
+     title:"🎧 Listen and choose",
+     hint:"Trykk ▶ for å høre ordet. Velg riktig alternativ.",
+     items:[
+       {word:"school",  opts:["🏠 home","🏫 school","🪑 desk"],    answer:1},
+       {word:"teacher", opts:["🧑‍🏫 teacher","📘 book","👫 friend"], answer:0},
+       {word:"lunch",   opts:["🎒 bag","🏫 school","🍎 lunch"],     answer:2},
+       {word:"bag",     opts:["📘 book","🎒 bag","🍎 lunch"],       answer:1},
+       {word:"desk",    opts:["🏠 home","🪑 desk","👫 friend"],     answer:1},
+       {word:"home",    opts:["🏠 home","🏫 school","📘 book"],     answer:0},
+     ]
+    },
+    {id:"eq1", type:"emojiQuiz",
+     title:"🤔 Emoji quiz – What does this mean?",
+     hint:"Se på emojiene og velg riktig svar!",
+     items:[
+       {emojis:"🏫 + 🧑‍🏫", opts:["school and teacher","book and friend","home and lunch"], answer:0},
+       {emojis:"📘 + 🪑",    opts:["bag and home","book and desk","friend and lunch"],       answer:1},
+       {emojis:"🍎 + 🏠",    opts:["school lunch","lunch at home","book and bag"],           answer:1},
+       {emojis:"🎒 + 👫",    opts:["desk and teacher","bag and friend","home and book"],     answer:1},
+       {emojis:"🧑‍🏫 + 📘",   opts:["teacher and book","friend and desk","home and bag"],    answer:0},
+       {emojis:"🏠 + 🎒",    opts:["school and lunch","home and bag","desk and friend"],    answer:1},
+     ]
+    },
+    {id:"tf1", type:"truefalse",
+     title:"True or False?",
+     hint:"Er setningene sanne (True) eller usanne (False)?",
+     items:[
+       {stmt:"Sam goes to school.", answer:true},
+       {stmt:"Sam eats dinner at school.", answer:false},
+       {stmt:"Sam reads a book.", answer:true},
+       {stmt:"Sam goes to the shop after school.", answer:false},
+       {stmt:"Sam eats lunch with a friend.", answer:true},
+       {stmt:"Sam sits on the floor in class.", answer:false},
+     ]
+    },
+    {id:"mcq1", type:"mcq",
+     title:"Choose the correct answer",
+     question:"What does Sam carry to school?",
+     opts:["a desk","a bag","a teacher"],
+     answer:1
+    },
+    {id:"mcq2", type:"mcq",
+     title:"Choose the correct answer",
+     question:"Who does Sam eat lunch with?",
+     opts:["a teacher","alone","a friend"],
+     answer:2
+    },
+    {id:"mcq3", type:"mcq",
+     title:"Choose the correct answer",
+     question:"Where does Sam go after school?",
+     opts:["to the shop","to a friend's house","home"],
+     answer:2
+    },
+    {id:"fb1", type:"fillblank",
+     title:"Fill in the blanks",
+     hint:"Klikk på riktig ord fra ordbanken.",
+     sentences:[
+       {before:"I sit at my", blank:"desk", after:"in class."},
+       {before:"I read a", blank:"book", after:"at school."},
+       {before:"I go", blank:"home", after:"after school."},
+     ],
+     wordBank:["desk","book","home","bag","friend","teacher"]
+    },
+    {id:"wr1", type:"write",
+     title:"Write",
+     question:"Write 3 sentences about your school day. Use words from the vocabulary list.",
+     hint:"Skriv 3 setninger om din skoledag. Bruk ord fra ordlisten.",
+     minLen:10
+    }
+  ]
+},
+
+A1:{
+  intro:"Simple words and short sentences. Click underlined words in the text to see the Norwegian translation. Press 🔊 to hear the word.",
+  vocabMode:'drag',
+  vocab:[
+    {word:"school",   no:"skole",          emoji:"🏫"},
+    {word:"teacher",  no:"lærer",          emoji:"🧑‍🏫"},
+    {word:"uniform",  no:"skoleuniform",   emoji:"👔"},
+    {word:"lesson",   no:"time / leksjon", emoji:"📖"},
+    {word:"lunch",    no:"lunsj",          emoji:"🍎"},
+    {word:"homework", no:"lekser",         emoji:"✏️"},
+    {word:"canteen",  no:"kantine",        emoji:"🍽️"},
+    {word:"subject",  no:"fag",            emoji:"📚"},
+  ],
+  readingText:`
+    <p><strong>Schools in the UK</strong></p>
+    <p>In the UK, children go to ${tw('school','skole')} from about 5 to 16 years old. There are two main types: primary school and secondary school. Many students wear a school ${tw('uniform','skoleuniform')}.</p>
+    <p><strong>A day at school in the UK</strong></p>
+    <p>Hi! My name is Sam. I wake up at 7 o'clock. I wear a school ${tw('uniform','skoleuniform')}: a white shirt, a blazer, and black shoes.</p>
+    <p>I go to school at 8:30. My first ${tw('lesson','time / leksjon')} is English. Then I have maths.</p>
+    <p>At 12 o'clock, I have ${tw('lunch','lunsj')}. I eat in the school ${tw('canteen','kantine')}.</p>
+    <p>In the afternoon, I have science and history. School finishes at 3:30. At home, I do my ${tw('homework','lekser')}. I like my school!</p>
+  `,
+  keywords:[
+    {en:"primary school",   no:"barneskole"},
+    {en:"secondary school", no:"ungdomsskole / videregående"},
+    {en:"uniform",          no:"skoleuniform"},
+    {en:"lesson",           no:"time / leksjon"},
+    {en:"canteen",          no:"kantine"},
+    {en:"homework",         no:"lekser"},
+  ],
+  tasks:[
+    {id:"li1", type:"listenChoose",
+     title:"🎧 Listen and choose",
+     hint:"Hør ordet og velg riktig norsk oversettelse.",
+     items:[
+       {word:"uniform",  opts:["lekser","skoleuniform","kantine"],    answer:1},
+       {word:"canteen",  opts:["kantine","leksjon","barneskole"],     answer:0},
+       {word:"homework", opts:["uniform","fag","lekser"],             answer:2},
+       {word:"lesson",   opts:["kantine","time / leksjon","lærer"],  answer:1},
+       {word:"subject",  opts:["fag","lunsj","skole"],                answer:0},
+       {word:"teacher",  opts:["kantine","skole","lærer"],            answer:2},
+     ]
+    },
+    {id:"eq1", type:"emojiQuiz",
+     title:"🤔 Emoji quiz",
+     hint:"Se på emojiene og velg riktig svar.",
+     items:[
+       {emojis:"📖 + 🏫",  opts:["school lesson","homework book","lunch canteen"],              answer:0},
+       {emojis:"🍽️ + 🍎",  opts:["desk and bag","school canteen","friend and book"],            answer:1},
+       {emojis:"👔 + 📚",  opts:["uniform and subject","friend and teacher","bag and desk"],    answer:0},
+       {emojis:"✏️ + 🏠",  opts:["book at school","homework at home","lunch at canteen"],      answer:1},
+       {emojis:"🧑‍🏫 + 📖", opts:["teacher and lesson","friend and book","canteen and lunch"],  answer:0},
+       {emojis:"🍎 + 🍽️",  opts:["homework canteen","lunch canteen","school uniform"],          answer:1},
+     ]
+    },
+    {id:"tf1", type:"truefalse",
+     title:"True or False?",
+     hint:"Er setningene sanne (True) eller usanne (False)?",
+     items:[
+       {stmt:"Children in the UK go to school from age 5.", answer:true},
+       {stmt:"Sam wears sports clothes to school.", answer:false},
+       {stmt:"Sam eats lunch in the canteen.", answer:true},
+       {stmt:"School finishes at 5:00.", answer:false},
+       {stmt:"Sam has English as the first lesson.", answer:true},
+       {stmt:"Sam goes to primary school.", answer:false},
+       {stmt:"Sam does homework after school.", answer:true},
+     ]
+    },
+    {id:"fb1", type:"fillblank",
+     title:"Fill in the blanks",
+     hint:"Klikk på riktig ord fra ordbanken.",
+     sentences:[
+       {before:"Sam wears a school", blank:"uniform", after:"to school."},
+       {before:"Sam eats lunch in the school", blank:"canteen", after:"."},
+       {before:"School finishes at", blank:"3:30", after:"."},
+     ],
+     wordBank:["uniform","canteen","3:30","English","jacket","maths"]
+    },
+    {id:"mcq1", type:"mcq",
+     title:"Choose the correct answer",
+     question:"What time does Sam go to school?",
+     opts:["7:00","8:30","12:00"],
+     answer:1
+    },
+    {id:"mcq2", type:"mcq",
+     title:"Choose the correct answer",
+     question:"How many main types of school are there in the UK?",
+     opts:["one","two","three"],
+     answer:1
+    },
+    {id:"so1", type:"sort",
+     title:"Put Sam's day in the right order",
+     hint:"Dra setningene til riktig rekkefølge.",
+     items:[
+       {text:"Sam eats lunch in the canteen.", order:2},
+       {text:"Sam wakes up at 7 o'clock.", order:0},
+       {text:"Sam goes to school at 8:30.", order:1},
+       {text:"Sam does homework at home.", order:3},
+     ]
+    },
+    {id:"wr1", type:"write",
+     title:"Write about your school",
+     question:"Write 3–4 sentences about your own school. What time does school start? What subjects do you have? When does school finish?",
+     hint:"Skriv 3–4 setninger om din skole. Når begynner og slutter skolen? Hvilke fag har du?",
+     minLen:30
+    }
+  ]
+},
+
+A2:{
+  intro:"A little more detail about UK schools. Read the text, find mistakes, and complete the activities.",
+  vocabMode:'drag',
+  vocab:[
+    {word:"primary school",   no:"barneskole",                  emoji:"🧒"},
+    {word:"secondary school", no:"ungdomsskole / videregående", emoji:"🎒"},
+    {word:"uniform",          no:"skoleuniform",                emoji:"👕"},
+    {word:"subject",          no:"fag",                         emoji:"📚"},
+    {word:"exam",             no:"eksamen / prøve",             emoji:"📝"},
+    {word:"canteen",          no:"kantine",                     emoji:"🍽️"},
+    {word:"compulsory",       no:"obligatorisk",                emoji:"✅"},
+    {word:"registration",     no:"morgenoppmøte",               emoji:"📋"},
+  ],
+  readingText:`
+    <p><strong>Schools in the UK</strong></p>
+    <p>In the United Kingdom, children usually start school at about age 5. They go to ${tw('primary school','barneskole')} first, then to ${tw('secondary school','ungdomsskole / videregående')}. Full-time education is ${tw('compulsory','obligatorisk')} until age 16. In England, many young people stay in education or training until 18.</p>
+    <p>Many schools have ${tw('uniforms','skoleuniform')}. Students study ${tw('subjects','fag')} like English, maths, science, history, geography, art, and PE. At the end of secondary school, many students take ${tw('exams','eksamen')}. Some continue to sixth form or college before university.</p>
+    <p><strong>A day at school in the UK</strong></p>
+    <p>Hello! I'm Aisha. I go to secondary school in England. I get up at 6:45. I wear my school ${tw('uniform','skoleuniform')}: a white shirt, a dark blazer, a skirt, and black shoes.</p>
+    <p>I arrive before 8:30. First we have ${tw('registration','morgenoppmøte')}. Today I have English, science, maths, and art. English is my favourite ${tw('subject','fag')} because I like reading and writing.</p>
+    <p>At lunch, we go to the ${tw('canteen','kantine')}. School finishes at 3:30. At home, I do homework and practise for ${tw('exams','eksamen / prøver')}.</p>
+  `,
+  keywords:[
+    {en:"primary school",   no:"barneskole"},
+    {en:"secondary school", no:"ungdomsskole / videregående"},
+    {en:"compulsory",       no:"obligatorisk"},
+    {en:"registration",     no:"morgenoppmøte / registrering"},
+    {en:"subject",          no:"fag"},
+    {en:"exam",             no:"eksamen / prøve"},
+    {en:"sixth form",       no:"toårig videregående skole (UK)"},
+  ],
+  tasks:[
+    {id:"li1", type:"listenChoose",
+     title:"🎧 Listen and choose",
+     hint:"Hør ordet og velg riktig norsk oversettelse.",
+     items:[
+       {word:"compulsory",   opts:["obligatorisk","kantine","fag"],              answer:0},
+       {word:"registration", opts:["eksamen","morgenoppmøte","skoleuniform"],   answer:1},
+       {word:"subject",      opts:["barneskole","lekser","fag"],                answer:2},
+       {word:"exam",         opts:["eksamen","uniform","registrering"],         answer:0},
+       {word:"primary school", opts:["videregående","barneskole","kantine"],    answer:1},
+       {word:"uniform",      opts:["fag","skoleuniform","læreplan"],            answer:1},
+     ]
+    },
+    {id:"eq1", type:"emojiQuiz",
+     title:"🤔 Emoji quiz",
+     hint:"Se på emojiene og finn riktig uttrykk.",
+     items:[
+       {emojis:"🧒 + 🏫",  opts:["secondary school","primary school","sixth form"],              answer:1},
+       {emojis:"📝 + 📚",  opts:["exam and subject","uniform and bag","lunch and canteen"],      answer:0},
+       {emojis:"✅ + 📖",  opts:["optional reading","compulsory education","exam results"],      answer:1},
+       {emojis:"📋 + 🕗",  opts:["homework time","morning registration","exam schedule"],       answer:1},
+       {emojis:"🎒 + 🏫",  opts:["primary school","secondary school","sixth form"],             answer:1},
+       {emojis:"📝 + ✅",  opts:["exam is compulsory","registration time","subject choices"],   answer:0},
+     ]
+    },
+    {id:"tf1", type:"truefalse",
+     title:"True or False?",
+     items:[
+       {stmt:"Children in the UK start school at about age 5.", answer:true},
+       {stmt:"Education is compulsory until age 18 everywhere in the UK.", answer:false},
+       {stmt:"Aisha's favourite subject is maths.", answer:false},
+       {stmt:"Aisha wears a school uniform.", answer:true},
+       {stmt:"Some students continue to sixth form before university.", answer:true},
+       {stmt:"Aisha gets up at 8:30.", answer:false},
+       {stmt:"School finishes at 3:30.", answer:true},
+     ]
+    },
+    {id:"ftm1", type:"findMistake",
+     title:"🔍 Find the mistake",
+     hint:"Det er én feil i hver setning. Det feilaktige ordet er understreket. Skriv riktig ord i boksen.",
+     items:[
+       {text:"Children in the UK start school at age <m>8</m>.", mistake:"8", correct:"5"},
+       {text:"Aisha's favourite subject is <m>maths</m>.", mistake:"maths", correct:"English"},
+       {text:"Full-time education is compulsory until age <m>18</m>.", mistake:"18", correct:"16"},
+       {text:"Aisha wears a white shirt and a <m>red</m> blazer.", mistake:"red", correct:"dark"},
+       {text:"Aisha arrives at school before <m>9:00</m>.", mistake:"9:00", correct:"8:30"},
+     ]
+    },
+    {id:"fb1", type:"fillblank",
+     title:"Fill in the blanks",
+     hint:"Click the correct word from the word bank.",
+     sentences:[
+       {before:"Full-time education is compulsory until age", blank:"16", after:"in the UK."},
+       {before:"Aisha's favourite subject is", blank:"English", after:"."},
+       {before:"Many UK schools have school", blank:"uniforms", after:"."},
+       {before:"At the start of the day, students have", blank:"registration", after:"."},
+     ],
+     wordBank:["16","English","uniforms","registration","18","maths"]
+    },
+    {id:"so1", type:"sort",
+     title:"Put Aisha's morning in the right order",
+     hint:"Dra setningene til riktig rekkefølge.",
+     items:[
+       {text:"Aisha arrives at school before 8:30.", order:2},
+       {text:"Aisha gets up at 6:45.", order:0},
+       {text:"Aisha has registration.", order:3},
+       {text:"Aisha puts on her school uniform.", order:1},
+     ]
+    },
+    {id:"mcq1", type:"mcq",
+     title:"Choose the correct answer",
+     question:"What happens after secondary school for some students?",
+     opts:["They go straight to work","They continue to sixth form or college","They go back to primary school"],
+     answer:1
+    },
+    {id:"wr1", type:"write",
+     title:"Compare",
+     question:"Write 4–5 sentences: What is similar or different between school in the UK and school in your country? Think about uniforms, subjects, start/finish times, and exams.",
+     hint:"Skriv 4–5 setninger: Hva er likt eller ulikt mellom skole i UK og landet ditt? Tenk på uniformer, fag, tider og prøver.",
+     minLen:60
+    }
+  ]
+},
+
+B1:{
+  intro:"More detailed information about the UK school system. Read, answer questions, find mistakes, and compare with your own experience.",
+  vocabMode:'list',
+  vocab:[
+    {word:"compulsory",        no:"obligatorisk"},
+    {word:"curriculum",        no:"læreplan"},
+    {word:"qualification",     no:"kvalifikasjon"},
+    {word:"further education", no:"videre utdanning etter grunnskolen"},
+    {word:"higher education",  no:"høyere utdanning (universitet / høyskole)"},
+    {word:"revision",          no:"repetering / eksamenslesing"},
+    {word:"devolved",          no:"delegert (til regionene)"},
+    {word:"formal",            no:"formell / offisiell"},
+  ],
+  readingText:`
+    <p><strong>Schools in the UK</strong></p>
+    <p>Education in the United Kingdom is not the same in all four countries. England, Scotland, Wales, and Northern Ireland each have their own ${tw('devolved','delegert')} system. Children normally begin school at about age 5 and move from ${tw('primary school','barneskole')} to secondary school. Full-time education is ${tw('compulsory','obligatorisk')} until age 16. In England, young people must stay in education or training until 18.</p>
+    <p>After secondary school, some students continue in ${tw('further education','videre utdanning')} – sixth form or college – before ${tw('higher education','høyere utdanning')} at university. Students follow a ${tw('curriculum','læreplan')} set by their country's government and gain ${tw('qualifications','kvalifikasjoner')} for the future.</p>
+    <p><strong>A day at school in the UK</strong></p>
+    <p>My name is Daniel. I am 15 and go to secondary school in England. We have registration, then lessons begin. I study English, maths, science, and two or three other subjects. In English we discuss texts and write; in science we do experiments; in history we analyse sources.</p>
+    <p>At home, I do homework or ${tw('revision','eksamenslesing')}. It can be tiring, but school helps me prepare for the future and gain the ${tw('qualifications','kvalifikasjoner')} I need.</p>
+  `,
+  keywords:[
+    {en:"devolved",          no:"delegert (til regionene)"},
+    {en:"compulsory",        no:"obligatorisk"},
+    {en:"curriculum",        no:"læreplan"},
+    {en:"further education", no:"videre utdanning etter grunnskolen"},
+    {en:"higher education",  no:"høyere utdanning"},
+    {en:"qualification",     no:"kvalifikasjon"},
+    {en:"revision",          no:"repetering / eksamenslesing"},
+  ],
+  tasks:[
+    {id:"li1", type:"listenChoose",
+     title:"🎧 Listen and choose",
+     hint:"Hør ordet og velg riktig norsk oversettelse.",
+     items:[
+       {word:"curriculum",        opts:["kvalifikasjon","læreplan","eksamen"],              answer:1},
+       {word:"compulsory",        opts:["obligatorisk","delegert","frivillig"],             answer:0},
+       {word:"further education", opts:["høyere utdanning","videre utdanning","læreplan"], answer:1},
+       {word:"revision",          opts:["eksamen","lekser","eksamenslesing"],              answer:2},
+       {word:"devolved",          opts:["obligatorisk","delegert","formell"],              answer:1},
+       {word:"qualification",     opts:["læreplan","eksamen","kvalifikasjon"],             answer:2},
+     ]
+    },
+    {id:"tf1", type:"truefalse",
+     title:"True or False?",
+     hint:"Are these sentences true or false? Find the evidence in the text.",
+     items:[
+       {stmt:"The UK has one identical school system for all four countries.", answer:false},
+       {stmt:"Students in England must stay in education or training until 18.", answer:true},
+       {stmt:"Daniel studies only one subject.", answer:false},
+       {stmt:"In science lessons, Daniel sometimes does experiments.", answer:true},
+       {stmt:"After secondary school, students can go to further education.", answer:true},
+       {stmt:"Revision means starting to study a topic for the first time.", answer:false},
+       {stmt:"The curriculum is set by the country's government.", answer:true},
+     ]
+    },
+    {id:"mcq1", type:"mcq",
+     title:"Reading comprehension",
+     question:"Why do England, Scotland, Wales and Northern Ireland have different school systems?",
+     opts:[
+       "Because they speak different languages",
+       "Because education is a devolved matter – each country manages it separately",
+       "Because the UK government decided to test different systems"
+     ],
+     answer:1
+    },
+    {id:"mcq2", type:"mcq",
+     title:"Reading comprehension",
+     question:"What is the difference between further education and higher education?",
+     opts:[
+       "There is no difference – they are the same thing",
+       "Further education comes after secondary school (e.g. sixth form); higher education is university level",
+       "Higher education is for younger students; further education is for adults"
+     ],
+     answer:1
+    },
+    {id:"mcq3", type:"mcq",
+     title:"Reading comprehension",
+     question:"According to Daniel, what is one benefit of going to school?",
+     opts:[
+       "He gets to sleep late every morning",
+       "It helps him gain qualifications and prepare for the future",
+       "He never has to do homework"
+     ],
+     answer:1
+    },
+    {id:"ftm1", type:"findMistake",
+     title:"🔍 Find the mistake",
+     hint:"Det er én feil i hver setning. Det understrekte ordet er feil. Skriv det riktige ordet.",
+     items:[
+       {text:"Full-time education in the UK is compulsory until age <m>18</m>.", mistake:"18", correct:"16"},
+       {text:"The four UK countries have <m>identical</m> school systems.", mistake:"identical", correct:"different"},
+       {text:"After secondary school, some students continue in <m>higher</m> education.", mistake:"higher", correct:"further"},
+       {text:"Students follow a <m>timetable</m> set by the government.", mistake:"timetable", correct:"curriculum"},
+       {text:"Daniel does <m>maths</m> experiments in science lessons.", mistake:"maths", correct:"science"},
+     ]
+    },
+    {id:"so1", type:"sort",
+     title:"Put the stages of education in order",
+     hint:"Dra boksene i riktig rekkefølge – fra første til siste.",
+     items:[
+       {text:"Primary school", order:0},
+       {text:"Secondary school", order:1},
+       {text:"Further education (sixth form / college)", order:2},
+       {text:"Higher education (university)", order:3},
+     ]
+    },
+    {id:"fb1", type:"fillblank",
+     title:"Fill in the blanks",
+     hint:"Choose the correct word from the word bank.",
+     sentences:[
+       {before:"Full-time education is", blank:"compulsory", after:"until age 16."},
+       {before:"Students follow a", blank:"curriculum", after:"set by the government."},
+       {before:"After secondary school, some students go to", blank:"further education", after:"."},
+       {before:"At home, Daniel does homework or", blank:"revision", after:"for exams."},
+     ],
+     wordBank:["compulsory","curriculum","further education","revision","optional","timetable"]
+    },
+    {id:"wr1", type:"write",
+     title:"Reflect and compare",
+     question:"Write 6–8 sentences: What are the advantages and disadvantages of the UK school system? Compare it with your own experience of school. Think about: uniforms, compulsory education, the range of subjects, exams, and the structure of the system.",
+     hint:"Skriv 6–8 setninger: Fordeler og ulemper med britisk skole – og sammenlign med din erfaring. Tenk på: uniformer, obligatorisk skolegang, fagutvalg, eksamener og systemets struktur.",
+     minLen:100
+    }
+  ]
+}
+
+}; // end LD
+
+// ── STATE ────────────────────────────────────────────────
+let done={}, total=0;
+
+// ── NAV ─────────────────────────────────────────────────
+function startLevel(lv){
+  done={}; total=0;
+  const d=LD[lv];
+  document.getElementById('home').style.display='none';
+  document.getElementById('resource').style.display='block';
+  document.getElementById('levelPill').textContent=lv;
+  document.getElementById('rTitle').textContent='Schools in the UK – '+lv;
+  document.getElementById('rIntro').textContent=d.intro;
+  buildVocab(d);
+  buildReading(d);
+  buildKeywords(d);
+  buildTasks(d);
+  total=1+d.tasks.length;
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goHome(){
+  document.getElementById('resource').style.display='none';
+  document.getElementById('home').style.display='flex';
+}
+function scrollTo2(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+// ── VOCAB ────────────────────────────────────────────────
+function buildVocab(d){
+  ['clickVocabArea','dragVocabArea'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('clickVocabFb').textContent='';
+  document.getElementById('vocabFb').textContent='';
+  if(d.vocabMode==='list'){
+    // B1: text-only word list, click to reveal Norwegian
+    document.getElementById('vocabHint').textContent='Trykk 🔊 for å høre ordet. Klikk på raden for å se norsk oversettelse.';
+    document.getElementById('clickVocabArea').style.display='block';
+    const g=document.getElementById('clickVocabGrid');
+    g.style.gridTemplateColumns='1fr';
+    g.innerHTML='';
+    d.vocab.forEach(item=>{
+      g.innerHTML+=`<div class="vt-card" style="display:flex;align-items:center;justify-content:space-between;text-align:left;padding:12px 16px;border-radius:12px" onclick="this.classList.toggle('flipped')">
+        <div class="vt-word" style="font-size:1.05rem">${item.word} <button class="spk" onclick="event.stopPropagation();speak('${item.word}')">🔊</button></div>
+        <div class="vt-no" style="margin-top:0;font-size:.95rem">→ ${item.no}</div>
+        <div class="vt-hint" style="margin-top:0;font-size:.78rem;color:var(--muted)">Klikk</div>
+      </div>`;
+    });
+  } else if(d.vocabMode==='click'){
+    document.getElementById('vocabHint').textContent='Klikk på kortet for å se det norske ordet. Trykk 🔊 for å høre ordet.';
+    document.getElementById('clickVocabArea').style.display='block';
+    const g=document.getElementById('clickVocabGrid');
+    g.style.gridTemplateColumns='';
+    g.innerHTML='';
+    d.vocab.forEach(item=>{
+      g.innerHTML+=`<div class="vt-card" onclick="this.classList.toggle('flipped')">
+        <span class="vt-emoji">${item.emoji}</span>
+        <div class="vt-word">${item.word} <button class="spk" onclick="event.stopPropagation();speak('${item.word}')">🔊</button></div>
+        <div class="vt-no">${item.no}</div>
+        <div class="vt-hint">Klikk</div>
+      </div>`;
+    });
+  } else {
+    document.getElementById('vocabHint').textContent='Dra ordet til riktig bilde. Trykk 🔊 for å høre ordet. Klikk på understrekede ord i teksten for norsk oversettelse.';
+    document.getElementById('dragVocabArea').style.display='block';
+    const grid=document.getElementById('vocabGrid');
+    const bank=document.getElementById('wordBank');
+    grid.innerHTML=''; bank.innerHTML='';
+    const sh=[...d.vocab].sort(()=>Math.random()-.5);
+    d.vocab.forEach((item,idx)=>{
+      grid.innerHTML+=`<div class="vocab-card" data-answer="${item.word}">
+        <span class="vocab-emoji">${item.emoji}</span>
+        <button class="spk" onclick="speak('${item.word}')">🔊</button>
+        <div class="dropzone" ondragover="allowDrop(event)" ondrop="dropWord(event,this)"></div>
+      </div>`;
+    });
+    sh.forEach((item,idx)=>{
+      bank.innerHTML+=`<div class="drag-chip" draggable="true" id="dc-${idx}" data-word="${item.word}" ondragstart="dragStart(event)">${item.word}</div>`;
+    });
+  }
+}
+function dragStart(ev){ ev.dataTransfer.setData('text/plain',ev.target.id); }
+function allowDrop(ev){ ev.preventDefault(); }
+function dropWord(ev,zone){
+  ev.preventDefault();
+  const el=document.getElementById(ev.dataTransfer.getData('text/plain'));
+  if(zone&&el){zone.innerHTML='';zone.appendChild(el);}
+}
+function checkVocab(){
+  const cards=document.querySelectorAll('.vocab-card');
+  let c=0;
+  cards.forEach(card=>{
+    const zone=card.querySelector('.dropzone');
+    const item=zone.querySelector('.drag-chip');
+    zone.style.borderColor='rgba(255,255,255,.2)';
+    if(item&&item.dataset.word===card.dataset.answer){c++;zone.style.borderColor='#2ecc71';}
+    else zone.style.borderColor='#e74c3c';
+  });
+  const fb=document.getElementById('vocabFb');
+  if(c===cards.length){fb.textContent='✓ All correct!';fb.className='feedback good';done['vocab']=true;}
+  else{fb.textContent=`${c} of ${cards.length} correct. Try again.`;fb.className='feedback bad';}
+  updateProgress();
+}
+function markClickVocab(){
+  const fb=document.getElementById('clickVocabFb');
+  fb.textContent='✓ Well done! These words will help you during the reading.';
+  fb.className='feedback good';
+  done['vocab']=true;
+  updateProgress();
+}
+
+// ── READING + KEYWORDS ───────────────────────────────────
+function buildReading(d){ document.getElementById('readingText').innerHTML=d.readingText; }
+function buildKeywords(d){
+  document.getElementById('keyWordsList').innerHTML=d.keywords.map(k=>`
+    <li>
+      <span class="kw-en">${k.en} <button class="spk" onclick="speak('${k.en}')">🔊</button></span>
+      <span class="kw-no">${k.no}</span>
+    </li>`).join('');
+}
+
+// ── BUILD TASKS ──────────────────────────────────────────
+function buildTasks(d){
+  const c=document.getElementById('tasksContainer');
+  c.innerHTML='';
+  d.tasks.forEach((task,i)=>{
+    const num=i+1;
+    let h=`<div class="task-block" id="tb-${task.id}">`;
+    h+=`<div class="task-q">${num}. ${task.title}</div>`;
+    if(task.hint) h+=`<span class="task-hint">${task.hint}</span>`;
+
+    // LISTEN AND CHOOSE
+    if(task.type==='listenChoose'){
+      h+=`<div class="listen-col">`;
+      task.items.forEach((item,idx)=>{
+        h+=`<div class="listen-card" id="${task.id}-lc-${idx}">
+          <div class="listen-top">
+            <button class="listen-play" onclick="speak('${item.word}')">▶</button>
+            <span class="listen-label" id="${task.id}-ll-${idx}">🔊 Press play to hear the word</span>
+          </div>
+          <div class="listen-opts">
+            ${item.opts.map((opt,oi)=>`<button class="listen-opt" onclick="checkListen(this,'${task.id}',${idx},${oi},${item.answer},'${item.word}')">${opt}</button>`).join('')}
+          </div>
+          <div class="feedback" id="${task.id}-lfb-${idx}" style="font-size:.85rem;min-height:.8em"></div>
+        </div>`;
+      });
+      h+=`</div>`;
+      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkListenAll('${task.id}',${task.items.length})">Check all</button>`;
+
+    // EMOJI QUIZ
+    } else if(task.type==='emojiQuiz'){
+      h+=`<div class="eq-grid">`;
+      task.items.forEach((item,idx)=>{
+        h+=`<div class="eq-card">
+          <div class="eq-emojis">${item.emojis}</div>
+          <div class="eq-opts">
+            ${item.opts.map((opt,oi)=>`<button class="eq-opt" onclick="checkEQ(this,'${task.id}',${idx},${oi},${item.answer})">${opt}</button>`).join('')}
+          </div>
+          <div class="feedback" id="${task.id}-eqfb-${idx}" style="font-size:.82rem;min-height:.6em"></div>
+        </div>`;
+      });
+      h+=`</div>`;
+      h+=`<button class="btn btn-g" style="margin-top:12px" onclick="checkEQAll('${task.id}',${task.items.length})">Check all</button>`;
+
+    // TRUE/FALSE
+    } else if(task.type==='truefalse'){
+      h+=`<div class="tf-row">`;
+      task.items.forEach((item,idx)=>{
+        h+=`<div class="tf-item">
+          <div class="tf-stmt">${item.stmt}</div>
+          <div class="tf-btns">
+            <button class="tf-btn true-btn" onclick="checkTF('${task.id}',${idx},true,${item.answer})">✓ True</button>
+            <button class="tf-btn false-btn" onclick="checkTF('${task.id}',${idx},false,${item.answer})">✗ False</button>
+          </div>
+          <div class="feedback" id="${task.id}-tffb-${idx}" style="font-size:.82rem;min-height:.6em"></div>
+        </div>`;
+      });
+      h+=`</div>`;
+      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkTFAll('${task.id}',${task.items.length})">Check all</button>`;
+
+    // FIND THE MISTAKE
+    } else if(task.type==='findMistake'){
+      h+=`<div class="ftm-tip">💡 Each sentence has <strong>one mistake</strong>. The wrong word is underlined. Click on it, then type the correct word.</div>`;
+      task.items.forEach((item,idx)=>{
+        const txt=item.text.replace(/<m>(.*?)<\/m>/,`<span class="mw" onclick="focusFtm('${task.id}',${idx})">$1</span>`);
+        h+=`<div class="ftm-sentence">
+          <div class="ftm-text">${txt}</div>
+          <div class="ftm-row">
+            <span class="ftm-lbl">Correct word:</span>
+            <input class="ftm-inp" id="${task.id}-fi-${idx}" data-answer="${item.correct}" placeholder="…">
+            <button class="ftm-chk" onclick="checkFtmItem('${task.id}',${idx})">Check ✓</button>
+          </div>
+          <div class="feedback" id="${task.id}-ftfb-${idx}" style="font-size:.82rem;min-height:.6em"></div>
+        </div>`;
+      });
+      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkFtmAll('${task.id}',${task.items.length})">Check all</button>`;
+
+    // FILL BLANK
+    } else if(task.type==='fillblank'){
+      const bsh=[...task.wordBank].sort(()=>Math.random()-.5);
+      h+=`<div class="fitb-bank" id="${task.id}-bank">`;
+      bsh.forEach(w=>{ h+=`<span class="fitb-chip" data-word="${w}" onclick="doFill('${task.id}',this)">${w}</span>`; });
+      h+=`</div>`;
+      task.sentences.forEach((s,idx)=>{
+        h+=`<div class="fitb-sent">${s.before} <input class="fitb-inp" id="${task.id}-bi-${idx}" data-answer="${s.blank}" readonly placeholder="___"> ${s.after}</div>`;
+      });
+      h+=`<button class="btn" onclick="checkFitb('${task.id}',${task.sentences.length})">Check</button>`;
+      h+=`<button class="btn btn-g" onclick="resetFitb('${task.id}',${task.sentences.length})" style="margin-left:8px">Reset</button>`;
+
+    // SORT
+    } else if(task.type==='sort'){
+      const sh=[...task.items].sort(()=>Math.random()-.5);
+      h+=`<div class="sort-con" id="${task.id}-sc">`;
+      sh.forEach((item,idx)=>{
+        h+=`<div class="sort-item" draggable="true" data-order="${item.order}" id="${task.id}-si-${idx}"
+          ondragstart="sDragStart(event)" ondragover="sDragOver(event)" ondrop="sDrop(event,'${task.id}-sc')">
+          <span class="sort-handle">☰</span>${item.text}
+        </div>`;
+      });
+      h+=`</div>`;
+      h+=`<button class="btn" onclick="checkSort('${task.id}',${task.items.length})">Check order</button>`;
+
+    // MCQ
+    } else if(task.type==='mcq'){
+      if(task.question) h+=`<p style="margin-bottom:10px">${task.question}</p>`;
+      h+=`<div class="options">`;
+      task.opts.forEach((opt,idx)=>{
+        h+=`<label class="opt-label"><input type="radio" name="${task.id}" value="${idx}" onchange="checkMCQ('${task.id}',${task.answer})"> <span>${opt}</span></label>`;
+      });
+      h+=`</div>`;
+
+    // WRITE
+    } else if(task.type==='write'){
+      if(task.question) h+=`<p style="margin-bottom:6px">${task.question}</p>`;
+      h+=`<textarea class="task-inp" id="${task.id}-inp" rows="5" placeholder="Write here…"></textarea>`;
+      h+=`<button class="btn" onclick="markWrite('${task.id}',${task.minLen||20})">Mark as done</button>`;
+    }
+
+    h+=`<div class="feedback" id="${task.id}-fb2"></div></div>`;
+    c.innerHTML+=h;
+  });
+}
+
+// ── CHECKERS ─────────────────────────────────────────────
+
+function checkMCQ(id,answer){
+  const sel=document.querySelector(`input[name="${id}"]:checked`);
+  if(!sel)return;
+  const fb=document.getElementById(`${id}-fb2`);
+  if(Number(sel.value)===answer){fb.textContent='✓ Correct!';fb.className='feedback good';done[id]=true;}
+  else{fb.textContent='Not quite. Try again.';fb.className='feedback bad';done[id]=false;}
+  updateProgress();
+}
+
+function checkListen(btn,taskId,idx,chosen,answer,word){
+  const fb=document.getElementById(`${taskId}-lfb-${idx}`);
+  btn.closest('.listen-card').querySelectorAll('.listen-opt').forEach(b=>b.classList.remove('correct','wrong'));
+  if(chosen===answer){
+    btn.classList.add('correct');
+    fb.textContent='✓ Correct!';fb.className='feedback good';
+    document.getElementById(`${taskId}-ll-${idx}`).textContent='🔊 '+word;
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent='Try again.';fb.className='feedback bad';
+  }
+}
+function checkListenAll(taskId,count){
+  let c=0;
+  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-lfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`${c} of ${count} correct. Keep trying!`;fb.className='feedback bad';}
+  updateProgress();
+}
+
+function checkEQ(btn,taskId,idx,chosen,answer){
+  const fb=document.getElementById(`${taskId}-eqfb-${idx}`);
+  btn.closest('.eq-card').querySelectorAll('.eq-opt').forEach(b=>b.classList.remove('correct','wrong'));
+  if(chosen===answer){btn.classList.add('correct');fb.textContent='✓';fb.className='feedback good';}
+  else{btn.classList.add('wrong');fb.textContent='✗ Try again';fb.className='feedback bad';}
+}
+function checkEQAll(taskId,count){
+  let c=0;
+  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-eqfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';}
+  updateProgress();
+}
+
+function checkTF(taskId,idx,selected,correct){
+  const fb=document.getElementById(`${taskId}-tffb-${idx}`);
+  const item=document.querySelector(`#tb-${taskId} .tf-row .tf-item:nth-child(${idx+1})`);
+  if(!item)return;
+  const tb=item.querySelector('.true-btn');
+  const fb2=item.querySelector('.false-btn');
+  [tb,fb2].forEach(b=>{if(b)b.classList.remove('correct','wrong');});
+  if(selected===correct){
+    fb.textContent='✓ Correct!';fb.className='feedback good';
+    (selected?tb:fb2).classList.add('correct');
+  } else {
+    fb.textContent='Try again.';fb.className='feedback bad';
+    (selected?tb:fb2).classList.add('wrong');
+  }
+}
+function checkTFAll(taskId,count){
+  let c=0;
+  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-tffb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent='✓ All answers correct!';fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`${c} of ${count} correct. Check the ones above.`;fb.className='feedback bad';}
+  updateProgress();
+}
+
+function focusFtm(taskId,idx){
+  const inp=document.getElementById(`${taskId}-fi-${idx}`);
+  if(inp)inp.focus();
+}
+function checkFtmItem(taskId,idx){
+  const inp=document.getElementById(`${taskId}-fi-${idx}`);
+  const fb=document.getElementById(`${taskId}-ftfb-${idx}`);
+  if(!inp)return;
+  const val=inp.value.trim().toLowerCase();
+  const ans=inp.dataset.answer.toLowerCase();
+  inp.classList.remove('ok','no');
+  if(val===ans){inp.classList.add('ok');fb.textContent='✓ Correct!';fb.className='feedback good';}
+  else{inp.classList.add('no');fb.textContent='Not quite. Think again.';fb.className='feedback bad';}
+}
+function checkFtmAll(taskId,count){
+  let c=0;
+  for(let i=0;i<count;i++){checkFtmItem(taskId,i);const fb=document.getElementById(`${taskId}-ftfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent=`✓ All ${count} mistakes corrected!`;fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';}
+  updateProgress();
+}
+
+function doFill(taskId,chip){
+  if(chip.classList.contains('used'))return;
+  const inputs=document.querySelectorAll(`[id^="${taskId}-bi-"]`);
+  let placed=false;
+  inputs.forEach(inp=>{if(!placed&&!inp.value){inp.value=chip.dataset.word;chip.classList.add('used');placed=true;}});
+}
+function checkFitb(taskId,count){
+  let c=0;
+  for(let i=0;i<count;i++){
+    const inp=document.getElementById(`${taskId}-bi-${i}`);
+    if(!inp)continue;
+    inp.classList.remove('ok','no');
+    if((inp.value||'').toLowerCase().trim()===inp.dataset.answer.toLowerCase().trim()){c++;inp.classList.add('ok');}
+    else inp.classList.add('no');
+  }
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`${c} of ${count} correct. Check the red boxes.`;fb.className='feedback bad';}
+  updateProgress();
+}
+function resetFitb(taskId,count){
+  for(let i=0;i<count;i++){const inp=document.getElementById(`${taskId}-bi-${i}`);if(inp){inp.value='';inp.classList.remove('ok','no');}}
+  document.querySelectorAll(`#${taskId}-bank .fitb-chip`).forEach(c=>c.classList.remove('used'));
+  const fb=document.getElementById(`${taskId}-fb2`);if(fb){fb.textContent='';fb.className='feedback';}
+}
+
+let sDragEl=null;
+function sDragStart(ev){sDragEl=ev.currentTarget;sDragEl.classList.add('dragging');}
+function sDragOver(ev){ev.preventDefault();}
+function sDrop(ev,cid){
+  ev.preventDefault();
+  const target=ev.currentTarget;
+  const container=document.getElementById(cid);
+  if(sDragEl&&target&&sDragEl!==target){
+    const items=[...container.querySelectorAll('.sort-item')];
+    const fi=items.indexOf(sDragEl);const ti=items.indexOf(target);
+    if(fi<ti)container.insertBefore(sDragEl,target.nextSibling);
+    else container.insertBefore(sDragEl,target);
+  }
+  if(sDragEl)sDragEl.classList.remove('dragging');
+  sDragEl=null;
+}
+function checkSort(taskId,count){
+  const items=document.querySelectorAll(`#${taskId}-sc .sort-item`);
+  let c=0;
+  items.forEach((item,idx)=>{if(Number(item.dataset.order)===idx)c++;});
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(c===count){fb.textContent='✓ Correct order!';fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent='Not quite. Try a different order.';fb.className='feedback bad';}
+  updateProgress();
+}
+
+function markWrite(taskId,minLen){
+  const val=(document.getElementById(`${taskId}-inp`)||{}).value||'';
+  const fb=document.getElementById(`${taskId}-fb2`);
+  if(val.trim().length>=minLen){fb.textContent='✓ Done!';fb.className='feedback good';done[taskId]=true;}
+  else{fb.textContent=`Please write a little more (at least ${minLen} characters).`;fb.className='feedback bad';}
+  updateProgress();
+}
+
+// ── PROGRESS ─────────────────────────────────────────────
+function updateProgress(){
+  const count=Object.values(done).filter(Boolean).length;
+  const pct=total?Math.round((count/total)*100):0;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent=`${count} of ${total} activities completed`;
+  const btn=document.getElementById('printBtn');
+  const msg=document.getElementById('printMsg');
+  if(count===total&&total>0){
+    btn.disabled=false;
+    msg.innerHTML='<span class="print-done">✓ All activities completed – you can save to PDF!</span>';
+  } else {
+    btn.disabled=true;
+    msg.textContent='Finish all activities to unlock printing.';
+  }
+}
+function doPrint(){if(!document.getElementById('printBtn').disabled)window.print();}
+</script>
+</body>
+</html>
