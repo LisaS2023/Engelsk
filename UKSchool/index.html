@@ -179,9 +179,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
 .print-done{color:#86efac;font-weight:700}
 .print-hint{color:var(--muted);font-size:.82rem}
 
+/* ── BADGES on landing ── */
+.badges-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.badge-slot{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.28;transition:opacity .4s,transform .4s}
+.badge-slot.earned{opacity:1;transform:scale(1.05)}
+.badge-icon{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;border:3px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);position:relative;transition:box-shadow .4s}
+.badge-slot.earned .badge-icon{border-color:var(--badge-color,var(--gold));box-shadow:0 0 22px var(--badge-color,var(--gold)),0 0 6px rgba(255,255,255,.3)}
+.badge-label{font-size:.78rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.badge-slot.earned .badge-label{color:var(--text)}
+.badge-check{position:absolute;bottom:-2px;right:-2px;background:var(--badge-color,var(--gold));border-radius:50%;width:22px;height:22px;display:none;align-items:center;justify-content:center;font-size:.75rem;color:#0e1a2b;font-weight:900;border:2px solid var(--navy)}
+.badge-slot.earned .badge-check{display:flex}
+
+/* ── COMPLETION MODAL ── */
+#badgeModal{position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(14,26,43,.85);backdrop-filter:blur(8px)}
+#badgeModal.show{display:flex}
+.modal-box{background:linear-gradient(145deg,var(--navy2),var(--navy3));border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:40px 36px;max-width:440px;width:100%;text-align:center;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.6);animation:modalPop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes modalPop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-badge-wrap{position:relative;display:inline-block;margin-bottom:20px}
+.modal-badge{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3.6rem;margin:0 auto;border:4px solid var(--badge-color,var(--gold));box-shadow:0 0 40px var(--badge-color,var(--gold)),0 0 80px rgba(255,255,255,.08);animation:badgePulse 2s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 30px var(--badge-color,var(--gold)),0 0 60px rgba(255,255,255,.05)}50%{box-shadow:0 0 50px var(--badge-color,var(--gold)),0 0 100px rgba(255,255,255,.12)}}
+.modal-stars{font-size:1.6rem;letter-spacing:4px;margin-bottom:10px;animation:starPop .6s .3s both}
+@keyframes starPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.modal-title{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:900;margin-bottom:6px;color:var(--gold)}
+.modal-sub{color:var(--muted);font-size:.95rem;line-height:1.5;margin-bottom:6px}
+.modal-badge-name{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:20px}
+.modal-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.modal-btn{padding:12px 24px;border-radius:14px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:transform .15s,box-shadow .15s}
+.modal-btn:hover{transform:translateY(-2px)}
+.modal-btn.primary{background:linear-gradient(135deg,var(--red),#8b0000);color:white}
+.modal-btn.primary:hover{box-shadow:0 6px 18px rgba(192,57,43,.5)}
+.modal-btn.secondary{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text)}
+/* confetti */
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;z-index:1000;animation:confettiFall var(--dur,3s) var(--delay,0s) ease-in forwards}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
 @media print{
   body{background:white;color:black}
-  .topbar,.back-btn,.nav-jump,.print-bar,.btn,.fitb-bank,.word-bank,.listen-play,.eq-opts,.tf-btns,.ftm-chk{display:none!important}
+  .topbar,.back-btn,.nav-jump,.print-bar,.btn,.fitb-bank,.word-bank,.listen-play,.eq-opts,.tf-btns,.ftm-chk,#badgeModal,.badges-row{display:none!important}
   #home{display:none!important}
   #resource{display:block!important}
   .section-card,.task-block,.reading-text,.vt-card,.listen-card,.eq-card,.ftm-sentence{background:white;border-color:#ccc;color:black}
@@ -220,8 +254,42 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
         <p>Read more about the UK system, find mistakes, and compare with your own school.</p>
       </div>
     </div>
+    <!-- Badge showcase -->
+    <div class="badges-row" id="badgesRow">
+      <div class="badge-slot" id="bs-PreA1" style="--badge-color:#64b5f6">
+        <div class="badge-icon">🌱<div class="badge-check">✓</div></div>
+        <div class="badge-label">Pre-A1</div>
+      </div>
+      <div class="badge-slot" id="bs-A1" style="--badge-color:#81c784">
+        <div class="badge-icon">⭐<div class="badge-check">✓</div></div>
+        <div class="badge-label">A1</div>
+      </div>
+      <div class="badge-slot" id="bs-A2" style="--badge-color:#ffb74d">
+        <div class="badge-icon">🏅<div class="badge-check">✓</div></div>
+        <div class="badge-label">A2</div>
+      </div>
+      <div class="badge-slot" id="bs-B1" style="--badge-color:#f06292">
+        <div class="badge-icon">🏆<div class="badge-check">✓</div></div>
+        <div class="badge-label">B1</div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- BADGE MODAL -->
+<div id="badgeModal">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-stars" id="modalStars">⭐⭐⭐</div>
+    <div class="modal-badge" id="modalBadge">🏅</div>
+    <div class="modal-title">Badge unlocked!</div>
+    <div class="modal-sub">You have completed</div>
+    <div class="modal-badge-name" id="modalBadgeName">Level A2 – Schools in the UK</div>
+    <div class="modal-btns">
+      <button class="modal-btn primary" onclick="closeModal();doPrint()">💾 Save to PDF</button>
+      <button class="modal-btn secondary" onclick="closeModal()">Back to levels</button>
+    </div>
+  </div>
+</div>
 
 <!-- RESOURCE -->
 <section id="resource">
@@ -1151,6 +1219,66 @@ function markWrite(taskId,minLen){
   updateProgress();
 }
 
+// ── BADGE CONFIG ─────────────────────────────────────────
+const BADGES = {
+  PreA1:{ emoji:'🌱', color:'#64b5f6', name:'Pre-A1 – Schools in the UK', stars:'⭐⭐⭐' },
+  A1:   { emoji:'⭐', color:'#81c784', name:'A1 – Schools in the UK',     stars:'⭐⭐⭐' },
+  A2:   { emoji:'🏅', color:'#ffb74d', name:'A2 – Schools in the UK',     stars:'⭐⭐⭐' },
+  B1:   { emoji:'🏆', color:'#f06292', name:'B1 – Schools in the UK',     stars:'⭐⭐⭐' },
+};
+const STORAGE_KEY = 'uk_schools_badges';
+
+function loadBadges(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }
+  catch(e){ return {}; }
+}
+function saveBadge(lv){
+  const b=loadBadges(); b[lv]=true;
+  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(b)); }catch(e){}
+}
+function renderBadges(){
+  const earned=loadBadges();
+  Object.keys(BADGES).forEach(lv=>{
+    const el=document.getElementById('bs-'+lv);
+    if(el){ el.classList.toggle('earned', !!earned[lv]); }
+  });
+}
+
+// ── CONFETTI ─────────────────────────────────────────────
+function launchConfetti(){
+  const colors=['#64b5f6','#81c784','#ffb74d','#f06292','#f0c040','#e74c3c','#fff'];
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};
+      --dur:${2+Math.random()*2.5}s;--delay:${Math.random()*.8}s`;
+    document.body.appendChild(el);
+    el.addEventListener('animationend',()=>el.remove());
+  }
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+function showBadgeModal(lv){
+  const b=BADGES[lv];
+  const box=document.getElementById('modalBox');
+  box.style.setProperty('--badge-color', b.color);
+  document.getElementById('modalBadge').textContent=b.emoji;
+  document.getElementById('modalBadge').style.background=`radial-gradient(circle at 35% 35%, rgba(255,255,255,.15), transparent)`;
+  document.getElementById('modalStars').textContent=b.stars;
+  document.getElementById('modalBadgeName').textContent=b.name;
+  const modal=document.getElementById('badgeModal');
+  modal.classList.add('show');
+  launchConfetti();
+}
+function closeModal(){
+  document.getElementById('badgeModal').classList.remove('show');
+  // go home
+  document.getElementById('resource').style.display='none';
+  document.getElementById('home').style.display='flex';
+  renderBadges();
+}
+
 // ── PROGRESS ─────────────────────────────────────────────
 function updateProgress(){
   const count=Object.values(done).filter(Boolean).length;
@@ -1162,12 +1290,20 @@ function updateProgress(){
   if(count===total&&total>0){
     btn.disabled=false;
     msg.innerHTML='<span class="print-done">✓ All activities completed – you can save to PDF!</span>';
+    if(!done['_badgeShown']){
+      done['_badgeShown']=true;
+      saveBadge(currentLevel);
+      setTimeout(()=>showBadgeModal(currentLevel), 600);
+    }
   } else {
     btn.disabled=true;
     msg.textContent='Finish all activities to unlock printing.';
   }
 }
 function doPrint(){if(!document.getElementById('printBtn').disabled)window.print();}
+
+// init badges on load
+renderBadges();
 </script>
 </body>
 </html>
