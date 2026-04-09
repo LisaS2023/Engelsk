@@ -185,6 +185,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
 .print-done{color:#86efac;font-weight:700}
 .print-hint{color:var(--muted);font-size:.82rem}
 
+/* ── IN-PAGE BADGE ── */
+.inpage-badge-wrap{display:flex;align-items:center;gap:16px;margin-top:20px;padding:16px 20px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--border);transition:background .4s,border-color .4s}
+.inpage-badge-wrap.earned{background:rgba(255,255,255,.07);border-color:var(--ibadge-color,var(--gold))}
+.inpage-badge-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;border:3px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);flex-shrink:0;transition:border-color .4s,box-shadow .4s;position:relative}
+.inpage-badge-wrap.earned .inpage-badge-icon{border-color:var(--ibadge-color,var(--gold));box-shadow:0 0 18px var(--ibadge-color,var(--gold))}
+.inpage-badge-icon .badge-check{position:absolute;bottom:-3px;right:-3px;background:var(--ibadge-color,var(--gold));border-radius:50%;width:20px;height:20px;display:none;align-items:center;justify-content:center;font-size:.7rem;color:#0e1a2b;font-weight:900;border:2px solid var(--navy)}
+.inpage-badge-wrap.earned .badge-check{display:flex}
+.inpage-badge-text{}
+.inpage-badge-title{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.inpage-badge-name{font-size:1rem;font-weight:700;color:var(--text)}
+.inpage-badge-status{font-size:.82rem;color:var(--muted);margin-top:2px}
+.inpage-badge-wrap.earned .inpage-badge-name{color:var(--ibadge-color,var(--gold))}
+.inpage-badge-wrap.earned .inpage-badge-status{color:#86efac}
+
 /* ── BADGES on landing ── */
 .badges-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px}
 .badge-slot{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.28;transition:opacity .4s,transform .4s}
@@ -291,8 +305,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
     <div class="modal-sub">You have completed</div>
     <div class="modal-badge-name" id="modalBadgeName">Level A2 – Schools in the UK</div>
     <div class="modal-btns">
-      <button class="modal-btn primary" onclick="closeModal();doPrint()">💾 Save to PDF</button>
-      <button class="modal-btn secondary" onclick="closeModal()">Back to levels</button>
+      <button class="modal-btn primary" onclick="closeModalStay()">🎉 Keep working</button>
+      <button class="modal-btn secondary" onclick="closeModalHome()">🏠 Back to levels</button>
     </div>
   </div>
 </div>
@@ -313,6 +327,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
       <div class="prog-wrap">
         <div class="prog-label" id="progLabel">0 of 0 activities completed</div>
         <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      </div>
+      <!-- in-page badge -->
+      <div class="inpage-badge-wrap" id="inpageBadge">
+        <div class="inpage-badge-icon" id="inpageBadgeIcon">
+          <span id="inpageBadgeEmoji">🏅</span><div class="badge-check">✓</div>
+        </div>
+        <div class="inpage-badge-text">
+          <div class="inpage-badge-title">Your badge</div>
+          <div class="inpage-badge-name" id="inpageBadgeName">–</div>
+          <div class="inpage-badge-status" id="inpageBadgeStatus">Complete 70% to earn this badge</div>
+        </div>
       </div>
     </div>
 
@@ -848,6 +873,10 @@ function startLevel(lv){
   buildKeywords(d);
   buildTasks(d);
   total=1+d.tasks.length;
+  // if returning to an already-completed level, don't re-trigger the modal
+  const alreadyEarned=!!loadBadges()[lv];
+  if(alreadyEarned) done['_badgeShown']=true;
+  updateInpageBadge(lv, alreadyEarned);
   updateProgress();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1344,24 +1373,52 @@ function showBadgeModal(lv){
   document.getElementById('modalBadgeName').textContent=b.name;
   document.getElementById('badgeModal').classList.add('show');
   launchConfetti();
+  updateInpageBadge(lv, true);
 }
-function closeModal(){
+function closeModalStay(){
+  document.getElementById('badgeModal').classList.remove('show');
+  // stay on current resource page
+}
+function closeModalHome(){
   document.getElementById('badgeModal').classList.remove('show');
   document.getElementById('resource').style.display='none';
   document.getElementById('home').style.display='flex';
   renderBadges();
 }
+// keep old closeModal as alias for back-compat
+function closeModal(){ closeModalHome(); }
+
+function updateInpageBadge(lv, earned){
+  if(!lv||!BADGES[lv]) return;
+  const b=BADGES[lv];
+  const wrap=document.getElementById('inpageBadge');
+  const emoji=document.getElementById('inpageBadgeEmoji');
+  const name=document.getElementById('inpageBadgeName');
+  const status=document.getElementById('inpageBadgeStatus');
+  if(!wrap||!emoji||!name||!status) return;
+  wrap.style.setProperty('--ibadge-color', b.color);
+  emoji.textContent=b.emoji;
+  name.textContent=b.name;
+  if(earned){
+    wrap.classList.add('earned');
+    status.textContent='🎉 Badge earned!';
+    status.style.color='#86efac';
+  } else {
+    wrap.classList.remove('earned');
+    status.textContent='Complete 70% of activities to earn this badge';
+    status.style.color='';
+  }
+}
 
 // ── PROGRESS ─────────────────────────────────────────────
 function updateProgress(){
-  // exclude internal _ keys from count and total display
+  if(!currentLevel) return;
   const realEntries=Object.entries(done).filter(([k])=>!k.startsWith('_'));
   const count=realEntries.filter(([,v])=>v===true).length;
   const pct=total?Math.round((count/total)*100):0;
   document.getElementById('progFill').style.width=pct+'%';
   document.getElementById('progLabel').textContent=`${count} of ${total} activities completed`;
 
-  // print always available
   document.getElementById('printBtn').disabled=false;
   const msg=document.getElementById('printMsg');
   if(pct===100){
@@ -1370,7 +1427,12 @@ function updateProgress(){
     msg.textContent=`${pct}% completed – save to PDF at any time.`;
   }
 
-  // badge at 70%
+  // update in-page badge live as activities are completed
+  const alreadyEarned=!!loadBadges()[currentLevel];
+  const nowEarned=alreadyEarned || (total>0 && count/total>=BADGE_THRESHOLD);
+  updateInpageBadge(currentLevel, nowEarned);
+
+  // trigger modal once when threshold first reached
   if(!done['_badgeShown'] && total>0 && count/total>=BADGE_THRESHOLD){
     done['_badgeShown']=true;
     saveBadge(currentLevel);
