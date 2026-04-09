@@ -174,6 +174,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
 .task-inp{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:10px 14px;font-size:.95rem;font-family:'DM Sans',sans-serif;margin-top:8px;resize:vertical}
 .task-inp::placeholder{color:var(--muted)}
 
+.tf-btn.selected{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);color:var(--text)}
+.listen-opt.selected{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5)}
+.eq-opt.selected{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+.opt-label.opt-correct{background:rgba(46,204,113,.2);border-color:#2ecc71}
+.opt-label.opt-wrong{background:rgba(231,76,60,.15);border-color:#e74c3c}
+
 /* Print bar */
 .print-bar{position:sticky;bottom:14px;background:rgba(14,26,43,.95);border:1px solid var(--border);border-radius:18px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;backdrop-filter:blur(12px);box-shadow:var(--shadow);margin-top:28px}
 .print-done{color:#86efac;font-weight:700}
@@ -347,7 +353,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
         <div id="printMsg">Finish all activities to unlock printing.</div>
         <div class="print-hint">Tip: Choose «Save as PDF» in the print window.</div>
       </div>
-      <button class="btn" id="printBtn" onclick="doPrint()" disabled>Save to PDF</button>
+      <button class="btn" id="printBtn" onclick="doPrint()">Save to PDF</button>
     </div>
   </div>
 </section>
@@ -963,13 +969,13 @@ function buildTasks(d){
             <span class="listen-label" id="${task.id}-ll-${idx}">🔊 Press play to hear the word</span>
           </div>
           <div class="listen-opts">
-            ${item.opts.map((opt,oi)=>`<button class="listen-opt" onclick="checkListen(this,'${task.id}',${idx},${oi},${item.answer},'${item.word}')">${opt}</button>`).join('')}
+            ${item.opts.map((opt,oi)=>`<button class="listen-opt" onclick="selectListen(this,'${task.id}',${idx})">${opt}</button>`).join('')}
           </div>
           <div class="feedback" id="${task.id}-lfb-${idx}" style="font-size:.85rem;min-height:.8em"></div>
         </div>`;
       });
       h+=`</div>`;
-      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkListenAll('${task.id}',${task.items.length})">Check all</button>`;
+      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkListenAll('${task.id}',${task.items.length},${JSON.stringify(task.items.map(x=>x.answer))},${JSON.stringify(task.items.map(x=>x.word))})">Check all</button>`;
 
     // EMOJI QUIZ
     } else if(task.type==='emojiQuiz'){
@@ -978,13 +984,13 @@ function buildTasks(d){
         h+=`<div class="eq-card">
           <div class="eq-emojis">${item.emojis}</div>
           <div class="eq-opts">
-            ${item.opts.map((opt,oi)=>`<button class="eq-opt" onclick="checkEQ(this,'${task.id}',${idx},${oi},${item.answer})">${opt}</button>`).join('')}
+            ${item.opts.map((opt,oi)=>`<button class="eq-opt" onclick="selectEQ(this,'${task.id}',${idx})">${opt}</button>`).join('')}
           </div>
           <div class="feedback" id="${task.id}-eqfb-${idx}" style="font-size:.82rem;min-height:.6em"></div>
         </div>`;
       });
       h+=`</div>`;
-      h+=`<button class="btn btn-g" style="margin-top:12px" onclick="checkEQAll('${task.id}',${task.items.length})">Check all</button>`;
+      h+=`<button class="btn btn-g" style="margin-top:12px" onclick="checkEQAll('${task.id}',${task.items.length},${JSON.stringify(task.items.map(x=>x.answer))})">Check all</button>`;
 
     // TRUE/FALSE
     } else if(task.type==='truefalse'){
@@ -993,14 +999,14 @@ function buildTasks(d){
         h+=`<div class="tf-item">
           <div class="tf-stmt">${item.stmt}</div>
           <div class="tf-btns">
-            <button class="tf-btn true-btn" onclick="checkTF('${task.id}',${idx},true,${item.answer})">✓ True</button>
-            <button class="tf-btn false-btn" onclick="checkTF('${task.id}',${idx},false,${item.answer})">✗ False</button>
+            <button class="tf-btn true-btn" onclick="selectTF(this,'${task.id}',${idx},'true')">✓ True</button>
+            <button class="tf-btn false-btn" onclick="selectTF(this,'${task.id}',${idx},'false')">✗ False</button>
           </div>
           <div class="feedback" id="${task.id}-tffb-${idx}" style="font-size:.82rem;min-height:.6em"></div>
         </div>`;
       });
       h+=`</div>`;
-      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkTFAll('${task.id}',${task.items.length})">Check all</button>`;
+      h+=`<button class="btn btn-g" style="margin-top:8px" onclick="checkTFAll('${task.id}',${task.items.length},${JSON.stringify(task.items.map(x=>x.answer))})">Check all</button>`;
 
     // FIND THE MISTAKE
     } else if(task.type==='findMistake'){
@@ -1049,9 +1055,10 @@ function buildTasks(d){
       if(task.question) h+=`<p style="margin-bottom:10px">${task.question}</p>`;
       h+=`<div class="options">`;
       task.opts.forEach((opt,idx)=>{
-        h+=`<label class="opt-label"><input type="radio" name="${task.id}" value="${idx}" onchange="checkMCQ('${task.id}',${task.answer})"> <span>${opt}</span></label>`;
+        h+=`<label class="opt-label"><input type="radio" name="${task.id}" value="${idx}"> <span>${opt}</span></label>`;
       });
       h+=`</div>`;
+      h+=`<button class="btn" style="margin-top:10px" onclick="checkMCQ('${task.id}',${task.answer})">Check ✓</button>`;
 
     // WRITE
     } else if(task.type==='write'){
@@ -1067,72 +1074,124 @@ function buildTasks(d){
 
 // ── CHECKERS ─────────────────────────────────────────────
 
+// MCQ – check button
 function checkMCQ(id,answer){
   const sel=document.querySelector(`input[name="${id}"]:checked`);
-  if(!sel)return;
   const fb=document.getElementById(`${id}-fb2`);
-  if(Number(sel.value)===answer){fb.textContent='✓ Correct!';fb.className='feedback good';done[id]=true;}
+  if(!sel){fb.textContent='Please select an answer first.';fb.className='feedback bad';return;}
+  document.querySelectorAll(`input[name="${id}"]`).forEach(inp=>{
+    inp.closest('.opt-label').classList.remove('opt-correct','opt-wrong');
+  });
+  const chosen=Number(sel.value);
+  sel.closest('.opt-label').classList.add(chosen===answer?'opt-correct':'opt-wrong');
+  if(chosen===answer){fb.textContent='✓ Correct!';fb.className='feedback good';done[id]=true;}
   else{fb.textContent='Not quite. Try again.';fb.className='feedback bad';done[id]=false;}
   updateProgress();
 }
 
-function checkListen(btn,taskId,idx,chosen,answer,word){
-  const fb=document.getElementById(`${taskId}-lfb-${idx}`);
-  btn.closest('.listen-card').querySelectorAll('.listen-opt').forEach(b=>b.classList.remove('correct','wrong'));
-  if(chosen===answer){
-    btn.classList.add('correct');
-    fb.textContent='✓ Correct!';fb.className='feedback good';
-    document.getElementById(`${taskId}-ll-${idx}`).textContent='🔊 '+word;
-  } else {
-    btn.classList.add('wrong');
-    fb.textContent='Try again.';fb.className='feedback bad';
+// LISTEN – select only (visual, no evaluation)
+function selectListen(btn,taskId,idx){
+  btn.closest('.listen-card').querySelectorAll('.listen-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+// LISTEN – check all
+function checkListenAll(taskId,count,answers,words){
+  let c=0;
+  for(let i=0;i<count;i++){
+    const card=document.getElementById(`${taskId}-lc-${i}`);
+    const fb=document.getElementById(`${taskId}-lfb-${i}`);
+    const opts=card.querySelectorAll('.listen-opt');
+    const sel=[...opts].findIndex(b=>b.classList.contains('selected'));
+    opts.forEach(b=>b.classList.remove('correct','wrong','selected'));
+    if(sel===-1){if(fb){fb.textContent='No answer selected.';fb.className='feedback bad';} continue;}
+    if(sel===answers[i]){
+      opts[sel].classList.add('correct');
+      if(fb){fb.textContent='✓ Correct!';fb.className='feedback good';}
+      document.getElementById(`${taskId}-ll-${i}`).textContent='🔊 '+words[i];
+      c++;
+    } else {
+      opts[sel].classList.add('wrong');
+      opts[answers[i]].classList.add('correct');
+      if(fb){fb.textContent='Not quite.';fb.className='feedback bad';}
+    }
   }
-}
-function checkListenAll(taskId,count){
-  let c=0;
-  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-lfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent=`${c} of ${count} correct. Keep trying!`;fb.className='feedback bad';}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';done[taskId]=(c===count);}
   updateProgress();
 }
 
-function checkEQ(btn,taskId,idx,chosen,answer){
-  const fb=document.getElementById(`${taskId}-eqfb-${idx}`);
-  btn.closest('.eq-card').querySelectorAll('.eq-opt').forEach(b=>b.classList.remove('correct','wrong'));
-  if(chosen===answer){btn.classList.add('correct');fb.textContent='✓';fb.className='feedback good';}
-  else{btn.classList.add('wrong');fb.textContent='✗ Try again';fb.className='feedback bad';}
+// EMOJI QUIZ – select only
+function selectEQ(btn,taskId,idx){
+  btn.closest('.eq-card').querySelectorAll('.eq-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
 }
-function checkEQAll(taskId,count){
+// EMOJI QUIZ – check all
+function checkEQAll(taskId,count,answers){
   let c=0;
-  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-eqfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  for(let i=0;i<count;i++){
+    const cards=document.querySelectorAll(`#tb-${taskId} .eq-card`);
+    const card=cards[i];
+    const fb=document.getElementById(`${taskId}-eqfb-${i}`);
+    if(!card) continue;
+    const opts=card.querySelectorAll('.eq-opt');
+    const sel=[...opts].findIndex(b=>b.classList.contains('selected'));
+    opts.forEach(b=>b.classList.remove('correct','wrong','selected'));
+    if(sel===-1){if(fb){fb.textContent='No answer.';fb.className='feedback bad';} continue;}
+    if(sel===answers[i]){
+      opts[sel].classList.add('correct');
+      if(fb){fb.textContent='✓';fb.className='feedback good';} c++;
+    } else {
+      opts[sel].classList.add('wrong');
+      opts[answers[i]].classList.add('correct');
+      if(fb){fb.textContent='✗';fb.className='feedback bad';}
+    }
+  }
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';done[taskId]=(c===count);}
   updateProgress();
 }
 
-function checkTF(taskId,idx,selected,correct){
+// TRUE/FALSE – select only (highlight, no evaluate)
+function selectTF(btn,taskId,idx,val){
+  const item=btn.closest('.tf-item');
+  item.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  item.dataset.selected=val;
   const fb=document.getElementById(`${taskId}-tffb-${idx}`);
-  const item=document.querySelector(`#tb-${taskId} .tf-row .tf-item:nth-child(${idx+1})`);
-  if(!item)return;
-  const tb=item.querySelector('.true-btn');
-  const fb2=item.querySelector('.false-btn');
-  [tb,fb2].forEach(b=>{if(b)b.classList.remove('correct','wrong');});
-  if(selected===correct){
-    fb.textContent='✓ Correct!';fb.className='feedback good';
-    (selected?tb:fb2).classList.add('correct');
-  } else {
-    fb.textContent='Try again.';fb.className='feedback bad';
-    (selected?tb:fb2).classList.add('wrong');
-  }
+  if(fb){fb.textContent='';fb.className='feedback';}
 }
-function checkTFAll(taskId,count){
+// TRUE/FALSE – check all
+function checkTFAll(taskId,count,answers){
   let c=0;
-  for(let i=0;i<count;i++){const fb=document.getElementById(`${taskId}-tffb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  for(let i=0;i<count;i++){
+    const item=document.querySelector(`#tb-${taskId} .tf-row .tf-item:nth-child(${i+1})`);
+    const fb=document.getElementById(`${taskId}-tffb-${i}`);
+    if(!item) continue;
+    const sel=item.dataset.selected;
+    const correct=answers[i];
+    const trueBtn=item.querySelector('.true-btn');
+    const falseBtn=item.querySelector('.false-btn');
+    [trueBtn,falseBtn].forEach(b=>{if(b)b.classList.remove('correct','wrong','selected');});
+    if(sel===undefined||sel===''){
+      if(fb){fb.textContent='No answer selected.';fb.className='feedback bad';} continue;
+    }
+    const selBool=(sel==='true');
+    const chosenBtn=selBool?trueBtn:falseBtn;
+    const correctBtn=correct?trueBtn:falseBtn;
+    if(selBool===correct){
+      if(chosenBtn)chosenBtn.classList.add('correct');
+      if(fb){fb.textContent='✓ Correct!';fb.className='feedback good';} c++;
+    } else {
+      if(chosenBtn)chosenBtn.classList.add('wrong');
+      if(correctBtn)correctBtn.classList.add('correct');
+      if(fb){fb.textContent='Not quite.';fb.className='feedback bad';}
+    }
+  }
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent='✓ All answers correct!';fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent=`${c} of ${count} correct. Check the ones above.`;fb.className='feedback bad';}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';done[taskId]=(c===count);}
   updateProgress();
 }
 
@@ -1147,15 +1206,19 @@ function checkFtmItem(taskId,idx){
   const val=inp.value.trim().toLowerCase();
   const ans=inp.dataset.answer.toLowerCase();
   inp.classList.remove('ok','no');
-  if(val===ans){inp.classList.add('ok');fb.textContent='✓ Correct!';fb.className='feedback good';}
-  else{inp.classList.add('no');fb.textContent='Not quite. Think again.';fb.className='feedback bad';}
+  if(val===ans){inp.classList.add('ok');if(fb){fb.textContent='✓ Correct!';fb.className='feedback good';}}
+  else{inp.classList.add('no');if(fb){fb.textContent='Not quite.';fb.className='feedback bad';}}
 }
 function checkFtmAll(taskId,count){
   let c=0;
-  for(let i=0;i<count;i++){checkFtmItem(taskId,i);const fb=document.getElementById(`${taskId}-ftfb-${i}`);if(fb&&fb.classList.contains('good'))c++;}
+  for(let i=0;i<count;i++){
+    checkFtmItem(taskId,i);
+    const fb=document.getElementById(`${taskId}-ftfb-${i}`);
+    if(fb&&fb.classList.contains('good'))c++;
+  }
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent=`✓ All ${count} mistakes corrected!`;fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';}
+  else{fb.textContent=`${c} of ${count} correct.`;fb.className='feedback bad';done[taskId]=(c===count);}
   updateProgress();
 }
 
@@ -1176,7 +1239,7 @@ function checkFitb(taskId,count){
   }
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent=`✓ All ${count} correct!`;fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent=`${c} of ${count} correct. Check the red boxes.`;fb.className='feedback bad';}
+  else{fb.textContent=`${c} of ${count} correct. Check the red boxes.`;fb.className='feedback bad';done[taskId]=(c===count);}
   updateProgress();
 }
 function resetFitb(taskId,count){
@@ -1207,7 +1270,7 @@ function checkSort(taskId,count){
   items.forEach((item,idx)=>{if(Number(item.dataset.order)===idx)c++;});
   const fb=document.getElementById(`${taskId}-fb2`);
   if(c===count){fb.textContent='✓ Correct order!';fb.className='feedback good';done[taskId]=true;}
-  else{fb.textContent='Not quite. Try a different order.';fb.className='feedback bad';}
+  else{fb.textContent='Not quite. Try a different order.';fb.className='feedback bad';done[taskId]=false;}
   updateProgress();
 }
 
@@ -1220,27 +1283,22 @@ function markWrite(taskId,minLen){
 }
 
 // ── BADGE CONFIG ─────────────────────────────────────────
-const BADGES = {
-  PreA1:{ emoji:'🌱', color:'#64b5f6', name:'Pre-A1 – Schools in the UK', stars:'⭐⭐⭐' },
-  A1:   { emoji:'⭐', color:'#81c784', name:'A1 – Schools in the UK',     stars:'⭐⭐⭐' },
-  A2:   { emoji:'🏅', color:'#ffb74d', name:'A2 – Schools in the UK',     stars:'⭐⭐⭐' },
-  B1:   { emoji:'🏆', color:'#f06292', name:'B1 – Schools in the UK',     stars:'⭐⭐⭐' },
+const BADGES={
+  PreA1:{emoji:'🌱',color:'#64b5f6',name:'Pre-A1 – Schools in the UK',stars:'⭐⭐⭐'},
+  A1:   {emoji:'⭐',color:'#81c784',name:'A1 – Schools in the UK',    stars:'⭐⭐⭐'},
+  A2:   {emoji:'🏅',color:'#ffb74d',name:'A2 – Schools in the UK',    stars:'⭐⭐⭐'},
+  B1:   {emoji:'🏆',color:'#f06292',name:'B1 – Schools in the UK',    stars:'⭐⭐⭐'},
 };
-const STORAGE_KEY = 'uk_schools_badges';
+const STORAGE_KEY='uk_schools_badges';
+const BADGE_THRESHOLD=0.70;
 
-function loadBadges(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }
-  catch(e){ return {}; }
-}
-function saveBadge(lv){
-  const b=loadBadges(); b[lv]=true;
-  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(b)); }catch(e){}
-}
+function loadBadges(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){return{}}}
+function saveBadge(lv){const b=loadBadges();b[lv]=true;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(b))}catch(e){}}
 function renderBadges(){
   const earned=loadBadges();
   Object.keys(BADGES).forEach(lv=>{
     const el=document.getElementById('bs-'+lv);
-    if(el){ el.classList.toggle('earned', !!earned[lv]); }
+    if(el)el.classList.toggle('earned',!!earned[lv]);
   });
 }
 
@@ -1250,9 +1308,7 @@ function launchConfetti(){
   for(let i=0;i<80;i++){
     const el=document.createElement('div');
     el.className='confetti-piece';
-    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};
-      width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};
-      --dur:${2+Math.random()*2.5}s;--delay:${Math.random()*.8}s`;
+    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};--dur:${2+Math.random()*2.5}s;--delay:${Math.random()*.8}s`;
     document.body.appendChild(el);
     el.addEventListener('animationend',()=>el.remove());
   }
@@ -1262,18 +1318,15 @@ function launchConfetti(){
 function showBadgeModal(lv){
   const b=BADGES[lv];
   const box=document.getElementById('modalBox');
-  box.style.setProperty('--badge-color', b.color);
+  box.style.setProperty('--badge-color',b.color);
   document.getElementById('modalBadge').textContent=b.emoji;
-  document.getElementById('modalBadge').style.background=`radial-gradient(circle at 35% 35%, rgba(255,255,255,.15), transparent)`;
   document.getElementById('modalStars').textContent=b.stars;
   document.getElementById('modalBadgeName').textContent=b.name;
-  const modal=document.getElementById('badgeModal');
-  modal.classList.add('show');
+  document.getElementById('badgeModal').classList.add('show');
   launchConfetti();
 }
 function closeModal(){
   document.getElementById('badgeModal').classList.remove('show');
-  // go home
   document.getElementById('resource').style.display='none';
   document.getElementById('home').style.display='flex';
   renderBadges();
@@ -1281,28 +1334,32 @@ function closeModal(){
 
 // ── PROGRESS ─────────────────────────────────────────────
 function updateProgress(){
-  const count=Object.values(done).filter(Boolean).length;
+  // exclude internal _ keys from count and total display
+  const realEntries=Object.entries(done).filter(([k])=>!k.startsWith('_'));
+  const count=realEntries.filter(([,v])=>v===true).length;
   const pct=total?Math.round((count/total)*100):0;
   document.getElementById('progFill').style.width=pct+'%';
   document.getElementById('progLabel').textContent=`${count} of ${total} activities completed`;
-  const btn=document.getElementById('printBtn');
+
+  // print always available
+  document.getElementById('printBtn').disabled=false;
   const msg=document.getElementById('printMsg');
-  if(count===total&&total>0){
-    btn.disabled=false;
-    msg.innerHTML='<span class="print-done">✓ All activities completed – you can save to PDF!</span>';
-    if(!done['_badgeShown']){
-      done['_badgeShown']=true;
-      saveBadge(currentLevel);
-      setTimeout(()=>showBadgeModal(currentLevel), 600);
-    }
+  if(pct===100){
+    msg.innerHTML='<span class="print-done">✓ All activities completed!</span>';
   } else {
-    btn.disabled=true;
-    msg.textContent='Finish all activities to unlock printing.';
+    msg.textContent=`${pct}% completed – save to PDF at any time.`;
+  }
+
+  // badge at 70%
+  if(!done['_badgeShown'] && total>0 && count/total>=BADGE_THRESHOLD){
+    done['_badgeShown']=true;
+    saveBadge(currentLevel);
+    setTimeout(()=>showBadgeModal(currentLevel),600);
   }
 }
-function doPrint(){if(!document.getElementById('printBtn').disabled)window.print();}
+function doPrint(){window.print();}
 
-// init badges on load
+// init
 renderBadges();
 </script>
 </body>
