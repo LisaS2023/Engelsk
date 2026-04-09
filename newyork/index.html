@@ -825,7 +825,7 @@ const A1LM=[
  see:{items:[{emoji:"🗽",label:"A statue",yes:true},{emoji:"🌊",label:"Water",yes:true},{emoji:"🟢",label:"Green colour",yes:true},{emoji:"🔦",label:"A torch",yes:true},{emoji:"🏔️",label:"Mountains",yes:false},{emoji:"🌳",label:"Big trees",yes:false}]},
  match:{pairs:[{w:"torch 🔦",d:"a light you hold up high"},{w:"island 🏝️",d:"land with water all around"},{w:"green 🟢",d:"the colour of the statue"},{w:"tall ⬆️",d:"very high – not short"}]},
  fill:{sentences:[{before:"The Statue of Liberty is",blank:"green",after:".",opts:["green","red","blue","yellow"]},{before:"She stands on a small",blank:"island",after:".",opts:["island","mountain","bridge","forest"]},{before:"She holds a",blank:"torch",after:"in her hand.",opts:["torch","flag","bag","book"]}]},
- build:{words:["The","statue","is","very","tall","and","green","."],answer:"The statue is very tall and green ."},
+ build:{words:["The","statue","is","green","."],answer:"The statue is green ."},
  quiz:{q:"Where is the Statue of Liberty?",opts:["In a park 🌳","On an island 🏝️","On a bridge 🌉","In a building 🏢"],correct:1,exp:"The Statue of Liberty stands on Liberty Island in New York Harbor! 🗽"}
 },
 {name:"Brooklyn Bridge",emoji:"🌉",num:2,
@@ -835,7 +835,7 @@ const A1LM=[
  see:{items:[{emoji:"🌉",label:"A bridge",yes:true},{emoji:"🌊",label:"Water below",yes:true},{emoji:"🗼",label:"Tall towers",yes:true},{emoji:"〰️",label:"Cables/wires",yes:true},{emoji:"🏖️",label:"A beach",yes:false},{emoji:"🌋",label:"A volcano",yes:false}]},
  match:{pairs:[{w:"bridge 🌉",d:"you walk or drive over water"},{w:"cable 〰️",d:"a thick metal wire"},{w:"river 🏞️",d:"water that flows between land"},{w:"tower 🗼",d:"a tall, strong structure"}]},
  fill:{sentences:[{before:"The Brooklyn Bridge goes over the",blank:"river",after:".",opts:["river","road","park","sky"]},{before:"You can walk or drive on the",blank:"bridge",after:".",opts:["bridge","boat","island","train"]},{before:"The bridge has very long",blank:"cables",after:".",opts:["cables","windows","trees","doors"]}]},
- build:{words:["The","bridge","is","very","long","and","strong","."],answer:"The bridge is very long and strong ."},
+ build:{words:["The","bridge","is","long","."],answer:"The bridge is long ."},
  quiz:{q:"What can people do on the Brooklyn Bridge?",opts:["Swim 🏊","Walk and drive 🚶🚗","Cook food 🍳","Sleep 😴"],correct:1,exp:"People walk, run, cycle and drive over the Brooklyn Bridge every day! 🌉"}
 },
 {name:"Times Square",emoji:"✨",num:3,
@@ -845,7 +845,7 @@ const A1LM=[
  see:{items:[{emoji:"📋",label:"Big signs",yes:true},{emoji:"💡",label:"Bright lights",yes:true},{emoji:"🚕",label:"Yellow taxi",yes:true},{emoji:"👥",label:"Many people",yes:true},{emoji:"🏖️",label:"A beach",yes:false},{emoji:"🐄",label:"A cow",yes:false}]},
  match:{pairs:[{w:"busy 🏃",d:"many people and activity"},{w:"sign 📋",d:"a board with words or pictures"},{w:"bright 💡",d:"full of light"},{w:"taxi 🚕",d:"a yellow car for passengers"}]},
  fill:{sentences:[{before:"Times Square has many big, bright",blank:"signs",after:".",opts:["signs","trees","boats","rivers"]},{before:"It is very",blank:"busy",after:"with people.",opts:["busy","quiet","dark","empty"]},{before:"You can see yellow",blank:"taxis",after:"on the street.",opts:["taxis","boats","horses","trains"]}]},
- build:{words:["Times","Square","is","bright","and","very","busy","."],answer:"Times Square is bright and very busy ."},
+ build:{words:["Times","Square","is","busy","."],answer:"Times Square is busy ."},
  quiz:{q:"Times Square is famous for its…",opts:["Quiet parks 🌳","Big lights and signs 💡","Beautiful beaches 🏖️","Old castles 🏰"],correct:1,exp:"Times Square is famous for its huge, bright signs and lights! 💡"}
 },
 {name:"Central Park",emoji:"🌳",num:4,
@@ -855,7 +855,7 @@ const A1LM=[
  see:{items:[{emoji:"🌳",label:"Trees",yes:true},{emoji:"🌿",label:"Green grass",yes:true},{emoji:"🛤️",label:"A path",yes:true},{emoji:"🪑",label:"A bench",yes:true},{emoji:"🌊",label:"The ocean",yes:false},{emoji:"🏔️",label:"Snow mountains",yes:false}]},
  match:{pairs:[{w:"park 🌳",d:"a green place to walk and rest"},{w:"grass 🌿",d:"green plants on the ground"},{w:"bench 🪑",d:"a seat outside"},{w:"path 🛤️",d:"a small road for walking"}]},
  fill:{sentences:[{before:"Central Park has many",blank:"trees",after:"and green grass.",opts:["trees","cars","shops","bridges"]},{before:"People sit on",blank:"benches",after:"in the park.",opts:["benches","rooftops","islands","towers"]},{before:"Central Park is in the middle of the",blank:"city",after:".",opts:["city","ocean","desert","forest"]}]},
- build:{words:["Central","Park","is","a","big","green","park","."],answer:"Central Park is a big green park ."},
+ build:{words:["The","park","is","green","."],answer:"The park is green ."},
  quiz:{q:"Central Park is in the middle of…",opts:["London 🇬🇧","Paris 🇫🇷","New York City 🏙️","Tokyo 🇯🇵"],correct:2,exp:"Central Park is right in the middle of New York City! It is 4 km long! 🌳"}
 },
 {name:"Empire State Building",emoji:"🏙️",num:5,
@@ -865,7 +865,7 @@ const A1LM=[
  see:{items:[{emoji:"🏢",label:"A tall building",yes:true},{emoji:"🪟",label:"Many windows",yes:true},{emoji:"🏙️",label:"Other buildings",yes:true},{emoji:"☁️",label:"The sky",yes:true},{emoji:"🌊",label:"The sea",yes:false},{emoji:"🌴",label:"Palm trees",yes:false}]},
  match:{pairs:[{w:"building 🏢",d:"a structure people live or work in"},{w:"floor 🔢",d:"one level inside a building"},{w:"window 🪟",d:"glass in a wall to look through"},{w:"famous ⭐",d:"known by many people"}]},
  fill:{sentences:[{before:"The Empire State Building is very",blank:"tall",after:".",opts:["tall","small","round","soft"]},{before:"It has 102",blank:"floors",after:".",opts:["floors","doors","parks","boats"]},{before:"The Empire State Building is very",blank:"famous",after:".",opts:["famous","quiet","new","cheap"]}]},
- build:{words:["This","building","is","very","tall","and","famous","."],answer:"This building is very tall and famous ."},
+ build:{words:["The","building","is","tall","."],answer:"The building is tall ."},
  quiz:{q:"The Empire State Building is a famous…",opts:["Bridge 🌉","Park 🌳","Very tall building 🏙️","Statue 🗽"],correct:2,exp:"The Empire State Building is a famous skyscraper with 102 floors in New York City! 🏙️"}
 }
 ];
