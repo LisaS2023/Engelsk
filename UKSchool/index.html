@@ -245,6 +245,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--text);m
   .fitb-inp{border:1px solid #888;color:black;background:white}
   .kw-no,.muted,.task-hint,.section-hint{color:#555}
 }
+/* ── WORD SEARCH ── */
+.ws-wrap{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.ws-grid-container{overflow-x:auto}
+.ws-grid{display:inline-grid;gap:2px;user-select:none}
+.ws-cell{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;border-radius:6px;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);transition:background .12s,color .12s;color:var(--text);text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.ws-cell:hover{background:rgba(255,255,255,.14)}
+.ws-cell.selected{background:rgba(56,189,248,.35);border-color:#38bdf8;color:#fff}
+.ws-cell.found{background:rgba(46,204,113,.28);border-color:#2ecc71;color:#86efac;cursor:default}
+.ws-cell.found.selected{background:rgba(46,204,113,.4)}
+.ws-wordlist{min-width:140px}
+.ws-wordlist h4{font-size:.88rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.ws-word{font-size:.95rem;font-weight:700;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text);transition:color .2s;text-transform:uppercase}
+.ws-word.found{color:var(--good);text-decoration:line-through;opacity:.6}
+@media(max-width:600px){.ws-cell{width:28px;height:28px;font-size:.82rem}}
 </style>
 </head>
 <body>
@@ -499,6 +513,11 @@ PreA1:{
      question:"Write 3 sentences about your school day. Use words from the vocabulary list.",
      hint:"Skriv 3 setninger om din skoledag. Bruk ord fra ordlisten.",
      minLen:10
+    },
+    {id:"ws1", type:"wordsearch",
+     title:"🔍 Word search",
+     hint:"Finn de skjulte ordene i rutenettet. Klikk på den første bokstaven, deretter den siste.",
+     words:["SCHOOL","BOOK","DESK","BAG","HOME","LUNCH"]
     }
   ]
 },
@@ -608,6 +627,11 @@ A1:{
      question:"Write 3–4 sentences about your own school. What time does school start? What subjects do you have? When does school finish?",
      hint:"Skriv 3–4 setninger om din skole. Når begynner og slutter skolen? Hvilke fag har du?",
      minLen:30
+    },
+    {id:"ws1", type:"wordsearch",
+     title:"🔍 Word search",
+     hint:"Finn de skjulte ordene i rutenettet. Klikk på den første bokstaven, deretter den siste.",
+     words:["UNIFORM","LESSON","CANTEEN","SUBJECT","SCHOOL","HOMEWORK"]
     }
   ]
 },
@@ -723,6 +747,11 @@ A2:{
      question:"Write 4–5 sentences: What is similar or different between school in the UK and school in your country? Think about uniforms, subjects, start/finish times, and exams.",
      hint:"Skriv 4–5 setninger: Hva er likt eller ulikt mellom skole i UK og landet ditt? Tenk på uniformer, fag, tider og prøver.",
      minLen:60
+    },
+    {id:"ws1", type:"wordsearch",
+     title:"🔍 Word search",
+     hint:"Finn de skjulte ordene i rutenettet. Klikk på den første bokstaven, deretter den siste.",
+     words:["COMPULSORY","UNIFORM","SUBJECT","EXAM","CANTEEN","REGISTER","PRIMARY","SECONDARY"]
     }
   ]
 },
@@ -850,6 +879,11 @@ B1:{
      question:"Write 6–8 sentences: What are the advantages and disadvantages of the UK school system? Compare it with your own experience of school. Think about: uniforms, compulsory education, the range of subjects, exams, and the structure of the system.",
      hint:"Skriv 6–8 setninger: Fordeler og ulemper med britisk skole – og sammenlign med din erfaring. Tenk på: uniformer, obligatorisk skolegang, fagutvalg, eksamener og systemets struktur.",
      minLen:100
+    },
+    {id:"ws1", type:"wordsearch",
+     title:"🔍 Word search",
+     hint:"Finn de skjulte ordene i rutenettet. Klikk på den første bokstaven, deretter den siste.",
+     words:["CURRICULUM","COMPULSORY","REVISION","DEVOLVED","FORMAL","QUALIFICATION","UNIVERSITY"]
     }
   ]
 }
@@ -1104,10 +1138,28 @@ function buildTasks(d){
       if(task.question) h+=`<p style="margin-bottom:6px">${task.question}</p>`;
       h+=`<textarea class="task-inp" id="${task.id}-inp" rows="5" placeholder="Write here…"></textarea>`;
       h+=`<button class="btn" onclick="markWrite('${task.id}',${task.minLen||20})">Mark as done</button>`;
+
+    // WORD SEARCH
+    } else if(task.type==='wordsearch'){
+      h+=`<div class="ws-wrap" id="${task.id}-wswrap">
+        <div class="ws-grid-container"><div class="ws-grid" id="${task.id}-grid" data-words='${JSON.stringify(task.words)}'></div></div>
+        <div class="ws-wordlist">
+          <h4>Find these words:</h4>
+          ${task.words.map(w=>`<div class="ws-word" id="${task.id}-w-${w}">${w}</div>`).join('')}
+        </div>
+      </div>`;
+      h+=`<div class="feedback" id="${task.id}-wsfb" style="margin-top:10px"></div>`;
     }
 
     h+=`<div class="feedback" id="${task.id}-fb2"></div></div>`;
     c.innerHTML+=h;
+  });
+
+  // build any wordsearch grids now that DOM is ready
+  d.tasks.forEach(task=>{
+    if(task.type==='wordsearch'){
+      buildWS(task.id, task.words);
+    }
   });
 }
 
@@ -1409,6 +1461,205 @@ function updateInpageBadge(lv, earned){
     status.style.color='';
   }
 }
+
+// ── WORD SEARCH ENGINE ───────────────────────────────────
+function buildWS(taskId, words){
+  const SIZE = words.reduce((m,w)=>Math.max(m,w.length),0) + 4;
+  const COLS = Math.min(SIZE + 2, 16);
+  const ROWS = COLS;
+  const grid = Array.from({length:ROWS},()=>Array(COLS).fill(''));
+  const placed = []; // {word, cells:[{r,c}]}
+
+  const DIRS = [
+    [0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]
+  ];
+
+  function tryPlace(word){
+    const attempts = 200;
+    for(let a=0;a<attempts;a++){
+      const [dr,dc] = DIRS[Math.floor(Math.random()*DIRS.length)];
+      const maxR = dr===0?ROWS:dr>0?ROWS-word.length:word.length-1;
+      const maxC = dc===0?COLS:dc>0?COLS-word.length:word.length-1;
+      const minR = dr<0?word.length-1:0;
+      const minC = dc<0?word.length-1:0;
+      if(maxR<minR||maxC<minC) continue;
+      const r = minR + Math.floor(Math.random()*(maxR-minR+1));
+      const c = minC + Math.floor(Math.random()*(maxC-minC+1));
+      let ok=true;
+      const cells=[];
+      for(let i=0;i<word.length;i++){
+        const nr=r+dr*i, nc=c+dc*i;
+        if(nr<0||nr>=ROWS||nc<0||nc>=COLS){ok=false;break;}
+        if(grid[nr][nc]!==''&&grid[nr][nc]!==word[i]){ok=false;break;}
+        cells.push({r:nr,c:nc});
+      }
+      if(ok){
+        cells.forEach(({r,c},i)=>grid[r][c]=word[i]);
+        placed.push({word,cells});
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // place longest words first
+  const sorted=[...words].sort((a,b)=>b.length-a.length);
+  sorted.forEach(w=>tryPlace(w));
+
+  // fill blanks with random letters
+  const alpha='ABCDEFGHIJKLMNOPRSTUVWY';
+  for(let r=0;r<ROWS;r++)
+    for(let c=0;c<COLS;c++)
+      if(!grid[r][c]) grid[r][c]=alpha[Math.floor(Math.random()*alpha.length)];
+
+  // render grid
+  const el=document.getElementById(taskId+'-grid');
+  if(!el)return;
+  el.style.gridTemplateColumns=`repeat(${COLS},34px)`;
+  el.innerHTML='';
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const cell=document.createElement('div');
+      cell.className='ws-cell';
+      cell.textContent=grid[r][c];
+      cell.dataset.r=r; cell.dataset.c=c; cell.dataset.task=taskId;
+      cell.addEventListener('mousedown',wsStart);
+      cell.addEventListener('mouseenter',wsEnter);
+      cell.addEventListener('mouseup',wsEnd);
+      cell.addEventListener('touchstart',wsTouchStart,{passive:true});
+      cell.addEventListener('touchmove',wsTouchMove,{passive:false});
+      cell.addEventListener('touchend',wsEnd);
+      el.appendChild(cell);
+    }
+  }
+
+  // store placed words in element for checking
+  el.dataset.placed=JSON.stringify(placed);
+  el.dataset.rows=ROWS; el.dataset.cols=COLS;
+}
+
+// ── WS INTERACTION ────────────────────────────────────────
+let wsSelStart=null, wsSelCells=[];
+
+function wsGetCell(el){ return el.classList.contains('ws-cell')?el:null; }
+
+function wsCellsInLine(start,end,cols){
+  const sr=Number(start.dataset.r), sc=Number(start.dataset.c);
+  const er=Number(end.dataset.r), ec=Number(end.dataset.c);
+  const dr=Math.sign(er-sr), dc=Math.sign(ec-sc);
+  // must be straight line
+  const rowSpan=Math.abs(er-sr), colSpan=Math.abs(ec-sc);
+  if(rowSpan!==0&&colSpan!==0&&rowSpan!==colSpan) return [];
+  const cells=[];
+  let r=sr,c=sc;
+  const steps=Math.max(rowSpan,colSpan);
+  const grid=start.closest('.ws-grid');
+  for(let i=0;i<=steps;i++){
+    const cell=grid.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+    if(cell)cells.push(cell); else break;
+    r+=dr; c+=dc;
+  }
+  return cells;
+}
+
+function wsHighlight(start,end){
+  const taskId=start.dataset.task;
+  const grid=document.getElementById(taskId+'-grid');
+  // clear previous selection (not found)
+  grid.querySelectorAll('.ws-cell.selected:not(.found)').forEach(c=>c.classList.remove('selected'));
+  if(!end||start===end){start.classList.add('selected');wsSelCells=[start];return;}
+  const cells=wsCellsInLine(start,end,Number(grid.dataset.cols));
+  cells.forEach(c=>c.classList.add('selected'));
+  wsSelCells=cells;
+}
+
+function wsStart(e){
+  const cell=wsGetCell(e.target); if(!cell)return;
+  wsSelStart=cell;
+  wsSelCells=[];
+  wsHighlight(cell,null);
+}
+function wsEnter(e){
+  if(!wsSelStart)return;
+  const cell=wsGetCell(e.target); if(!cell||cell.dataset.task!==wsSelStart.dataset.task)return;
+  wsHighlight(wsSelStart,cell);
+}
+function wsEnd(e){
+  if(!wsSelStart)return;
+  let endCell=null;
+  if(e.type==='touchend'&&e.changedTouches.length){
+    const t=e.changedTouches[0];
+    const el=document.elementFromPoint(t.clientX,t.clientY);
+    endCell=wsGetCell(el);
+  } else { endCell=wsGetCell(e.target); }
+  if(wsSelCells.length>0) wsCheck(wsSelStart.dataset.task, wsSelCells);
+  wsSelStart=null;
+}
+function wsTouchStart(e){
+  const cell=wsGetCell(e.target); if(!cell)return;
+  wsSelStart=cell; wsSelCells=[];
+  wsHighlight(cell,null);
+}
+function wsTouchMove(e){
+  if(!wsSelStart)return;
+  e.preventDefault();
+  const t=e.touches[0];
+  const el=document.elementFromPoint(t.clientX,t.clientY);
+  const cell=wsGetCell(el);
+  if(cell&&cell.dataset.task===wsSelStart.dataset.task) wsHighlight(wsSelStart,cell);
+}
+
+function wsCheck(taskId, cells){
+  const grid=document.getElementById(taskId+'-grid');
+  const placed=JSON.parse(grid.dataset.placed||'[]');
+  const selected=cells.map(c=>({r:Number(c.dataset.r),c:Number(c.dataset.c)}));
+  const selWord=cells.map(c=>c.textContent).join('');
+  const selWordRev=selWord.split('').reverse().join('');
+
+  let matched=null;
+  for(const p of placed){
+    const pw=p.word;
+    if(pw===selWord||pw===selWordRev){
+      // verify exact cell match
+      const pSet=p.cells.map(x=>`${x.r},${x.c}`);
+      const sSet=selected.map(x=>`${x.r},${x.c}`);
+      const fwd=pSet.every((v,i)=>v===sSet[i]);
+      const bwd=pSet.every((v,i)=>v===sSet[pSet.length-1-i]);
+      if(fwd||bwd){matched=pw;break;}
+    }
+  }
+
+  // clear selection highlight
+  grid.querySelectorAll('.ws-cell.selected:not(.found)').forEach(c=>c.classList.remove('selected'));
+
+  if(matched){
+    // mark cells as found
+    cells.forEach(c=>c.classList.add('found'));
+    // strike off word list
+    const wordEl=document.getElementById(`${taskId}-w-${matched}`);
+    if(wordEl)wordEl.classList.add('found');
+    // check if all found
+    const allWords=placed.map(p=>p.word);
+    const allFound=allWords.every(w=>{
+      const el=document.getElementById(`${taskId}-w-${w}`);
+      return el&&el.classList.contains('found');
+    });
+    if(allFound){
+      const fb=document.getElementById(`${taskId}-wsfb`);
+      if(fb){fb.textContent='🎉 All words found!';fb.className='feedback good';}
+      done[taskId]=true;
+      updateProgress();
+    }
+  }
+}
+
+// mouse drag: release outside grid
+document.addEventListener('mouseup',()=>{
+  if(wsSelStart){
+    if(wsSelCells.length>0) wsCheck(wsSelStart.dataset.task, wsSelCells);
+    wsSelStart=null;
+  }
+});
 
 // ── PROGRESS ─────────────────────────────────────────────
 function updateProgress(){
