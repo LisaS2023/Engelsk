@@ -85,6 +85,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .tnote{width:100%;max-width:820px;background:rgba(26,115,232,.08);border:1.5px solid rgba(26,115,232,.2);border-radius:16px;padding:16px 22px;display:flex;gap:14px;align-items:flex-start;animation:cardIn .7s .5s both;}
 .tnote .ti{font-size:2rem;flex-shrink:0;}.tnote h4{font-family:'Fredoka One',cursive;color:#93c5fd;font-size:.98rem;margin-bottom:4px;}
 .tnote p{color:#94a3b8;font-size:.88rem;font-weight:700;line-height:1.65;}
+.lives-info{width:100%;max-width:820px;background:rgba(239,68,68,.08);border:1.5px solid rgba(239,68,68,.25);border-radius:16px;padding:16px 22px;display:flex;align-items:center;gap:18px;animation:cardIn .7s .44s both;margin-bottom:16px;}
+.lives-info-icon{font-size:1.8rem;letter-spacing:3px;flex-shrink:0;}
+.lives-info-title{font-family:'Fredoka One',cursive;color:#FCA5A5;font-size:1rem;margin-bottom:4px;}
+.lives-info-text{color:#94a3b8;font-size:.88rem;font-weight:700;line-height:1.6;}
 /* GAME CHROME */
 .wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:20px 14px 60px;}
 .game-hdr{text-align:center;margin-bottom:22px;animation:slideD .7s cubic-bezier(.22,1,.36,1);}
@@ -210,11 +214,11 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .match-col{display:flex;flex-direction:column;gap:8px;}
 .match-word,.match-def{border-radius:11px;padding:10px 14px;font-weight:800;font-size:.93rem;cursor:pointer;border:2.5px solid transparent;transition:all .18s;user-select:none;}
 .match-word{background:#EEF2FF;color:#3730A3;border-color:#A5B4FC;font-size:.92rem;}
-.match-def{background:#F0FDF4;color:#14532D;border-color:#86EFAC;font-size:.92rem;}
+.match-def{background:#FFF7ED;color:#9A3412;border-color:#FDBA74;font-size:.92rem;}
 .match-word:hover:not(.matched){border-color:#6366f1;background:#e0e7ff;}
-.match-def:hover:not(.matched){border-color:#22C55E;background:#dcfce7;}
+.match-def:hover:not(.matched){border-color:#EA580C;background:#ffedd5;}
 .match-word.selected{background:#6366f1;color:#fff;border-color:#4338ca;transform:scale(1.03);}
-.match-def.selected{background:#22C55E;color:#fff;border-color:#16a34a;}
+.match-def.selected{background:#EA580C;color:#fff;border-color:#C2410C;}
 .match-word.matched,.match-def.matched{background:var(--g);color:#fff;border-color:var(--g);cursor:default;box-shadow:0 0 0 3px rgba(22,163,74,.2);}
 .match-word.wrong,.match-def.wrong{background:var(--r);color:#fff;border-color:#b91c1c;animation:wrongShake .35s;}
 .fill-block{background:#fff;border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;border:1.5px solid var(--border);transition:border-color .2s,background .2s;}
@@ -325,6 +329,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
   .enno-grid{grid-template-columns:1fr;}
   .ws-cell{width:28px;height:28px;font-size:.85rem;}
 }
+
+@media(max-width:500px){.video-opts{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -404,10 +411,16 @@ tr:hover td{background:rgba(255,255,255,.02);}
         <tr><td>Reading texts</td><td>Short, simple</td><td>Longer, more detail</td></tr>
         <tr><td>Norwegian help</td><td>Hover for translation</td><td>Hover for translation</td></tr>
         <tr><td>Writing</td><td>No free writing</td><td>2–3 sentences per stop</td></tr>
-        <tr><td>Navigation</td><td>Street View link only</td><td>Written directions too</td></tr>
-        <tr><td>Time needed</td><td>~35–45 min</td><td>~60–75 min</td></tr>
+        <tr><td>Time needed</td><td>~45–60 min</td><td>~45–60 min</td></tr>
       </tbody>
     </table>
+  </div>
+  <div class="lives-info">
+    <div class="lives-info-icon">❤️❤️❤️</div>
+    <div>
+      <div class="lives-info-title">You have 3 lives!</div>
+      <p class="lives-info-text">Every wrong answer costs one ❤️. Lose all three and you have to start over — so look carefully before you click!</p>
+    </div>
   </div>
   <div class="tnote">
     <span class="ti">👩‍🏫</span>
@@ -833,7 +846,7 @@ const A1LM=[
  infoText:'The Statue of Liberty is a big, '+tt('green','grønn')+' '+tt('statue','statue')+'. She stands on a small '+tt('island','øy')+' in New York. She holds a '+tt('torch','fakkel')+' up high. She is a '+tt('symbol','symbol')+' of '+tt('freedom','frihet')+'.',
  langAct:{type:'wordsearch',words:['TORCH','ISLAND','GREEN','STATUE','TALL','FREE'],size:10},
  see:{items:[{emoji:"🗽",label:"A statue",yes:true},{emoji:"🌊",label:"Water",yes:true},{emoji:"🟢",label:"Green colour",yes:true},{emoji:"🔦",label:"A torch",yes:true},{emoji:"🏔️",label:"Mountains",yes:false},{emoji:"🌳",label:"Big trees",yes:false}]},
- match:{pairs:[{w:"torch 🔦",d:"a light you hold up high"},{w:"island 🏝️",d:"land with water all around"},{w:"green 🟢",d:"the colour of the statue"},{w:"tall ⬆️",d:"very high – not short"}]},
+ match:{pairs:[{w:"torch 🔦",d:"fakkel"},{w:"island 🏝️",d:"øy"},{w:"green 🟢",d:"grønn"},{w:"tall ⬆️",d:"høy"}]},
  fill:{sentences:[{before:"The Statue of Liberty is",blank:"green",after:".",opts:["green","red","blue","yellow"]},{before:"She stands on a small",blank:"island",after:".",opts:["island","mountain","bridge","forest"]},{before:"She holds a",blank:"torch",after:"in her hand.",opts:["torch","flag","bag","book"]}]},
  build:{words:["The","statue","is","green","."],answer:"The statue is green ."},
  quiz:{q:"Where is the Statue of Liberty?",opts:["In a park 🌳","On an island 🏝️","On a bridge 🌉","In a building 🏢"],correct:1,exp:"The Statue of Liberty stands on Liberty Island in New York Harbor! 🗽"}
@@ -843,7 +856,7 @@ const A1LM=[
  infoText:'The Brooklyn '+tt('Bridge','bro')+' is very old and very long. It goes over the '+tt('river','elv')+'. You can '+tt('walk','gå')+' or '+tt('drive','kjøre')+' on it. It has big '+tt('towers','tårn')+' and long '+tt('cables','kabler')+'.',
  langAct:{type:'enno',pairs:[{en:'bridge',no:'bro'},{en:'river',no:'elv'},{en:'tower',no:'tårn'},{en:'walk',no:'gå'},{en:'cable',no:'kabel'},{en:'long',no:'lang'}]},
  see:{items:[{emoji:"🌉",label:"A bridge",yes:true},{emoji:"🌊",label:"Water below",yes:true},{emoji:"🗼",label:"Tall towers",yes:true},{emoji:"〰️",label:"Cables/wires",yes:true},{emoji:"🏖️",label:"A beach",yes:false},{emoji:"🌋",label:"A volcano",yes:false}]},
- match:{pairs:[{w:"bridge 🌉",d:"you walk or drive over water"},{w:"cable 〰️",d:"a thick metal wire"},{w:"river 🏞️",d:"water that flows between land"},{w:"tower 🗼",d:"a tall, strong structure"}]},
+ match:{pairs:[{w:"bridge 🌉",d:"bro"},{w:"cable 〰️",d:"kabel"},{w:"river 🏞️",d:"elv"},{w:"tower 🗼",d:"tårn"}]},
  fill:{sentences:[{before:"The Brooklyn Bridge goes over the",blank:"river",after:".",opts:["river","road","park","sky"]},{before:"You can walk or drive on the",blank:"bridge",after:".",opts:["bridge","boat","island","train"]},{before:"The bridge has very long",blank:"cables",after:".",opts:["cables","windows","trees","doors"]}]},
  build:{words:["The","bridge","is","long","."],answer:"The bridge is long ."},
  quiz:{q:"What can people do on the Brooklyn Bridge?",opts:["Swim 🏊","Walk and drive 🚶🚗","Cook food 🍳","Sleep 😴"],correct:1,exp:"People walk, run, cycle and drive over the Brooklyn Bridge every day! 🌉"}
@@ -853,7 +866,7 @@ const A1LM=[
  infoText:'Times Square is very '+tt('busy','travel')+'. There are many big, '+tt('bright','sterke')+' '+tt('signs','skilt')+'. You can see yellow '+tt('taxis','drosjer')+' on the '+tt('street','gaten')+'. Many '+tt('people','mennesker')+' visit Times Square every day.',
  langAct:{type:'fill',sentences:[{before:"Times Square is very",blank:"busy",after:"with people.",opts:["busy","quiet","cold","empty"]},{before:"There are many big",blank:"signs",after:"on the buildings.",opts:["signs","rivers","clouds","parks"]},{before:"You can see yellow",blank:"taxis",after:"on the street.",opts:["taxis","horses","bikes","boats"]}]},
  see:{items:[{emoji:"📋",label:"Big signs",yes:true},{emoji:"💡",label:"Bright lights",yes:true},{emoji:"🚕",label:"Yellow taxi",yes:true},{emoji:"👥",label:"Many people",yes:true},{emoji:"🏖️",label:"A beach",yes:false},{emoji:"🐄",label:"A cow",yes:false}]},
- match:{pairs:[{w:"busy 🏃",d:"many people and activity"},{w:"sign 📋",d:"a board with words or pictures"},{w:"bright 💡",d:"full of light"},{w:"taxi 🚕",d:"a yellow car for passengers"}]},
+ match:{pairs:[{w:"busy 🏃",d:"travel"},{w:"sign 📋",d:"skilt"},{w:"bright 💡",d:"lys"},{w:"taxi 🚕",d:"drosje"}]},
  fill:{sentences:[{before:"Times Square has many big, bright",blank:"signs",after:".",opts:["signs","trees","boats","rivers"]},{before:"It is very",blank:"busy",after:"with people.",opts:["busy","quiet","dark","empty"]},{before:"You can see yellow",blank:"taxis",after:"on the street.",opts:["taxis","boats","horses","trains"]}]},
  build:{words:["Times","Square","is","busy","."],answer:"Times Square is busy ."},
  quiz:{q:"Times Square is famous for its…",opts:["Quiet parks 🌳","Big lights and signs 💡","Beautiful beaches 🏖️","Old castles 🏰"],correct:1,exp:"Times Square is famous for its huge, bright signs and lights! 💡"}
@@ -863,7 +876,7 @@ const A1LM=[
  infoText:'Central '+tt('Park','park')+' is a big, green '+tt('park','park')+' in New York. There are many '+tt('trees','trær')+' and green '+tt('grass','gress')+'. People sit on '+tt('benches','benker')+' and walk on '+tt('paths','stier')+'. It is a nice place to '+tt('rest','hvile')+'.',
  langAct:{type:'wordsearch',words:['PARK','TREE','GRASS','BENCH','PATH','REST'],size:10},
  see:{items:[{emoji:"🌳",label:"Trees",yes:true},{emoji:"🌿",label:"Green grass",yes:true},{emoji:"🛤️",label:"A path",yes:true},{emoji:"🪑",label:"A bench",yes:true},{emoji:"🌊",label:"The ocean",yes:false},{emoji:"🏔️",label:"Snow mountains",yes:false}]},
- match:{pairs:[{w:"park 🌳",d:"a green place to walk and rest"},{w:"grass 🌿",d:"green plants on the ground"},{w:"bench 🪑",d:"a seat outside"},{w:"path 🛤️",d:"a small road for walking"}]},
+ match:{pairs:[{w:"park 🌳",d:"park"},{w:"grass 🌿",d:"gress"},{w:"bench 🪑",d:"benk"},{w:"path 🛤️",d:"sti"}]},
  fill:{sentences:[{before:"Central Park has many",blank:"trees",after:"and green grass.",opts:["trees","cars","shops","bridges"]},{before:"People sit on",blank:"benches",after:"in the park.",opts:["benches","rooftops","islands","towers"]},{before:"Central Park is in the middle of the",blank:"city",after:".",opts:["city","ocean","desert","forest"]}]},
  build:{words:["The","park","is","green","."],answer:"The park is green ."},
  quiz:{q:"Central Park is in the middle of…",opts:["London 🇬🇧","Paris 🇫🇷","New York City 🏙️","Tokyo 🇯🇵"],correct:2,exp:"Central Park is right in the middle of New York City! It is 4 km long! 🌳"}
@@ -873,7 +886,7 @@ const A1LM=[
  infoText:'The Empire State '+tt('Building','bygning')+' is very '+tt('tall','høy')+'. It has 102 '+tt('floors','etasjer')+'. It is very '+tt('famous','kjent')+'! You can look out from the top and see the whole '+tt('city','by')+'.',
  langAct:{type:'unscramble',words:[{word:'BUILDING',hint:'A place people work or live in',no:'bygning'},{word:'FAMOUS',hint:'Known by many people',no:'kjent'},{word:'TALL',hint:'Very high – not short',no:'høy'},{word:'FLOOR',hint:'One level in a building',no:'etasje'}]},
  see:{items:[{emoji:"🏢",label:"A tall building",yes:true},{emoji:"🪟",label:"Many windows",yes:true},{emoji:"🏙️",label:"Other buildings",yes:true},{emoji:"☁️",label:"The sky",yes:true},{emoji:"🌊",label:"The sea",yes:false},{emoji:"🌴",label:"Palm trees",yes:false}]},
- match:{pairs:[{w:"building 🏢",d:"a structure people live or work in"},{w:"floor 🔢",d:"one level inside a building"},{w:"window 🪟",d:"glass in a wall to look through"},{w:"famous ⭐",d:"known by many people"}]},
+ match:{pairs:[{w:"building 🏢",d:"bygning"},{w:"floor 🔢",d:"etasje"},{w:"window 🪟",d:"vindu"},{w:"famous ⭐",d:"kjent"}]},
  fill:{sentences:[{before:"The Empire State Building is very",blank:"tall",after:".",opts:["tall","small","round","soft"]},{before:"It has 102",blank:"floors",after:".",opts:["floors","doors","parks","boats"]},{before:"The Empire State Building is very",blank:"famous",after:".",opts:["famous","quiet","new","cheap"]}]},
  build:{words:["The","building","is","tall","."],answer:"The building is tall ."},
  quiz:{q:"The Empire State Building is a famous…",opts:["Bridge 🌉","Park 🌳","Very tall building 🏙️","Statue 🗽"],correct:2,exp:"The Empire State Building is a famous skyscraper with 102 floors in New York City! 🏙️"}
@@ -924,19 +937,22 @@ function a1Render(i){
   +'<div class="lm-title">'+L.name+'</div>'
   +'<div class="sec-a1">📖 Read about '+L.name+'</div>'
   +'<div class="info-text">'+L.infoText+'<br><small style="color:#94a3b8;font-size:.78rem;">💡 Hover the underlined words to see Norwegian!</small></div>'
-  +'<div class="sec-a1">'+langLabel+'</div>'
-  +'<div class="act-box" id="a1langBox"><p style="color:#64748b;font-size:.85rem;font-weight:700;">Loading activity…</p></div>'
+  +'<div class="sec-a1">🇳🇴 Match English to Norwegian!</div>'
+  +'<div class="act-box blue-bg">'
+  +'<p style="font-size:.82rem;font-weight:700;color:#64748b;margin-bottom:10px;">👉 Click an <span style="color:#3730a3;font-weight:900">English word</span>, then the correct <span style="color:#15803d;font-weight:900">Norwegian word</span>.</p>'
+  +'<div class="match-grid"><div class="match-col">'+L.match.pairs.map((p,pi)=>'<div class="match-word" id="a1mw'+pi+'" onclick="a1ClickW('+pi+',\''+esc(p.w)+'\')">'+p.w+'</div>').join('')+'</div>'
+  +'<div class="match-col">'+shuffle(L.match.pairs).map((p,di)=>'<div class="match-def" id="a1md'+di+'" data-def="'+escQ(p.d)+'" data-own="'+escQ(p.w)+'" onclick="a1ClickD(this)">🇳🇴 '+p.d+'</div>').join('')+'</div></div>'
+  +'<div id="a1matchMsg" style="margin-top:9px;font-weight:800;font-size:.9rem;min-height:20px;"></div>'
+  +'</div>'
   +'<div class="sec-a1">🗺️ Open Street View</div>'
   +'<a href="'+L.sv+'" target="_blank" class="sv-btn"><span style="font-size:1.4rem">🗺️</span> Open Google Street View</a>'
-  +'<div class="sec-a1">👀 Activity – Click what you see!</div>'
+  +'<div class="sec-a1">👀 Click what you see!</div>'
   +'<div class="act-box teal-bg">'
   +'<div class="see-instr">👉 Open Street View first. Then click <strong>only</strong> the things you can really see!</div>'
   +'<div class="see-prog">Found: <span id="a1seeCnt">0</span> / '+seeItems.filter(it=>it.yes).length+'</div>'
   +'<div class="see-grid">'+seeHtml+'</div>'
   +'<div class="see-msg" id="a1seeMsg"></div>'
   +'</div>'
-  +'<div class="sec-a1">🔗 Match the word to the meaning!</div>'
-  +'<div class="act-box"><p style="font-size:.82rem;font-weight:700;color:#64748b;margin-bottom:10px;">👉 Click a <span style="color:#4338ca;font-weight:900">word</span>, then click the correct <span style="color:#15803d;font-weight:900">meaning</span>.</p>'+matchHtml+'</div>'
   +'<div class="sec-a1">✏️ Fill in the missing word!</div>'
   +'<div class="act-box purple-bg">'+fillHtml+'</div>'
   +'<div class="sec-a1">🏗️ Tap words to build the sentence!</div>'
@@ -951,6 +967,8 @@ function a1Render(i){
   +'<div class="act-box orange-bg"><div style="font-weight:800;font-size:1.03rem;color:#7c2d12;margin-bottom:12px;">'+L.quiz.q+'</div>'
   +'<div class="quiz-opts-grid">'+L.quiz.opts.map((o,oi)=>'<button class="qb-a1" id="a1qb'+oi+'" onclick="a1AnsQ('+oi+')">'+o+'</button>').join('')+'</div>'
   +'<div class="qfb" id="a1qfb"></div></div>'
+  +'<div class="sec-a1">'+langLabel+'</div>'
+  +'<div class="act-box" id="a1langBox"><p style="color:#64748b;font-size:.85rem;font-weight:700;">Loading activity…</p></div>'
   +'<button class="next-btn" id="a1nxt" onclick="a1NextStop()" disabled>'+(i<4?'Next stop ➡️ '+A1LM[i+1].emoji:'🏆 Finish the Quest!')+'</button>'
   +'</div>';
 
@@ -1014,6 +1032,22 @@ function a1ClickSee(ii){
   const total=seeOrder.filter(Boolean).length;const cnt=$('a1seeCnt');if(cnt)cnt.textContent=a1seeClicked.size;
   if(a1seeClicked.size===total){seeOrder.forEach((y,idx)=>{const el2=$('a1see'+idx);if(!y&&el2&&!el2.classList.contains('si-done'))el2.classList.add('si-missed','si-done');});$('a1seeMsg').className='see-msg ok';$('a1seeMsg').textContent='🎉 Great eyes!';a1seeDone=true;a1CheckNext();}
 }
+function a2ClickSee(ii){
+  const el=$('a2see'+ii);if(!el||el.classList.contains('si-done'))return;
+  const seeOrder=JSON.parse($('a2game').dataset.a2SeeOrder);
+  if(!seeOrder[ii]){
+    el.classList.add('si-done');el.style.animation='wrongShake .4s';setTimeout(()=>el.style.animation='',500);
+    a2lives=Math.max(0,a2lives-1);a2Hud();toast('❌ Is that really there? Look again!',true);return;
+  }
+  el.classList.add('si-found','si-done');a2seeClicked.add(ii);a2AddScore(3);confetti(4);toast('✅ Yes! +3');
+  const total=seeOrder.filter(Boolean).length;
+  const cnt=$('a2seeCnt');if(cnt)cnt.textContent=a2seeClicked.size;
+  if(a2seeClicked.size===total){
+    seeOrder.forEach((y,idx)=>{const el2=$('a2see'+idx);if(!y&&el2&&!el2.classList.contains('si-done'))el2.classList.add('si-missed','si-done');});
+    $('a2seeMsg').className='see-msg ok';$('a2seeMsg').textContent='🎉 Great eyes! Moving on…';
+    a2seeDone=true;a2CheckNext();
+  }
+}
 function a1ClickW(pi,word){if(a1matchedSet.has('w'+pi))return;document.querySelectorAll('.match-word').forEach(e=>{if(!e.classList.contains('matched'))e.classList.remove('selected');});a1selW={pi,word};$('a1mw'+pi).classList.add('selected');a1TryMatch();}
 function a1ClickD(el){if(el.classList.contains('matched'))return;document.querySelectorAll('.match-def').forEach(e=>{if(!e.classList.contains('matched'))e.classList.remove('selected');});a1selD={def:el.dataset.def,own:el.dataset.own,el};el.classList.add('selected');a1TryMatch();}
 function a1TryMatch(){
@@ -1049,6 +1083,7 @@ const A2LM=[
  sv:"https://www.google.com/maps/@40.6892494,-74.0445004,3a,75y,315.04h,90t/data=!3m8!1e1!3m6!1sAF1QipOE6D8x6L0rPHGAVPJoq5Q2EuIIhcFDiEd8w3e5!2e10!3e11!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOE6D8x6L0rPHGAVPJoq5Q2EuIIhcFDiEd8w3e5%3Dw203-h100-k-no-pi0-ya351.27426-ro-0-fo100!7i8704!8i8352",
  nav:null,
  hint:"The Statue of Liberty stands on Liberty Island. She is made of copper – that is why she is green. France gave her to the USA in 1886 as a symbol of freedom.",
+ see:{items:[{emoji:"🗽",label:"A statue",yes:true},{emoji:"🌊",label:"Water",yes:true},{emoji:"🟢",label:"Green colour",yes:true},{emoji:"🔦",label:"A torch",yes:true},{emoji:"⛵",label:"Sailing boats",yes:true},{emoji:"🏔️",label:"Mountains",yes:false},{emoji:"🌴",label:"Palm trees",yes:false},{emoji:"🚂",label:"A train",yes:false}]},
  infoText:'The Statue of Liberty is one of the most famous '+tt('landmarks','landemerker')+' in the world. She stands on Liberty '+tt('Island','øy')+' in New York '+tt('Harbor','havn')+'. The statue is made of '+tt('copper','kobber')+', which is why she has turned green over time. She was a gift from '+tt('France','Frankrike')+' to the United States in 1886 as a symbol of '+tt('freedom','frihet')+' and '+tt('democracy','demokrati')+'.',
  langAct:{type:'wordsearch',words:['FREEDOM','COPPER','HARBOR','ISLAND','SYMBOL','TORCH','CROWN'],size:11},
  tasks:["Look carefully at the statue's face. Write ONE word to describe it.","The statue has a crown. How many points does it have? Write: 'The crown has ___ points.'","Turn around in Street View. What can you see? Write: 'I can see ___.'" ],
@@ -1061,6 +1096,7 @@ const A2LM=[
  sv:"https://www.google.com/maps/@40.7060855,-73.9968643,3a,75y,4.53h,90t/data=!3m6!1e1!3m4!1sAF1QipNYN5SbkDkd22u64VBKN7G_Y5wbTxKIQJzAJmUH!2e10!7i16384!8i8192",
  nav:"🧭 From Statue of Liberty: Take the ferry back to Manhattan (Battery Park). Walk east ~20 min, or take subway 4/5 to Brooklyn Bridge – City Hall.",
  hint:"The Brooklyn Bridge was built in 1883. It connects Manhattan to Brooklyn. You can walk across it on a special pedestrian path above the cars!",
+ see:{items:[{emoji:"🌉",label:"A bridge",yes:true},{emoji:"🌊",label:"Water below",yes:true},{emoji:"🗼",label:"Stone towers",yes:true},{emoji:"〰️",label:"Steel cables",yes:true},{emoji:"🚶",label:"People walking",yes:true},{emoji:"🌋",label:"A volcano",yes:false},{emoji:"🏖️",label:"A beach",yes:false},{emoji:"🚀",label:"A rocket",yes:false}]},
  infoText:'The Brooklyn Bridge is one of the oldest '+tt('suspension','hengebro')+' bridges in the United States. It was completed in 1883 and '+tt('connects','forbinder')+' the borough of Manhattan with Brooklyn. The bridge has two tall stone '+tt('towers','tårn')+' and long steel '+tt('cables','kabler')+'. People can walk, '+tt('cycle','sykle')+' and drive across it. The '+tt('East River','East River')+' flows beneath it.',
  langAct:{type:'enno',pairs:[{en:'bridge',no:'bro'},{en:'river',no:'elv'},{en:'tower',no:'tårn'},{en:'cable',no:'kabel'},{en:'cycle',no:'sykle'},{en:'connect',no:'forbinde'},{en:'suspension',no:'hengebro'},{en:'borough',no:'bydel'}]},
  tasks:["Look up at the towers. Write a sentence using: tall, stone, strong.","Can you see the cables? Write: 'The cables go from ___ to ___.'","Look at the river. What is its name? Find it in the Street View location."],
@@ -1073,6 +1109,7 @@ const A2LM=[
  sv:"https://www.google.com/maps/@40.758896,-73.9873197,3a,75y,249.39h,90t/data=!3m6!1e1!3m4!1sAF1QipNq4BMlGN5B3_pMrLYDvdqAh8x_TXbWl2FEpNHj!2e10!7i16384!8i8192",
  nav:"🧭 From Brooklyn Bridge: Take subway 4/5/6 uptown to 42nd St, or N/Q/R/W to Times Square – 42nd St.",
  hint:"Times Square is one of the busiest places in the world! Over 300,000 people visit every day. Famous for enormous billboards and Broadway theatres.",
+ see:{items:[{emoji:"📋",label:"Big signs",yes:true},{emoji:"💡",label:"Bright lights",yes:true},{emoji:"🚕",label:"Yellow taxis",yes:true},{emoji:"👥",label:"Crowds of people",yes:true},{emoji:"🏢",label:"Tall buildings",yes:true},{emoji:"🌊",label:"The ocean",yes:false},{emoji:"🐄",label:"A cow",yes:false},{emoji:"⛺",label:"A tent",yes:false}]},
  infoText:'Times Square is one of the busiest '+tt('intersections','veikryss')+' in the world, located in '+tt('Midtown','midtbyen')+' Manhattan. Over 300,000 people pass through it every day. It is famous for its enormous, '+tt('illuminated','opplyste')+' '+tt('billboards','reklameskilt')+' and its many Broadway '+tt('theatres','teatre')+'. The area never truly sleeps – it is '+tt('lively','livlig')+' 24 hours a day.',
  langAct:{type:'fill',sentences:[{before:"Times Square is very busy and",blank:"lively",after:"24 hours a day.",opts:["lively","quiet","dark","boring"]},{before:"It is famous for its",blank:"illuminated",after:"billboards.",opts:["illuminated","broken","tiny","empty"]},{before:"Over 300,000 people",blank:"visit",after:"Times Square every day.",opts:["visit","avoid","sleep","build"]}]},
  tasks:["Find one advertisement. Write: 'I can see an advertisement for ___.'","Count floors on one building. Write: 'The building has about ___ floors.'","Describe the street with three adjectives: 'Times Square is ___, ___, and ___.'" ],
@@ -1085,6 +1122,7 @@ const A2LM=[
  sv:"https://www.google.com/maps/@40.7826613,-73.9655866,3a,75y,70.8h,90t/data=!3m6!1e1!3m4!1sG5HCUWnJ3YK3bv_sLIwqhQ!2e0!7i16384!8i8192",
  nav:"🧭 From Times Square: Walk north on Broadway ~10 min. The park starts at 59th Street (Columbus Circle).",
  hint:"Central Park is 4 km long and covers 341 hectares. It has 9,000 benches, 36 bridges and two ice-skating rinks – a green escape in the middle of the city.",
+ see:{items:[{emoji:"🌳",label:"Trees",yes:true},{emoji:"🌿",label:"Green grass",yes:true},{emoji:"🛤️",label:"Paths",yes:true},{emoji:"🪑",label:"Benches",yes:true},{emoji:"🏙️",label:"City skyline",yes:true},{emoji:"🌊",label:"The ocean",yes:false},{emoji:"🏔️",label:"Snow mountains",yes:false},{emoji:"🚀",label:"A rocket",yes:false}]},
  infoText:'Central Park is a large public '+tt('park','park')+' in the middle of '+tt('Manhattan','Manhattan')+'. It covers 341 '+tt('hectares','hektar')+' and is about 4 kilometres long. The park has 9,000 '+tt('benches','benker')+', 36 bridges, two '+tt('ice-skating rinks','isøkter')+', and a large '+tt('reservoir','reservoar')+'. It is a peaceful green '+tt('escape','flukt')+' from the busy city that '+tt('surrounds','omgir')+' it.',
  langAct:{type:'wordsearch',words:['PARK','BENCH','BRIDGE','NATURE','MEADOW','LAKE','PATH','TREE'],size:11},
  tasks:["Look at the skyline around the park. Write: 'The buildings are ___ (tall/short/modern/old).'","Find a bench. Write: 'The bench is next to ___.'","How is Central Park different from Times Square? Write one sentence."],
@@ -1097,6 +1135,7 @@ const A2LM=[
  sv:"https://www.google.com/maps/@40.7484285,-73.9856553,3a,75y,262.41h,90t/data=!3m6!1e1!3m4!1sAF1QipOmHZJrFvnYQFNDLNz-ot7V9NsCZFBYT71qEwMo!2e10!7i16384!8i8192",
  nav:"🧭 From Central Park: Walk south on 7th Avenue, or take the A/C/B/D or 1 train to 34th Street – Penn Station.",
  hint:"The Empire State Building has 102 floors and is 443 metres tall. Completed in 1931, it was the world's tallest! The observation deck is on the 86th floor.",
+ see:{items:[{emoji:"🏢",label:"A tall building",yes:true},{emoji:"🪟",label:"Many windows",yes:true},{emoji:"🏙️",label:"Other buildings",yes:true},{emoji:"☁️",label:"Sky",yes:true},{emoji:"📡",label:"An antenna",yes:true},{emoji:"🌊",label:"The sea",yes:false},{emoji:"🌴",label:"Palm trees",yes:false},{emoji:"🐘",label:"An elephant",yes:false}]},
  infoText:'The Empire State Building is a famous '+tt('skyscraper','skyskraper')+' in Midtown Manhattan. It has 102 '+tt('floors','etasjer')+' and stands 443 metres tall to the top of its '+tt('antenna','antenne')+'. When it was '+tt('completed','ferdigstilt')+' in 1931, it was the tallest '+tt('structure','struktur')+' in the world. Today, visitors can ride the '+tt('elevator','heis')+' to the '+tt('observation deck','utsiktsplatform')+' on the 86th floor to see the whole city.',
  langAct:{type:'unscramble',words:[{word:'SKYSCRAPER',hint:'A very tall building',no:'skyskraper'},{word:'ELEVATOR',hint:'You use this to go up in a building',no:'heis'},{word:'ANTENNA',hint:'The metal pole on top',no:'antenne'},{word:'OBSERVATION',hint:'When you look carefully at something',no:'observasjon'}]},
  tasks:["Look up in Street View. Write: 'The building is so tall that I can / cannot see the top.'","Find two design features. Write: 'I notice that the building has ___.'","Compare it to a building in your home country. Write one sentence."],
@@ -1111,20 +1150,22 @@ const A2LM=[
 // A2 STATE & LOGIC
 // ══════════════════════════════════════════
 let a2step=0,a2score=0,a2lives=3;
-let a2quizDone=false,a2writeDone=false,a2bonusDone=false,a2tasksDone=false,a2langDone=false;
+let a2quizDone=false,a2writeDone=false,a2bonusDone=false,a2tasksDone=false,a2langDone=false,a2seeDone=false;
 let a2tasks=[];
+let a2seeClicked=new Set();
 
 function a2Reset(){a2step=0;a2score=0;a2lives=3;a2Hud();a2StepDots();a2Render(0);}
 function a2Hud(){$('a2sc').textContent=a2score;$('a2stopN').textContent=a2step+1;$('a2pf').style.width=(a2step/5*100)+'%';$('a2lv').textContent='❤️'.repeat(Math.max(0,a2lives))+'🖤'.repeat(Math.max(0,3-a2lives));}
 function a2StepDots(){const c=$('a2steps');c.innerHTML='';for(let i=0;i<5;i++){const d=document.createElement('div');d.className='sd'+(i<a2step?' done':'')+(i===a2step?' active-a2':'');d.textContent=i<a2step?'✓':(i+1);c.appendChild(d);}}
-function a2CheckNext(){const b=$('a2nxt');if(b)b.disabled=!(a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone);}
+function a2CheckNext(){const b=$('a2nxt');if(b)b.disabled=!(a2seeDone&&a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone);}
 function a2AddScore(pts){a2score+=pts;a2Hud();}
 
 function a2Render(idx){
   if(idx>=5){a2Win();return;}
   const L=A2LM[idx];
-  a2quizDone=false;a2writeDone=false;a2bonusDone=false;a2tasksDone=false;a2langDone=false;
+  a2quizDone=false;a2writeDone=false;a2bonusDone=false;a2tasksDone=false;a2langDone=false;a2seeDone=false;
   a2tasks=new Array(L.tasks.length).fill(false);
+  a2seeClicked=new Set();
 
   const navHtml=L.nav?'<div class="sec-a2">🧭 How to get here</div><div class="nav-box"><h4>🗺️ Navigation</h4><div class="nav-instruction">'+L.nav+'</div></div>':'';
   const taskHtml=L.tasks.map((t,i)=>`
@@ -1153,15 +1194,20 @@ function a2Render(idx){
   +navHtml
   +'<div class="sec-a2">📖 Read about '+L.name+'</div>'
   +'<div class="info-text a2">'+L.infoText+'<br><small style="color:#94a3b8;font-size:.78rem;">💡 Hover the underlined words to see Norwegian!</small></div>'
-  +'<div class="sec-a2">'+langLabel+'</div>'
-  +'<div class="act-box" id="a2langBox"><p style="color:#64748b;font-size:.85rem;font-weight:700;">Loading activity…</p></div>'
+  +'<div class="sec-a2">📚 Key vocabulary</div>'
+  +'<div class="vocab-row">'+vocabHtml+'</div>'
   +'<div class="sec-a2">🔍 Open Street View</div>'
   +'<a href="'+L.sv+'" target="_blank" class="sv-btn"><span style="font-size:1.5rem">🗺️</span> Open in Google Street View</a>'
   +'<div class="hint-box"><span style="font-size:1.5rem;flex-shrink:0">💡</span><span>'+L.hint+'</span></div>'
-  +'<div class="sec-a2">✅ Observation tasks – tick when done</div>'
+  +'<div class="sec-a2">👀 Click what you can see!</div>'
+  +'<div class="act-box teal-bg">'
+  +'<div class="see-instr">👉 Open Street View first. Then click <strong>only</strong> the things you can really see!</div>'
+  +'<div class="see-prog">Found: <span id="a2seeCnt">0</span> / <span id="a2seeTot">?</span></div>'
+  +'<div class="see-grid" id="a2seeGrid"></div>'
+  +'<div class="see-msg" id="a2seeMsg"></div>'
+  +'</div>'
+  +'<div class="sec-a2">✅ Observation tasks – write your answer!</div>'
   +'<ul class="task-list">'+taskHtml+'</ul>'
-  +'<div class="sec-a2">📚 Key vocabulary</div>'
-  +'<div class="vocab-row">'+vocabHtml+'</div>'
   +'<div class="sec-a2">✍️ Writing task</div>'
   +'<div class="write-section">'
   +'<div class="write-prompt">📝 '+L.writePrompt+'<br><span class="write-starter">Start with: "'+L.writeStarter+'"</span></div>'
@@ -1178,8 +1224,20 @@ function a2Render(idx){
   +'<input class="bonus-input" id="a2bonusInput" type="text" placeholder="Your answer…" />'
   +'<br><button class="bonus-btn" onclick="a2CheckBonus()">Check answer</button>'
   +'<div class="bonus-feedback" id="a2bonusFb"></div></div>'
+  +'<div class="sec-a2">'+langLabel+'</div>'
+  +'<div class="act-box" id="a2langBox"><p style="color:#64748b;font-size:.85rem;font-weight:700;">Loading activity…</p></div>'
   +'<button class="next-btn" id="a2nxt" onclick="a2NextStep()" disabled>'+(idx<4?'Next stop ➡️ '+A2LM[idx+1].emoji:'🏆 Finish the Quest!')+'</button>'
   +'</div>';
+
+  // Build see-activity after innerHTML so IDs exist
+  const a2SeeItems=shuffle(L.see.items);
+  $('a2game').dataset.a2SeeOrder=JSON.stringify(a2SeeItems.map(it=>it.yes));
+  const a2SeeTarget=$('a2seeGrid');
+  if(a2SeeTarget){
+    a2SeeTarget.innerHTML=a2SeeItems.map((it,ii)=>'<div class="see-item" id="a2see'+ii+'" onclick="a2ClickSee('+ii+')">'+it.emoji+'<span class="see-label">'+it.label+'</span></div>').join('');
+    $('a2seeCnt').textContent='0';
+    $('a2seeTot').textContent=a2SeeItems.filter(it=>it.yes).length;
+  }
 
   // setup lang activity score callbacks
   window['a2lang_wsScore']=function(pts){a2AddScore(pts);}
@@ -1282,6 +1340,7 @@ function a2Win(){
 
 // STARS
 (function(){const c=$('stars');for(let i=0;i<70;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*3+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;animation-delay:'+Math.random()*3+'s;animation-duration:'+(2+Math.random()*3)+'s;';c.appendChild(s);}})();
+
 </script>
 </body>
 </html>
