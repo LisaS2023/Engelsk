@@ -107,12 +107,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .pf.a2::after{content:'🔥';position:absolute;right:-7px;top:50%;transform:translateY(-50%);font-size:.95rem;}
 .lv{font-size:1.3rem;letter-spacing:2px;}
 .steps{display:flex;justify-content:center;gap:9px;margin-bottom:18px;flex-wrap:wrap;}
-.sd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:.95rem;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;}
-.sd:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff;}
-.nav-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;}
-.nav-arrow{background:rgba(255,255,255,.07);color:#94A3B8;border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:7px 18px;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
-.nav-arrow:hover{background:rgba(255,255,255,.14);color:#E2E8F0;}
-.nav-arrow:disabled{opacity:.25;cursor:not-allowed;}
+.sd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',cursive;font-size:.95rem;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);transition:all .35s cubic-bezier(.22,1,.36,1);}
 .sd.done{background:var(--g);border-color:#16a34a;color:#fff;box-shadow:0 0 12px #22C55E88;}
 .sd.active-a1{background:var(--y);border-color:#b45309;color:#1a1a2e;box-shadow:0 0 16px #FFD60088;transform:scale(1.15);}
 .sd.active-a2{background:var(--o);border-color:#c2410c;color:#fff;box-shadow:0 0 16px #f9731688;transform:scale(1.15);}
@@ -146,6 +141,8 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .menu-btn{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.2);border-radius:13px;padding:13px 28px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;transition:transform .15s,background .2s;}
 .menu-btn:hover{transform:scale(1.05);background:rgba(255,255,255,.2);}
 .win-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:4px;}
+.handin-btn{background:rgba(255,214,0,.12);color:#FFD600;border:1.5px solid rgba(255,214,0,.3);border-radius:99px;padding:7px 16px;font-weight:800;font-size:.82rem;cursor:pointer;margin-left:auto;transition:all .2s;white-space:nowrap;}
+.handin-btn:hover{background:rgba(255,214,0,.22);border-color:rgba(255,214,0,.5);}
 .print-btn{background:linear-gradient(135deg,#0F172A,#1E293B);color:#94A3B8;border:1.5px solid #334155;border-radius:13px;padding:13px 24px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;}
 .print-btn:hover{background:#1E293B;color:#E2E8F0;border-color:#475569;transform:translateY(-1px);}
 
@@ -469,12 +466,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <div class="pw"><div class="pl">Stop <span id="a1stopN">1</span> of 5</div>
     <div class="pb"><div class="pf a1" id="a1pf" style="width:0%"></div></div></div>
     <div class="lv" id="a1lv">❤️❤️❤️</div>
+    <button class="handin-btn" onclick="a1HandIn()">📋 Hand in</button>
   </div>
-  <div class="nav-bar">
-    <button class="nav-arrow" id="a1prev" onclick="a1GoTo(a1step-1)" disabled>← Previous</button>
-    <div class="steps" id="a1steps"></div>
-    <button class="nav-arrow" id="a1next" onclick="a1GoTo(a1step+1)">Next →</button>
-  </div>
+  <div class="steps" id="a1steps"></div>
   <div id="a1game"></div>
 </div>
 </div>
@@ -493,12 +487,9 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <div class="pw"><div class="pl">Stop <span id="a2stopN">1</span> of 5</div>
     <div class="pb"><div class="pf a2" id="a2pf" style="width:0%"></div></div></div>
     <div class="lv" id="a2lv">❤️❤️❤️</div>
+    <button class="handin-btn" onclick="a2HandIn()">📋 Hand in</button>
   </div>
-  <div class="nav-bar">
-    <button class="nav-arrow" id="a2prev" onclick="a2GoTo(a2step-1)" disabled>← Previous</button>
-    <div class="steps" id="a2steps"></div>
-    <button class="nav-arrow" id="a2next" onclick="a2GoTo(a2step+1)">Next →</button>
-  </div>
+  <div class="steps" id="a2steps"></div>
   <div id="a2game"></div>
 </div>
 </div>
@@ -929,12 +920,13 @@ const A1LM=[
 // ══════════════════════════════════════════
 let a1step=0,a1score=0,a1lives=3;
 let a1seeDone=false,a1matchDone=false,a1fillDone=false,a1buildDone=false,a1quizDone=false,a1langDone=false;
+let a1completedStops=new Array(5).fill(false);
 let a1selW=null,a1selD=null,a1matchedSet=new Set();
 let a1fillAns=[],a1fillStateEl=[];
 let a1builtArr=[],a1poolGone=new Set();
 let a1seeClicked=new Set();
 
-function a1Reset(){a1step=0;a1score=0;a1lives=3;a1Hud();a1StepDots();a1Render(0);}
+function a1Reset(){a1step=0;a1score=0;a1lives=3;a1completedStops=new Array(5).fill(false);a1Hud();a1StepDots();a1Render(0);}
 function a1Hud(){$('a1sc').textContent=a1score;$('a1stopN').textContent=Math.min(a1step+1,5);$('a1pf').style.width=(Math.min(a1step,5)/5*100)+'%';$('a1lv').textContent='❤️'.repeat(Math.max(0,a1lives))+'🖤'.repeat(Math.max(0,3-a1lives));}
 function a1StepDots(){
   const c=$('a1steps');c.innerHTML='';
@@ -943,13 +935,8 @@ function a1StepDots(){
     d.className='sd'+(i<a1step?' done':'')+(i===a1step?' active-a1':'');
     d.textContent=i<a1step?'✓':(i+1);
     d.title=A1LM[i].emoji+' '+A1LM[i].name;
-    d.onclick=()=>{a1step=i;a1Hud();a1StepDots();a1Render(i);};
     c.appendChild(d);
   }
-  // update nav arrows
-  const prev=$('a1prev'),next=$('a1next');
-  if(prev)prev.disabled=a1step===0;
-  if(next)next.disabled=a1step===4;
 }
 function a1CheckNext(){const b=$('a1nxt');if(b)b.disabled=!(a1seeDone&&a1matchDone&&a1fillDone&&a1buildDone&&a1quizDone&&a1langDone);}
 
@@ -1117,8 +1104,7 @@ function a1AddW(wi,word,el){if(a1poolGone.has(wi))return;a1poolGone.add(wi);el.c
 function a1RemoveW(wi,chip){a1builtArr=a1builtArr.filter(w=>w.wi!==wi);a1poolGone.delete(wi);const orig=$('a1chip'+wi);if(orig)orig.classList.remove('gone');chip.remove();const tgt=$('a1sbTarget');if(!tgt.querySelector('.sb-built')){const l=document.createElement('span');l.className='sb-label';l.textContent='Tap words below…';tgt.appendChild(l);}$('a1sbBtn').disabled=a1builtArr.length<2;}
 function a1CheckBuild(){const L=A1LM[a1step];const built=a1builtArr.map(w=>w.word).join(' ');const res=$('a1sbRes');if(built===L.build.answer){res.className='sb-res show ok';res.textContent='🎉 Perfect sentence! +10 pts';a1AddScore(10);confetti(10);toast('🎉 Perfect! +10');a1buildDone=true;$('a1sbBtn').disabled=true;document.querySelectorAll('.sb-chip').forEach(c=>c.style.pointerEvents='none');document.querySelectorAll('.sb-built').forEach(c=>c.onclick=null);a1CheckNext();}else{res.className='sb-res show nope';res.textContent='❌ Not quite – try again!';a1lives=Math.max(0,a1lives-1);a1Hud();toast('❌ Try again!',true);}}
 function a1AnsQ(chosen){if(a1quizDone)return;a1quizDone=true;const L=A1LM[a1step];const correct=L.quiz.correct;for(let i=0;i<L.quiz.opts.length;i++){$('a1qb'+i).disabled=true;if(i===correct)$('a1qb'+i).classList.add('correct');if(i===chosen&&i!==correct)$('a1qb'+i).classList.add('wrong');}const fb=$('a1qfb');if(chosen===correct){a1AddScore(15);fb.className='qfb show ok';fb.textContent='🎉 Correct! '+L.quiz.exp;confetti(12);toast('🎉 Correct! +15');}else{a1lives=Math.max(0,a1lives-1);fb.className='qfb show nope';fb.textContent='❌ Not quite! '+L.quiz.exp;a1Hud();toast('❌ Not quite!',true);}a1CheckNext();}
-function a1GoTo(i){if(i<0||i>4)return;a1step=i;a1Hud();a1StepDots();window.scrollTo({top:0,behavior:'smooth'});a1Render(i);}
-function a1NextStop(){a1step++;a1AddScore(10);a1StepDots();window.scrollTo({top:0,behavior:'smooth'});a1Render(a1step);}
+function a1NextStop(){a1completedStops[a1step]=true;a1step++;a1AddScore(10);a1StepDots();window.scrollTo({top:0,behavior:'smooth'});a1Render(a1step);}
 function printResult(level, score, stars, grade) {
   const date = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
   const starsDisplay = stars.replace(/⭐/g, '★');
@@ -1188,7 +1174,7 @@ function printResult(level, score, stars, grade) {
   win.document.close();
 }
 
-function a1Win(){confetti(70);const stars=a1score>=300?'⭐⭐⭐':a1score>=180?'⭐⭐':'⭐';const msg=a1score>=300?'Amazing! You are a Word Star! 🌟':a1score>=180?'Great job! 📚':'Good work! 💪';$('a1game').innerHTML='<div class="card a1-card win-screen"><span class="win-em">🗽</span><div class="win-title">Well done!</div><div class="win-sub">You visited 5 famous places and learned many new words!</div><div class="fscore">⭐ '+a1score+' points! '+stars+'</div><p style="color:#475569;font-weight:700;margin-bottom:28px;">'+msg+'</p><div class="win-btns"><button class="restart-btn" onclick="a1Reset()">🔄 Play again!</button><button class="menu-btn" onclick="goMenu()">🏠 Choose level</button><button class="print-btn" onclick="printResult(\'A1\','+a1score+',\''+stars+'\',\'\')">🖨️ Print result</button></div></div>';$('a1pf').style.width='100%';}
+function a1Win(){a1completedStops[4]=true;confetti(70);const stars=a1score>=300?'⭐⭐⭐':a1score>=180?'⭐⭐':'⭐';const msg=a1score>=300?'Amazing! You are a Word Star! 🌟':a1score>=180?'Great job! 📚':'Good work! 💪';$('a1game').innerHTML='<div class="card a1-card win-screen"><span class="win-em">🗽</span><div class="win-title">Well done!</div><div class="win-sub">You visited 5 famous places and learned many new words!</div><div class="fscore">⭐ '+a1score+' points! '+stars+'</div><p style="color:#475569;font-weight:700;margin-bottom:28px;">'+msg+'</p><div class="win-btns"><button class="restart-btn" onclick="a1Reset()">🔄 Play again!</button><button class="menu-btn" onclick="goMenu()">🏠 Choose level</button><button class="print-btn" onclick="printResult(\'A1\','+a1score+',\''+stars+'\',\'\')">🖨️ Print result</button></div></div>';$('a1pf').style.width='100%';}
 
 // ══════════════════════════════════════════
 // A2 DATA
@@ -1266,10 +1252,11 @@ const A2LM=[
 // ══════════════════════════════════════════
 let a2step=0,a2score=0,a2lives=3;
 let a2quizDone=false,a2writeDone=false,a2bonusDone=false,a2tasksDone=false,a2langDone=false,a2seeDone=false;
+let a2completedStops=new Array(5).fill(false);
 let a2tasks=[];
 let a2seeClicked=new Set();
 
-function a2Reset(){a2step=0;a2score=0;a2lives=3;a2Hud();a2StepDots();a2Render(0);}
+function a2Reset(){a2step=0;a2score=0;a2lives=3;a2completedStops=new Array(5).fill(false);a2Hud();a2StepDots();a2Render(0);}
 function a2Hud(){$('a2sc').textContent=a2score;$('a2stopN').textContent=Math.min(a2step+1,5);$('a2pf').style.width=(Math.min(a2step,5)/5*100)+'%';$('a2lv').textContent='❤️'.repeat(Math.max(0,a2lives))+'🖤'.repeat(Math.max(0,3-a2lives));}
 function a2StepDots(){
   const c=$('a2steps');c.innerHTML='';
@@ -1278,12 +1265,8 @@ function a2StepDots(){
     d.className='sd'+(i<a2step?' done':'')+(i===a2step?' active-a2':'');
     d.textContent=i<a2step?'✓':(i+1);
     d.title=A2LM[i].emoji+' '+A2LM[i].name;
-    d.onclick=()=>{a2step=i;a2Hud();a2StepDots();a2Render(i);};
     c.appendChild(d);
   }
-  const prev=$('a2prev'),next=$('a2next');
-  if(prev)prev.disabled=a2step===0;
-  if(next)next.disabled=a2step===4;
 }
 function a2CheckNext(){const b=$('a2nxt');if(b)b.disabled=!(a2seeDone&&a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone);}
 function a2AddScore(pts){a2score+=pts;a2Hud();}
@@ -1458,13 +1441,112 @@ function a2CheckBonus(){
   if(L.bonus.accept.some(a=>input.includes(a.toLowerCase()))){a2AddScore(10);fb.className='bonus-feedback show ok';fb.textContent='🌟 Correct! +10 bonus points!';confetti(6);}
   else{fb.className='bonus-feedback show nope';fb.textContent='❌ Not quite. Answer: '+L.bonus.accept[0];}
 }
-function a2GoTo(i){if(i<0||i>4)return;a2step=i;a2Hud();a2StepDots();window.scrollTo({top:0,behavior:'smooth'});a2Render(i);}
-function a2NextStep(){a2step++;a2AddScore(10);a2StepDots();window.scrollTo({top:0,behavior:'smooth'});a2Render(a2step);}
+function a2NextStep(){a2completedStops[a2step]=true;a2step++;a2AddScore(10);a2StepDots();window.scrollTo({top:0,behavior:'smooth'});a2Render(a2step);}
 function a2Win(){
-  confetti(60);const stars=a2score>=350?'⭐⭐⭐':a2score>=210?'⭐⭐':'⭐';
+  a2completedStops[4]=true;confetti(60);const stars=a2score>=350?'⭐⭐⭐':a2score>=210?'⭐⭐':'⭐';
   const grade=a2score>=350?'Outstanding Explorer! 🏅':a2score>=210?'Great Explorer! 🥈':'Good Explorer! 🥉';
   $('a2game').innerHTML='<div class="card a2-card win-screen"><span class="win-em">🗽</span><div class="win-title">Quest Complete!</div><div class="win-sub">You explored all 5 famous places in New York City!</div><div class="fscore">⭐ '+a2score+' points! '+stars+'</div><div class="cert-box"><h3>🏆 '+grade+'</h3><p>You navigated NYC, learned vocabulary, wrote in English and answered questions. Your English is growing! 🌱</p></div><p style="color:#c8d6f5;font-weight:700;margin-bottom:24px;font-size:.93rem;">Show your writing to your teacher! 📝</p><div class="win-btns"><button class="restart-btn" onclick="a2Reset()">🔄 Try again!</button><button class="menu-btn" onclick="goMenu()">🏠 Choose level</button><button class="print-btn" onclick="printResult(\'A2\','+a2score+',\''+stars+'\',\''+grade+'\')">🖨️ Print result</button></div></div>';
   $('a2pf').style.width='100%';
+}
+
+
+// ── HAND IN ───────────────────────────────────────────────────────
+function a1HandIn(){
+  // Mark current stop as complete only if all tasks done
+  const curDone=a1seeDone&&a1matchDone&&a1fillDone&&a1buildDone&&a1quizDone&&a1langDone;
+  if(curDone)a1completedStops[a1step]=true;
+  const completed=a1completedStops.filter(Boolean).length;
+  const stars=a1score>=300?'⭐⭐⭐':a1score>=180?'⭐⭐':'⭐';
+  printHandIn('A1',a1score,stars,'',a1completedStops,A1LM.map(l=>l.name));
+}
+function a2HandIn(){
+  const curDone=a2seeDone&&a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone;
+  if(curDone)a2completedStops[a2step]=true;
+  const stars=a2score>=350?'⭐⭐⭐':a2score>=210?'⭐⭐':'⭐';
+  const grade=a2score>=350?'Outstanding Explorer! 🏅':a2score>=210?'Great Explorer! 🥈':'Good Explorer! 🥉';
+  printHandIn('A2',a2score,stars,grade,a2completedStops,A2LM.map(l=>l.name));
+}
+
+function printHandIn(level, score, stars, grade, completed, names) {
+  const date = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+  const starsDisplay = stars.replace(/⭐/g,'★');
+  const levelLabel = level==='A1' ? '🌱 A1 Beginner' : '🔥 A2 Explorer';
+  const levelColor = level==='A1' ? '#16A34A' : '#EA580C';
+  const emojis = ['🗽','🌉','✨','🌳','🏙️'];
+  const totalDone = completed.filter(Boolean).length;
+  const allDone = totalDone === 5;
+
+  const stopsHtml = names.map((name, i) => {
+    const done = completed[i];
+    return `<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:8px;background:${done?'#F0FDF4':'#FFF7ED'};border:1.5px solid ${done?'#4ADE80':'#FED7AA'};">
+      <span style="font-size:1.3rem;">${emojis[i]}</span>
+      <span style="font-weight:700;flex:1;color:#1E293B;">${name}</span>
+      <span style="font-size:1.1rem;">${done?'✅':'⬜'}</span>
+    </div>`;
+  }).join('');
+
+  const statusBanner = allDone
+    ? `<div style="background:#16A34A;color:#fff;border-radius:10px;padding:10px 16px;text-align:center;font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:18px;">✅ All stops completed!</div>`
+    : `<div style="background:#F97316;color:#fff;border-radius:10px;padding:10px 16px;text-align:center;font-family:'Fredoka One',cursive;font-size:1rem;margin-bottom:18px;">⚠️ Handed in with ${totalDone} of 5 stops completed</div>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NYC English Quest – Hand In</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito',sans-serif;background:#fff;color:#0F172A;padding:40px;}
+  .cert{max-width:600px;margin:0 auto;border:2px solid #E2E8F0;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);}
+  .cert-top{background:linear-gradient(135deg,#0F172A,#1E293B);padding:28px 32px;text-align:center;}
+  .cert-top .emoji{font-size:3rem;display:block;margin-bottom:8px;}
+  .cert-top h1{font-family:'Fredoka One',cursive;font-size:2rem;color:#FFD600;margin-bottom:4px;}
+  .cert-top p{color:#94A3B8;font-size:.9rem;}
+  .cert-body{padding:28px 32px;}
+  .row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+  .label{font-size:.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#94A3B8;margin-bottom:3px;}
+  .score-box{background:#FFD600;border-radius:12px;padding:16px;text-align:center;margin-bottom:18px;}
+  .score-box .pts{font-family:'Fredoka One',cursive;font-size:2rem;color:#0F172A;}
+  .score-box .stars{font-size:1.8rem;letter-spacing:4px;margin-top:4px;color:#B45309;}
+  .grade-box{text-align:center;font-family:'Fredoka One',cursive;font-size:1rem;color:#7C3AED;margin-bottom:18px;padding:10px;background:#FAF5FF;border-radius:10px;border:1.5px solid #DDD6FE;}
+  .footer{text-align:center;font-size:.78rem;color:#94A3B8;border-top:1px solid #E2E8F0;padding-top:16px;margin-top:4px;}
+  .no-print{text-align:center;margin:24px 0;}
+  .no-print button{background:#2563EB;color:#fff;border:none;border-radius:10px;padding:12px 32px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;}
+  .no-print button:hover{background:#1D4ED8;}
+  @media print{.no-print{display:none;} body{padding:20px;} .cert{box-shadow:none;}}
+</style>
+</head>
+<body>
+<div class="cert">
+  <div class="cert-top">
+    <span class="emoji">🗽</span>
+    <h1>NYC English Quest</h1>
+    <p>Student Hand-In</p>
+  </div>
+  <div class="cert-body">
+    <div class="row">
+      <div><div class="label">Level</div><div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:${levelColor}">${levelLabel}</div></div>
+      <div style="text-align:right"><div class="label">Date</div><div style="font-weight:700;color:#475569">${date}</div></div>
+    </div>
+    ${statusBanner}
+    <div class="label" style="margin-bottom:10px;">Progress per stop</div>
+    ${stopsHtml}
+    <div class="score-box" style="margin-top:18px;">
+      <div class="pts">⭐ ${score} points</div>
+      <div class="stars">${starsDisplay}</div>
+    </div>
+    ${grade ? `<div class="grade-box">🏆 ${grade}</div>` : ''}
+    <div class="footer">Sauda videregående skole &nbsp;·&nbsp; NYC English Quest</div>
+  </div>
+</div>
+<div class="no-print">
+  <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+</body>
+</html>`);
+  win.document.close();
 }
 
 // STARS
