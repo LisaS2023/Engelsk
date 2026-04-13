@@ -1,434 +1,1534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to Australia - Educational Resource</title>
-    <style>
-        :root {
-            /* Farger fra det australske flagget */
-            --aus-blue: #002B7F;
-            --aus-red: #CE1126;
-            --aus-white: #FFFFFF;
-            --text-dark: #333;
-            --text-light: #fefefe;
-            --shadow-subtle: 0 4px 6px rgba(0,0,0,0.1);
-            --transition-speed: 0.3s;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Australia – Explore the World</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5A623;
+    --deep-gold: #C67C10;
+    --red: #C0392B;
+    --dark-red: #8B1A0E;
+    --green: #1A6B3A;
+    --deep-green: #0F4424;
+    --dark: #1A1209;
+    --mid: #2E1F0A;
+    --cream: #FDF8F0;
+    --text: #1C1208;
+    --muted: #6B5A3E;
+  }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f9fc;
-            color: var(--text-dark);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: var(--aus-white);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--cream);
+    min-height: 100vh;
+  }
 
-        h1 {
-            color: var(--aus-blue);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #0D0A04;
+  }
 
-        /* Nivå-velger */
-        .level-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 10px;
-        }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(245,166,35,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 80% 70%, rgba(26,107,58,0.12) 0%, transparent 60%);
+  }
 
-        .level-btn {
-            background-color: var(--aus-white);
-            color: var(--aus-blue);
-            border: 2px solid var(--aus-blue);
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transition-speed);
-            flex: 1;
-            text-align: center;
-        }
+  /* Stars */
+  .stars {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min, 0.2); transform: scale(1); }
+    50% { opacity: var(--max, 0.9); transform: scale(1.3); }
+  }
 
-        .level-btn:hover {
-            background-color: #f0f0f0;
-        }
+  /* Southern Cross SVG */
+  .southern-cross {
+    position: absolute;
+    top: 8%;
+    right: 10%;
+    opacity: 0.7;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
 
-        .level-btn.active {
-            background-color: var(--aus-blue);
-            color: var(--aus-white);
-        }
+  /* Outback silhouette */
+  .horizon {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 220px;
+  }
 
-        /* Nivå-seksjoner */
-        .level-content {
-            display: none;
-        }
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    max-width: 900px;
+  }
 
-        .level-content.active {
-            display: block;
-        }
+  .hero-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
 
-        .section-header {
-            color: var(--aus-red);
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--aus-blue);
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    background: linear-gradient(135deg, #FDEAA8 0%, #F5A623 40%, #E8892A 70%, #C67C10 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
 
-        /* Felles stil for aktivitetskort */
-        .activity-card {
-            background: #fbfbfb;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-subtle);
-        }
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+    color: rgba(253,248,240,0.7);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 3rem;
+  }
 
-        .activity-card h3 {
-            margin-top: 0;
-            color: var(--aus-blue);
-        }
+  /* Flag strip */
+  .flag-strip {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .flag-strip span {
+    font-size: 2rem;
+  }
 
-        /* Del 1: Gloser (A1) */
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-        }
+  /* Level cards */
+  .level-cards {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
 
-        .flashcard {
-            background-color: var(--aus-white);
-            color: var(--aus-blue);
-            border: 2px solid var(--aus-blue);
-            padding: 25px;
-            text-align: center;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: var(--transition-speed);
-        }
+  .level-card {
+    background: rgba(253,248,240,0.06);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    min-width: 160px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+  }
 
-        .flashcard:hover {
-            transform: scale(1.03);
-            background-color: #f0f8ff;
-        }
+  .level-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(245,166,35,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 
-        .flashcard.norsk {
-            background-color: var(--aus-red);
-            color: var(--aus-white);
-            border: 2px solid var(--aus-red);
-        }
+  .level-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .level-card:hover::before { opacity: 1; }
 
-        /* Interaktive elementer */
-        button.action-btn {
-            background-color: var(--aus-blue);
-            color: var(--aus-white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-right: 10px;
-            margin-top: 10px;
-            transition: var(--transition-speed);
-        }
+  .level-card .badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .level-card .label {
+    font-size: 0.8rem;
+    color: rgba(253,248,240,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .level-card .desc {
+    font-size: 0.78rem;
+    color: rgba(253,248,240,0.5);
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
 
-        button.action-btn:hover {
-            background-color: #001f5c;
-        }
+  .scroll-hint {
+    color: rgba(253,248,240,0.4);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    animation: pulse 2s ease-in-out infinite;
+    margin-top: 1rem;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
 
-        button.true-btn {
-            background-color: #28a745; /* Grønn for sant */
-        }
+  /* ===== LEVEL SECTIONS ===== */
+  .level-section {
+    display: none;
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--text);
+    animation: fadeIn 0.5s ease;
+  }
+  .level-section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        button.false-btn {
-            background-color: var(--aus-red); /* Rød for usant */
-        }
+  /* Section header */
+  .section-header {
+    padding: 2.5rem 2rem 0;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 
-        .feedback {
-            font-weight: bold;
-            margin-left: 10px;
-        }
+  .back-btn {
+    background: none;
+    border: 1.5px solid rgba(28,18,8,0.2);
+    color: var(--muted);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .back-btn:hover { background: rgba(28,18,8,0.06); color: var(--text); }
 
-        select {
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            background-color: var(--aus-white);
-            cursor: pointer;
-        }
+  .section-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    background: var(--gold);
+    color: white;
+  }
 
-        input[type="text"] {
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            width: 70%;
-            margin-top: 10px;
-        }
+  /* Tabs */
+  .tabs {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 2px solid rgba(28,18,8,0.1);
+    flex-wrap: wrap;
+  }
 
-        /* Snakke-dialog */
-        .dialogue-box {
-            background: #e9f0ff;
-            padding: 15px;
-            border-left: 5px solid var(--aus-blue);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-    </style>
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--deep-gold); border-bottom-color: var(--deep-gold); }
+
+  .tab-content {
+    display: none;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tab-content.active { display: block; }
+
+  /* ===== CONTENT STYLES ===== */
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(245,166,35,0.15);
+  }
+  .fact-card .icon { font-size: 1.8rem; margin-bottom: 0.4rem; display: block; }
+  .fact-card .fact-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .fact-card .fact-value { font-size: 1rem; font-weight: 600; color: var(--text); margin-top: 0.2rem; }
+
+  .info-box {
+    background: linear-gradient(135deg, #FFF8EC, #FFF3E0);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .info-box p { font-size: 0.95rem; line-height: 1.7; color: var(--text); }
+  .info-box strong { color: var(--deep-gold); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #2E1F0A;
+    margin-bottom: 1rem;
+  }
+
+  /* Vocab cards */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .vocab-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid rgba(245,166,35,0.2);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .vocab-card:hover { box-shadow: 0 4px 16px rgba(245,166,35,0.15); }
+
+  .vocab-en {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .vocab-pos {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0.1rem 0;
+  }
+  .vocab-no {
+    font-size: 0.88rem;
+    color: var(--deep-gold);
+    font-style: italic;
+  }
+  .vocab-ex {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 0.4rem;
+  }
+  .tts-btn {
+    position: absolute;
+    top: 0.7rem; right: 0.7rem;
+    background: rgba(245,166,35,0.12);
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.4rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .tts-btn:hover { background: rgba(245,166,35,0.25); }
+
+  /* Exercise styles */
+  .exercise-block {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(245,166,35,0.15);
+  }
+  .exercise-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ex-badge {
+    background: var(--gold);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* True/False */
+  .tf-item {
+    background: rgba(245,166,35,0.04);
+    border: 1px solid rgba(245,166,35,0.15);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .tf-item .statement { font-size: 0.92rem; color: var(--text); margin-bottom: 0.7rem; }
+  .tf-buttons { display: flex; gap: 0.5rem; }
+  .tf-btn {
+    padding: 0.4rem 1.2rem;
+    border-radius: 8px;
+    border: 1.5px solid;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tf-btn.true-btn { border-color: var(--green); color: var(--green); background: white; }
+  .tf-btn.false-btn { border-color: var(--red); color: var(--red); background: white; }
+  .tf-btn:hover { opacity: 0.8; }
+  .tf-btn.correct { background: var(--green); color: white; }
+  .tf-btn.wrong { background: var(--red); color: white; opacity: 0.5; }
+  .tf-feedback { font-size: 0.8rem; margin-top: 0.5rem; font-style: italic; }
+  .tf-feedback.ok { color: var(--green); }
+  .tf-feedback.no { color: var(--red); }
+
+  /* Fill in the blank */
+  .gap-sentence {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 2;
+    margin-bottom: 0.7rem;
+  }
+  .gap-input {
+    border: none;
+    border-bottom: 2px solid var(--gold);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    width: 120px;
+    color: var(--text);
+    outline: none;
+    padding: 0 0.2rem;
+    text-align: center;
+  }
+  .gap-input.correct { border-color: var(--green); color: var(--green); }
+  .gap-input.wrong { border-color: var(--red); color: var(--red); }
+
+  .word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: rgba(245,166,35,0.06);
+    border-radius: 10px;
+  }
+  .word-chip {
+    background: white;
+    border: 1.5px solid rgba(245,166,35,0.4);
+    border-radius: 8px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .word-chip:hover { background: rgba(245,166,35,0.1); border-color: var(--gold); }
+  .word-chip.used { opacity: 0.35; pointer-events: none; text-decoration: line-through; }
+
+  /* Matching */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+  .match-col { display: flex; flex-direction: column; gap: 0.5rem; }
+  .match-item {
+    background: white;
+    border: 1.5px solid rgba(245,166,35,0.3);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .match-item:hover { border-color: var(--gold); background: rgba(245,166,35,0.05); }
+  .match-item.selected { background: rgba(245,166,35,0.15); border-color: var(--gold); }
+  .match-item.matched-ok { background: rgba(26,107,58,0.1); border-color: var(--green); color: var(--green); font-weight: 600; }
+  .match-item.matched-no { background: rgba(192,57,43,0.1); border-color: var(--red); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+  /* Check/Reset buttons */
+  .action-row {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .check-btn {
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: var(--deep-gold); }
+  .reset-btn {
+    background: white;
+    color: var(--muted);
+    border: 1.5px solid rgba(28,18,8,0.15);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--muted); color: var(--text); }
+
+  .score-display {
+    font-size: 0.88rem;
+    color: var(--muted);
+    align-self: center;
+  }
+  .score-display strong { color: var(--deep-gold); }
+
+  /* B1 redirect card */
+  .b1-card {
+    background: linear-gradient(135deg, #1A1209, #2E1F0A);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .b1-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245,166,35,0.2), transparent 70%);
+  }
+  .b1-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .b1-card p {
+    color: rgba(253,248,240,0.75);
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  .ndla-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--gold);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .ndla-btn:hover { background: var(--deep-gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.3); }
+
+  .resource-list {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+  .resource-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(253,248,240,0.1);
+    font-size: 0.9rem;
+    color: rgba(253,248,240,0.7);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    margin: 0;
+  }
+  .resource-list li::before { content: '→'; color: var(--gold); font-size: 0.85rem; }
+
+  /* Animal cards */
+  .animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .animal-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.2rem;
+    border: 1px solid rgba(245,166,35,0.15);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .animal-card .animal-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
+  .animal-card h4 { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .animal-card .animal-no { font-size: 0.82rem; color: var(--deep-gold); font-style: italic; margin: 0.2rem 0; }
+  .animal-card p { font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+  /* A2 sentence builder */
+  .sentence-parts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.2rem;
+    background: rgba(245,166,35,0.04);
+    border-radius: 10px;
+    min-height: 60px;
+    border: 2px dashed rgba(245,166,35,0.25);
+    margin: 0.8rem 0;
+    align-items: center;
+  }
+  .part-chip {
+    background: white;
+    border: 1.5px solid rgba(245,166,35,0.4);
+    border-radius: 8px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .part-chip:hover { background: rgba(245,166,35,0.1); }
+  .part-chip.in-sentence { background: var(--gold); color: white; border-color: var(--gold); }
+
+  .sentence-display {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    min-height: 48px;
+    border: 1px solid rgba(245,166,35,0.2);
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .sentence-display span {
+    background: rgba(245,166,35,0.12);
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .sentence-display span:hover { background: rgba(192,57,43,0.1); }
+
+  .sentence-feedback {
+    font-size: 0.88rem;
+    font-style: italic;
+    padding: 0.5rem;
+  }
+  .sentence-feedback.ok { color: var(--green); }
+  .sentence-feedback.no { color: var(--red); }
+  .sentence-feedback.hint { color: var(--muted); }
+
+  @media (max-width: 600px) {
+    .match-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 3rem; }
+    .level-cards { flex-direction: column; align-items: center; }
+    .level-card { width: 100%; max-width: 280px; }
+  }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1><span style="color:var(--aus-red);">A<span style="color:var(--aus-white);">u</span>s</span>tralia<br><span style="font-size:0.6em;color:#888;">Introduction Resource</span></h1>
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
 
-    <div class="level-switcher">
-        <button class="level-btn active" onclick="showLevel('a1')">A1 — Beginner</button>
-        <button class="level-btn" onclick="showLevel('a2')">A2 — Elementary</button>
-        <button class="level-btn" onclick="showLevel('b1')">B1 — Intermediate</button>
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Southern Cross -->
+  <svg class="southern-cross" width="80" height="80" viewBox="0 0 80 80">
+    <polygon points="40,4 43,14 53,14 45,20 48,30 40,24 32,30 35,20 27,14 37,14" fill="white" opacity="0.9"/>
+    <circle cx="14" cy="30" r="4" fill="white" opacity="0.8"/>
+    <circle cx="62" cy="22" r="5" fill="white" opacity="0.9"/>
+    <circle cx="66" cy="50" r="4" fill="white" opacity="0.8"/>
+    <circle cx="20" cy="60" r="3" fill="white" opacity="0.7"/>
+  </svg>
+
+  <!-- Horizon silhouette -->
+  <svg class="horizon" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Sky glow -->
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="100%" r="60%">
+        <stop offset="0%" stop-color="#F5A623" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="1440" height="220" fill="url(#sunGlow)"/>
+    <!-- Ground layer -->
+    <path d="M0 180 Q200 160 360 170 Q500 178 600 165 Q720 150 900 168 Q1050 180 1200 162 Q1320 150 1440 168 L1440 220 L0 220Z" fill="#1A0E04" opacity="0.9"/>
+    <!-- Uluru-like rock -->
+    <path d="M580 180 Q610 130 640 128 Q670 126 700 132 Q730 138 750 180Z" fill="#2A1408" opacity="0.85"/>
+    <path d="M600 180 Q625 140 648 138 Q672 136 695 142 Q718 148 735 180Z" fill="#3A1C0A" opacity="0.5"/>
+    <!-- Trees left -->
+    <line x1="180" y1="180" x2="180" y2="150" stroke="#1A0E04" stroke-width="3"/>
+    <ellipse cx="180" cy="148" rx="12" ry="16" fill="#1A0E04" opacity="0.8"/>
+    <line x1="210" y1="180" x2="210" y2="158" stroke="#1A0E04" stroke-width="2"/>
+    <ellipse cx="210" cy="156" rx="9" ry="12" fill="#1A0E04" opacity="0.7"/>
+    <!-- Trees right -->
+    <line x1="1200" y1="180" x2="1200" y2="148" stroke="#1A0E04" stroke-width="3"/>
+    <ellipse cx="1200" cy="146" rx="14" ry="18" fill="#1A0E04" opacity="0.8"/>
+    <line x1="1235" y1="180" x2="1235" y2="155" stroke="#1A0E04" stroke-width="2"/>
+    <ellipse cx="1235" cy="153" rx="10" ry="13" fill="#1A0E04" opacity="0.7"/>
+    <!-- Kangaroo silhouette -->
+    <g transform="translate(980, 148) scale(0.7)">
+      <path d="M0 32 Q2 20 8 18 Q12 10 16 12 Q20 6 24 8 Q22 14 20 18 Q24 18 26 22 Q28 30 26 32 Q22 38 14 40 Q8 40 4 36Z" fill="#1A0E04" opacity="0.8"/>
+      <path d="M14 40 Q10 48 8 56 L6 56 L4 50 Q2 44 0 42Z" fill="#1A0E04" opacity="0.8"/>
+      <path d="M20 18 Q30 14 38 22 Q40 26 36 28 Q30 28 26 24Z" fill="#1A0E04" opacity="0.7"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Explore the World · Utforsk verden</p>
+    <h1 class="hero-title">Australia</h1>
+    <p class="hero-subtitle">The Land Down Under · Landet nede under</p>
+
+    <div class="flag-strip">
+      <span title="Australian Flag">🇦🇺</span>
     </div>
 
-    <div id="level-a1" class="level-content active">
-        <h2 class="section-header">🦘 Level A1: Beginner</h2>
-
-        <div class="activity-card">
-            <h3>1. Vocabulary (Click on the cards!)</h3>
-            <div class="vocab-grid">
-                <div class="flashcard" onclick="flipCard(this, 'Country', 'Land')">Country</div>
-                <div class="flashcard" onclick="flipCard(this, 'Kangaroo', 'Kenguru')">Kangaroo</div>
-                <div class="flashcard" onclick="flipCard(this, 'Hot', 'Varm')">Hot</div>
-                <div class="flashcard" onclick="flipCard(this, 'Ocean', 'Hav')">Ocean</div>
-                <div class="flashcard" onclick="flipCard(this, 'Desert', 'Ørken')">Desert</div>
-                <div class="flashcard" onclick="flipCard(this, 'Big', 'Stor')">Big</div>
-            </div>
-        </div>
-
-        <div class="activity-card">
-            <h3>2. True or False?</h3>
-            <div>
-                <p>1. Australia is a small island.</p>
-                <button class="action-btn false-btn" onclick="checkTF(this, false, 'Actually, it is a very big continent!')">True</button>
-                <button class="action-btn true-btn" onclick="checkTF(this, true, 'Correct!')">False</button>
-                <span class="feedback"></span>
-            </div>
-            <div style="margin-top:15px;">
-                <p>2. The capital is not Sydney.</p>
-                <button class="action-btn true-btn" onclick="checkTF(this, true, 'That is correct, the capital is Canberra!')">True</button>
-                <button class="action-btn false-btn" onclick="checkTF(this, false, 'No, Sydney is the biggest city.')">False</button>
-                <span class="feedback"></span>
-            </div>
-        </div>
+    <div class="level-cards">
+      <div class="level-card" onclick="showLevel('a1')">
+        <span class="badge">A1</span>
+        <span class="label">Nivå 1 · Beginner</span>
+        <p class="desc">Enkle ord og setninger<br><em>Simple words & sentences</em></p>
+      </div>
+      <div class="level-card" onclick="showLevel('a2')">
+        <span class="badge">A2</span>
+        <span class="label">Nivå 2 · Elementary</span>
+        <p class="desc">Korte tekster og oppgaver<br><em>Short texts & tasks</em></p>
+      </div>
+      <div class="level-card" onclick="showLevel('b1')">
+        <span class="badge">B1</span>
+        <span class="label">Nivå 3 · Intermediate</span>
+        <p class="desc">Les og lær på NDLA<br><em>Read & learn on NDLA</em></p>
+      </div>
     </div>
 
-    <div id="level-a2" class="level-content">
-        <h2 class="section-header">🏗️ Level A2: Elementary</h2>
+    <p class="scroll-hint">↓ Velg ditt nivå · Choose your level</p>
+  </div>
+</section>
 
-        <div class="activity-card">
-            <h3>1. Build a Sentence</h3>
-            <p>Listen, put the words in order:</p>
-            <div id="sentenceBuilder_1" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-                <button class="action-btn" onclick="addWordToBuild('s1', 'The', this)">The</button>
-                <button class="action-btn" onclick="addWordToBuild('s1', 'big', this)">big</button>
-                <button class="action-btn" onclick="addWordToBuild('s1', 'is', this)">is</button>
-                <button class="action-btn" onclick="addWordToBuild('s1', 'desert', this)">desert</button>
-                <button class="action-btn" onclick="addWordToBuild('s1', 'very', this)">very</button>
-            </div>
-            <p><strong>Your sentence:</strong> <span id="builtSentence_1" style="color:var(--aus-blue); font-size:1.1em;">...</span></p>
-            <button class="action-btn" onclick="checkBuiltSentence('s1', 'The desert is very big')">Check</button>
-            <button class="action-btn" style="background:#888" onclick="resetBuiltSentence('s1')">Reset</button>
-            <span id="fb-s1" class="feedback"></span>
-        </div>
+<!-- ===== A1 LEVEL ===== -->
+<section class="level-section" id="level-a1">
+  <div class="section-header">
+    <button class="back-btn" onclick="goBack()">← Tilbake</button>
+    <span class="section-badge">A1</span>
+    <span style="font-size:0.9rem; color:var(--muted);">Australia – Enkle fakta</span>
+  </div>
 
-        <div class="activity-card">
-            <h3>2. Let's Talk!</h3>
-            <p>Ask a friend:</p>
-            <div class="dialogue-box">
-                <strong>A:</strong> Have you ever seen a koala?<br>
-                <strong>B:</strong> Yes, I have! / No, I haven't.
-            </div>
-        </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('a1','facts')">📖 Fakta</button>
+    <button class="tab-btn" onclick="switchTab('a1','vocab')">📝 Ord</button>
+    <button class="tab-btn" onclick="switchTab('a1','exercises')">✏️ Oppgaver</button>
+  </div>
+
+  <!-- A1 FACTS -->
+  <div class="tab-content active" id="a1-facts">
+    <h2 class="section-title">Australia – Basic Facts</h2>
+    <p style="font-size:0.85rem;color:var(--muted);">Grunnleggende fakta om Australia</p>
+
+    <div class="fact-grid">
+      <div class="fact-card">
+        <span class="icon">🏙️</span>
+        <div class="fact-label">Capital / Hovedstad</div>
+        <div class="fact-value">Canberra</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">👥</span>
+        <div class="fact-label">Population / Befolkning</div>
+        <div class="fact-value">~26 million</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🗺️</span>
+        <div class="fact-label">Size / Størrelse</div>
+        <div class="fact-value">7.7 mill. km²</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🌊</span>
+        <div class="fact-label">Location / Sted</div>
+        <div class="fact-value">South Pacific</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">💰</span>
+        <div class="fact-label">Money / Valuta</div>
+        <div class="fact-value">AUD Dollar</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🌡️</span>
+        <div class="fact-label">Climate / Klima</div>
+        <div class="fact-value">Warm &amp; dry</div>
+      </div>
     </div>
 
-    <div id="level-b1" class="level-content">
-        <h2 class="section-header">🏜️ Level B1: Intermediate</h2>
-
-        <div class="activity-card">
-            <h3>1. Fill in the Gaps (Cultural Facts)</h3>
-            <p>Australia's history goes back tens of thousands of years. The original inhabitants are called Indigenous Australians.</p>
-            <div>
-                The first European settlers arrived from 
-                <select id="b1_q1" onchange="checkSelect('b1_q1', 'Britain')">
-                    <option value="">--Select--</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Britain">Britain</option>
-                    <option value="America">America</option>
-                </select>
-                in the 18th century. <span id="fb-b1_q1" class="feedback"></span>
-            </div>
-        </div>
-
-        <div class="activity-card">
-            <h3>2. Translate to English</h3>
-            <p>Write the English word for the Norwegian word below:</p>
-            <div>
-                <strong>Norsk:</strong> Aboriginer (urfolk)
-                <br>
-                <strong>Engelsk:</strong> <input type="text" id="transl1" placeholder="Type word here...">
-                <button class="action-btn" onclick="checkTranslation('transl1', 'Aborigines')">Check</button>
-                <span id="fb-transl1" class="feedback"></span>
-            </div>
-        </div>
+    <div class="info-box">
+      <p>Australia is a <strong>big country</strong> in the south. 🌏<br>
+      Australia er et <strong>stort land</strong> i sør.<br><br>
+      The capital city is <strong>Canberra</strong>. 🏙️<br>
+      Hovedstaden heter <strong>Canberra</strong>.<br><br>
+      People speak <strong>English</strong> in Australia. 🗣️<br>
+      Folk snakker <strong>engelsk</strong> i Australia.</p>
     </div>
 
-</div>
+    <h2 class="section-title">Animals / Dyr 🦘</h2>
+    <p>Australia has <strong>unique animals</strong>. You can find them <strong>only</strong> here!<br>
+    <em>Australia har <strong>unike dyr</strong>. Du kan finne dem <strong>bare</strong> her!</em></p>
+
+    <div class="animal-grid">
+      <div class="animal-card">
+        <span class="animal-emoji">🦘</span>
+        <h4>Kangaroo</h4>
+        <div class="animal-no">kenguru</div>
+        <p>A kangaroo has a big tail and long legs. It can jump very fast!</p>
+      </div>
+      <div class="animal-card">
+        <span class="animal-emoji">🐨</span>
+        <h4>Koala</h4>
+        <div class="animal-no">koala</div>
+        <p>A koala lives in trees. It eats eucalyptus leaves.</p>
+      </div>
+      <div class="animal-card">
+        <span class="animal-emoji">🦜</span>
+        <h4>Cockatoo</h4>
+        <div class="animal-no">kakadu</div>
+        <p>A cockatoo is a big, white bird. It is very loud!</p>
+      </div>
+      <div class="animal-card">
+        <span class="animal-emoji">🦎</span>
+        <h4>Lizard</h4>
+        <div class="animal-no">øgle</div>
+        <p>Australia has many lizards. Some are very big.</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <p>🌊 Australia is also an <strong>island</strong>. Water is everywhere around it!<br>
+      <em>Australia er også en <strong>øy</strong>. Vann er overalt rundt den!</em></p>
+    </div>
+  </div>
+
+  <!-- A1 VOCAB -->
+  <div class="tab-content" id="a1-vocab">
+    <h2 class="section-title">Key Words / Nøkkelord</h2>
+    <p style="font-size:0.85rem;color:var(--muted);">Trykk 🔊 for å høre ordet · Press 🔊 to hear the word</p>
+
+    <div class="vocab-grid" id="a1-vocab-grid"></div>
+  </div>
+
+  <!-- A1 EXERCISES -->
+  <div class="tab-content" id="a1-exercises">
+    <h2 class="section-title">Exercises / Øvelser</h2>
+
+    <!-- True/False -->
+    <div class="exercise-block">
+      <div class="exercise-title"><span class="ex-badge">SANT / USANT</span> True or False?</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Les setningen. Er den riktig (Sant) eller feil (Usant)?</p>
+
+      <div id="a1-tf-container"></div>
+      <div class="action-row">
+        <button class="reset-btn" onclick="resetTF('a1')">🔄 Reset</button>
+        <span class="score-display" id="a1-tf-score"></span>
+      </div>
+    </div>
+
+    <!-- Word match -->
+    <div class="exercise-block">
+      <div class="exercise-title"><span class="ex-badge">KOBLE ORD</span> Match the words!</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Trykk på et engelsk ord, så på det norske ordet. · Click an English word, then the Norwegian word.</p>
+
+      <div class="match-grid">
+        <div class="match-col" id="a1-match-left"></div>
+        <div class="match-col" id="a1-match-right"></div>
+      </div>
+      <div class="action-row">
+        <button class="reset-btn" onclick="resetMatch('a1')">🔄 Reset</button>
+        <span class="score-display" id="a1-match-score"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== A2 LEVEL ===== -->
+<section class="level-section" id="level-a2">
+  <div class="section-header">
+    <button class="back-btn" onclick="goBack()">← Tilbake</button>
+    <span class="section-badge">A2</span>
+    <span style="font-size:0.9rem; color:var(--muted);">Australia – More to explore</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('a2','facts')">📖 Read</button>
+    <button class="tab-btn" onclick="switchTab('a2','vocab')">📝 Vocabulary</button>
+    <button class="tab-btn" onclick="switchTab('a2','exercises')">✏️ Exercises</button>
+  </div>
+
+  <!-- A2 FACTS -->
+  <div class="tab-content active" id="a2-facts">
+    <h2 class="section-title">An Introduction to Australia</h2>
+
+    <div class="fact-grid">
+      <div class="fact-card">
+        <span class="icon">🗺️</span>
+        <div class="fact-label">Continent</div>
+        <div class="fact-value">Oceania</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🏙️</span>
+        <div class="fact-label">Biggest city</div>
+        <div class="fact-value">Sydney</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">👑</span>
+        <div class="fact-label">Government</div>
+        <div class="fact-value">Democracy</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🌏</span>
+        <div class="fact-label">Location</div>
+        <div class="fact-value">Southern hemisphere</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Geography / Geografi 🗺️</h2>
+    <p>Australia is the world's <strong>smallest continent</strong> and the <strong>sixth largest country</strong>. It lies in the <strong>southern hemisphere</strong>, between the Pacific Ocean and the Indian Ocean.
+    <br><em style="font-size:0.85rem;color:var(--muted);">Australia er verdens <strong>minste kontinent</strong> og det <strong>sjette største landet</strong>. Det ligger på <strong>den sørlige halvkule</strong>, mellom Stillehavet og Det indiske hav.</em></p>
+
+    <p>The middle of Australia is called the <strong>Outback</strong>. It is very <strong>hot and dry</strong>. Very few people live there. The famous red rock <strong>Uluru</strong> is in the Outback.
+    <br><em style="font-size:0.85rem;color:var(--muted);">Midten av Australia kalles <strong>Outback</strong>. Det er veldig <strong>varmt og tørt</strong>. Veldig få mennesker bor der. Den berømte røde steinen <strong>Uluru</strong> er i Outback.</em></p>
+
+    <div class="info-box">
+      <p>🌊 The <strong>Great Barrier Reef</strong> is near Australia. It is the largest coral reef in the world. It has thousands of fish and sea animals!<br>
+      <em>Det <strong>store barriererevet</strong> er nær Australia. Det er det største korallrevet i verden. Det har tusenvis av fisker og havdyr!</em></p>
+    </div>
+
+    <h2 class="section-title">History / Historie 📜</h2>
+    <p>The <strong>Aboriginal people</strong> lived in Australia for over <strong>40,000 years</strong> before Europeans arrived. They had their own languages, culture and traditions.
+    <br><em style="font-size:0.85rem;color:var(--muted);"><strong>Aboriginerne</strong> bodde i Australia i over <strong>40 000 år</strong> før europeerne kom. De hadde sine egne språk, sin kultur og sine tradisjoner.</em></p>
+
+    <p>British people came to Australia in <strong>1788</strong>. Australia became an <strong>independent country</strong> in <strong>1901</strong>.
+    <br><em style="font-size:0.85rem;color:var(--muted);">Britiske folk kom til Australia i <strong>1788</strong>. Australia ble et <strong>selvstendig land</strong> i <strong>1901</strong>.</em></p>
+
+    <h2 class="section-title">Cities / Byer 🏙️</h2>
+    <p>Australia has several big cities. Most Australians live near the <strong>coast</strong>.</p>
+
+    <div class="fact-grid">
+      <div class="fact-card">
+        <span class="icon">🎡</span>
+        <div class="fact-label">Sydney</div>
+        <div class="fact-value">Opera House, Harbour Bridge</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">☕</span>
+        <div class="fact-label">Melbourne</div>
+        <div class="fact-value">Culture, coffee, sport</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">☀️</span>
+        <div class="fact-label">Brisbane</div>
+        <div class="fact-value">Warm, outdoor life</div>
+      </div>
+      <div class="fact-card">
+        <span class="icon">🐝</span>
+        <div class="fact-label">Perth</div>
+        <div class="fact-value">West coast, isolated</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Culture / Kultur 🏄</h2>
+    <p>Australians love <strong>outdoor life</strong> – beaches, barbecues and sports. <strong>Cricket</strong> and <strong>Australian rules football</strong> are very popular. The <strong>Sydney Opera House</strong> is one of the most famous buildings in the world.
+    <br><em style="font-size:0.85rem;color:var(--muted);">Australiere elsker <strong>friluftsliv</strong> – strender, grilling og sport. <strong>Cricket</strong> og <strong>australsk fotball</strong> er veldig populært. <strong>Sydney Opera House</strong> er en av de mest berømte bygningene i verden.</em></p>
+  </div>
+
+  <!-- A2 VOCAB -->
+  <div class="tab-content" id="a2-vocab">
+    <h2 class="section-title">Vocabulary / Ordforråd</h2>
+    <p style="font-size:0.85rem;color:var(--muted);">Trykk 🔊 for å høre ordet · Press 🔊 to hear the word</p>
+    <div class="vocab-grid" id="a2-vocab-grid"></div>
+  </div>
+
+  <!-- A2 EXERCISES -->
+  <div class="tab-content" id="a2-exercises">
+    <h2 class="section-title">Exercises</h2>
+
+    <!-- Fill in the blank -->
+    <div class="exercise-block">
+      <div class="exercise-title"><span class="ex-badge">FYLL INN</span> Fill in the blanks</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Trykk på et ord i ordbanken, klikk så på riktig felt. · Click a word from the bank, then click the correct gap.</p>
+
+      <div class="word-bank" id="a2-word-bank"></div>
+
+      <div id="a2-gap-container"></div>
+
+      <div class="action-row">
+        <button class="check-btn" onclick="checkGap('a2')">✓ Sjekk svar</button>
+        <button class="reset-btn" onclick="resetGap('a2')">🔄 Reset</button>
+        <span class="score-display" id="a2-gap-score"></span>
+      </div>
+    </div>
+
+    <!-- True/False -->
+    <div class="exercise-block">
+      <div class="exercise-title"><span class="ex-badge">SANT / USANT</span> True or False?</div>
+      <div id="a2-tf-container"></div>
+      <div class="action-row">
+        <button class="reset-btn" onclick="resetTF('a2')">🔄 Reset</button>
+        <span class="score-display" id="a2-tf-score"></span>
+      </div>
+    </div>
+
+    <!-- Sentence builder -->
+    <div class="exercise-block">
+      <div class="exercise-title"><span class="ex-badge">LAG SETNING</span> Build the sentence</div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Trykk på ordene i riktig rekkefølge for å lage en setning. · Click the words in the right order to make a sentence.</p>
+      <div id="sentence-builder"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== B1 LEVEL ===== -->
+<section class="level-section" id="level-b1">
+  <div class="section-header">
+    <button class="back-btn" onclick="goBack()">← Tilbake</button>
+    <span class="section-badge">B1</span>
+    <span style="font-size:0.9rem; color:var(--muted);">Australia – NDLA Resource</span>
+  </div>
+
+  <div class="tab-content active" style="display:block;">
+    <div class="b1-card">
+      <h2>Read & Learn on NDLA 🌏</h2>
+      <p>At B1 level, you are ready to read authentic English texts. Click the button below to go to the NDLA resource about Australia.<br><br>
+      <em>På B1-nivå er du klar til å lese autentiske engelske tekster. Klikk på knappen nedenfor for å gå til NDLA-ressursen om Australia.</em></p>
+
+      <a href="https://ndla.no/r/engelsk-sf/an-introduction-to-australia/abc2c6a1db" target="_blank" class="ndla-btn">
+        🔗 Open NDLA – An Introduction to Australia
+      </a>
+
+      <ul class="resource-list" style="text-align:left;max-width:480px;margin:2rem auto 0;">
+        <li>Read a full text about Australian history and geography</li>
+        <li>Watch a video introducing Australia</li>
+        <li>Listen to an interview with an Australian tour guide</li>
+        <li>Answer comprehension questions</li>
+        <li>Do a writing task about Australia</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:2rem;background:white;border-radius:16px;padding:1.5rem;border:1px solid rgba(245,166,35,0.2);">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:1rem;">📚 More NDLA resources about Australia</h3>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        <a href="https://ndla.no/r/engelsk-sf/getting-to-know-australia/c653b1c955" target="_blank" style="color:var(--deep-gold);font-size:0.9rem;text-decoration:none;display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid rgba(245,166,35,0.12);">
+          → Getting to Know Australia
+        </a>
+        <a href="https://ndla.no/r/engelsk-sf/australias-unique-animal-life/15c1d7de86" target="_blank" style="color:var(--deep-gold);font-size:0.9rem;text-decoration:none;display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid rgba(245,166,35,0.12);">
+          → Australia's Unique Animal Life
+        </a>
+        <a href="https://ndla.no/r/engelsk-sf/immigration-to-australia/4c5940e43c" target="_blank" style="color:var(--deep-gold);font-size:0.9rem;text-decoration:none;display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0;">
+          → Immigration to Australia
+        </a>
+      </div>
+    </div>
+
+    <!-- B1 Vocab preview -->
+    <div style="margin-top:2rem;background:white;border-radius:16px;padding:1.5rem;border:1px solid rgba(245,166,35,0.2);">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:0.5rem;">🔑 Key vocabulary for this topic</h3>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Nyttige ord for å forstå NDLA-teksten</p>
+      <div class="vocab-grid" id="b1-vocab-grid"></div>
+    </div>
+  </div>
+</section>
 
 <script>
-    // === Generelle Funksjoner ===
+// ===== DATA =====
 
-    // Vis/skjul nivåer
-    function showLevel(level) {
-        // Skjul alle nivåer
-        let contents = document.querySelectorAll('.level-content');
-        contents.forEach(content => content.classList.remove('active'));
-        
-        // Deaktiver alle knapper
-        let buttons = document.querySelectorAll('.level-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
+const a1Vocab = [
+  { en: "big", pos: "adj", no: "stor", ex: "Australia is a big country." },
+  { en: "country", pos: "noun", no: "land", ex: "Australia is my country." },
+  { en: "capital", pos: "noun", no: "hovedstad", ex: "Canberra is the capital." },
+  { en: "animal", pos: "noun", no: "dyr", ex: "The kangaroo is an animal." },
+  { en: "island", pos: "noun", no: "øy", ex: "Australia is a big island." },
+  { en: "hot", pos: "adj", no: "varm/het", ex: "It is hot in the Outback." },
+  { en: "speak", pos: "verb", no: "snakke", ex: "People speak English here." },
+  { en: "water", pos: "noun", no: "vann", ex: "The ocean has a lot of water." },
+  { en: "people", pos: "noun", no: "folk/mennesker", ex: "Many people live in Sydney." },
+  { en: "flag", pos: "noun", no: "flagg", ex: "The flag is blue and red." },
+];
 
-        // Vis valgt nivå
-        document.getElementById('level-' + level).classList.add('active');
-        
-        // Aktiver valgt knapp
-        let activeButton = document.querySelector(`.level-btn[onclick="showLevel('${level}')"]`);
-        activeButton.classList.add('active');
+const a2Vocab = [
+  { en: "continent", pos: "noun", no: "kontinent", ex: "Australia is the smallest continent." },
+  { en: "hemisphere", pos: "noun", no: "halvkule", ex: "Australia is in the southern hemisphere." },
+  { en: "coast", pos: "noun", no: "kyst", ex: "Most people live near the coast." },
+  { en: "desert", pos: "noun", no: "ørken", ex: "The Outback is a big desert." },
+  { en: "unique", pos: "adj", no: "unik", ex: "Australia has unique animals." },
+  { en: "independent", pos: "adj", no: "selvstendig", ex: "Australia became independent in 1901." },
+  { en: "culture", pos: "noun", no: "kultur", ex: "Aboriginal culture is very old." },
+  { en: "population", pos: "noun", no: "befolkning", ex: "The population is about 26 million." },
+  { en: "reef", pos: "noun", no: "rev", ex: "The Great Barrier Reef is beautiful." },
+  { en: "outdoor", pos: "adj", no: "utendørs", ex: "Australians love outdoor life." },
+  { en: "harbour", pos: "noun", no: "havn", ex: "Sydney Harbour Bridge is famous." },
+  { en: "tradition", pos: "noun", no: "tradisjon", ex: "Aboriginal traditions are important." },
+];
+
+const b1Vocab = [
+  { en: "indigenous", pos: "adj", no: "urfolk / innfødt", ex: "Indigenous Australians have lived here for 40,000 years." },
+  { en: "federation", pos: "noun", no: "forbund / føderasjon", ex: "Australia became a federation in 1901." },
+  { en: "settlement", pos: "noun", no: "bosetning", ex: "European settlement began in 1788." },
+  { en: "multicultural", pos: "adj", no: "flerkulturell", ex: "Australia is a multicultural country." },
+  { en: "commonwealth", pos: "noun", no: "samvelde", ex: "Australia is part of the Commonwealth." },
+  { en: "prosperity", pos: "noun", no: "velstand", ex: "Australia has a high level of prosperity." },
+  { en: "mainland", pos: "noun", no: "fastland", ex: "The mainland of Australia is very large." },
+  { en: "penal", pos: "adj", no: "strafferettslig", ex: "Britain used Australia as a penal colony." },
+];
+
+// A1 True/False
+const a1TF = [
+  { s: "The capital of Australia is Sydney.", correct: false, fb: "Wrong! The capital is Canberra. 🏙️" },
+  { s: "A kangaroo can jump very fast.", correct: true, fb: "Correct! Kangaroos are great jumpers. 🦘" },
+  { s: "Australia is a small country.", correct: false, fb: "Wrong! Australia is a very BIG country. 🗺️" },
+  { s: "People speak English in Australia.", correct: true, fb: "Correct! English is the language of Australia. 🗣️" },
+  { s: "A koala lives in the water.", correct: false, fb: "Wrong! Koalas live in trees. 🌿" },
+];
+
+// A2 True/False
+const a2TF = [
+  { s: "Australia is the world's smallest continent.", correct: true, fb: "Correct! It is both a country and a continent. 🌏" },
+  { s: "Most Australians live in the Outback.", correct: false, fb: "Wrong! Most Australians live near the coast. 🌊" },
+  { s: "The Aboriginal people arrived in Australia in 1788.", correct: false, fb: "Wrong! Aboriginal people lived there for over 40,000 years before Europeans came." },
+  { s: "The Great Barrier Reef is in Australia.", correct: true, fb: "Correct! It is near the north-east coast. 🐠" },
+  { s: "Australia became independent in 1901.", correct: true, fb: "Correct! On 1 January 1901, the colonies became a federation. ✅" },
+];
+
+// A1 Match pairs
+const a1MatchPairs = [
+  { en: "kangaroo", no: "kenguru" },
+  { en: "island", no: "øy" },
+  { en: "capital", no: "hovedstad" },
+  { en: "hot", no: "varm/het" },
+  { en: "flag", no: "flagg" },
+];
+
+// A2 gap fill
+const a2Gaps = [
+  { sentence: "Australia is in the ___ hemisphere.", answer: "southern", hint: "It is below the equator." },
+  { sentence: "The ___ people lived in Australia for 40,000 years.", answer: "Aboriginal", hint: "The first Australians." },
+  { sentence: "The Great Barrier ___ is the largest coral reef in the world.", answer: "Reef", hint: "Corals live here." },
+  { sentence: "The ___ of Australia is called the Outback.", answer: "middle", hint: "The centre of the country." },
+  { sentence: "Most Australians live near the ___.", answer: "coast", hint: "Close to the sea." },
+];
+
+// Sentence builder sentences
+const sentences = [
+  { parts: ["Australia", "is", "a", "big", "country"], correct: "Australia is a big country" },
+  { parts: ["People", "speak", "English", "in", "Australia"], correct: "People speak English in Australia" },
+  { parts: ["The", "kangaroo", "can", "jump", "very", "fast"], correct: "The kangaroo can jump very fast" },
+];
+
+// ===== INIT =====
+let currentSentenceIdx = 0;
+let builtSentence = [];
+let selectedGapWord = null;
+let matchState = { a1: { selected: null, matched: 0 } };
+
+window.onload = function() {
+  generateStars();
+  renderVocab('a1', a1Vocab);
+  renderVocab('a2', a2Vocab);
+  renderVocab('b1', b1Vocab);
+  renderTF('a1', a1TF);
+  renderTF('a2', a2TF);
+  renderMatch('a1', a1MatchPairs);
+  renderGap('a2', a2Gaps);
+  renderSentenceBuilder();
+};
+
+function generateStars() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*75}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s;--min:${0.1+Math.random()*0.3};--max:${0.6+Math.random()*0.4}`;
+    container.appendChild(s);
+  }
+}
+
+// ===== NAVIGATION =====
+function showLevel(level) {
+  document.getElementById('hero').style.display = 'none';
+  document.querySelectorAll('.level-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('level-' + level).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.querySelectorAll('.level-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('hero').style.display = '';
+  window.scrollTo(0, 0);
+}
+
+function switchTab(level, tab) {
+  const section = document.getElementById('level-' + level);
+  section.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  section.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(level + '-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== VOCAB =====
+function renderVocab(level, data) {
+  const grid = document.getElementById(level + '-vocab-grid');
+  if (!grid) return;
+  grid.innerHTML = data.map((v, i) => `
+    <div class="vocab-card">
+      <button class="tts-btn" onclick="speak('${v.en}')">🔊</button>
+      <div class="vocab-en">${v.en}</div>
+      <div class="vocab-pos">${v.pos}</div>
+      <div class="vocab-no">${v.no}</div>
+      <div class="vocab-ex">"${v.ex}"</div>
+    </div>
+  `).join('');
+}
+
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-AU';
+    u.rate = 0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+}
+
+// ===== TRUE/FALSE =====
+function renderTF(level, data) {
+  const container = document.getElementById(level + '-tf-container');
+  if (!container) return;
+  container.innerHTML = data.map((item, i) => `
+    <div class="tf-item" id="${level}-tf-${i}">
+      <div class="statement">${item.s}</div>
+      <div class="tf-buttons">
+        <button class="tf-btn true-btn" onclick="answerTF('${level}',${i},true)">✓ Sant</button>
+        <button class="tf-btn false-btn" onclick="answerTF('${level}',${i},false)">✗ Usant</button>
+      </div>
+      <div class="tf-feedback" id="${level}-tf-fb-${i}"></div>
+    </div>
+  `).join('');
+}
+
+function answerTF(level, i, answer) {
+  const data = level === 'a1' ? a1TF : a2TF;
+  const item = data[i];
+  const block = document.getElementById(level + '-tf-' + i);
+  const fb = document.getElementById(level + '-tf-fb-' + i);
+  const btns = block.querySelectorAll('.tf-btn');
+
+  btns.forEach(b => b.disabled = true);
+  const correct = answer === item.correct;
+  const clickedBtn = answer ? btns[0] : btns[1];
+  clickedBtn.classList.add(correct ? 'correct' : 'wrong');
+
+  fb.textContent = item.fb;
+  fb.className = 'tf-feedback ' + (correct ? 'ok' : 'no');
+
+  updateTFScore(level, data);
+}
+
+function updateTFScore(level, data) {
+  let correct = 0, answered = 0;
+  data.forEach((_, i) => {
+    const fb = document.getElementById(level + '-tf-fb-' + i);
+    if (fb && fb.textContent) {
+      answered++;
+      if (fb.classList.contains('ok')) correct++;
+    }
+  });
+  const el = document.getElementById(level + '-tf-score');
+  if (el && answered > 0) el.innerHTML = `<strong>${correct}/${answered}</strong> riktige`;
+}
+
+function resetTF(level) {
+  const data = level === 'a1' ? a1TF : a2TF;
+  renderTF(level, data);
+  const el = document.getElementById(level + '-tf-score');
+  if (el) el.innerHTML = '';
+}
+
+// ===== MATCH =====
+function renderMatch(level, pairs) {
+  const left = document.getElementById(level + '-match-left');
+  const right = document.getElementById(level + '-match-right');
+  if (!left || !right) return;
+
+  const shuffledRight = [...pairs].sort(() => Math.random() - 0.5);
+  matchState[level] = { selected: null, matched: 0, total: pairs.length };
+
+  left.innerHTML = pairs.map((p, i) => `
+    <div class="match-item" id="${level}-ml-${i}" data-en="${p.en}" data-side="left" onclick="selectMatch('${level}','left',${i},'${p.en}')">
+      ${p.en}
+    </div>`).join('');
+
+  right.innerHTML = shuffledRight.map((p, i) => `
+    <div class="match-item" id="${level}-mr-${i}" data-no="${p.no}" data-side="right" onclick="selectMatch('${level}','right',${i},'${p.no}')">
+      ${p.no}
+    </div>`).join('');
+}
+
+function selectMatch(level, side, idx, value) {
+  const st = matchState[level];
+  const el = document.getElementById(`${level}-m${side === 'left' ? 'l' : 'r'}-${idx}`);
+  if (el.classList.contains('matched-ok')) return;
+
+  if (!st.selected) {
+    document.querySelectorAll(`#level-${level} .match-item.selected`).forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    st.selected = { side, idx, value, el };
+  } else {
+    if (st.selected.side === side) {
+      st.selected.el.classList.remove('selected');
+      el.classList.add('selected');
+      st.selected = { side, idx, value, el };
+      return;
     }
 
-    // === A1 Funksjoner ===
+    const pairs = level === 'a1' ? a1MatchPairs : [];
+    let isMatch = false;
+    let leftVal = side === 'left' ? value : st.selected.value;
+    let rightVal = side === 'right' ? value : st.selected.value;
+    pairs.forEach(p => { if (p.en === leftVal && p.no === rightVal) isMatch = true; });
 
-    // Flippe glosene
-    function flipCard(element, engelsk, norsk) {
-        if (element.innerText === engelsk) {
-            element.innerText = norsk;
-            element.classList.add('norsk');
-        } else {
-            element.innerText = engelsk;
-            element.classList.remove('norsk');
-        }
+    if (isMatch) {
+      el.classList.remove('selected');
+      el.classList.add('matched-ok');
+      st.selected.el.classList.remove('selected');
+      st.selected.el.classList.add('matched-ok');
+      st.matched++;
+      const scoreEl = document.getElementById(level + '-match-score');
+      if (scoreEl) scoreEl.innerHTML = `<strong>${st.matched}/${st.total}</strong> matchet`;
+    } else {
+      el.classList.add('matched-no');
+      st.selected.el.classList.add('matched-no');
+      setTimeout(() => {
+        el.classList.remove('matched-no', 'selected');
+        st.selected.el.classList.remove('matched-no', 'selected');
+      }, 600);
     }
+    st.selected = null;
+  }
+}
 
-    // Sant/Usant
-    function checkTF(btn, isCorrect, correctMessage) {
-        let feedback = btn.parentElement.querySelector('.feedback');
-        if (isCorrect) {
-            feedback.innerText = "✅ " + correctMessage;
-            feedback.style.color = "green";
-        } else {
-            feedback.innerText = "❌ Try again! " + correctMessage;
-            feedback.style.color = "red";
-        }
+function resetMatch(level) {
+  const pairs = level === 'a1' ? a1MatchPairs : [];
+  renderMatch(level, pairs);
+  const el = document.getElementById(level + '-match-score');
+  if (el) el.innerHTML = '';
+}
+
+// ===== GAP FILL =====
+function renderGap(level, gaps) {
+  const bank = document.getElementById(level + '-word-bank');
+  const container = document.getElementById(level + '-gap-container');
+  if (!bank || !container) return;
+
+  const words = [...gaps.map(g => g.answer)].sort(() => Math.random() - 0.5);
+  bank.innerHTML = words.map(w => `<div class="word-chip" id="chip-${w}" onclick="selectWord('${w}')">${w}</div>`).join('');
+  selectedGapWord = null;
+
+  container.innerHTML = gaps.map((g, i) => {
+    const parts = g.sentence.split('___');
+    return `<div class="gap-sentence">
+      ${parts[0]}<input type="text" class="gap-input" id="${level}-gap-${i}" placeholder="___" readonly onclick="fillGap('${level}',${i},'${g.answer}')">${parts[1]}
+      <span style="font-size:0.78rem;color:var(--muted);font-style:italic;">(${g.hint})</span>
+    </div>`;
+  }).join('');
+}
+
+function selectWord(word) {
+  document.querySelectorAll('.word-chip').forEach(c => c.style.border = '1.5px solid rgba(245,166,35,0.4)');
+  selectedGapWord = word;
+  const chip = document.getElementById('chip-' + word);
+  if (chip && !chip.classList.contains('used')) chip.style.border = '2px solid var(--gold)';
+}
+
+function fillGap(level, i, correctAnswer) {
+  if (!selectedGapWord) return;
+  const input = document.getElementById(level + '-gap-' + i);
+  input.value = selectedGapWord;
+  input.dataset.filled = selectedGapWord;
+  input.className = 'gap-input';
+  selectedGapWord = null;
+  document.querySelectorAll('.word-chip').forEach(c => c.style.border = '1.5px solid rgba(245,166,35,0.4)');
+}
+
+function checkGap(level) {
+  const gaps = level === 'a2' ? a2Gaps : [];
+  let correct = 0;
+  gaps.forEach((g, i) => {
+    const input = document.getElementById(level + '-gap-' + i);
+    if (!input) return;
+    const val = (input.dataset.filled || input.value || '').trim().toLowerCase();
+    if (val === g.answer.toLowerCase()) {
+      input.classList.add('correct');
+      correct++;
+      const chip = document.getElementById('chip-' + g.answer);
+      if (chip) chip.classList.add('used');
+    } else if (val) {
+      input.classList.add('wrong');
     }
+  });
+  const scoreEl = document.getElementById(level + '-gap-score');
+  if (scoreEl) scoreEl.innerHTML = `<strong>${correct}/${gaps.length}</strong> riktige`;
+}
 
-    // === A2 Funksjoner ===
+function resetGap(level) {
+  const gaps = level === 'a2' ? a2Gaps : [];
+  renderGap(level, gaps);
+  const scoreEl = document.getElementById(level + '-gap-score');
+  if (scoreEl) scoreEl.innerHTML = '';
+}
 
-    // Variabler for sentence builder
-    let currentBuiltSentence = {};
+// ===== SENTENCE BUILDER =====
+function renderSentenceBuilder() {
+  const container = document.getElementById('sentence-builder');
+  if (!container) return;
+  builtSentence = [];
+  const s = sentences[currentSentenceIdx % sentences.length];
+  const shuffled = [...s.parts].sort(() => Math.random() - 0.5);
 
-    // Legg til ord
-    function addWordToBuild(sentenceId, word, btn) {
-        if (!currentBuiltSentence[sentenceId]) {
-            currentBuiltSentence[sentenceId] = [];
-        }
-        currentBuiltSentence[sentenceId].push(word);
-        document.getElementById('builtSentence_' + sentenceId.slice(-1)).innerText = currentBuiltSentence[sentenceId].join(' ');
-        btn.style.opacity = "0.5";
-        btn.disabled = true;
+  container.innerHTML = `
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;">Sentence ${(currentSentenceIdx % sentences.length) + 1} of ${sentences.length}</p>
+    <div class="sentence-display" id="sentence-display"><em style="color:var(--muted);font-size:0.85rem;">Your sentence appears here…</em></div>
+    <div class="sentence-parts" id="sentence-parts">
+      ${shuffled.map(w => `<div class="part-chip" onclick="addWord('${w}',this)">${w}</div>`).join('')}
+    </div>
+    <div class="sentence-feedback" id="sentence-fb"></div>
+    <div class="action-row">
+      <button class="check-btn" onclick="checkSentence()">✓ Sjekk</button>
+      <button class="reset-btn" onclick="renderSentenceBuilder()">🔄 Reset</button>
+      <button class="check-btn" style="background:var(--green);" onclick="nextSentence()">Next →</button>
+    </div>
+  `;
+}
+
+function addWord(word, el) {
+  if (el.classList.contains('in-sentence')) {
+    builtSentence = builtSentence.filter(w => w !== word || (() => { const removed = true; return false; })());
+    builtSentence.splice(builtSentence.lastIndexOf(word), 1);
+    el.classList.remove('in-sentence');
+  } else {
+    builtSentence.push(word);
+    el.classList.add('in-sentence');
+  }
+  updateSentenceDisplay();
+}
+
+function updateSentenceDisplay() {
+  const display = document.getElementById('sentence-display');
+  if (!display) return;
+  if (builtSentence.length === 0) {
+    display.innerHTML = '<em style="color:var(--muted);font-size:0.85rem;">Your sentence appears here…</em>';
+  } else {
+    display.innerHTML = builtSentence.map(w => `<span onclick="removeWord('${w}',this)">${w}</span>`).join(' ');
+  }
+}
+
+function removeWord(word, el) {
+  const idx = builtSentence.lastIndexOf(word);
+  if (idx > -1) builtSentence.splice(idx, 1);
+  document.querySelectorAll('.part-chip').forEach(c => {
+    if (c.textContent === word && c.classList.contains('in-sentence')) {
+      c.classList.remove('in-sentence');
     }
+  });
+  updateSentenceDisplay();
+}
 
-    // Sjekk setning
-    function checkBuiltSentence(sentenceId, correctSentence) {
-        let feedback = document.getElementById('fb-' + sentenceId);
-        let built = (currentBuiltSentence[sentenceId] || []).join(' ');
-        if (built === correctSentence) {
-            feedback.innerText = "✅ Excellent!";
-            feedback.style.color = "green";
-        } else {
-            feedback.innerText = "❌ That's not quite right.";
-            feedback.style.color = "red";
-        }
-    }
+function checkSentence() {
+  const s = sentences[currentSentenceIdx % sentences.length];
+  const built = builtSentence.join(' ');
+  const fb = document.getElementById('sentence-fb');
+  if (!fb) return;
+  if (built === s.correct) {
+    fb.textContent = '✓ Correct! Well done! 🎉';
+    fb.className = 'sentence-feedback ok';
+  } else if (builtSentence.length === 0) {
+    fb.textContent = 'Click on the words to build the sentence!';
+    fb.className = 'sentence-feedback hint';
+  } else {
+    fb.textContent = `Not quite. Try again! Correct: "${s.correct}"`;
+    fb.className = 'sentence-feedback no';
+  }
+}
 
-    // Nullstill setning
-    function resetBuiltSentence(sentenceId) {
-        currentBuiltSentence[sentenceId] = [];
-        document.getElementById('builtSentence_' + sentenceId.slice(-1)).innerText = "...";
-        document.getElementById('fb-' + sentenceId).innerText = "";
-        
-        let buttons = document.querySelectorAll('#sentenceBuilder_' + sentenceId.slice(-1) + ' .action-btn');
-        buttons.forEach(btn => {
-            btn.style.opacity = "1";
-            btn.disabled = false;
-        });
-    }
-
-    // === B1 Funksjoner ===
-
-    // Sjekk nedtrekksmeny
-    function checkSelect(selectId, correctWord) {
-        let selectBox = document.getElementById(selectId);
-        let feedback = document.getElementById('fb-' + selectId);
-        
-        if (selectBox.value === correctWord) {
-            feedback.innerText = "✅ Correct!";
-            feedback.style.color = "green";
-        } else if (selectBox.value !== "") {
-            feedback.innerText = "❌ Try again.";
-            feedback.style.color = "red";
-        } else {
-            feedback.innerText = "";
-        }
-    }
-
-    // Sjekk oversettelse
-    function checkTranslation(inputId, correctWord) {
-        let inputField = document.getElementById(inputId);
-        let feedback = document.getElementById('fb-' + inputId);
-        if (inputField.value.trim().toLowerCase() === correctWord.toLowerCase()) {
-            feedback.innerText = "✅ Correct!";
-            feedback.style.color = "green";
-        } else {
-            feedback.innerText = "❌ Try again.";
-            feedback.style.color = "red";
-        }
-    }
+function nextSentence() {
+  currentSentenceIdx++;
+  renderSentenceBuilder();
+}
 </script>
-
 </body>
 </html>
