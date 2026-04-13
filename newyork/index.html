@@ -349,6 +349,40 @@ tr:hover td{background:rgba(255,255,255,.02);}
 
 @media(max-width:500px){.video-opts{grid-template-columns:1fr;}}
 
+
+/* ── SPEAK BUTTON ──────────────────────────────────────── */
+.speak-btn{background:none;border:none;cursor:pointer;font-size:1rem;padding:2px 4px;border-radius:6px;transition:transform .15s,background .15s;vertical-align:middle;line-height:1;flex-shrink:0;}
+.speak-btn:hover{background:rgba(37,99,235,.12);transform:scale(1.2);}
+.speak-btn.speaking{animation:correctPop .4s ease;}
+.match-word .speak-btn:hover{background:rgba(255,255,255,.15);}
+.matched .speak-btn{opacity:.7;}
+.vocab-item{display:flex;align-items:center;gap:6px;background:#F0F9FF;color:#0369A1;border-radius:99px;padding:6px 14px;font-size:.85rem;font-weight:700;border:1px solid #BAE6FD;}
+.vocab-item strong{color:#1A73E8;}
+
+/* ── LISTEN & CHOOSE ────────────────────────────────────── */
+.listen-wrap{background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:var(--radius);padding:18px;border:1.5px solid #334155;}
+.listen-instr{font-size:.85rem;font-weight:700;color:#94A3B8;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.listen-q{margin-bottom:14px;}
+.listen-play-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;border:none;border-radius:12px;padding:14px 28px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(37,99,235,.4);width:100%;margin-bottom:14px;}
+.listen-play-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.5);}
+.listen-play-btn.playing{background:linear-gradient(135deg,#7C3AED,#6D28D9);}
+.listen-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.listen-opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.93rem;color:#E2E8F0;cursor:pointer;transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.listen-opt:hover:not(:disabled){background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);}
+.listen-opt .opt-emoji{font-size:1.6rem;}
+.listen-opt.lq-correct{background:rgba(22,163,74,.25);border-color:#4ADE80;color:#A7F3D0;}
+.listen-opt.lq-wrong{background:rgba(239,68,68,.2);border-color:#F87171;color:#FECACA;animation:wrongShake .35s;}
+.listen-opt:disabled{cursor:not-allowed;}
+.listen-progress{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.listen-prog-dots{display:flex;gap:5px;}
+.listen-prog-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s;}
+.listen-prog-dot.done{background:#4ADE80;}
+.listen-prog-dot.active{background:#FFD600;}
+.listen-fb{font-size:.85rem;font-weight:700;margin-top:8px;min-height:16px;text-align:center;}
+.listen-fb.ok{color:#4ADE80;}.listen-fb.nope{color:#F87171;}
+.listen-done-msg{font-family:'Fredoka One',cursive;font-size:1rem;color:#FFD600;text-align:center;margin-top:8px;min-height:22px;}
+@media(max-width:500px){.listen-opts{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -915,11 +949,81 @@ const A1LM=[
 }
 ];
 
+
+// ══════════════════════════════════════════════════════════
+// LISTEN & CHOOSE DATA
+// ══════════════════════════════════════════════════════════
+const A1_LISTEN = [
+  // Stop 1 – Statue of Liberty
+  [{word:'torch',   emoji:'🔦', opts:['island 🏝️','green 🟢','tall ⬆️']},
+   {word:'island',  emoji:'🏝️', opts:['torch 🔦','green 🟢','tall ⬆️']},
+   {word:'green',   emoji:'🟢', opts:['torch 🔦','island 🏝️','tall ⬆️']},
+   {word:'tall',    emoji:'⬆️', opts:['torch 🔦','island 🏝️','green 🟢']},
+   {word:'statue',  emoji:'🗽', opts:['water 💧','crown 👑','boat ⛵']}],
+  // Stop 2 – Brooklyn Bridge
+  [{word:'bridge',  emoji:'🌉', opts:['river 🏞️','tower 🗼','cable 〰️']},
+   {word:'cable',   emoji:'〰️', opts:['bridge 🌉','river 🏞️','tower 🗼']},
+   {word:'river',   emoji:'🏞️', opts:['bridge 🌉','cable 〰️','tower 🗼']},
+   {word:'tower',   emoji:'🗼', opts:['bridge 🌉','cable 〰️','river 🏞️']},
+   {word:'walk',    emoji:'🚶', opts:['drive 🚗','swim 🏊','fly ✈️']}],
+  // Stop 3 – Times Square
+  [{word:'busy',    emoji:'🏃', opts:['sign 📋','bright 💡','taxi 🚕']},
+   {word:'sign',    emoji:'📋', opts:['busy 🏃','bright 💡','taxi 🚕']},
+   {word:'bright',  emoji:'💡', opts:['busy 🏃','sign 📋','taxi 🚕']},
+   {word:'taxi',    emoji:'🚕', opts:['busy 🏃','sign 📋','bright 💡']},
+   {word:'people',  emoji:'👥', opts:['car 🚗','tree 🌳','boat ⛵']}],
+  // Stop 4 – Central Park
+  [{word:'park',    emoji:'🌳', opts:['grass 🌿','bench 🪑','path 🛤️']},
+   {word:'grass',   emoji:'🌿', opts:['park 🌳','bench 🪑','path 🛤️']},
+   {word:'bench',   emoji:'🪑', opts:['park 🌳','grass 🌿','path 🛤️']},
+   {word:'path',    emoji:'🛤️', opts:['park 🌳','grass 🌿','bench 🪑']},
+   {word:'rest',    emoji:'😌', opts:['run 🏃','swim 🏊','cook 🍳']}],
+  // Stop 5 – Empire State Building
+  [{word:'building',emoji:'🏢', opts:['floor 🔢','window 🪟','famous ⭐']},
+   {word:'floor',   emoji:'🔢', opts:['building 🏢','window 🪟','famous ⭐']},
+   {word:'window',  emoji:'🪟', opts:['building 🏢','floor 🔢','famous ⭐']},
+   {word:'famous',  emoji:'⭐', opts:['building 🏢','floor 🔢','window 🪟']},
+   {word:'tall',    emoji:'⬆️', opts:['small 🔽','round ⭕','soft 🧸']}],
+];
+
+const A2_LISTEN = [
+  // Stop 1 – Statue of Liberty
+  [{word:'copper',   emoji:'🟤', opts:['silver 🪨','gold 🥇','iron ⚙️']},
+   {word:'crown',    emoji:'👑', opts:['torch 🔦','island 🏝️','anchor ⚓']},
+   {word:'torch',    emoji:'🔦', opts:['crown 👑','copper 🟤','flag 🚩']},
+   {word:'symbol',   emoji:'🗽', opts:['signal 📡','number 🔢','colour 🎨']},
+   {word:'freedom',  emoji:'🕊️', opts:['prison 🔒','hunger 😔','silence 🤫']}],
+  // Stop 2 – Brooklyn Bridge
+  [{word:'cable',    emoji:'〰️', opts:['tower 🗼','bridge 🌉','river 🏞️']},
+   {word:'suspension',emoji:'🔗', opts:['elevator 🛗','tunnel 🚇','ferry ⛴️']},
+   {word:'pedestrian',emoji:'🚶', opts:['vehicle 🚗','sailor ⛵','pilot ✈️']},
+   {word:'borough',  emoji:'🏙️', opts:['river 🏞️','island 🏝️','tower 🗼']},
+   {word:'span',     emoji:'📏', opts:['speed 💨','weight ⚖️','colour 🎨']}],
+  // Stop 3 – Times Square
+  [{word:'advertisement',emoji:'📢', opts:['newspaper 📰','library 📚','museum 🏛️']},
+   {word:'Broadway', emoji:'🎭', opts:['Hollywood 🎬','Nashville 🎸','Silicon 💻']},
+   {word:'intersection',emoji:'🚦', opts:['roundabout 🔄','motorway 🛣️','parking 🅿️']},
+   {word:'commercial',emoji:'💰', opts:['natural 🌿','ancient 🏺','scientific 🔬']},
+   {word:'lively',   emoji:'🎉', opts:['boring 😴','quiet 🤫','empty 🌫️']}],
+  // Stop 4 – Central Park
+  [{word:'hectare',  emoji:'📐', opts:['kilogram ⚖️','kilometre 📏','litre 🫙']},
+   {word:'skyline',  emoji:'🏙️', opts:['coastline 🌊','deadline ⏰','lifeline 🛟']},
+   {word:'reservoir',emoji:'💧', opts:['meadow 🌿','forest 🌲','desert 🏜️']},
+   {word:'meadow',   emoji:'🌾', opts:['reservoir 💧','skyline 🏙️','contrast 🔄']},
+   {word:'contrast', emoji:'⚫⚪', opts:['compare 🔍','connect 🔗','collect 📦']}],
+  // Stop 5 – Empire State Building
+  [{word:'skyscraper',emoji:'🏙️', opts:['bungalow 🏡','warehouse 🏭','cottage 🏘️']},
+   {word:'elevator', emoji:'🛗', opts:['escalator 🪜','treadmill 🏃','conveyor ⚙️']},
+   {word:'antenna',  emoji:'📡', opts:['elevator 🛗','chimney 🏭','flagpole 🚩']},
+   {word:'observation',emoji:'🔭', opts:['decoration 🎨','celebration 🎉','destination ✈️']},
+   {word:'storey',   emoji:'🔢', opts:['story 📖','stairway 🪜','storage 📦']}],
+];
+
 // ══════════════════════════════════════════
 // A1 STATE & LOGIC
 // ══════════════════════════════════════════
 let a1step=0,a1score=0,a1lives=3;
-let a1seeDone=false,a1matchDone=false,a1fillDone=false,a1buildDone=false,a1quizDone=false,a1langDone=false;
+let a1seeDone=false,a1matchDone=false,a1fillDone=false,a1buildDone=false,a1quizDone=false,a1langDone=false,a1listenDone=false;
 let a1completedStops=new Array(5).fill(false);
 let a1selW=null,a1selD=null,a1matchedSet=new Set();
 let a1fillAns=[],a1fillStateEl=[];
@@ -938,14 +1042,14 @@ function a1StepDots(){
     c.appendChild(d);
   }
 }
-function a1CheckNext(){const b=$('a1nxt');if(b)b.disabled=!(a1seeDone&&a1matchDone&&a1fillDone&&a1buildDone&&a1quizDone&&a1langDone);}
+function a1CheckNext(){const b=$('a1nxt');if(b)b.disabled=!(a1seeDone&&a1matchDone&&a1fillDone&&a1buildDone&&a1quizDone&&a1langDone&&a1listenDone);}
 
 function a1AddScore(pts){a1score+=pts;a1Hud();}
 
 function a1Render(i){
   if(i>=5){a1Win();return;}
   const L=A1LM[i];
-  a1seeDone=a1matchDone=a1fillDone=a1buildDone=a1quizDone=a1langDone=false;
+  a1seeDone=a1matchDone=a1fillDone=a1buildDone=a1quizDone=a1langDone=a1listenDone=false;
   a1selW=a1selD=null;a1matchedSet=new Set();
   a1fillAns=new Array(L.fill.sentences.length).fill(null);
   a1fillStateEl=new Array(L.fill.sentences.length).fill(null);
@@ -972,10 +1076,12 @@ function a1Render(i){
   +'<div class="sec-a1">🇳🇴 Match English to Norwegian!</div>'
   +'<div class="act-box blue-bg">'
   +'<p style="font-size:.82rem;font-weight:700;color:#64748b;margin-bottom:10px;">👉 Click an <span style="color:#3730a3;font-weight:900">English word</span>, then the correct <span style="color:#15803d;font-weight:900">Norwegian word</span>.</p>'
-  +'<div class="match-grid"><div class="match-col">'+L.match.pairs.map((p,pi)=>'<div class="match-word" id="a1mw'+pi+'" onclick="a1ClickW('+pi+',\''+esc(p.w)+'\')">'+p.w+'</div>').join('')+'</div>'
+  +'<div class="match-grid"><div class="match-col">'+L.match.pairs.map((p,pi)=>{const word=p.w.split(' ')[0];return '<div class="match-word" id="a1mw'+pi+'" onclick="a1ClickW('+pi+',\''+esc(p.w)+'\')"><button class="speak-btn" onclick="event.stopPropagation();speakWord(\''+esc(word)+'\')" title="Listen to pronunciation">🔊</button> '+p.w+'</div>';}).join('')+'</div>'
   +'<div class="match-col">'+shuffle(L.match.pairs).map((p,di)=>'<div class="match-def" id="a1md'+di+'" data-def="'+escQ(p.d)+'" data-own="'+escQ(p.w)+'" onclick="a1ClickD(this)">🇳🇴 '+p.d+'</div>').join('')+'</div></div>'
   +'<div id="a1matchMsg" style="margin-top:9px;font-weight:800;font-size:.9rem;min-height:20px;"></div>'
   +'</div>'
+  +'<div class="sec-a1">🔊 Listen and choose!</div>'
+  +'<div class="listen-wrap" id="a1listenBox"></div>'
   +'<div class="sec-a1">🗺️ Open Street View</div>'
   +'<a href="'+L.sv+'" target="_blank" class="sv-btn"><span style="font-size:1.4rem">🗺️</span> Open Google Street View</a>'
   +'<div class="sec-a1">👀 Click what you see!</div>'
@@ -1005,6 +1111,7 @@ function a1Render(i){
   +'</div>';
 
   $('a1game').dataset.seeOrder=JSON.stringify(seeItems.map(it=>it.yes));
+  renderListenActivity('a1listenBox','a1',i,function(){a1listenDone=true;a1CheckNext();},function(pts){a1AddScore(pts);});
 
   // setup lang activity score callbacks
   window['a1lang_wsScore']=function(pts){a1AddScore(pts);}
@@ -1251,7 +1358,7 @@ const A2LM=[
 // A2 STATE & LOGIC
 // ══════════════════════════════════════════
 let a2step=0,a2score=0,a2lives=3;
-let a2quizDone=false,a2writeDone=false,a2bonusDone=false,a2tasksDone=false,a2langDone=false,a2seeDone=false;
+let a2quizDone=false,a2writeDone=false,a2bonusDone=false,a2tasksDone=false,a2langDone=false,a2seeDone=false,a2listenDone=false;
 let a2completedStops=new Array(5).fill(false);
 let a2tasks=[];
 let a2seeClicked=new Set();
@@ -1268,13 +1375,13 @@ function a2StepDots(){
     c.appendChild(d);
   }
 }
-function a2CheckNext(){const b=$('a2nxt');if(b)b.disabled=!(a2seeDone&&a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone);}
+function a2CheckNext(){const b=$('a2nxt');if(b)b.disabled=!(a2seeDone&&a2tasksDone&&a2writeDone&&a2quizDone&&a2langDone&&a2listenDone);}
 function a2AddScore(pts){a2score+=pts;a2Hud();}
 
 function a2Render(idx){
   if(idx>=5){a2Win();return;}
   const L=A2LM[idx];
-  a2quizDone=false;a2writeDone=false;a2bonusDone=false;a2tasksDone=false;a2langDone=false;a2seeDone=false;
+  a2quizDone=false;a2writeDone=false;a2bonusDone=false;a2tasksDone=false;a2langDone=false;a2seeDone=false;a2listenDone=false;
   a2tasks=new Array(L.tasks.length).fill(false);
   a2seeClicked=new Set();
 
@@ -1291,7 +1398,7 @@ function a2Render(idx){
       </div>
       <div class="task-fb" id="a2tfb${i}"></div>
     </li>`).join('');
-  const vocabHtml=L.vocab.map(v=>'<span class="vocab-pill"><strong>'+v.w+'</strong> = '+v.def+'</span>').join('');
+  const vocabHtml=L.vocab.map(v=>'<span class="vocab-item"><button class="speak-btn" onclick="speakWord(\''+esc(v.w)+'\')" title="Listen">🔊</button> <strong>'+v.w+'</strong> = '+v.def+'</span>').join('');
   const quizHtml=L.quiz.options.map((o,i)=>'<button class="qb-a2" id="a2qb'+i+'" onclick="a2AnsQuiz('+i+')">'+o+'</button>').join('');
 
   const langLabels={wordsearch:'🔍 Language Activity – Word Search!',enno:'🇳🇴 Language Activity – Match English and Norwegian!',fill:'✏️ Language Activity – Fill in the Missing Word!',unscramble:'🔀 Language Activity – Unscramble the Letters!'};
@@ -1307,6 +1414,8 @@ function a2Render(idx){
   +'<div class="info-text a2">'+L.infoText+'<br><small style="color:#94a3b8;font-size:.78rem;">💡 Hover the underlined words to see Norwegian!</small></div>'
   +'<div class="sec-a2">📚 Key vocabulary</div>'
   +'<div class="vocab-row">'+vocabHtml+'</div>'
+  +'<div class="sec-a2">🔊 Listen and choose!</div>'
+  +'<div class="listen-wrap" id="a2listenBox"></div>'
   +'<div class="sec-a2">🔍 Open Street View</div>'
   +'<a href="'+L.sv+'" target="_blank" class="sv-btn"><span style="font-size:1.5rem">🗺️</span> Open in Google Street View</a>'
   +'<div class="hint-box"><span style="font-size:1.5rem;flex-shrink:0">💡</span><span>'+L.hint+'</span></div>'
@@ -1340,6 +1449,7 @@ function a2Render(idx){
   +'<button class="next-btn" id="a2nxt" onclick="a2NextStep()" disabled>'+(idx<4?'Next stop ➡️ '+A2LM[idx+1].emoji:'🏆 Finish the Quest!')+'</button>'
   +'</div>';
 
+  renderListenActivity('a2listenBox','a2',idx,function(){a2listenDone=true;a2CheckNext();},function(pts){a2AddScore(pts);});
   // Build see-activity after innerHTML so IDs exist
   const a2SeeItems=shuffle(L.see.items);
   $('a2game').dataset.a2SeeOrder=JSON.stringify(a2SeeItems.map(it=>it.yes));
@@ -1449,6 +1559,121 @@ function a2Win(){
   $('a2pf').style.width='100%';
 }
 
+
+
+// ══════════════════════════════════════════════════════════
+// SPEAK WORD (Web Speech API)
+// ══════════════════════════════════════════════════════════
+function speakWord(word) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-US'; u.rate = 0.85; u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+// ══════════════════════════════════════════════════════════
+// LISTEN & CHOOSE ENGINE
+// ══════════════════════════════════════════════════════════
+function renderListenActivity(containerId, level, stopIdx, doneCallback, addScoreFn) {
+  const data = level === 'a1' ? A1_LISTEN[stopIdx] : A2_LISTEN[stopIdx];
+  if (!data || !$(containerId)) return;
+
+  let current = 0;
+  let answered = new Array(data.length).fill(false);
+  let allDone = false;
+
+  function buildQ(qi) {
+    const item = data[qi];
+    // Build 4 options: correct + 3 distractors, shuffled
+    const correctLabel = item.word + ' ' + item.emoji;
+    const allOpts = shuffle([
+      {label: correctLabel, correct: true},
+      ...item.opts.map(o => ({label: o, correct: false}))
+    ]);
+    const dotsHtml = data.map((_, di) =>
+      '<div class="listen-prog-dot' + (di < qi ? ' done' : di === qi ? ' active' : '') + '"></div>'
+    ).join('');
+    const optsHtml = allOpts.map((o, oi) =>
+      '<button class="listen-opt" id="' + level + '_lopt' + qi + '_' + oi + '" onclick="listenAns(\'' + level + '\',' + stopIdx + ',' + qi + ',' + oi + ',' + o.correct + ')">'
+      + '<span class="opt-emoji">' + (o.label.split(' ').slice(1).join(' ') || '❓') + '</span>'
+      + '<span>' + o.label.split(' ')[0] + '</span>'
+      + '</button>'
+    ).join('');
+
+    return '<div class="listen-instr">👂 Listen, then click the word you heard!</div>'
+      + '<div class="listen-progress"><div class="listen-prog-dots">' + dotsHtml + '</div>'
+      + '<span style="font-size:.8rem;font-weight:700;color:#64748B;">' + (qi+1) + ' / ' + data.length + '</span></div>'
+      + '<button class="listen-play-btn" id="' + level + '_lplay' + qi + '" onclick="speakWord(\'' + item.word + '\')">'
+      + '🔊 Listen</button>'
+      + '<div class="listen-opts">' + optsHtml + '</div>'
+      + '<div class="listen-fb" id="' + level + '_lfb' + qi + '"></div>'
+      + '<div class="listen-done-msg" id="' + level + '_ldone"></div>';
+  }
+
+  $(containerId).innerHTML = buildQ(0);
+
+  // Store state on window
+  window[level + '_listenState'] = {
+    data, current: 0, answered, allDone: false, doneCallback, addScoreFn,
+    stopIdx, containerId, buildQ
+  };
+}
+
+function listenAns(level, stopIdx, qi, oi, correct) {
+  const st = window[level + '_listenState'];
+  if (!st || st.answered[qi]) return;
+  st.answered[qi] = true;
+
+  // Disable all options for this question
+  const data = st.data;
+  for (let i = 0; i < 4; i++) {
+    const btn = $(level + '_lopt' + qi + '_' + i);
+    if (btn) btn.disabled = true;
+  }
+  const chosen = $(level + '_lopt' + qi + '_' + oi);
+  const fb = $(level + '_lfb' + qi);
+
+  if (correct) {
+    if (chosen) chosen.classList.add('lq-correct');
+    if (fb) { fb.className = 'listen-fb ok'; fb.textContent = '✅ Correct! +5 pts'; }
+    st.addScoreFn(5);
+    confetti(5);
+    toast('✅ Correct! +5');
+  } else {
+    if (chosen) chosen.classList.add('lq-wrong');
+    // Highlight correct
+    for (let i = 0; i < 4; i++) {
+      const b = $(level + '_lopt' + qi + '_' + i);
+      if (b && b.textContent.trim().startsWith(data[qi].word)) b.classList.add('lq-correct');
+    }
+    if (fb) { fb.className = 'listen-fb nope'; fb.textContent = '❌ The word was: ' + data[qi].word + ' ' + data[qi].emoji; }
+    toast('❌ Try again next time!', true);
+  }
+
+  // Move to next question after short delay
+  const nextQi = qi + 1;
+  if (nextQi < data.length) {
+    setTimeout(() => {
+      const cont = $(st.containerId);
+      if (cont) {
+        cont.innerHTML = st.buildQ(nextQi);
+        // Mark previous as done in dots
+        window[level + '_listenState'].current = nextQi;
+        // Speak the new word automatically after a moment
+        setTimeout(() => speakWord(data[nextQi].word), 400);
+      }
+    }, 1200);
+  } else {
+    // All done
+    st.allDone = true;
+    setTimeout(() => {
+      const done = $(level + '_ldone');
+      if (done) { done.textContent = '🎉 All ' + data.length + ' words done! Well done!'; }
+      if (st.doneCallback) st.doneCallback();
+    }, 800);
+  }
+}
 
 // ── HAND IN ───────────────────────────────────────────────────────
 function a1HandIn(){
