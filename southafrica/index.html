@@ -18,7 +18,7 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* HERO */
+/* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(155deg,var(--hero-bg1) 0%,var(--hero-bg2) 45%,var(--hero-bg3) 100%)}
 .hero::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,122,77,.18) 0%,transparent 70%)}
@@ -44,7 +44,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
 .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
 
-/* CONTENT PAGE */
+/* ── CONTENT PAGE ── */
 .content-page{display:none;min-height:100vh;background:var(--cream)}
 .content-page.active{display:block}
 .top-bar{background:var(--sa-black);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
@@ -60,9 +60,53 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
 .section{margin-bottom:40px}
 .section-label{font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:700;color:var(--sa-green);margin-bottom:10px}
 .section-title{font-family:var(--serif);font-size:26px;font-weight:700;margin-bottom:16px;color:var(--text)}
-.reading-box{background:#fff;border:1px solid rgba(0,122,77,.15);border-left:4px solid var(--sa-green);border-radius:12px;padding:28px 32px;margin-bottom:20px;line-height:1.85;font-size:16px;box-shadow:0 2px 12px rgba(0,122,77,.06)}
-.reading-box p{margin-bottom:12px}.reading-box p:last-child{margin-bottom:0}
+
+/* ── LANGUAGE PICKER ── */
+.lang-picker{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.lang-picker-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text2);margin-right:4px}
+.lang-btn{border:1.5px solid rgba(0,122,77,.25);background:#fff;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .2s;color:var(--text2);display:flex;align-items:center;gap:5px}
+.lang-btn:hover{border-color:var(--sa-green);color:var(--sa-green)}
+.lang-btn.active{background:var(--sa-green);border-color:var(--sa-green);color:#fff}
+.lang-btn.off{background:#f0f0f0;border-color:transparent;color:#aaa}
+.lang-btn.off:hover{border-color:#ccc;color:#666}
+
+/* ── READING BOX ── */
+.reading-box{background:#fff;border:1px solid rgba(0,122,77,.15);border-left:4px solid var(--sa-green);border-radius:12px;padding:28px 32px;margin-bottom:20px;line-height:1.95;font-size:16px;box-shadow:0 2px 12px rgba(0,122,77,.06)}
+.reading-box p{margin-bottom:14px}.reading-box p:last-child{margin-bottom:0}
 .reading-box h3{font-family:var(--serif);font-size:20px;margin-bottom:14px;color:var(--sa-black)}
+
+/* ── TRANSLATABLE WORDS ── */
+.tw{
+  cursor:help;
+  border-bottom:1px dashed rgba(0,122,77,.35);
+  transition:background .15s,border-color .15s;
+  border-radius:2px;
+  padding:0 1px;
+  position:relative;
+}
+.tw:hover,.tw:focus{background:rgba(0,122,77,.08);border-bottom-color:var(--sa-green);outline:none}
+/* When no language is selected, no underline */
+body.lang-off .tw{border-bottom-color:transparent;cursor:default}
+body.lang-off .tw:hover{background:transparent}
+
+/* ── TOOLTIP ── */
+#tt{
+  position:fixed;z-index:9999;
+  background:var(--sa-black);color:#fff;
+  padding:7px 13px;border-radius:8px;
+  font-size:13px;font-weight:600;font-family:var(--sans);
+  pointer-events:none;
+  opacity:0;transform:translateY(4px);
+  transition:opacity .15s,transform .15s;
+  max-width:220px;line-height:1.4;
+  white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+}
+#tt.show{opacity:1;transform:translateY(0)}
+#tt .tt-lang{font-size:10px;opacity:.55;display:block;margin-bottom:2px;text-transform:uppercase;letter-spacing:.08em}
+#tt::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-bottom:none;border-top-color:var(--sa-black)}
+
+/* ── REST OF UI ── */
 .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:20px}
 .vocab-card{background:#fff;border:1px solid rgba(0,122,77,.15);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all .2s}
 .vocab-card:hover{border-color:var(--sa-green);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,122,77,.1)}
@@ -112,8 +156,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
 .comp-table td{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.06)}
 .comp-table tr:last-child td{border-bottom:none}
 .comp-table tr:nth-child(even) td{background:rgba(0,122,77,.03)}
-
-/* MEMORY GAME */
+/* Memory */
 .memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;max-width:480px}
 .mem-card{aspect-ratio:1;perspective:600px;cursor:pointer}
 .mem-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .4s}
@@ -127,24 +170,17 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
 .mem-win.show{display:block}
 .reset-btn{background:var(--cream);border:1.5px solid rgba(0,0,0,.15);border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .2s;margin-top:8px}
 .reset-btn:hover{background:#e8f5ee;border-color:var(--sa-green)}
-
-/* WORD SEARCH */
+/* Word search */
 .ws-grid{display:inline-grid;gap:2px;background:#e8f5ee;padding:10px;border-radius:10px;margin-bottom:16px;user-select:none;-webkit-user-select:none}
-.ws-cell{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:var(--sans);border-radius:5px;cursor:pointer;background:#fff;color:var(--text);border:1px solid rgba(0,122,77,.1);transition:background .1s}
+.ws-cell{width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border-radius:5px;cursor:pointer;background:#fff;color:var(--text);border:1px solid rgba(0,122,77,.1);transition:background .1s}
 .ws-cell.selecting{background:rgba(255,182,18,.4)}
 .ws-cell.found-0{background:var(--sa-green);color:#fff;border-color:var(--sa-green)}
-.ws-cell.found-1{background:#005C36;color:#fff;border-color:#005C36}
-.ws-cell.found-2{background:var(--sa-yellow);color:var(--sa-black);border-color:var(--sa-yellow)}
-.ws-cell.found-3{background:var(--sa-red);color:#fff;border-color:var(--sa-red)}
-.ws-cell.found-4{background:var(--sa-blue);color:#fff;border-color:var(--sa-blue)}
-.ws-cell.found-5{background:#8B4513;color:#fff;border-color:#8B4513}
-.ws-cell.found-6{background:#6B238E;color:#fff;border-color:#6B238E}
+.ws-cell.found-1{background:#005C36;color:#fff}.ws-cell.found-2{background:var(--sa-yellow);color:var(--sa-black)}.ws-cell.found-3{background:var(--sa-red);color:#fff}.ws-cell.found-4{background:var(--sa-blue);color:#fff}.ws-cell.found-5{background:#8B4513;color:#fff}.ws-cell.found-6{background:#6B238E;color:#fff}
 .ws-wordlist{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .ws-word{background:#fff;border:1.5px solid rgba(0,122,77,.25);border-radius:6px;padding:5px 12px;font-size:13px;font-weight:700;color:var(--text2);transition:all .2s}
 .ws-word.found-word{background:var(--sa-green);border-color:var(--sa-green);color:#fff;text-decoration:line-through;opacity:.7}
 .ws-overflow{overflow-x:auto;padding-bottom:6px}
-
-/* MATCHING */
+/* Matching */
 .match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-bottom:14px}
 .match-col-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--sa-green);margin-bottom:6px}
 .match-item{background:#fff;border:2px solid rgba(0,122,77,.18);border-radius:9px;padding:10px 14px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;text-align:center;min-height:44px;display:flex;align-items:center;justify-content:center}
@@ -153,8 +189,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
 .match-item.matched-ok{border-color:var(--sa-green);background:rgba(0,122,77,.1);color:var(--sa-green);pointer-events:none}
 .match-item.matched-wrong{border-color:var(--sa-red);background:rgba(222,56,49,.07);animation:shake .35s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-
-/* PRINT FOOTER */
+/* Print footer */
 .print-footer{background:var(--sa-black);padding:30px 24px;text-align:center}
 .print-btn{background:transparent;border:2px solid rgba(255,255,255,.3);color:#fff;border-radius:10px;padding:13px 32px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:all .25s;display:inline-flex;align-items:center;gap:10px}
 .print-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);transform:translateY(-2px)}
@@ -167,20 +202,28 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
   .reading-box,.exercise{padding:18px}
   .memory-grid{gap:6px}
   .ws-cell{width:25px;height:25px;font-size:11px}
+  .top-bar{gap:8px}
+  .top-bar-title{font-size:14px}
 }
 @media print{
-  .top-bar,.progress-bar,.print-footer,.scroll-hint,.starters,.check-btn,.reset-btn,.ws-overflow,.match-item{display:none!important}
+  .top-bar,.progress-bar,.print-footer,.scroll-hint,.starters,.check-btn,.reset-btn,.ws-overflow,.lang-picker,#tt{display:none!important}
   .content-page{display:block!important;min-height:unset}
   .hero{display:none!important}
   body,*{background:white!important;color:black!important;box-shadow:none!important}
   .content-wrap{padding:10pt 15pt}
   .reading-box,.exercise,.fact-card{border:1pt solid #ccc!important}
+  .tw{border-bottom:none!important}
 }
 </style>
 </head>
-<body>
+<body class="lang-no">
 
-<!-- ======== HERO ======== -->
+<!-- ── TOOLTIP ── -->
+<div id="tt"><span class="tt-lang" id="tt-lang"></span><span id="tt-text"></span></div>
+
+<!-- ======================================================
+     HERO
+     ====================================================== -->
 <div class="hero" id="heroPage">
   <div class="hero-inner">
     <div class="flag-bar"><span class="fb1"></span><span class="fb2"></span><span class="fb3"></span><span class="fb4"></span><span class="fb5"></span><span class="fb6"></span></div>
@@ -210,7 +253,9 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
   <div class="scroll-hint"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
 </div>
 
-<!-- ======== A1 PAGE ======== -->
+<!-- ======================================================
+     A1 PAGE
+     ====================================================== -->
 <div class="content-page" id="page-a1">
   <div class="top-bar">
     <button class="back-btn" onclick="goBack()">← Back</button>
@@ -220,13 +265,14 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
   <div class="progress-bar"><div class="progress-fill fill-a1" id="prog-a1" style="width:0%"></div></div>
   <div class="content-wrap">
 
+    <!-- Facts -->
     <div class="section">
       <div class="section-label">Quick Facts</div>
       <div class="section-title">South Africa at a Glance</div>
       <div class="fact-grid">
         <div class="fact-card"><div class="fact-icon">🌍</div><div class="fact-title">Continent</div><div class="fact-value">Africa</div></div>
         <div class="fact-card"><div class="fact-icon">🏙️</div><div class="fact-title">Capitals</div><div class="fact-value">Pretoria, Cape Town &amp; Bloemfontein</div></div>
-        <div class="fact-card"><div class="fact-icon">👥</div><div class="fact-title">Population</div><div class="fact-value">~62 million people</div></div>
+        <div class="fact-card"><div class="fact-icon">👥</div><div class="fact-title">Population</div><div class="fact-value">~63 million people</div></div>
         <div class="fact-card"><div class="fact-icon">🗣️</div><div class="fact-title">Languages</div><div class="fact-value">11 official languages</div></div>
         <div class="fact-card"><div class="fact-icon">🌈</div><div class="fact-title">Nickname</div><div class="fact-value">The Rainbow Nation</div></div>
         <div class="fact-card"><div class="fact-icon">🦁</div><div class="fact-title">Famous for</div><div class="fact-value">Big Five: lion, elephant, rhino, leopard, buffalo</div></div>
@@ -234,19 +280,23 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Reading A1 with hover translations -->
     <div class="section">
       <div class="section-label">Reading</div>
       <div class="section-title">A Short Text About South Africa</div>
-      <div class="reading-box">
-        <h3>South Africa</h3>
-        <p>South Africa is a big country in Africa. It is at the south of the continent. The country has many different people. They speak many languages.</p>
-        <p>South Africa has three capitals. Pretoria is the main capital. Cape Town is a very beautiful city. It has mountains and the sea.</p>
-        <p>South Africa has many wild animals. Lions, elephants and rhinos live there. The Kruger National Park is very famous. Many tourists visit it every year.</p>
-        <p>Nelson Mandela is a very important person in South Africa. He was the first black president. He wanted peace and freedom for all people.</p>
+      <div class="lang-picker" id="lp-a1">
+        <span class="lang-picker-label">🌐 Translation:</span>
+        <button class="lang-btn active" data-lang="no" onclick="setLang(this)">🇳🇴 Norsk</button>
+        <button class="lang-btn" data-lang="ar" onclick="setLang(this)">🇸🇦 العربية</button>
+        <button class="lang-btn" data-lang="uk" onclick="setLang(this)">🇺🇦 Українська</button>
+        <button class="lang-btn" data-lang="th" onclick="setLang(this)">🇹🇭 ภาษาไทย</button>
+        <button class="lang-btn off" data-lang="off" onclick="setLang(this)">✕ Off</button>
       </div>
+      <div class="reading-box" id="text-a1"></div>
     </div>
     <div class="divider"></div>
 
+    <!-- Vocab A1 -->
     <div class="section">
       <div class="section-label">Vocabulary</div>
       <div class="section-title">Key Words — Click to See Norwegian</div>
@@ -254,10 +304,11 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Memory A1 -->
     <div class="section">
       <div class="section-label">Memory Game 🎴</div>
       <div class="section-title">Match Word to Picture</div>
-      <div class="info-box"><strong>How to play:</strong> Click two cards to flip them over. Match each English word with its picture emoji. Find all 6 pairs!</div>
+      <div class="info-box"><strong>How to play:</strong> Click two cards. Match each English word with its picture emoji. Find all 6 pairs!</div>
       <div class="mem-stats">Pairs found: <strong id="mf-a1">0</strong> / 6 &nbsp;·&nbsp; Attempts: <strong id="ma-a1">0</strong></div>
       <div class="memory-grid" id="mem-a1"></div>
       <button class="reset-btn" onclick="initMem('a1')">🔄 New Game</button>
@@ -265,15 +316,17 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Word search A1 -->
     <div class="section">
       <div class="section-label">Word Search 🔍</div>
       <div class="section-title">Find the Hidden Words</div>
-      <div class="info-box"><strong>How to play:</strong> Click and drag across letters to highlight a word. Words can go in any direction!</div>
+      <div class="info-box"><strong>How to play:</strong> Click and drag across letters to select a word. Words go in any direction!</div>
       <div class="ws-wordlist" id="wsl-a1"></div>
       <div class="ws-overflow"><div class="ws-grid" id="wsg-a1" style="grid-template-columns:repeat(10,30px)"></div></div>
     </div>
     <div class="divider"></div>
 
+    <!-- Quiz A1 -->
     <div class="section">
       <div class="section-label">True or False? ✓✗</div>
       <div class="section-title">Do You Remember?</div>
@@ -282,6 +335,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Writing A1 -->
     <div class="section">
       <div class="section-label">Writing ✏️</div>
       <div class="section-title">Write About South Africa</div>
@@ -290,17 +344,18 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
       <textarea class="write-area" id="wr-a1" placeholder="Write your sentences here..."></textarea>
     </div>
   </div>
-
   <div class="print-footer">
     <button class="print-btn" onclick="doPrint('a1')">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Print / Save as PDF
+      Lagre som PDF
     </button>
-    <div class="print-note">Opens your browser's print dialog — select "Save as PDF"</div>
+    <div class="print-note">Velg «Lagre som PDF» i utskriftsdialogen</div>
   </div>
 </div>
 
-<!-- ======== A2 PAGE ======== -->
+<!-- ======================================================
+     A2 PAGE
+     ====================================================== -->
 <div class="content-page" id="page-a2">
   <div class="top-bar">
     <button class="back-btn" onclick="goBack()">← Back</button>
@@ -310,20 +365,23 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
   <div class="progress-bar"><div class="progress-fill fill-a2" id="prog-a2" style="width:0%"></div></div>
   <div class="content-wrap">
 
+    <!-- Reading A2 with hover translations -->
     <div class="section">
       <div class="section-label">Reading</div>
       <div class="section-title">An Introduction to South Africa</div>
-      <div class="reading-box">
-        <h3>The Rainbow Nation</h3>
-        <p>South Africa is a country at the southern tip of Africa. It is famous for its beautiful landscapes, amazing wildlife, and diverse culture. Because of its many different peoples and cultures, South Africa is often called the <strong>"Rainbow Nation"</strong>.</p>
-        <p>The country has three capital cities: <strong>Pretoria</strong> (the executive capital), <strong>Cape Town</strong> (the legislative capital), and <strong>Bloemfontein</strong> (the judicial capital). Johannesburg is the largest city and the economic centre of the country.</p>
-        <p>South Africa has <strong>11 official languages</strong>, including Zulu, Xhosa, Afrikaans, and English. This shows how many different groups of people live in the country.</p>
-        <p>The country is known for the <strong>Big Five</strong> wild animals: lion, elephant, rhino, leopard, and buffalo. The famous Kruger National Park is one of the best places in Africa to see wildlife.</p>
-        <p><strong>Nelson Mandela</strong> is the most famous South African. He fought against apartheid — the unfair system that separated people by race. In 1994, he became the first black president of South Africa after apartheid ended.</p>
+      <div class="lang-picker" id="lp-a2">
+        <span class="lang-picker-label">🌐 Translation:</span>
+        <button class="lang-btn active" data-lang="no" onclick="setLang(this)">🇳🇴 Norsk</button>
+        <button class="lang-btn" data-lang="ar" onclick="setLang(this)">🇸🇦 العربية</button>
+        <button class="lang-btn" data-lang="uk" onclick="setLang(this)">🇺🇦 Українська</button>
+        <button class="lang-btn" data-lang="th" onclick="setLang(this)">🇹🇭 ภาษาไทย</button>
+        <button class="lang-btn off" data-lang="off" onclick="setLang(this)">✕ Off</button>
       </div>
+      <div class="reading-box" id="text-a2"></div>
     </div>
     <div class="divider"></div>
 
+    <!-- Vocab A2 -->
     <div class="section">
       <div class="section-label">Vocabulary</div>
       <div class="section-title">Important Words — Click to See Norwegian</div>
@@ -331,10 +389,11 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Memory A2 -->
     <div class="section">
       <div class="section-label">Memory Game 🎴</div>
       <div class="section-title">Match English to Norwegian</div>
-      <div class="info-box"><strong>How to play:</strong> Flip two cards at a time. Match each English word with its Norwegian translation. Find all 6 pairs!</div>
+      <div class="info-box"><strong>How to play:</strong> Flip two cards. Match each English word with its Norwegian translation. Find all 6 pairs!</div>
       <div class="mem-stats">Pairs found: <strong id="mf-a2">0</strong> / 6 &nbsp;·&nbsp; Attempts: <strong id="ma-a2">0</strong></div>
       <div class="memory-grid" id="mem-a2"></div>
       <button class="reset-btn" onclick="initMem('a2')">🔄 New Game</button>
@@ -342,6 +401,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Matching A2 -->
     <div class="section">
       <div class="section-label">Matching Exercise 🏛️</div>
       <div class="section-title">Match the City to Its Role</div>
@@ -350,6 +410,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Word search A2 -->
     <div class="section">
       <div class="section-label">Word Search 🔍</div>
       <div class="section-title">Find the Hidden Words</div>
@@ -358,6 +419,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Gap fill A2 -->
     <div class="section">
       <div class="section-label">Gap Fill ✍️</div>
       <div class="section-title">Fill in the Missing Words</div>
@@ -370,6 +432,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Compare table -->
     <div class="section">
       <div class="section-label">Comparison 📊</div>
       <div class="section-title">South Africa vs. Norway</div>
@@ -377,7 +440,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
         <thead><tr><th>Topic</th><th>South Africa 🇿🇦</th><th>Norway 🇳🇴</th></tr></thead>
         <tbody>
           <tr><td><strong>Size</strong></td><td>1,221,037 km²</td><td>385,207 km²</td></tr>
-          <tr><td><strong>Population</strong></td><td>~62 million</td><td>~5.5 million</td></tr>
+          <tr><td><strong>Population</strong></td><td>~63 million</td><td>~5.6 million</td></tr>
           <tr><td><strong>Languages</strong></td><td>11 official languages</td><td>Norwegian (Bokmål &amp; Nynorsk)</td></tr>
           <tr><td><strong>Capital</strong></td><td>Pretoria (executive)</td><td>Oslo</td></tr>
           <tr><td><strong>Climate</strong></td><td>Warm &amp; sunny</td><td>Cold winters, mild summers</td></tr>
@@ -387,6 +450,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Quiz A2 -->
     <div class="section">
       <div class="section-label">Multiple Choice Quiz 🧠</div>
       <div class="section-title">Test Your Knowledge</div>
@@ -395,6 +459,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
     </div>
     <div class="divider"></div>
 
+    <!-- Writing A2 -->
     <div class="section">
       <div class="section-label">Writing ✏️</div>
       <div class="section-title">Write a Short Text</div>
@@ -402,20 +467,204 @@ body{font-family:var(--sans);color:var(--text);background:var(--cream);line-heig
       <div class="starters" id="st-a2"></div>
       <textarea class="write-area" id="wr-a2" placeholder="Write your text here..."></textarea>
     </div>
-
   </div>
   <div class="print-footer">
     <button class="print-btn" onclick="doPrint('a2')">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Print / Save as PDF
+      Lagre som PDF
     </button>
-    <div class="print-note">Opens your browser's print dialog — select "Save as PDF"</div>
+    <div class="print-note">Velg «Lagre som PDF» i utskriftsdialogen</div>
   </div>
 </div>
 
+<!-- ======================================================
+     SCRIPT
+     ====================================================== -->
 <script>
 // ============================================================
-// DATA
+// TRANSLATION DICTIONARY
+// Keys are lowercase English words/phrases
+// Each entry: {no, ar, uk, th}
+// ============================================================
+const T = {
+  // A1 core words
+  'south':     {no:'sør',           ar:'جنوب',         uk:'південний',        th:'ใต้'},
+  'africa':    {no:'Afrika',        ar:'أفريقيا',       uk:'Африка',           th:'แอฟริกา'},
+  'big':       {no:'stor',          ar:'كبير',          uk:'великий',          th:'ใหญ่'},
+  'country':   {no:'land',          ar:'بلد',           uk:'країна',           th:'ประเทศ'},
+  'continent': {no:'kontinent',     ar:'قارة',          uk:'континент',        th:'ทวีป'},
+  'people':    {no:'folk',          ar:'ناس',           uk:'люди',             th:'ประชาชน'},
+  'different': {no:'forskjellig',   ar:'مختلف',         uk:'різний',           th:'ต่างกัน'},
+  'speak':     {no:'snakker',       ar:'يتحدث',         uk:'говорити',         th:'พูด'},
+  'many':      {no:'mange',         ar:'كثير',          uk:'багато',           th:'หลาย'},
+  'languages': {no:'språk',         ar:'لغات',          uk:'мови',             th:'ภาษา'},
+  'three':     {no:'tre',           ar:'ثلاثة',         uk:'три',              th:'สาม'},
+  'capitals':  {no:'hovedsteder',   ar:'عواصم',         uk:'столиці',          th:'เมืองหลวง'},
+  'main':      {no:'hoved-',        ar:'رئيسي',         uk:'головний',         th:'หลัก'},
+  'capital':   {no:'hovedstad',     ar:'عاصمة',         uk:'столиця',          th:'เมืองหลวง'},
+  'beautiful': {no:'vakker',        ar:'جميل',          uk:'красивий',         th:'สวยงาม'},
+  'city':      {no:'by',            ar:'مدينة',         uk:'місто',            th:'เมือง'},
+  'mountains': {no:'fjell',         ar:'جبال',          uk:'гори',             th:'ภูเขา'},
+  'sea':       {no:'hav',           ar:'بحر',           uk:'море',             th:'ทะเล'},
+  'wild':      {no:'vill',          ar:'بري',           uk:'дикий',            th:'ป่า'},
+  'animals':   {no:'dyr',           ar:'حيوانات',       uk:'тварини',          th:'สัตว์'},
+  'lions':     {no:'løver',         ar:'أسود',          uk:'леви',             th:'สิงโต'},
+  'elephants': {no:'elefanter',     ar:'فيلة',          uk:'слони',            th:'ช้าง'},
+  'rhinos':    {no:'neshorn',       ar:'وحيد القرن',    uk:'носороги',         th:'แรด'},
+  'live':      {no:'bor/lever',     ar:'يعيش',          uk:'живуть',           th:'อาศัยอยู่'},
+  'famous':    {no:'kjent/berømt',  ar:'مشهور',         uk:'відомий',          th:'มีชื่อเสียง'},
+  'park':      {no:'park',          ar:'حديقة',         uk:'парк',             th:'สวน'},
+  'national':  {no:'nasjonal',      ar:'وطني',          uk:'національний',     th:'แห่งชาติ'},
+  'tourists':  {no:'turister',      ar:'سياح',          uk:'туристи',          th:'นักท่องเที่ยว'},
+  'visit':     {no:'besøker',       ar:'يزور',          uk:'відвідують',       th:'เยี่ยมชม'},
+  'every':     {no:'hvert',         ar:'كل',            uk:'кожен',            th:'ทุก'},
+  'year':      {no:'år',            ar:'عام',           uk:'рік',              th:'ปี'},
+  'important': {no:'viktig',        ar:'مهم',           uk:'важливий',         th:'สำคัญ'},
+  'person':    {no:'person',        ar:'شخص',           uk:'особа',            th:'บุคคล'},
+  'first':     {no:'første',        ar:'أول',           uk:'перший',           th:'แรก'},
+  'black':     {no:'svart',         ar:'أسود',          uk:'чорний',           th:'ดำ'},
+  'president': {no:'president',     ar:'رئيس',          uk:'президент',        th:'ประธานาธิบดี'},
+  'wanted':    {no:'ønsket',        ar:'أراد',          uk:'хотів',            th:'ต้องการ'},
+  'peace':     {no:'fred',          ar:'سلام',          uk:'мир',              th:'สันติภาพ'},
+  'freedom':   {no:'frihet',        ar:'حرية',          uk:'свобода',          th:'เสรีภาพ'},
+  // A2 extra words
+  'southern':  {no:'sørlige',       ar:'جنوبي',         uk:'південний',        th:'ตอนใต้'},
+  'tip':       {no:'spiss/sydspiss',ar:'طرف',           uk:'кінець',           th:'ปลาย'},
+  'landscape': {no:'landskap',      ar:'منظر طبيعي',    uk:'пейзаж',           th:'ภูมิทัศน์'},
+  'landscapes':{no:'landskap',      ar:'مناظر طبيعية',  uk:'пейзажі',          th:'ภูมิทัศน์'},
+  'amazing':   {no:'fantastisk',    ar:'رائع',          uk:'дивовижний',       th:'น่าทึ่ง'},
+  'wildlife':  {no:'dyreliv',       ar:'حياة برية',     uk:'дика природа',     th:'ชีวิตสัตว์ป่า'},
+  'diverse':   {no:'mangfoldig',    ar:'متنوع',         uk:'різноманітний',    th:'หลากหลาย'},
+  'culture':   {no:'kultur',        ar:'ثقافة',         uk:'культура',         th:'วัฒนธรรม'},
+  'called':    {no:'kalt/kalles',   ar:'يُسمى',         uk:'називають',        th:'เรียกว่า'},
+  'often':     {no:'ofte',          ar:'في الغالب',      uk:'часто',            th:'บ่อยครั้ง'},
+  'rainbow':   {no:'regnbue',       ar:'قوس قزح',       uk:'веселка',          th:'รุ้งกินน้ำ'},
+  'nation':    {no:'nasjon',        ar:'أمة',           uk:'нація',            th:'ชาติ'},
+  'official':  {no:'offisiell',     ar:'رسمي',          uk:'офіційний',        th:'เป็นทางการ'},
+  'including': {no:'inkludert',     ar:'بما في ذلك',    uk:'включаючи',        th:'รวมถึง'},
+  'shows':     {no:'viser',         ar:'يُظهر',         uk:'показує',          th:'แสดงให้เห็น'},
+  'groups':    {no:'grupper',       ar:'مجموعات',       uk:'групи',            th:'กลุ่ม'},
+  'known':     {no:'kjent',         ar:'معروف',         uk:'відомий',          th:'เป็นที่รู้จัก'},
+  'leopard':   {no:'leopard',       ar:'نمر',           uk:'леопард',          th:'เสือดาว'},
+  'buffalo':   {no:'bøffel',        ar:'جاموس',         uk:'буйвол',           th:'ควาย'},
+  'places':    {no:'steder',        ar:'أماكن',         uk:'місця',            th:'สถานที่'},
+  'fought':    {no:'kjempet',       ar:'ناضل',          uk:'боровся',          th:'ต่อสู้'},
+  'against':   {no:'mot',           ar:'ضد',            uk:'проти',            th:'ต่อต้าน'},
+  'apartheid': {no:'apartheid',     ar:'الفصل العنصري', uk:'апартеїд',         th:'การแบ่งแยกสีผิว'},
+  'unfair':    {no:'urettferdig',   ar:'غير عادل',      uk:'несправедливий',   th:'ไม่ยุติธรรม'},
+  'system':    {no:'system',        ar:'نظام',          uk:'система',          th:'ระบบ'},
+  'separated': {no:'separerte',     ar:'فصل',           uk:'розділяв',         th:'แยก'},
+  'race':      {no:'rase',          ar:'عرق',           uk:'раса',             th:'เชื้อชาติ'},
+  'became':    {no:'ble',           ar:'أصبح',          uk:'став',             th:'กลายเป็น'},
+  'ended':     {no:'sluttet',       ar:'انتهى',         uk:'закінчився',       th:'สิ้นสุด'},
+  'largest':   {no:'størst',        ar:'الأكبر',        uk:'найбільший',       th:'ใหญ่ที่สุด'},
+  'economic':  {no:'økonomisk',     ar:'اقتصادي',       uk:'економічний',      th:'เศรษฐกิจ'},
+  'centre':    {no:'sentrum',       ar:'مركز',          uk:'центр',            th:'ศูนย์กลาง'},
+};
+
+// Language labels
+const LANG_LABELS = {
+  no: '🇳🇴 Norsk',
+  ar: '🇸🇦 Arabic',
+  uk: '🇺🇦 Ukrainian',
+  th: '🇹🇭 Thai',
+};
+
+// Current active language (global, persists across level pages)
+let activeLang = 'no';
+
+// ============================================================
+// READING TEXTS — structured as arrays of segments
+// Each segment: string (plain) or {w:'word', extra:'suffix punctuation'}
+// ============================================================
+
+// Helper: build translatable span
+function tw(word, suffix='') {
+  const key = word.toLowerCase().replace(/[^a-z]/g,'');
+  const entry = T[key] || T[word.toLowerCase()];
+  if (!entry) return word + suffix;
+  return `<span class="tw" data-no="${entry.no}" data-ar="${entry.ar}" data-uk="${entry.uk}" data-th="${entry.th}" tabindex="0">${word}</span>${suffix}`;
+}
+
+// A1 reading text
+const textA1 = `<h3>South Africa</h3>
+<p>${tw('South Africa','')}: a ${tw('big')} ${tw('country')} in ${tw('Africa')}. It is at the south of the ${tw('continent','.')} The ${tw('country')} has ${tw('many')} ${tw('different')} ${tw('people','.')} They ${tw('speak')} ${tw('many')} ${tw('languages','.')}</p>
+<p>${tw('South Africa','',)} has ${tw('three')} ${tw('capitals','.')} Pretoria is the ${tw('main')} ${tw('capital','.')} Cape Town is a very ${tw('beautiful')} ${tw('city','.')} It has ${tw('mountains')} and the ${tw('sea','.')}</p>
+<p>${tw('South Africa','')} has ${tw('many')} ${tw('wild')} ${tw('animals','.')} ${tw('Lions','')}, ${tw('elephants')} and ${tw('rhinos')} ${tw('live')} there. The Kruger ${tw('National')} ${tw('Park')} is very ${tw('famous','.')} ${tw('Many')} ${tw('tourists')} ${tw('visit')} it ${tw('every')} ${tw('year','.')}</p>
+<p>Nelson Mandela is a very ${tw('important')} ${tw('person')} in ${tw('South Africa','.')} He was the ${tw('first')} ${tw('black')} ${tw('president','.')} He ${tw('wanted')} ${tw('peace')} and ${tw('freedom')} for all ${tw('people','.')}</p>`;
+
+// A2 reading text
+const textA2 = `<h3>The Rainbow Nation</h3>
+<p>${tw('South Africa','')} is a ${tw('country')} at the ${tw('southern')} ${tw('tip')} of ${tw('Africa','.')} It is ${tw('famous')} for its ${tw('beautiful')} ${tw('landscapes','')}, ${tw('amazing')} ${tw('wildlife','')}, and ${tw('diverse')} ${tw('culture','.')} Because of its ${tw('many')} ${tw('different')} peoples and ${tw('culture','s')}, ${tw('South Africa','')} is ${tw('often')} ${tw('called')} the <strong>"${tw('Rainbow')} ${tw('Nation')}"</strong>.</p>
+<p>The ${tw('country')} has ${tw('three')} ${tw('capital')} ${tw('city','ies')}: <strong>Pretoria</strong> (the executive ${tw('capital',')')}), <strong>Cape Town</strong> (the legislative ${tw('capital',')')}), and <strong>Bloemfontein</strong> (the judicial ${tw('capital',')')}). Johannesburg is the ${tw('largest')} ${tw('city')} and the ${tw('economic')} ${tw('centre')} of the ${tw('country','.')}</p>
+<p>${tw('South Africa','')} has <strong>11 ${tw('official')} ${tw('languages','')}</strong>, ${tw('including')} Zulu, Xhosa, Afrikaans, and English. This ${tw('shows')} how ${tw('many')} ${tw('different')} ${tw('groups')} of ${tw('people')} ${tw('live')} in the ${tw('country','.')}</p>
+<p>The ${tw('country')} is ${tw('known')} for the <strong>Big Five</strong> ${tw('wild')} ${tw('animals','')}: lion, elephant, rhino, ${tw('leopard','')}, and ${tw('buffalo','.')} The ${tw('famous')} Kruger ${tw('National')} ${tw('Park')} is one of the best ${tw('places')} in ${tw('Africa')} to see ${tw('wildlife','.')}</p>
+<p><strong>Nelson Mandela</strong> is the most ${tw('famous')} South African. He ${tw('fought')} ${tw('against')} ${tw('apartheid')} — the ${tw('unfair')} ${tw('system')} that ${tw('separated')} ${tw('people')} by ${tw('race','.')} In 1994, he ${tw('became')} the ${tw('first')} ${tw('black')} ${tw('president')} of ${tw('South Africa','')} after ${tw('apartheid')} ${tw('ended','.')}</p>`;
+
+// ============================================================
+// LANGUAGE SWITCHER
+// ============================================================
+function setLang(btn) {
+  const lang = btn.dataset.lang;
+  activeLang = lang;
+  // Update all lang-picker buttons across both pages
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.dataset.lang === lang) b.classList.add('active');
+  });
+  // body class for off state
+  document.body.className = lang === 'off' ? 'lang-off' : 'lang-' + lang;
+}
+
+// ============================================================
+// TOOLTIP
+// ============================================================
+const ttEl   = document.getElementById('tt');
+const ttText = document.getElementById('tt-text');
+const ttLang = document.getElementById('tt-lang');
+
+function showTT(e, el) {
+  if (activeLang === 'off') return;
+  const val = el.getAttribute('data-' + activeLang);
+  if (!val) return;
+  ttText.textContent = val;
+  ttLang.textContent = LANG_LABELS[activeLang] || '';
+  ttEl.classList.add('show');
+  moveTT(e);
+}
+function moveTT(e) {
+  const x = e.clientX ?? (e.touches?.[0]?.clientX ?? 0);
+  const y = e.clientY ?? (e.touches?.[0]?.clientY ?? 0);
+  let left = x - ttEl.offsetWidth / 2;
+  let top  = y - ttEl.offsetHeight - 14;
+  // Clamp to viewport
+  left = Math.max(8, Math.min(left, window.innerWidth - ttEl.offsetWidth - 8));
+  if (top < 8) top = y + 20;
+  ttEl.style.left = left + 'px';
+  ttEl.style.top  = top  + 'px';
+}
+function hideTT() { ttEl.classList.remove('show'); }
+
+// Delegate events on document for .tw spans
+document.addEventListener('mouseover', e => {
+  const t = e.target.closest('.tw');
+  if (t) showTT(e, t); else hideTT();
+});
+document.addEventListener('mousemove', e => {
+  if (ttEl.classList.contains('show')) moveTT(e);
+});
+document.addEventListener('mouseout', e => {
+  if (!e.target.closest('.tw')) hideTT();
+});
+// Touch support
+document.addEventListener('touchstart', e => {
+  const t = e.target.closest('.tw');
+  if (t) { showTT(e.touches[0], t); }
+  else hideTT();
+}, {passive:true});
+
+// ============================================================
+// VOCAB CARDS
 // ============================================================
 const vocabA1=[
   {w:'country',t:'land'},{w:'capital',t:'hovedstad'},{w:'people',t:'folk/mennesker'},
@@ -429,55 +678,6 @@ const vocabA2=[
   {w:'wildlife',t:'dyreliv'},{w:'democracy',t:'demokrati'},{w:'economy',t:'økonomi'},
   {w:'continent',t:'kontinent'},{w:'nickname',t:'kallenavn'},{w:'unfair',t:'urettferdig'},
 ];
-
-// Memory A1: word ↔ emoji
-const memA1=[
-  {id:'lion',a:'LION',b:'🦁'},{id:'elephant',a:'ELEPHANT',b:'🐘'},
-  {id:'capetown',a:'CAPE TOWN',b:'🏔️'},{id:'flag',a:'SOUTH AFRICA',b:'🇿🇦'},
-  {id:'mandela',a:'MANDELA',b:'✊'},{id:'giraffe',a:'WILDLIFE',b:'🦒'},
-];
-// Memory A2: english ↔ norwegian
-const memA2=[
-  {id:'diverse',a:'diverse',b:'mangfoldig'},{id:'apartheid',a:'apartheid',b:'raseadskillelse'},
-  {id:'wildlife',a:'wildlife',b:'dyreliv'},{id:'democracy',a:'democracy',b:'demokrati'},
-  {id:'culture',a:'culture',b:'kultur'},{id:'landscape',a:'landscape',b:'landskap'},
-];
-
-// Word search words
-const wsA1=['LION','SEA','PEACE','AFRICA','RHINO','GOLD','ZULU'];
-const wsA2=['APARTHEID','MANDELA','RAINBOW','KRUGER','PRETORIA','LEOPARD','BUFFALO'];
-
-// Matching A2
-const cityRoleMap={Pretoria:'Executive capital','Cape Town':'Legislative capital',Bloemfontein:'Judicial capital',Johannesburg:'Largest city'};
-
-// Quiz A1
-const qA1=[
-  {q:'South Africa is in Europe.',a:false},
-  {q:'South Africa has three capital cities.',a:true},
-  {q:'Nelson Mandela was the first black president.',a:true},
-  {q:'Lions and elephants live in South Africa.',a:true},
-];
-// Quiz A2
-const qA2=[
-  {q:'How many official languages does South Africa have?',opts:['3','7','11','15'],a:2},
-  {q:'What is the name of the famous wildlife park in South Africa?',opts:['Serengeti','Kruger','Namib','Victoria'],a:1},
-  {q:'What was "apartheid"?',opts:['A dance','A national park','A system of racial segregation','A type of food'],a:2},
-  {q:'What is South Africa\'s nickname?',opts:['The Golden Nation','The Rainbow Nation','The Safari Nation','The Sun Nation'],a:1},
-];
-// Gap fill A2
-const gaps=[
-  {s:'South Africa is at the southern ___ of Africa.',a:'tip'},
-  {s:'The country is known as the "Rainbow ___" because of its many cultures.',a:'Nation'},
-  {s:'Nelson Mandela fought against ___, the system that separated people by race.',a:'apartheid'},
-  {s:'The Big Five include lion, elephant, rhino, leopard, and ___.',a:'buffalo'},
-];
-// Starters
-const stA1=['South Africa is…','The capital is…','South Africa has…','Nelson Mandela was…','I think South Africa is…'];
-const stA2=['South Africa is different from Norway because…','Both countries have…','One thing I find interesting is…','In South Africa, people…','I would like to visit South Africa because…','Compared to Norway, South Africa…'];
-
-// ============================================================
-// VOCAB
-// ============================================================
 function renderVocab(data,id){
   document.getElementById(id).innerHTML=data.map(v=>
     `<div class="vocab-card" onclick="this.classList.toggle('flipped')">
@@ -487,8 +687,14 @@ function renderVocab(data,id){
 }
 
 // ============================================================
-// QUIZ A1 — true/false
+// QUIZ A1 — True/False
 // ============================================================
+const qA1=[
+  {q:'South Africa is in Europe.',a:false},
+  {q:'South Africa has three capital cities.',a:true},
+  {q:'Nelson Mandela was the first black president.',a:true},
+  {q:'Lions and elephants live in South Africa.',a:true},
+];
 let sa1={n:0,c:0};
 function renderQuizA1(){
   document.getElementById('quiz-a1').innerHTML=qA1.map((q,i)=>
@@ -496,13 +702,13 @@ function renderQuizA1(){
       <div class="ex-label" style="color:var(--sa-yellow)">True or False?</div>
       <div class="ex-question">${q.q}</div>
       <div class="ex-options">
-        <button class="ex-opt" onclick="tfAnswer(${i},true,${q.a})"><span class="opt-icon">✓</span> True</button>
-        <button class="ex-opt" onclick="tfAnswer(${i},false,${q.a})"><span class="opt-icon">✗</span> False</button>
+        <button class="ex-opt" onclick="tfA(${i},true,${q.a})"><span class="opt-icon">✓</span> True</button>
+        <button class="ex-opt" onclick="tfA(${i},false,${q.a})"><span class="opt-icon">✗</span> False</button>
       </div>
       <div class="feedback" id="f1-${i}"></div>
     </div>`).join('');
 }
-function tfAnswer(i,given,correct){
+function tfA(i,given,correct){
   const card=document.getElementById('q1-'+i);
   const fb=document.getElementById('f1-'+i);
   card.querySelectorAll('.ex-opt').forEach(b=>b.classList.add('disabled'));
@@ -520,8 +726,14 @@ function tfAnswer(i,given,correct){
 }
 
 // ============================================================
-// QUIZ A2 — multiple choice
+// QUIZ A2 — Multiple Choice
 // ============================================================
+const qA2=[
+  {q:'How many official languages does South Africa have?',opts:['3','7','11','15'],a:2},
+  {q:'What is the name of the famous wildlife park in South Africa?',opts:['Serengeti','Kruger','Namib','Victoria'],a:1},
+  {q:'What was "apartheid"?',opts:['A dance','A national park','A system of racial segregation','A type of food'],a:2},
+  {q:'What is South Africa\'s nickname?',opts:['The Golden Nation','The Rainbow Nation','The Safari Nation','The Sun Nation'],a:1},
+];
 let sa2={n:0,c:0};
 function renderQuizA2(){
   document.getElementById('quiz-a2').innerHTML=qA2.map((q,i)=>
@@ -529,12 +741,12 @@ function renderQuizA2(){
       <div class="ex-label" style="color:#3ECB87">Multiple Choice</div>
       <div class="ex-question">${q.q}</div>
       <div class="ex-options">
-        ${q.opts.map((o,j)=>`<button class="ex-opt" onclick="mcAnswer(${i},${j},${q.a})"><span class="opt-icon">${['A','B','C','D'][j]}</span> ${o}</button>`).join('')}
+        ${q.opts.map((o,j)=>`<button class="ex-opt" onclick="mcA(${i},${j},${q.a})"><span class="opt-icon">${['A','B','C','D'][j]}</span> ${o}</button>`).join('')}
       </div>
       <div class="feedback" id="f2-${i}"></div>
     </div>`).join('');
 }
-function mcAnswer(qi,given,correct){
+function mcA(qi,given,correct){
   const card=document.getElementById('q2-'+qi);
   const fb=document.getElementById('f2-'+qi);
   card.querySelectorAll('.ex-opt').forEach(b=>b.classList.add('disabled'));
@@ -551,6 +763,12 @@ function mcAnswer(qi,given,correct){
 // ============================================================
 // GAP FILL
 // ============================================================
+const gaps=[
+  {s:'South Africa is at the southern ___ of Africa.',a:'tip'},
+  {s:'The country is known as the "Rainbow ___" because of its many cultures.',a:'Nation'},
+  {s:'Nelson Mandela fought against ___, the system that separated people by race.',a:'apartheid'},
+  {s:'The Big Five include lion, elephant, rhino, leopard, and ___.',a:'buffalo'},
+];
 function renderGaps(){
   document.getElementById('gap-a2').innerHTML=gaps.map((g,i)=>
     `<div class="gap-sentence">${g.s.replace('___',`<input class="gap-input" id="gi-${i}" type="text" autocomplete="off" spellcheck="false">`)}</div>`
@@ -559,8 +777,7 @@ function renderGaps(){
 function checkGaps(){
   let c=0;
   gaps.forEach((g,i)=>{
-    const el=document.getElementById('gi-'+i);
-    if(!el)return;
+    const el=document.getElementById('gi-'+i);if(!el)return;
     const v=el.value.trim().toLowerCase();
     if(v===g.a.toLowerCase()){el.className='gap-input correct';c++;}
     else el.className='gap-input wrong';
@@ -573,6 +790,8 @@ function checkGaps(){
 // ============================================================
 // STARTERS
 // ============================================================
+const stA1=['South Africa is…','The capital is…','South Africa has…','Nelson Mandela was…','I think South Africa is…'];
+const stA2=['South Africa is different from Norway because…','Both countries have…','One thing I find interesting is…','In South Africa, people…','I would like to visit South Africa because…','Compared to Norway, South Africa…'];
 function renderStarters(arr,cid,tid){
   document.getElementById(cid).innerHTML=arr.map(s=>
     `<span class="starter" onclick="addStarter('${tid}','${s.replace(/'/g,"\\'")}')"> ${s}</span>`).join('');
@@ -585,6 +804,16 @@ function addStarter(id,text){
 // ============================================================
 // MEMORY GAME
 // ============================================================
+const memA1=[
+  {id:'lion',a:'LION',b:'🦁'},{id:'elephant',a:'ELEPHANT',b:'🐘'},
+  {id:'capetown',a:'CAPE TOWN',b:'🏔️'},{id:'flag',a:'SOUTH AFRICA',b:'🇿🇦'},
+  {id:'mandela',a:'MANDELA',b:'✊'},{id:'giraffe',a:'WILDLIFE',b:'🦒'},
+];
+const memA2=[
+  {id:'diverse',a:'diverse',b:'mangfoldig'},{id:'apartheid',a:'apartheid',b:'raseadskillelse'},
+  {id:'wildlife',a:'wildlife',b:'dyreliv'},{id:'democracy',a:'democracy',b:'demokrati'},
+  {id:'culture',a:'culture',b:'kultur'},{id:'landscape',a:'landscape',b:'landskap'},
+];
 const MS={};
 function initMem(lv){
   const data=lv==='a1'?memA1:memA2;
@@ -592,7 +821,6 @@ function initMem(lv){
   document.getElementById('mf-'+lv).textContent=0;
   document.getElementById('ma-'+lv).textContent=0;
   document.getElementById('mw-'+lv).classList.remove('show');
-  // Build & shuffle deck
   const deck=[];
   data.forEach(p=>{deck.push({id:p.id,face:p.a,side:0});deck.push({id:p.id,face:p.b,side:1});});
   for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
@@ -607,29 +835,24 @@ function initMem(lv){
   deck.forEach((_,i)=>{document.getElementById('mb-'+lv+'-'+i).textContent=deck[i].face;});
 }
 function memFlip(lv,idx){
-  const st=MS[lv];
-  if(st.lock)return;
+  const st=MS[lv];if(st.lock)return;
   const card=document.getElementById('mc-'+lv+'-'+idx);
   if(card.classList.contains('flipped')||card.classList.contains('matched'))return;
-  card.classList.add('flipped');
-  st.flipped.push(idx);
+  card.classList.add('flipped');st.flipped.push(idx);
   if(st.flipped.length<2)return;
   st.lock=true;st.attempts++;
   document.getElementById('ma-'+lv).textContent=st.attempts;
-  const [i1,i2]=st.flipped;
-  const c1=st.deck[i1],c2=st.deck[i2];
+  const[i1,i2]=st.flipped;const c1=st.deck[i1],c2=st.deck[i2];
   if(c1.id===c2.id&&c1.side!==c2.side){
     setTimeout(()=>{
-      document.getElementById('mc-'+lv+'-'+i1).classList.add('matched');
-      document.getElementById('mc-'+lv+'-'+i2).classList.add('matched');
-      st.matched++;st.flipped=[];st.lock=false;
-      document.getElementById('mf-'+lv).textContent=st.matched;
+      ['mc-'+lv+'-'+i1,'mc-'+lv+'-'+i2].forEach(id=>document.getElementById(id).classList.add('matched'));
+      st.matched++;document.getElementById('mf-'+lv).textContent=st.matched;
+      st.flipped=[];st.lock=false;
       if(st.matched===st.deck.length/2)document.getElementById('mw-'+lv).classList.add('show');
     },400);
   } else {
     setTimeout(()=>{
-      document.getElementById('mc-'+lv+'-'+i1).classList.remove('flipped');
-      document.getElementById('mc-'+lv+'-'+i2).classList.remove('flipped');
+      ['mc-'+lv+'-'+i1,'mc-'+lv+'-'+i2].forEach(id=>document.getElementById(id).classList.remove('flipped'));
       st.flipped=[];st.lock=false;
     },850);
   }
@@ -638,20 +861,19 @@ function memFlip(lv,idx){
 // ============================================================
 // MATCHING (A2)
 // ============================================================
+const cityRoleMap={Pretoria:'Executive capital','Cape Town':'Legislative capital',Bloemfontein:'Judicial capital',Johannesburg:'Largest city'};
 let matchSel=null,matchDone=0;
 function renderMatch(){
-  const cities=Object.keys(cityRoleMap);
-  const roles=Object.values(cityRoleMap);
-  const sc=[...cities].sort(()=>Math.random()-.5);
-  const sr=[...roles].sort(()=>Math.random()-.5);
+  const cities=Object.keys(cityRoleMap);const roles=Object.values(cityRoleMap);
+  const sc=[...cities].sort(()=>Math.random()-.5);const sr=[...roles].sort(()=>Math.random()-.5);
   matchSel=null;matchDone=0;
   document.getElementById('match-a2').innerHTML=`
     <div class="match-cols">
       <div class="match-col-header">City</div><div class="match-col-header">Role</div>
-      ${sc.map((c,i)=>
-        `<div class="match-item" id="mcity-${i}" data-v="${c}" data-side="city" onclick="matchClick(this)">${c}</div>
-         <div class="match-item" id="mrole-${i}" data-v="${sr[i]}" data-side="role" onclick="matchClick(this)">${sr[i]}</div>`
-      ).join('')}
+      ${sc.map((c,i)=>`
+        <div class="match-item" data-v="${c}" data-side="city" onclick="matchClick(this)">${c}</div>
+        <div class="match-item" data-v="${sr[i]}" data-side="role" onclick="matchClick(this)">${sr[i]}</div>
+      `).join('')}
     </div>
     <div class="feedback" id="match-fb"></div>
     <button class="reset-btn" onclick="renderMatch()">🔄 Reset</button>`;
@@ -663,8 +885,7 @@ function matchClick(el){
   if(matchSel.dataset.side===el.dataset.side){matchSel.classList.remove('selected');el.classList.add('selected');matchSel=el;return;}
   const city=matchSel.dataset.side==='city'?matchSel.dataset.v:el.dataset.v;
   const role=matchSel.dataset.side==='role'?matchSel.dataset.v:el.dataset.v;
-  const a=matchSel,b=el;
-  matchSel=null;
+  const a=matchSel,b=el;matchSel=null;
   if(cityRoleMap[city]===role){
     [a,b].forEach(x=>{x.classList.remove('selected');x.classList.add('matched-ok');});
     matchDone++;
@@ -684,10 +905,9 @@ function buildWS(words,cols,rows){
   const placed=[];
   const DIRS=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
   for(const word of words){
-    const w=word.toUpperCase();
-    let ok=false;
+    const w=word.toUpperCase();let ok=false;
     for(let attempt=0;attempt<200&&!ok;attempt++){
-      const [dr,dc]=DIRS[Math.floor(Math.random()*DIRS.length)];
+      const[dr,dc]=DIRS[Math.floor(Math.random()*DIRS.length)];
       const r=Math.floor(Math.random()*rows),c=Math.floor(Math.random()*cols);
       const cells=[];let valid=true;
       for(let k=0;k<w.length;k++){
@@ -702,23 +922,17 @@ function buildWS(words,cols,rows){
   for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(!grid[r][c])grid[r][c]=AB[Math.floor(Math.random()*AB.length)];
   return{grid,placed};
 }
-
 const WS={};
 function renderWS(words,gridId,listId,cols,rows){
-  const {grid,placed}=buildWS(words,cols,rows);
+  const{grid,placed}=buildWS(words,cols,rows);
   WS[gridId]={grid,placed,found:[],foundCount:0,selecting:false,start:null,sel:[]};
-  const el=document.getElementById(gridId);
-  el.innerHTML='';
+  const el=document.getElementById(gridId);el.innerHTML='';
   for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
-    const div=document.createElement('div');
-    div.className='ws-cell';div.textContent=grid[r][c];
-    div.dataset.r=r;div.dataset.c=c;
-    el.appendChild(div);
+    const div=document.createElement('div');div.className='ws-cell';div.textContent=grid[r][c];div.dataset.r=r;div.dataset.c=c;el.appendChild(div);
   }
-  // Events
   el.addEventListener('mousedown',e=>{const t=e.target.closest('.ws-cell');if(t)wsStart(gridId,+t.dataset.r,+t.dataset.c);});
   el.addEventListener('mouseover',e=>{const t=e.target.closest('.ws-cell');if(t)wsMove(gridId,+t.dataset.r,+t.dataset.c);});
-  el.addEventListener('mouseup',()=>wsEnd(gridId));
+  document.addEventListener('mouseup',()=>wsEnd(gridId));
   el.addEventListener('touchstart',e=>{const t=e.target.closest('.ws-cell');if(t){e.preventDefault();wsStart(gridId,+t.dataset.r,+t.dataset.c);}},{passive:false});
   el.addEventListener('touchmove',e=>{
     const touch=e.touches[0];const t=document.elementFromPoint(touch.clientX,touch.clientY);
@@ -728,23 +942,13 @@ function renderWS(words,gridId,listId,cols,rows){
   document.getElementById(listId).innerHTML=placed.map(p=>`<span class="ws-word" id="wsw-${gridId}-${p.word}">${p.word}</span>`).join('');
 }
 function wsCell(gridId,r,c){
-  const el=document.getElementById(gridId);
-  const cols=parseInt(el.style.gridTemplateColumns);
-  return el.children[r*cols+c]||null;
+  const el=document.getElementById(gridId);const cols=parseInt(el.style.gridTemplateColumns);return el.children[r*cols+c]||null;
 }
-function clearSelecting(gridId){
-  document.getElementById(gridId).querySelectorAll('.ws-cell.selecting').forEach(c=>c.classList.remove('selecting'));
-}
-function wsStart(gridId,r,c){
-  const st=WS[gridId];st.selecting=true;st.start={r,c};st.sel=[{r,c}];
-  clearSelecting(gridId);wsCell(gridId,r,c)?.classList.add('selecting');
-}
+function clearSel(gridId){document.getElementById(gridId).querySelectorAll('.selecting').forEach(c=>c.classList.remove('selecting'));}
+function wsStart(gridId,r,c){const st=WS[gridId];st.selecting=true;st.start={r,c};st.sel=[{r,c}];clearSel(gridId);wsCell(gridId,r,c)?.classList.add('selecting');}
 function wsMove(gridId,r,c){
-  const st=WS[gridId];if(!st.selecting)return;
-  clearSelecting(gridId);
-  const{r:r0,c:c0}=st.start;
-  const dr=r-r0,dc=c-c0;
-  const len=Math.max(Math.abs(dr),Math.abs(dc));
+  const st=WS[gridId];if(!st.selecting)return;clearSel(gridId);
+  const{r:r0,c:c0}=st.start;const dr=r-r0,dc=c-c0;const len=Math.max(Math.abs(dr),Math.abs(dc));
   if(!len){st.sel=[{r,c}];wsCell(gridId,r,c)?.classList.add('selecting');return;}
   const nr_=dr===0?0:dr/Math.abs(dr),nc_=dc===0?0:dc/Math.abs(dc);
   if(Math.abs(dr)!==Math.abs(dc)&&dr!==0&&dc!==0)return;
@@ -752,19 +956,14 @@ function wsMove(gridId,r,c){
   for(let i=0;i<=len;i++){const rr=r0+nr_*i,cc=c0+nc_*i;st.sel.push({r:rr,c:cc});wsCell(gridId,rr,cc)?.classList.add('selecting');}
 }
 function wsEnd(gridId){
-  const st=WS[gridId];if(!st.selecting){return;}st.selecting=false;
-  clearSelecting(gridId);
-  if(!st.sel.length)return;
-  const cols=parseInt(document.getElementById(gridId).style.gridTemplateColumns);
-  const str=st.sel.map(({r,c})=>st.grid[r][c]).join('');
-  const strR=str.split('').reverse().join('');
+  const st=WS[gridId];if(!st.selecting)return;st.selecting=false;clearSel(gridId);if(!st.sel.length)return;
+  const str=st.sel.map(({r,c})=>st.grid[r][c]).join('');const strR=str.split('').reverse().join('');
   let match=null;
   for(const p of st.placed)if(!st.found.includes(p.word)&&(p.word===str||p.word===strR)){match=p;break;}
   if(match){
     const cls='found-'+st.foundCount;st.foundCount++;
     match.cells.forEach(({r,c})=>{const ch=wsCell(gridId,r,c);if(ch){ch.className='ws-cell '+cls;}});
-    st.found.push(match.word);
-    const wEl=document.getElementById('wsw-'+gridId+'-'+match.word);if(wEl)wEl.classList.add('found-word');
+    st.found.push(match.word);const wEl=document.getElementById('wsw-'+gridId+'-'+match.word);if(wEl)wEl.classList.add('found-word');
   }
   st.sel=[];st.start=null;
 }
@@ -783,20 +982,18 @@ function goBack(){
   window.scrollTo(0,0);
 }
 function doPrint(lv){
-  const hero=document.getElementById('heroPage');
-  const pages=document.querySelectorAll('.content-page');
+  const hero=document.getElementById('heroPage');const pages=document.querySelectorAll('.content-page');
   hero.style.display='none';
   pages.forEach(p=>{p.style.display=p.id==='page-'+lv?'block':'none';});
   window.print();
-  setTimeout(()=>{
-    hero.style.display='';
-    pages.forEach(p=>{p.style.display='';p.classList.toggle('active',p.id==='page-'+lv);});
-  },1200);
+  setTimeout(()=>{hero.style.display='';pages.forEach(p=>{p.style.display='';p.classList.toggle('active',p.id==='page-'+lv);});},1200);
 }
 
 // ============================================================
 // INIT
 // ============================================================
+document.getElementById('text-a1').innerHTML = textA1;
+document.getElementById('text-a2').innerHTML = textA2;
 renderVocab(vocabA1,'vocab-a1');
 renderVocab(vocabA2,'vocab-a2');
 renderQuizA1();
@@ -807,8 +1004,8 @@ renderStarters(stA2,'st-a2','wr-a2');
 initMem('a1');
 initMem('a2');
 renderMatch();
-renderWS(wsA1,'wsg-a1','wsl-a1',10,10);
-renderWS(wsA2,'wsg-a2','wsl-a2',12,12);
+renderWS(['LION','SEA','PEACE','AFRICA','RHINO','GOLD','ZULU'],'wsg-a1','wsl-a1',10,10);
+renderWS(['APARTHEID','MANDELA','RAINBOW','KRUGER','PRETORIA','LEOPARD','BUFFALO'],'wsg-a2','wsl-a2',12,12);
 </script>
 </body>
 </html>
