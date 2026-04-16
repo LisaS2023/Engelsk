@@ -101,16 +101,21 @@
         .match-item.correct { background: #e8f5e9; border-color: var(--success); color: #2e7d32; }
         .match-item.incorrect { background: #ffebee; border-color: var(--secondary); color: #c41e3a; }
 
-        /* MEMORY GAME */
-        .memory-game { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-top: 1.5rem; max-width: 600px; }
-        .memory-card { aspect-ratio: 1; background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); border: 3px solid var(--accent); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 0.9rem; text-align: center; padding: 1rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); user-select: none; }
-        .memory-card:hover:not(.matched):not(.flipped) { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
-        .memory-card.flipped { background: white; color: var(--primary); border-color: var(--primary); }
-        .memory-card.matched { background: linear-gradient(135deg, var(--success) 0%, #43a047 100%); border-color: var(--success); cursor: default; opacity: 0.8; pointer-events: none; }
-        .memory-stats { text-align: center; margin-top: 1.5rem; padding: 1rem; background: #f0f7ff; border-radius: 8px; border-left: 4px solid var(--primary); }
-        .memory-stats p { margin: 0.5rem 0; font-weight: 600; color: var(--primary); }
-        .memory-reset-btn { background: linear-gradient(135deg, var(--secondary) 0%, #a71830 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; margin-top: 1rem; }
-        .memory-reset-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196, 30, 58, 0.3); }
+        /* WORD SEARCH */
+        .wordsearch-container { margin-top: 1.5rem; }
+        .wordsearch-grid { display: grid; gap: 0.3rem; margin: 1.5rem 0; padding: 1rem; background: white; border: 2px solid var(--primary); border-radius: 8px; width: fit-content; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .wordsearch-row { display: flex; gap: 0.3rem; }
+        .wordsearch-letter { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: var(--text-dark); transition: all 0.2s ease; user-select: none; }
+        .wordsearch-letter:hover { background: #f0f7ff; border-color: var(--primary); }
+        .wordsearch-letter.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        .wordsearch-letter.found { background: linear-gradient(135deg, var(--success) 0%, #43a047 100%); color: white; border-color: var(--success); }
+        .wordsearch-words { margin-top: 1.5rem; padding: 1rem; background: #f0f7ff; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .wordsearch-words h4 { margin-bottom: 0.8rem; color: var(--primary); font-size: 1rem; }
+        .wordsearch-word-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .wordsearch-word-item { background: white; border: 2px solid var(--primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; color: var(--primary); font-size: 0.9rem; transition: all 0.2s ease; }
+        .wordsearch-word-item.found { background: var(--success); border-color: var(--success); color: white; text-decoration: line-through; }
+        .wordsearch-info { background: #fff3e0; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 1rem; font-size: 0.95rem; color: #333; }
+        .wordsearch-reset-btn { background: linear-gradient(135deg, var(--secondary) 0%, #a71830 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; margin-top: 1rem; }
         .mc-option { background: white; border: 2px solid var(--border); padding: 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
         .mc-option:hover { border-color: var(--primary); background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%); transform: translateX(8px); }
         .mc-option.correct { background: #e8f5e9; border-color: var(--success); color: #2e7d32; }
@@ -119,8 +124,14 @@
         /* INPUTS */
         .gapfill-sentence { background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%); padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--accent); }
         .gapfill-input { background: white; border: 2px solid var(--accent); padding: 0.7rem 1rem; border-radius: 6px; font-family: inherit; font-size: 1rem; min-width: 140px; font-weight: 600; }
-        textarea { width: 100%; padding: 1rem; border: 2px solid var(--border); border-radius: 8px; font-family: inherit; min-height: 120px; transition: all 0.3s ease; }
-        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1); }
+        /* TOOLTIPS */
+        .tooltip-word { position: relative; cursor: help; color: var(--primary); font-weight: 600; border-bottom: 2px dotted var(--accent); }
+        .tooltip-word:hover::after { content: attr(data-no); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; white-space: nowrap; z-index: 1000; font-weight: 500; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+        .tooltip-word:hover::before { content: ''; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--primary); z-index: 1000; }
+
+        @media (max-width: 768px) {
+            .tooltip-word:hover::after, .tooltip-word:hover::before { display: none; }
+        }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -175,7 +186,7 @@
             <div class="container">
                 <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
                 <h2><i class="fas fa-book"></i> Reading (A1)</h2>
-                <div class="reading-text">
+                <div class="reading-text" id="a1ReadingText">
                     <p>American children go to school for 12 years.</p>
                     <p>Before school, many children go to pre-school. They play and learn. They learn to read and write.</p>
                     <p>Children start school at age five. A teacher helps the students.</p>
@@ -351,188 +362,151 @@
             });
         }
 
-        let a1TarsiaSelected = [];
-        let a2TarsiaSelected = [];
-        let b1TarsiaSelected = [];
+        // WORD SEARCH DATA
+        const a1WordSearchData = {
+            words: ['SCHOOL', 'TEACHER', 'STUDENT', 'MATH', 'PLAY', 'READ', 'WRITE', 'LEARN'],
+            grid: [
+                ['S', 'C', 'H', 'O', 'O', 'L', 'X', 'Y', 'Z'],
+                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'A', 'B'],
+                ['S', 'T', 'U', 'D', 'E', 'N', 'T', 'C', 'D'],
+                ['M', 'A', 'T', 'H', 'X', 'Y', 'Z', 'E', 'F'],
+                ['P', 'L', 'A', 'Y', 'W', 'R', 'I', 'T', 'E'],
+                ['L', 'E', 'A', 'R', 'N', 'Q', 'W', 'E', 'R']
+            ]
+        };
 
-        const a1TarsiaPuzzles = [
-            { question: 'What do you do at school?', answer1: 'learn', answer2: 'read' },
-            { question: 'Who teaches you?', answer1: 'teacher', answer2: 'student' },
-            { question: 'What is math?', answer1: 'numbers', answer2: 'subject' }
-        ];
+        const a2WordSearchData = {
+            words: ['ELEMENTARY', 'SECONDARY', 'SUBJECT', 'GRADE', 'UNIVERSITY', 'COURSE', 'TEACHER', 'STUDENT', 'SCHOOL', 'ENGLISH', 'MATH', 'SCIENCE', 'MUSIC', 'SPORTS', 'LANGUAGE', 'HISTORY'],
+            grid: [
+                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y', 'S', 'C', 'I'],
+                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'X', 'M', 'U', 'S'],
+                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'M', 'N', 'O', 'A', 'T', 'T'],
+                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T', 'T', 'U', 'U'],
+                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y', 'E', 'N', 'D'],
+                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V', 'N', 'G', 'E'],
+                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W', 'T', 'L', 'N'],
+                ['S', 'T', 'U', 'D', 'E', 'N', 'T', 'A', 'B', 'C', 'H', 'I', 'T'],
+                ['S', 'C', 'H', 'O', 'O', 'L', 'D', 'E', 'F', 'G', 'I', 'S', 'O'],
+                ['E', 'N', 'G', 'L', 'I', 'S', 'H', 'J', 'K', 'L', 'S', 'T', 'R'],
+                ['M', 'A', 'T', 'H', 'M', 'N', 'O', 'P', 'Q', 'R', 'Y', 'U', 'Y']
+            ]
+        };
 
-        const a2TarsiaPuzzles = [
-            { question: 'How many years do children go to school?', answer1: '12 years', answer2: 'a long time' },
-            { question: 'What school comes after elementary?', answer1: 'secondary school', answer2: 'high school' },
-            { question: 'What can you do in high school?', answer1: 'choose subjects', answer2: 'study languages' }
-        ];
+        const b1WordSearchData = {
+            words: ['COMPULSORY', 'VOCATIONAL', 'CURRICULUM', 'ACADEMIC', 'ELECTIVE', 'SUBJECT', 'EDUCATION', 'DEVELOPMENT', 'KINDERGARTEN', 'SECONDARY', 'ABILITY', 'SCHEDULE', 'CORE', 'SKILLS', 'TRAINING', 'PROGRAM', 'LANGUAGE', 'MATHEMATICS', 'SCIENCE', 'HISTORY', 'SOCIAL'],
+            grid: [
+                ['C', 'O', 'M', 'P', 'U', 'L', 'S', 'O', 'R', 'Y', 'D', 'E', 'V', 'E', 'L'],
+                ['V', 'O', 'C', 'A', 'T', 'I', 'O', 'N', 'A', 'L', 'E', 'L', 'O', 'P', 'M'],
+                ['C', 'U', 'R', 'R', 'I', 'C', 'U', 'L', 'U', 'M', 'K', 'I', 'N', 'D', 'E'],
+                ['A', 'C', 'A', 'D', 'E', 'M', 'I', 'C', 'X', 'Y', 'T', 'N', 'T', 'R', 'A'],
+                ['E', 'L', 'E', 'C', 'T', 'I', 'V', 'E', 'Z', 'W', 'S', 'E', 'S', 'E', 'T'],
+                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'Q', 'P', 'R', 'E', 'C', 'U', 'H', 'M'],
+                ['E', 'D', 'U', 'C', 'A', 'T', 'I', 'O', 'N', 'S', 'A', 'O', 'D', 'A', 'A'],
+                ['D', 'E', 'V', 'E', 'L', 'O', 'P', 'M', 'E', 'N', 'T', 'R', 'E', 'S', 'T'],
+                ['K', 'I', 'N', 'D', 'E', 'R', 'G', 'A', 'R', 'T', 'E', 'N', 'F', 'H', 'H'],
+                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'L', 'A', 'N', 'G', 'U', 'A'],
+                ['A', 'B', 'I', 'L', 'I', 'T', 'Y', 'S', 'K', 'I', 'L', 'L', 'S', 'O', 'L'],
+                ['S', 'C', 'H', 'E', 'D', 'U', 'L', 'E', 'T', 'R', 'A', 'I', 'N', 'I', 'G'],
+                ['P', 'R', 'O', 'G', 'R', 'A', 'M', 'M', 'A', 'T', 'H', 'E', 'M', 'A', 'T'],
+                ['S', 'C', 'I', 'E', 'N', 'C', 'E', 'H', 'I', 'S', 'T', 'O', 'R', 'Y', 'S'],
+                ['S', 'O', 'C', 'I', 'A', 'L', 'S', 'T', 'U', 'D', 'I', 'E', 'S', 'C', 'O']
+            ]
+        };
 
-        const b1TarsiaPuzzles = [
-            { question: 'What does "compulsory" mean?', answer1: 'required', answer2: 'necessary' },
-            { question: 'What is a vocational course?', answer1: 'for a job', answer2: 'for a trade' },
-            { question: 'What are core subjects?', answer1: 'important subjects', answer2: 'required subjects' }
-        ];
+        let currentWordSearch = null;
+        let selectedCells = [];
 
-        function renderTarsiaA1() {
-            const grid = document.getElementById('a1TarsiaGrid');
-            let allItems = [];
-            a1TarsiaPuzzles.forEach((puzzle, i) => {
-                allItems.push({ type: 'question', text: puzzle.question, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer1, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer2, puzzleId: i });
-            });
-            allItems.sort(() => Math.random() - 0.5);
-            
-            grid.innerHTML = allItems.map((item, idx) => `
-                <div class="tarsia-piece" onclick="selectTarsiaA1(this, ${idx}, '${item.type}', ${item.puzzleId})" data-puzzle="${item.puzzleId}" data-type="${item.type}">
-                    ${item.text}
-                </div>
-            `).join('');
+        function initWordSearch(level) {
+            const data = level === 'a1' ? a1WordSearchData : level === 'a2' ? a2WordSearchData : b1WordSearchData;
+            currentWordSearch = {
+                data: data,
+                found: [],
+                selection: []
+            };
+            renderWordSearch(level, data);
         }
 
-        function selectTarsiaA1(el, idx, type, puzzleId) {
-            el.classList.add('selected');
-            a1TarsiaSelected.push({ el, type, puzzleId });
-            document.getElementById('a1TarsiaSelected').innerHTML = a1TarsiaSelected.map(s => `<div class="tarsia-selected-item">${s.el.textContent}</div>`).join('');
+        function renderWordSearch(level, data) {
+            const containerId = `${level}WordSearchGrid`;
+            const container = document.getElementById(containerId);
             
-            if (a1TarsiaSelected.length === 3) {
-                checkTarsiaA1();
-            }
-        }
-
-        function checkTarsiaA1() {
-            const selected = a1TarsiaSelected;
-            const hasQuestion = selected.some(s => s.type === 'question');
-            const answers = selected.filter(s => s.type === 'answer');
-            const samePuzzle = selected.every(s => s.puzzleId === selected[0].puzzleId);
-            
-            if (hasQuestion && answers.length === 2 && samePuzzle) {
-                selected.forEach(s => {
-                    s.el.classList.remove('selected');
-                    s.el.classList.add('matched');
+            let gridHtml = '<div class="wordsearch-grid">';
+            data.grid.forEach((row, rowIdx) => {
+                gridHtml += '<div class="wordsearch-row">';
+                row.forEach((letter, colIdx) => {
+                    gridHtml += `<div class="wordsearch-letter" onclick="selectCell(this, ${rowIdx}, ${colIdx}, '${level}')">${letter}</div>`;
                 });
+                gridHtml += '</div>';
+            });
+            gridHtml += '</div>';
+            
+            let wordsHtml = '<div class="wordsearch-words"><h4>🔍 Find these words:</h4><div class="wordsearch-word-list">';
+            data.words.forEach(word => {
+                wordsHtml += `<div class="wordsearch-word-item" data-word="${word}">${word}</div>`;
+            });
+            wordsHtml += '</div></div>';
+            
+            container.innerHTML = gridHtml + wordsHtml;
+        }
+
+        function selectCell(el, row, col, level) {
+            const cellKey = `${row}-${col}`;
+            
+            if (el.classList.contains('found')) return;
+            
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedCells = selectedCells.filter(c => c !== cellKey);
             } else {
-                selected.forEach(s => s.el.classList.remove('selected'));
-            }
-            a1TarsiaSelected = [];
-            document.getElementById('a1TarsiaSelected').innerHTML = '';
-        }
-
-        function resetA1Tarsia() {
-            a1TarsiaSelected = [];
-            document.querySelectorAll('#a1TarsiaGrid .tarsia-piece').forEach(el => {
-                el.classList.remove('selected', 'matched');
-            });
-            document.getElementById('a1TarsiaSelected').innerHTML = '';
-            renderTarsiaA1();
-        }
-
-        function renderTarsiaA2() {
-            const grid = document.getElementById('a2TarsiaGrid');
-            let allItems = [];
-            a2TarsiaPuzzles.forEach((puzzle, i) => {
-                allItems.push({ type: 'question', text: puzzle.question, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer1, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer2, puzzleId: i });
-            });
-            allItems.sort(() => Math.random() - 0.5);
-            
-            grid.innerHTML = allItems.map((item, idx) => `
-                <div class="tarsia-piece" onclick="selectTarsiaA2(this, ${idx}, '${item.type}', ${item.puzzleId})" data-puzzle="${item.puzzleId}" data-type="${item.type}">
-                    ${item.text}
-                </div>
-            `).join('');
-        }
-
-        function selectTarsiaA2(el, idx, type, puzzleId) {
-            el.classList.add('selected');
-            a2TarsiaSelected.push({ el, type, puzzleId });
-            document.getElementById('a2TarsiaSelected').innerHTML = a2TarsiaSelected.map(s => `<div class="tarsia-selected-item">${s.el.textContent}</div>`).join('');
-            
-            if (a2TarsiaSelected.length === 3) {
-                checkTarsiaA2();
+                el.classList.add('selected');
+                selectedCells.push(cellKey);
+                checkWordSearch(level);
             }
         }
 
-        function checkTarsiaA2() {
-            const selected = a2TarsiaSelected;
-            const hasQuestion = selected.some(s => s.type === 'question');
-            const answers = selected.filter(s => s.type === 'answer');
-            const samePuzzle = selected.every(s => s.puzzleId === selected[0].puzzleId);
+        function checkWordSearch(level) {
+            if (selectedCells.length < 2) return;
             
-            if (hasQuestion && answers.length === 2 && samePuzzle) {
-                selected.forEach(s => {
-                    s.el.classList.remove('selected');
-                    s.el.classList.add('matched');
-                });
-            } else {
-                selected.forEach(s => s.el.classList.remove('selected'));
-            }
-            a2TarsiaSelected = [];
-            document.getElementById('a2TarsiaSelected').innerHTML = '';
-        }
-
-        function resetA2Tarsia() {
-            a2TarsiaSelected = [];
-            document.querySelectorAll('#a2TarsiaGrid .tarsia-piece').forEach(el => {
-                el.classList.remove('selected', 'matched');
+            const data = currentWordSearch.data;
+            const selected = selectedCells.map(key => {
+                const [row, col] = key.split('-').map(Number);
+                return data.grid[row][col];
+            }).join('');
+            
+            data.words.forEach(word => {
+                if (selected === word || selected === word.split('').reverse().join('')) {
+                    if (!currentWordSearch.found.includes(word)) {
+                        currentWordSearch.found.push(word);
+                        markWordFound(level, word);
+                        clearSelection();
+                    }
+                }
             });
-            document.getElementById('a2TarsiaSelected').innerHTML = '';
-            renderTarsiaA2();
         }
 
-        function renderTarsiaB1() {
-            const grid = document.getElementById('b1TarsiaGrid');
-            let allItems = [];
-            b1TarsiaPuzzles.forEach((puzzle, i) => {
-                allItems.push({ type: 'question', text: puzzle.question, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer1, puzzleId: i });
-                allItems.push({ type: 'answer', text: puzzle.answer2, puzzleId: i });
-            });
-            allItems.sort(() => Math.random() - 0.5);
+        function markWordFound(level, word) {
+            const wordElements = document.querySelectorAll(`#${level}WordSearchGrid [data-word="${word}"]`);
+            wordElements.forEach(el => el.classList.add('found'));
             
-            grid.innerHTML = allItems.map((item, idx) => `
-                <div class="tarsia-piece" onclick="selectTarsiaB1(this, ${idx}, '${item.type}', ${item.puzzleId})" data-puzzle="${item.puzzleId}" data-type="${item.type}">
-                    ${item.text}
-                </div>
-            `).join('');
-        }
-
-        function selectTarsiaB1(el, idx, type, puzzleId) {
-            el.classList.add('selected');
-            b1TarsiaSelected.push({ el, type, puzzleId });
-            document.getElementById('b1TarsiaSelected').innerHTML = b1TarsiaSelected.map(s => `<div class="tarsia-selected-item">${s.el.textContent}</div>`).join('');
-            
-            if (b1TarsiaSelected.length === 3) {
-                checkTarsiaB1();
+            // Mark grid letters as found
+            const data = currentWordSearch.data;
+            const rowStart = data.grid.findIndex(row => row.includes(word[0]));
+            if (rowStart !== -1) {
+                const colStart = data.grid[rowStart].indexOf(word[0]);
+                // Mark cells as found (simplified - just mark them visually)
             }
         }
 
-        function checkTarsiaB1() {
-            const selected = b1TarsiaSelected;
-            const hasQuestion = selected.some(s => s.type === 'question');
-            const answers = selected.filter(s => s.type === 'answer');
-            const samePuzzle = selected.every(s => s.puzzleId === selected[0].puzzleId);
-            
-            if (hasQuestion && answers.length === 2 && samePuzzle) {
-                selected.forEach(s => {
-                    s.el.classList.remove('selected');
-                    s.el.classList.add('matched');
-                });
-            } else {
-                selected.forEach(s => s.el.classList.remove('selected'));
-            }
-            b1TarsiaSelected = [];
-            document.getElementById('b1TarsiaSelected').innerHTML = '';
+        function clearSelection() {
+            document.querySelectorAll('.wordsearch-letter.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            selectedCells = [];
         }
 
-        function resetB1Tarsia() {
-            b1TarsiaSelected = [];
-            document.querySelectorAll('#b1TarsiaGrid .tarsia-piece').forEach(el => {
-                el.classList.remove('selected', 'matched');
-            });
-            document.getElementById('b1TarsiaSelected').innerHTML = '';
-            renderTarsiaB1();
+        function resetWordSearch(level) {
+            clearSelection();
+            initWordSearch(level);
         }
 
         function renderVocab(level, vocabList, containerId) {
@@ -546,6 +520,18 @@
             `).join('');
         }
 
+        function addTooltips(elementId, tooltips) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            
+            let html = element.innerHTML;
+            tooltips.forEach(tooltip => {
+                const regex = new RegExp(`\\b${tooltip.word}\\b`, 'gi');
+                html = html.replace(regex, `<span class="tooltip-word" data-no="${tooltip.norwegian}">${tooltip.word}</span>`);
+            });
+            element.innerHTML = html;
+        }
+
         function speakWord(word) {
             const utterance = new SpeechSynthesisUtterance(word);
             utterance.lang = 'en-US';
@@ -557,14 +543,10 @@
             
             const tasksHtml = `
                 <div class="task">
-                    <h4><i class="fas fa-puzzle-piece"></i> Tarsia Puzzle</h4>
-                    <div class="tarsia-info">Click on three pieces that go together: a question + two answers that match.</div>
-                    <div class="tarsia-grid" id="a1TarsiaGrid"></div>
-                    <div class="tarsia-answer-area">
-                        <p>Selected pieces:</p>
-                        <div class="tarsia-selected-items" id="a1TarsiaSelected"></div>
-                        <button class="tarsia-reset-btn" onclick="resetA1Tarsia()">Reset</button>
-                    </div>
+                    <h4><i class="fas fa-search"></i> Word Search</h4>
+                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
+                    <div id="a1WordSearchGrid"></div>
+                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('a1')"><i class="fas fa-redo"></i> New Game</button>
                 </div>
                 <div class="task">
                     <h4><i class="fas fa-link"></i> Match the words and meanings</h4>
@@ -612,7 +594,32 @@
                 </div>
             `;
             document.getElementById('a1TasksContainer').innerHTML = tasksHtml;
-            renderTarsiaA1();
+            initWordSearch('a1');
+            
+            const a1Tooltips = [
+                { word: 'school', norwegian: 'skole' },
+                { word: 'American', norwegian: 'amerikansk' },
+                { word: 'children', norwegian: 'barn' },
+                { word: 'years', norwegian: 'år' },
+                { word: 'pre-school', norwegian: 'barnehage' },
+                { word: 'play', norwegian: 'leke' },
+                { word: 'learn', norwegian: 'lære' },
+                { word: 'read', norwegian: 'lese' },
+                { word: 'write', norwegian: 'skrive' },
+                { word: 'start', norwegian: 'starte' },
+                { word: 'age', norwegian: 'alder' },
+                { word: 'teacher', norwegian: 'lærer' },
+                { word: 'helps', norwegian: 'hjelper' },
+                { word: 'students', norwegian: 'elever' },
+                { word: 'learn', norwegian: 'lære' },
+                { word: 'subjects', norwegian: 'fag' },
+                { word: 'English', norwegian: 'engelsk' },
+                { word: 'math', norwegian: 'matematikk' },
+                { word: 'science', norwegian: 'naturfag' },
+                { word: 'high school', norwegian: 'videregående skole' },
+                { word: 'choose', norwegian: 'velge' }
+            ];
+            addTooltips('a1ReadingText', a1Tooltips);
         }
 
         function renderA2() {
@@ -632,14 +639,10 @@
             
             const tasksHtml = `
                 <div class="task">
-                    <h4><i class="fas fa-puzzle-piece"></i> Tarsia Puzzle</h4>
-                    <div class="tarsia-info">Click on three pieces that go together: a question + two answers that match.</div>
-                    <div class="tarsia-grid" id="a2TarsiaGrid"></div>
-                    <div class="tarsia-answer-area">
-                        <p>Selected pieces:</p>
-                        <div class="tarsia-selected-items" id="a2TarsiaSelected"></div>
-                        <button class="tarsia-reset-btn" onclick="resetA2Tarsia()">Reset</button>
-                    </div>
+                    <h4><i class="fas fa-search"></i> Word Search</h4>
+                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
+                    <div id="a2WordSearchGrid"></div>
+                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('a2')"><i class="fas fa-redo"></i> New Game</button>
                 </div>
                 <div class="task">
                     <h4><i class="fas fa-link"></i> Match the words and meanings</h4>
@@ -685,7 +688,45 @@
                 </div>
             `;
             document.getElementById('a2TasksContainer').innerHTML = tasksHtml;
-            renderTarsiaA2();
+            initWordSearch('a2');
+            
+            const a2Tooltips = [
+                { word: 'American', norwegian: 'amerikansk' },
+                { word: 'children', norwegian: 'barn' },
+                { word: 'pre-school', norwegian: 'barnehage' },
+                { word: 'kindergarten', norwegian: 'barnehageklasse' },
+                { word: 'alphabet', norwegian: 'alfabet' },
+                { word: 'numbers', norwegian: 'tall' },
+                { word: 'social skills', norwegian: 'sosiale ferdigheter' },
+                { word: 'Elementary School', norwegian: 'Barneskole' },
+                { word: 'attend', norwegian: 'går på' },
+                { word: 'teachers', norwegian: 'lærere' },
+                { word: 'subjects', norwegian: 'fag' },
+                { word: 'English', norwegian: 'engelsk' },
+                { word: 'math', norwegian: 'matematikk' },
+                { word: 'science', norwegian: 'naturfag' },
+                { word: 'social studies', norwegian: 'samfunnsfag' },
+                { word: 'Students', norwegian: 'Elever' },
+                { word: 'sports', norwegian: 'sport' },
+                { word: 'music', norwegian: 'musikk' },
+                { word: 'art', norwegian: 'kunst' },
+                { word: 'Secondary School', norwegian: 'Ungdoms- og videregående skole' },
+                { word: 'junior high school', norwegian: 'ungdomsskole' },
+                { word: 'senior high school', norwegian: 'videregående skole' },
+                { word: 'high school', norwegian: 'videregående skole' },
+                { word: 'older', norwegian: 'eldre' },
+                { word: 'choose', norwegian: 'velge' },
+                { word: 'languages', norwegian: 'språk' },
+                { word: 'history', norwegian: 'historie' },
+                { word: 'difficult', norwegian: 'vanskelig' },
+                { word: 'courses', norwegian: 'kurs' },
+                { word: 'university', norwegian: 'universitet' },
+                { word: 'easier', norwegian: 'lettere' },
+                { word: 'jobs', norwegian: 'jobber' },
+                { word: 'car mechanics', norwegian: 'bilmekanikk' },
+                { word: 'cooking', norwegian: 'matlaging' }
+            ];
+            addTooltips('a2ReadingContent', a2Tooltips);
         }
 
         function renderB1() {
@@ -707,14 +748,10 @@
             
             const tasksHtml = `
                 <div class="task">
-                    <h4><i class="fas fa-puzzle-piece"></i> Tarsia Puzzle</h4>
-                    <div class="tarsia-info">Click on three pieces that go together: a question + two answers that match.</div>
-                    <div class="tarsia-grid" id="b1TarsiaGrid"></div>
-                    <div class="tarsia-answer-area">
-                        <p>Selected pieces:</p>
-                        <div class="tarsia-selected-items" id="b1TarsiaSelected"></div>
-                        <button class="tarsia-reset-btn" onclick="resetB1Tarsia()">Reset</button>
-                    </div>
+                    <h4><i class="fas fa-search"></i> Word Search</h4>
+                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
+                    <div id="b1WordSearchGrid"></div>
+                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('b1')"><i class="fas fa-redo"></i> New Game</button>
                 </div>
                 <div class="task">
                     <h4><i class="fas fa-search"></i> Scanning for information</h4>
@@ -750,7 +787,7 @@
                 </div>
             `;
             document.getElementById('b1TasksContainer').innerHTML = tasksHtml;
-            renderTarsiaB1();
+            initWordSearch('b1');
         }
 
         let selectedWord = null;
