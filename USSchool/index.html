@@ -362,29 +362,31 @@
             });
         }
 
-        // WORD SEARCH DATA
+        // WORD SEARCH DATA - Spredt ut i hele gridet
         const a1WordSearchData = {
             words: ['SCHOOL', 'TEACHER', 'STUDENT', 'MATH', 'PLAY', 'READ', 'WRITE', 'LEARN'],
             grid: [
-                ['S', 'C', 'H', 'O', 'O', 'L', 'X', 'Y', 'Z'],
-                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'A', 'B'],
-                ['S', 'T', 'U', 'D', 'E', 'N', 'T', 'C', 'D'],
-                ['M', 'A', 'T', 'H', 'X', 'Y', 'Z', 'E', 'F'],
-                ['P', 'L', 'A', 'Y', 'W', 'R', 'I', 'T', 'E'],
-                ['L', 'E', 'A', 'R', 'N', 'Q', 'W', 'E', 'R']
+                ['S', 'C', 'H', 'O', 'O', 'L', 'Q', 'W', 'E'],
+                ['R', 'T', 'E', 'A', 'C', 'H', 'E', 'R', 'T'],
+                ['Y', 'U', 'I', 'O', 'S', 'T', 'U', 'D', 'E'],
+                ['N', 'T', 'C', 'D', 'A', 'S', 'D', 'F', 'G'],
+                ['M', 'A', 'T', 'H', 'J', 'K', 'L', 'Z', 'X'],
+                ['P', 'L', 'A', 'Y', 'C', 'V', 'B', 'N', 'M'],
+                ['W', 'R', 'I', 'T', 'E', 'Q', 'W', 'E', 'R'],
+                ['L', 'E', 'A', 'R', 'N', 'T', 'Y', 'U', 'I']
             ]
         };
 
         const a2WordSearchData = {
             words: ['ELEMENTARY', 'SECONDARY', 'SUBJECT', 'GRADE', 'UNIVERSITY', 'COURSE', 'TEACHER', 'STUDENT', 'SCHOOL', 'ENGLISH', 'MATH', 'SCIENCE', 'MUSIC', 'SPORTS', 'LANGUAGE', 'HISTORY'],
             grid: [
-                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y', 'S', 'C', 'I'],
-                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'X', 'M', 'U', 'S'],
-                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'M', 'N', 'O', 'A', 'T', 'T'],
-                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T', 'T', 'U', 'U'],
-                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y', 'E', 'N', 'D'],
-                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V', 'N', 'G', 'E'],
-                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W', 'T', 'L', 'N'],
+                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y', 'Z', 'X', 'C'],
+                ['A', 'S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'V', 'B', 'N'],
+                ['Q', 'W', 'S', 'U', 'B', 'J', 'E', 'C', 'T', 'M', 'L', 'K', 'J'],
+                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T', 'Y', 'U', 'I'],
+                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y', 'O', 'P', 'A'],
+                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W', 'E', 'R', 'T'],
                 ['S', 'T', 'U', 'D', 'E', 'N', 'T', 'A', 'B', 'C', 'H', 'I', 'T'],
                 ['S', 'C', 'H', 'O', 'O', 'L', 'D', 'E', 'F', 'G', 'I', 'S', 'O'],
                 ['E', 'N', 'G', 'L', 'I', 'S', 'H', 'J', 'K', 'L', 'S', 'T', 'R'],
@@ -415,13 +417,15 @@
 
         let currentWordSearch = null;
         let selectedCells = [];
+        let isDragging = false;
 
         function initWordSearch(level) {
             const data = level === 'a1' ? a1WordSearchData : level === 'a2' ? a2WordSearchData : b1WordSearchData;
             currentWordSearch = {
                 data: data,
                 found: [],
-                selection: []
+                selection: [],
+                cellMap: {}
             };
             renderWordSearch(level, data);
         }
@@ -430,11 +434,13 @@
             const containerId = `${level}WordSearchGrid`;
             const container = document.getElementById(containerId);
             
-            let gridHtml = '<div class="wordsearch-grid">';
+            let gridHtml = '<div class="wordsearch-grid" onmouseup="stopDragging()">';
             data.grid.forEach((row, rowIdx) => {
                 gridHtml += '<div class="wordsearch-row">';
                 row.forEach((letter, colIdx) => {
-                    gridHtml += `<div class="wordsearch-letter" onclick="selectCell(this, ${rowIdx}, ${colIdx}, '${level}')">${letter}</div>`;
+                    const cellId = `cell-${level}-${rowIdx}-${colIdx}`;
+                    gridHtml += `<div class="wordsearch-letter" id="${cellId}" onmousedown="startDragging(event, '${level}', ${rowIdx}, ${colIdx})" onmouseenter="addToSelection(event, '${level}', ${rowIdx}, ${colIdx})">${letter}</div>`;
+                    currentWordSearch.cellMap[`${rowIdx}-${colIdx}`] = cellId;
                 });
                 gridHtml += '</div>';
             });
@@ -449,52 +455,63 @@
             container.innerHTML = gridHtml + wordsHtml;
         }
 
-        function selectCell(el, row, col, level) {
+        function startDragging(event, level, row, col) {
+            isDragging = true;
+            clearSelection();
+            addToSelection(event, level, row, col);
+        }
+
+        function addToSelection(event, level, row, col) {
+            if (!isDragging) return;
+            
             const cellKey = `${row}-${col}`;
+            const cellId = `cell-${level}-${row}-${col}`;
+            const el = document.getElementById(cellId);
             
-            if (el.classList.contains('found')) return;
-            
-            if (el.classList.contains('selected')) {
-                el.classList.remove('selected');
-                selectedCells = selectedCells.filter(c => c !== cellKey);
-            } else {
+            if (el && !el.classList.contains('found') && !selectedCells.includes(cellKey)) {
                 el.classList.add('selected');
                 selectedCells.push(cellKey);
-                checkWordSearch(level);
             }
         }
 
-        function checkWordSearch(level) {
-            if (selectedCells.length < 2) return;
-            
-            const data = currentWordSearch.data;
+        function stopDragging() {
+            isDragging = false;
+            if (selectedCells.length >= 2) {
+                checkWordSearch(currentWordSearch.data);
+            }
+        }
+
+        function checkWordSearch(data) {
             const selected = selectedCells.map(key => {
                 const [row, col] = key.split('-').map(Number);
                 return data.grid[row][col];
             }).join('');
             
+            const reversed = selected.split('').reverse().join('');
+            
             data.words.forEach(word => {
-                if (selected === word || selected === word.split('').reverse().join('')) {
-                    if (!currentWordSearch.found.includes(word)) {
-                        currentWordSearch.found.push(word);
-                        markWordFound(level, word);
-                        clearSelection();
-                    }
+                if ((selected === word || reversed === word) && !currentWordSearch.found.includes(word)) {
+                    currentWordSearch.found.push(word);
+                    markWordFound(word, currentWordSearch.data);
                 }
             });
+            clearSelection();
         }
 
-        function markWordFound(level, word) {
-            const wordElements = document.querySelectorAll(`#${level}WordSearchGrid [data-word="${word}"]`);
+        function markWordFound(word, data) {
+            const wordElements = document.querySelectorAll(`[data-word="${word}"]`);
             wordElements.forEach(el => el.classList.add('found'));
             
-            // Mark grid letters as found
-            const data = currentWordSearch.data;
-            const rowStart = data.grid.findIndex(row => row.includes(word[0]));
-            if (rowStart !== -1) {
-                const colStart = data.grid[rowStart].indexOf(word[0]);
-                // Mark cells as found (simplified - just mark them visually)
-            }
+            selectedCells.forEach(cellKey => {
+                const [row, col] = cellKey.split('-').map(Number);
+                const cellId = Object.values(currentWordSearch.cellMap).find(id => 
+                    id.includes(`${row}-${col}`)
+                );
+                if (cellId) {
+                    const el = document.getElementById(cellId);
+                    if (el) el.classList.add('found');
+                }
+            });
         }
 
         function clearSelection() {
@@ -630,7 +647,7 @@
                 <p>American children go to school for 12 years. Many children start in pre-school or kindergarten. They learn the alphabet, numbers, and social skills.</p>
                 <h3><i class="fas fa-graduation-cap"></i> Elementary School</h3>
                 <p>Children start school at age five. They attend elementary school for five or six years. In elementary school, teachers teach subjects like English, math, science, and social studies. Students also learn sports, music, and art.</p>
-                <h3><i class="fas fa-university"></i> Secondary School</h3>
+                <h3><i class="fas fa-book"></i> Secondary School</h3>
                 <p>After elementary school, students go to secondary school. Secondary school has two parts: junior high school and senior high school. In high school, students are older and can choose many subjects. They can study languages, science, math, history, sports, and art.</p>
                 <h3><i class="fas fa-star"></i> Different Subjects</h3>
                 <p>American students have more choices than students in many other countries. In high school, some students take difficult courses because they want to go to university. Other students take easier courses. Students can choose courses for different jobs, like car mechanics or cooking.</p>
@@ -684,7 +701,7 @@
                 <div class="task">
                     <h4><i class="fas fa-pen-fancy"></i> Short writing (2-3 sentences)</h4>
                     <p style="margin-bottom: 1rem; font-weight: 600;">Describe your school. What subjects do you study? Do you like your school?</p>
-                    <textarea placeholder="Skriv 2-3 setninger om skolen din..."></textarea>
+                    <textarea placeholder="Skriv 2-3 setninger om skolen din..." style="min-height: 150px;"></textarea>
                 </div>
             `;
             document.getElementById('a2TasksContainer').innerHTML = tasksHtml;
@@ -761,6 +778,7 @@
                         <li>Two examples of vocational courses</li>
                         <li>Three core subjects</li>
                     </ul>
+                    <textarea placeholder="Skriv dine svar her..." style="min-height: 120px;"></textarea>
                 </div>
                 <div class="task">
                     <h4><i class="fas fa-book-reader"></i> Reading comprehension</h4>
@@ -774,6 +792,7 @@
                         <li>What are core subjects? Give two examples.</li>
                         <li>What are elective subjects?</li>
                     </ol>
+                    <textarea placeholder="Skriv svar på spørsmålene ovenfor..." style="min-height: 200px;"></textarea>
                 </div>
                 <div class="task">
                     <h4><i class="fas fa-pen-fancy"></i> Short writing</h4>
@@ -783,7 +802,7 @@
                         <li>School system</li>
                         <li>Choices students have</li>
                     </ul>
-                    <textarea placeholder="Skriv ditt svar her..."></textarea>
+                    <textarea placeholder="Skriv ditt svar her..." style="min-height: 180px;"></textarea>
                 </div>
             `;
             document.getElementById('b1TasksContainer').innerHTML = tasksHtml;
