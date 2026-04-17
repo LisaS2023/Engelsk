@@ -1327,21 +1327,21 @@
         const gridId = 'vocabGrid' + level;
         const grid = document.getElementById(gridId);
 
-        if (!grid) return;
+        // Update vocabulary grid if it exists (A1, A2)
+        if (grid) {
+            let vocabList;
+            if (level === 'A1') vocabList = vocabA1;
+            else if (level === 'A2') vocabList = vocabA2;
 
-        let vocabList;
-        if (level === 'A1') vocabList = vocabA1;
-        else if (level === 'A2') vocabList = vocabA2;
-        else vocabList = vocabB1;
+            vocabList.forEach((v, i) => {
+                const transEl = document.getElementById(`trans-${level}-${i}`);
+                if (transEl) {
+                    transEl.textContent = v[lang] || v.no;
+                }
+            });
+        }
 
-        vocabList.forEach((v, i) => {
-            const transEl = document.getElementById(`trans-${level}-${i}`);
-            if (transEl) {
-                transEl.textContent = v[lang] || v.no;
-            }
-        });
-
-        // Update hover tooltips
+        // Update hover tooltips for all levels (A1, A2, B1)
         document.querySelectorAll(`#page${level} .vocab`).forEach(el => {
             let tooltip = el.querySelector('.tooltip');
             if (tooltip) {
@@ -1738,10 +1738,34 @@
         if (activePage) {
             const match = activePage.id.match(/page(A1|A2|B1)/);
             if (match) {
-                updateLanguage(match[1]);
+                const level = match[1];
+                // For B1, create initial tooltips even without language change
+                if (level === 'B1') {
+                    initializeB1Tooltips();
+                } else {
+                    updateLanguage(level);
+                }
             }
         }
     });
+
+    function initializeB1Tooltips() {
+        const lang = document.getElementById('langB1').value || 'no';
+        document.querySelectorAll('#pageB1 .vocab').forEach(el => {
+            let tooltip = el.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.remove();
+            }
+            
+            const translation = el.getAttribute(`data-${lang}`);
+            if (translation) {
+                const newTooltip = document.createElement('div');
+                newTooltip.className = 'tooltip';
+                newTooltip.textContent = translation;
+                el.appendChild(newTooltip);
+            }
+        });
+    }
 </script>
 
 </body>
