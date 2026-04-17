@@ -285,6 +285,71 @@
             border-top-color: #1a472a;
         }
 
+        /* ===== VOCABULARY LIST ===== */
+        .vocab-section {
+            background: #f0f7f0;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 2px solid #1a472a;
+        }
+
+        .vocab-section h3 {
+            color: #1a472a;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .vocab-card {
+            background: white;
+            border: 2px solid #f39c12;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-color: #1a472a;
+        }
+
+        .vocab-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .vocab-word {
+            font-weight: 600;
+            color: #1a472a;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .vocab-translation {
+            font-size: 0.85rem;
+            color: #666;
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vocab-speaker {
+            margin-top: 8px;
+            font-size: 1.2rem;
+            color: #27ae60;
+        }
+
         .tasks {
             margin-top: 40px;
         }
@@ -478,6 +543,10 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .vocab-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
         }
 
         @media print {
@@ -559,10 +628,16 @@
             <p><span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">Children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> at age <span class="vocab" data-no="fem" data-uk="п'ять" data-th="ห้า" data-ar="خمسة">five</span>. A <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> <span class="vocab" data-no="hjelper" data-uk="допомагає" data-th="ช่วย" data-ar="يساعد">helps</span> the <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span>. The <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> is <span class="vocab" data-no="snill" data-uk="добрий" data-th="ใจดี" data-ar="لطيف">nice</span> and <span class="vocab" data-no="tålmodig" data-uk="терпеливий" data-th="อดทน" data-ar="صبور">patient</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> <span class="vocab" data-no="liker" data-uk="люблять" data-th="ชอบ" data-ar="يحبون">like</span> their <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span>.</p>
 
             <h4>Learning Subjects</h4>
-            <p><span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span> like English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">math</span>, and <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>. In <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, a <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> <span class="vocab" data-no="lærer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلم">learns</span> many <span class="vocab" data-no="ting" data-uk="речи" data-th="สิ่ง" data-ar="أشياء">things</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> have a <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> in <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span>. The <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span> has <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> of the same age.</p>
+            <p><span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span> like English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">math</span>, and <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>. In <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدรسة">school</span>, a <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> <span class="vocab" data-no="lærer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلم">learns</span> many <span class="vocab" data-no="ting" data-uk="речи" data-th="สิ่ง" data-ar="أشياء">things</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> have a <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> in <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span>. The <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span> has <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> of the same age.</p>
 
             <h4>High School</h4>
             <p>In <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="المدرسة الثانوية">high school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> some <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span>. This is <span class="vocab" data-no="annerledes" data-uk="інакше" data-th="ต่างกัน" data-ar="مختلف">different</span> from <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">art</span>, <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>, or <span class="vocab" data-no="sport" data-uk="спорт" data-th="ฟุตบอล" data-ar="الرياضة">sports</span>.</p>
+        </div>
+
+        <!-- VOCABULARY LIST -->
+        <div class="vocab-section">
+            <h3>📚 Vocabulary</h3>
+            <div class="vocab-grid" id="vocabGridA1"></div>
         </div>
 
         <div class="tasks">
@@ -620,9 +695,18 @@
             </div>
 
             <div class="task-item">
-                <h3>Task 5: Answer the question</h3>
-                <p>Hva gjør en lærer? (What does a teacher do?)</p>
-                <textarea class="task-input" placeholder="Write your answer..." style="min-height: 70px;"></textarea>
+                <h3>Task 5: Extra Multiple Choice</h3>
+                <p>What is a teacher?</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_5" value="correct" onchange="checkA1Task5()"> A person who helps students learn
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_5" value="wrong" onchange="checkA1Task5()"> A person who cooks food
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_5" value="wrong" onchange="checkA1Task5()"> A person who plays games
+                </label>
+                <div class="feedback" id="feedbackA1_5"></div>
             </div>
 
             <div class="task-item">
@@ -632,37 +716,76 @@
                     <div class="matching-item">
                         <strong>Teacher</strong><br>
                         <label class="option-label" style="margin-top: 8px;">
-                            <input type="radio" name="match1" value="correct"> A person who helps students learn
+                            <input type="radio" name="match1" value="correct" onchange="checkA1Match1()"> A person who helps students learn
                         </label>
                         <label class="option-label">
-                            <input type="radio" name="match1" value="wrong"> A place to play
+                            <input type="radio" name="match1" value="wrong" onchange="checkA1Match1()"> A place to play
                         </label>
                     </div>
                 </div>
+                <div class="feedback" id="feedbackA1_match1"></div>
+
                 <div class="matching-pair">
                     <div class="matching-item">
                         <strong>School</strong><br>
                         <label class="option-label" style="margin-top: 8px;">
-                            <input type="radio" name="match2" value="correct"> A place where children learn
+                            <input type="radio" name="match2" value="correct" onchange="checkA1Match2()"> A place where children learn
                         </label>
                         <label class="option-label">
-                            <input type="radio" name="match2" value="wrong"> A place to eat
+                            <input type="radio" name="match2" value="wrong" onchange="checkA1Match2()"> A place to eat
                         </label>
                     </div>
                 </div>
+                <div class="feedback" id="feedbackA1_match2"></div>
             </div>
 
             <div class="task-item">
-                <h3>Task 7: Sentence builder</h3>
+                <h3>Task 7: Extra Matching</h3>
+                <p>Match the word with the picture:</p>
+                <div class="matching-pair">
+                    <div class="matching-item">
+                        <strong>Student</strong><br>
+                        <label class="option-label" style="margin-top: 8px;">
+                            <input type="radio" name="match3" value="correct" onchange="checkA1Match3()"> A person who learns in school
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="match3" value="wrong" onchange="checkA1Match3()"> A person who teaches
+                        </label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedbackA1_match3"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 8: Sentence builder 1</h3>
                 <p>Arrange the words to make a correct sentence: (Ordne ord for å lage riktig setning)</p>
                 <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Click the words in the right order</p>
-                <div class="sentence-builder" id="builderA1">
-                    <div class="word-card" onclick="toggleWord(this, 'A1')">Children</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A1')">go</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A1')">to</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A1')">school</div>
+                <div class="sentence-builder" id="builderA1_1">
+                    <div class="word-card" onclick="toggleWord(this, 'A1_1')">Children</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_1')">go</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_1')">to</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_1')">school</div>
                 </div>
-                <div class="sentence-output" id="outputA1"></div>
+                <div class="sentence-output" id="outputA1_1"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 9: Sentence builder 2</h3>
+                <p>Arrange the words to make a correct sentence:</p>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Click the words in the right order</p>
+                <div class="sentence-builder" id="builderA1_2">
+                    <div class="word-card" onclick="toggleWord(this, 'A1_2')">The</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_2')">teacher</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_2')">helps</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1_2')">students</div>
+                </div>
+                <div class="sentence-output" id="outputA1_2"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 10: Answer the question</h3>
+                <p>Hva gjør en lærer? (What does a teacher do?)</p>
+                <textarea class="task-input" placeholder="Write your answer..." style="min-height: 70px;"></textarea>
             </div>
         </div>
 
@@ -696,16 +819,22 @@
             <p>American <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for 12 <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>. The first day of <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> is very <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> for <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> and <span class="vocab" data-no="foreldre" data-uk="батьки" data-th="พ่อแม่" data-ar="آباء">parents</span>.</p>
 
             <h4>Before School - Pre-school and Daycare</h4>
-            <p>Before <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="dagavdeling" data-uk="дитячий садок" data-th="โรงเรียนอนุบาล" data-ar="الحضانة">daycare</span> or <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. These <span class="vocab" data-no="programmer" data-uk="програми" data-th="โปรแกรม" data-ar="برامج">programs</span> are <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> for <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. They <span class="vocab" data-no="fokuserer" data-uk="зосереджуються" data-th="มุ่งเน้น" data-ar="تركز">focus</span> on <span class="vocab" data-no="lek" data-uk="гра" data-th="การเล่น" data-ar="اللعب">play</span> and <span class="vocab" data-no="samspill" data-uk="спілкування" data-th="ปฏิสัมพันธ์" data-ar="التفاعل">interaction</span> with other <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. But they also <span class="vocab" data-no="lærer" data-uk="вчають" data-th="เรียนรู้" data-ar="يتعلمون">teach</span> the <span class="vocab" data-no="alfabet" data-uk="алфавіт" data-th="ตัวอักษร" data-ar="الأبجدية">alphabet</span> and <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span>. In pre-school, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> also <span class="vocab" data-no="laerer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> about <span class="vocab" data-no="samarbeid" data-uk="співпраця" data-th="ความร่วมมือ" data-ar="التعاون">teamwork</span> and <span class="vocab" data-no="venner" data-uk="друзі" data-th="เพื่อน" data-ar="أصدقاء">friends</span>.</p>
+            <p>Before <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="dagavdeling" data-uk="дитячий садок" data-th="โรงเรียนอนุบาล" data-ar="الحضانة">daycare</span> or <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. These <span class="vocab" data-no="programmer" data-uk="програми" data-th="โปรแกรม" data-ar="برامج">programs</span> are <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> for <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. They <span class="vocab" data-no="fokuserer" data-uk="зосереджуються" data-th="มุ่งเน้น" data-ar="تركز">focus</span> on <span class="vocab" data-no="lek" data-uk="гра" data-th="การเล่น" data-ar="اللعب">play</span> and <span class="vocab" data-no="samspill" data-uk="спілкування" data-th="ปฏิสัมพันธ์" data-ar="التفاعل">interaction</span> with other <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. But they also <span class="vocab" data-no="lærer" data-uk="вчають" data-th="เรียนรู้" data-ar="يتعلمون">teach</span> the <span class="vocab" data-no="alfabet" data-uk="алфавіт" data-th="ตัวอักษร" data-ar="الأبجدية">alphabet</span> and <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span>.</p>
 
             <h4>Kindergarten</h4>
-            <p>At age <span class="vocab" data-no="fem" data-uk="п'ять" data-th="ห้า" data-ar="خمسة">five</span>, most <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>. <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">Kindergarten</span> is <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">required</span> in most <span class="vocab" data-no="delstater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">states</span>. <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">Children</span> <span class="vocab" data-no="bruker" data-uk="проводять" data-th="ใช้เวลา" data-ar="يقضون">spend</span> one <span class="vocab" data-no="år" data-uk="рік" data-th="ปี" data-ar="سنة">year</span> there before going to first <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. In <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> still <span class="vocab" data-no="leker" data-uk="грають" data-th="เล่น" data-ar="يلعبون">play</span> a lot, but they also <span class="vocab" data-no="laerer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> to <span class="vocab" data-no="lese" data-uk="читати" data-th="อ่าน" data-ar="قراءة">read</span> and <span class="vocab" data-no="skrive" data-uk="писати" data-th="เขียน" data-ar="كتابة">write</span>.</p>
+            <p>At age <span class="vocab" data-no="fem" data-uk="п'ять" data-th="ห้า" data-ar="خمسة">five</span>, most <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>. <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">Kindergarten</span> is <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">required</span> in most <span class="vocab" data-no="delstater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">states</span>.</p>
 
             <h4>Elementary School</h4>
-            <p>After <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span> for five or six <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>. In <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="laerer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> to <span class="vocab" data-no="lese" data-uk="читати" data-th="อ่าน" data-ar="قراءة">read</span>, <span class="vocab" data-no="skrive" data-uk="писати" data-th="เขียน" data-ar="كتابة">write</span>, and do <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">math</span>. They also <span class="vocab" data-no="laerer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> about <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span> and <span class="vocab" data-no="samfunn" data-uk="суспільство" data-th="สังคม" data-ar="المجتمع">social studies</span>. In <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> have the same <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> for most <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>. The <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> knows each <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> very well.</p>
+            <p>After <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span> for five or six <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>.</p>
 
             <h4>Middle and High School</h4>
-            <p>After <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="ungdomsskole" data-uk="молодша школа" data-th="มัธยมต้น" data-ar="المتوسطة">middle school</span> or <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>. In <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> many <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواด دراسية">subjects</span>. Some <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> take <span class="vocab" data-no="fremmedspraak" data-uk="іноземні мови" data-th="ภาษาต่างประเทศ" data-ar="لغات أجنبية">foreign languages</span>, <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">art</span>, or <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> have different <span class="vocab" data-no="larere" data-uk="вчителі" data-th="ครู" data-ar="معلمون">teachers</span> for different <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>.</p>
+            <p>After <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلาب">students</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="ungdomsskole" data-uk="молодша школа" data-th="มัธยมต้น" data-ar="المتوسطة">middle school</span> or <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>. In <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> many <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span>.</p>
+        </div>
+
+        <!-- VOCABULARY LIST -->
+        <div class="vocab-section">
+            <h3>📚 Vocabulary</h3>
+            <div class="vocab-grid" id="vocabGridA2"></div>
         </div>
 
         <div class="tasks">
@@ -719,23 +848,143 @@
                 <input type="text" class="task-input" id="taskA2_1b" placeholder="Your answer...">
                 <button class="pdf-btn" style="width: 100px; margin-top: 10px;" onclick="checkA2Task1b()">Check</button>
                 <div class="feedback" id="feedbackA2_1b"></div>
+                <p style="margin-top: 15px;"><strong>3. Name three subjects that students learn.</strong></p>
+                <input type="text" class="task-input" id="taskA2_1c" placeholder="Your answer...">
             </div>
 
             <div class="task-item">
-                <h3>Task 2: Gap-fill exercise</h3>
-                <p>Before school, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to __________ (daycare / school / park)</p>
-                <select class="task-select" id="taskA2_2" onchange="checkA2Task2()">
-                    <option value="">Select...</option>
-                    <option value="daycare">daycare</option>
-                    <option value="school">school</option>
-                    <option value="park">park</option>
-                </select>
+                <h3>Task 2: Multiple choice</h3>
+                <p>Before school, many children go to:</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_2" value="correct" onchange="checkA2Task2()"> daycare
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_2" value="wrong" onchange="checkA2Task2()"> university
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_2" value="wrong" onchange="checkA2Task2()"> work
+                </label>
                 <div class="feedback" id="feedbackA2_2"></div>
             </div>
 
             <div class="task-item">
-                <h3>Task 3: Order the school levels</h3>
-                <p>Put the school levels in the correct order. Write 1, 2, 3, 4:</p>
+                <h3>Task 3: True or False?</h3>
+                <p><strong>1.</strong> Kindergarten is required in all states. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3a" value="wrong" onchange="checkA2Task3a()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3a" value="correct" onchange="checkA2Task3a()"> False
+                </label>
+                <div class="feedback" id="feedbackA2_3a"></div>
+
+                <p style="margin-top: 15px;"><strong>2.</strong> Elementary school is five or six years. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3b" value="correct" onchange="checkA2Task3b()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3b" value="wrong" onchange="checkA2Task3b()"> False
+                </label>
+                <div class="feedback" id="feedbackA2_3b"></div>
+
+                <p style="margin-top: 15px;"><strong>3.</strong> In high school, students can choose subjects. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3c" value="correct" onchange="checkA2Task3c()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_3c" value="wrong" onchange="checkA2Task3c()"> False
+                </label>
+                <div class="feedback" id="feedbackA2_3c"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 4: Matching - School levels</h3>
+                <p>Match the level with the age:</p>
+                <div style="margin: 15px 0;">
+                    <p><strong>Kindergarten</strong></p>
+                    <label class="option-label">
+                        <input type="radio" name="match_kg" value="correct" onchange="checkA2MatchKG()"> Age 5
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="match_kg" value="wrong" onchange="checkA2MatchKG()"> Age 10
+                    </label>
+                    <div class="feedback" id="feedbackA2_matchKG"></div>
+                </div>
+
+                <div style="margin: 15px 0;">
+                    <p><strong>Elementary school</strong></p>
+                    <label class="option-label">
+                        <input type="radio" name="match_elem" value="correct" onchange="checkA2MatchElem()"> Age 6-11
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="match_elem" value="wrong" onchange="checkA2MatchElem()"> Age 3-4
+                    </label>
+                    <div class="feedback" id="feedbackA2_matchElem"></div>
+                </div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 5: What do these words mean?</h3>
+                <p><strong>1. Daycare:</strong> (Hva betyr daycare?)</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_5a" value="correct" onchange="checkA2Task5a()"> A place for children before school
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_5a" value="wrong" onchange="checkA2Task5a()"> A place for teachers
+                </label>
+                <div class="feedback" id="feedbackA2_5a"></div>
+
+                <p style="margin-top: 15px;"><strong>2. Subject:</strong> (Hva betyr subject?)</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_5b" value="correct" onchange="checkA2Task5b()"> A topic you learn in school
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_5b" value="wrong" onchange="checkA2Task5b()"> A place to sit
+                </label>
+                <div class="feedback" id="feedbackA2_5b"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 6: Sentence builder 1</h3>
+                <p>Arrange the words:</p>
+                <div class="sentence-builder" id="builderA2_1">
+                    <div class="word-card" onclick="toggleWord(this, 'A2_1')">Children</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_1')">go</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_1')">to</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_1')">elementary</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_1')">school</div>
+                </div>
+                <div class="sentence-output" id="outputA2_1"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 7: Sentence builder 2</h3>
+                <p>Arrange the words:</p>
+                <div class="sentence-builder" id="builderA2_2">
+                    <div class="word-card" onclick="toggleWord(this, 'A2_2')">At</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_2')">age</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_2')">five</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_2')">kindergarten</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2_2')">starts</div>
+                </div>
+                <div class="sentence-output" id="outputA2_2"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 8: Fill in the missing words</h3>
+                <p><strong>1.</strong> Before school, children go to __________ or __________.</p>
+                <input type="text" class="task-input" placeholder="Word 1...">
+                <input type="text" class="task-input" placeholder="Word 2...">
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;"><em>Svar: daycare, pre-school</em></p>
+
+                <p style="margin-top: 15px;"><strong>2.</strong> In high school, students can __________ subjects.</p>
+                <input type="text" class="task-input" placeholder="Write the word...">
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;"><em>Svar: choose</em></p>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 9: School order</h3>
+                <p>Put the school levels in the correct order (write 1, 2, 3, 4):</p>
                 <label class="option-label">
                     <input type="text" style="width: 40px; margin-right: 10px;" placeholder="_"> Kindergarten
                 </label>
@@ -752,64 +1001,52 @@
             </div>
 
             <div class="task-item">
-                <h3>Task 4: True or False?</h3>
-                <p><strong>1.</strong> Children can choose subjects in pre-school. ___</p>
-                <label class="option-label">
-                    <input type="radio" name="taskA2_4a" value="wrong" onchange="checkA2Task4a()"> True
-                </label>
-                <label class="option-label">
-                    <input type="radio" name="taskA2_4a" value="correct" onchange="checkA2Task4a()"> False
-                </label>
-                <div class="feedback" id="feedbackA2_4a"></div>
-
-                <p style="margin-top: 15px;"><strong>2.</strong> Kindergarten is required in all states. ___</p>
-                <label class="option-label">
-                    <input type="radio" name="taskA2_4b" value="wrong" onchange="checkA2Task4b()"> True
-                </label>
-                <label class="option-label">
-                    <input type="radio" name="taskA2_4b" value="correct" onchange="checkA2Task4b()"> False
-                </label>
-                <div class="feedback" id="feedbackA2_4b"></div>
+                <h3>Task 10: Answer in English</h3>
+                <p>Hva kan elever velge på high school? (What can students choose in high school?)</p>
+                <textarea class="task-input" placeholder="Write your answer..." style="min-height: 70px;"></textarea>
             </div>
 
             <div class="task-item">
-                <h3>Task 5: Sentence builder</h3>
-                <p>Arrange the words to make a correct sentence: (Ordne ord for å lage riktig setning)</p>
-                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Click the words in the right order</p>
-                <div class="sentence-builder" id="builderA2">
-                    <div class="word-card" onclick="toggleWord(this, 'A2')">Children</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A2')">go</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A2')">to</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A2')">elementary</div>
-                    <div class="word-card" onclick="toggleWord(this, 'A2')">school</div>
+                <h3>Task 11: Matching - Subjects</h3>
+                <p>Match the subject with the description:</p>
+                <div style="margin: 15px 0;">
+                    <p><strong>Math</strong></p>
+                    <label class="option-label">
+                        <input type="radio" name="match_math" value="correct" onchange="checkA2MatchMath()"> Numbers and calculations
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="match_math" value="wrong" onchange="checkA2MatchMath()"> Speaking and reading
+                    </label>
+                    <div class="feedback" id="feedbackA2_matchMath"></div>
                 </div>
-                <div class="sentence-output" id="outputA2"></div>
+
+                <div style="margin: 15px 0;">
+                    <p><strong>Science</strong></p>
+                    <label class="option-label">
+                        <input type="radio" name="match_sci" value="correct" onchange="checkA2MatchSci()"> Nature and experiments
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="match_sci" value="wrong" onchange="checkA2MatchSci()"> Drawing and painting
+                    </label>
+                    <div class="feedback" id="feedbackA2_matchSci"></div>
+                </div>
             </div>
 
             <div class="task-item">
-                <h3>Task 6: What do students learn?</h3>
-                <p>In elementary school, students learn:</p>
+                <h3>Task 12: Multiple activities</h3>
+                <p>What can students choose in high school? (Choose all that are correct)</p>
                 <label class="option-label">
-                    <input type="checkbox" name="taskA2_6" value="correct"> Reading
+                    <input type="checkbox" name="taskA2_12"> Music
                 </label>
                 <label class="option-label">
-                    <input type="checkbox" name="taskA2_6" value="correct"> Writing
+                    <input type="checkbox" name="taskA2_12"> Art
                 </label>
                 <label class="option-label">
-                    <input type="checkbox" name="taskA2_6" value="correct"> Math
+                    <input type="checkbox" name="taskA2_12"> Football (sport)
                 </label>
                 <label class="option-label">
-                    <input type="checkbox" name="taskA2_6" value="wrong"> Driving
+                    <input type="checkbox" name="taskA2_12"> Flying a plane
                 </label>
-            </div>
-
-            <div class="task-item">
-                <h3>Task 7: Fill in the blanks</h3>
-                <p>Complete the sentences with the correct words:</p>
-                <p><strong>1.</strong> In elementary school, students have the same __________ (teacher / students / parents) for most subjects.</p>
-                <input type="text" class="task-input" placeholder="Write the word...">
-                <p style="margin-top: 15px;"><strong>2.</strong> In high school, students can __________ (read / choose / play) many subjects.</p>
-                <input type="text" class="task-input" placeholder="Write the word...">
             </div>
         </div>
 
@@ -846,13 +1083,13 @@
             <p>Before <span class="vocab" data-no="begynner" data-uk="починає" data-th="เริ่มต้น" data-ar="يبدأ">starting</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="gaar" data-uk="відвідують" data-th="เข้าร่วม" data-ar="يحضرون">attend</span> <span class="vocab" data-no="dagavdeling" data-uk="дитячий садок" data-th="โรงเรียนอนุบาล" data-ar="الحضانة">daycare</span> or <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. These <span class="vocab" data-no="programmer" data-uk="програми" data-th="โปรแกรม" data-ar="برامج">programs</span> mainly <span class="vocab" data-no="fokuserer" data-uk="зосереджуються" data-th="มุ่งเน้น" data-ar="تركز">focus</span> on play and the <span class="vocab" data-no="utvikling" data-uk="розвиток" data-th="การพัฒนา" data-ar="التطور">development</span> of <span class="vocab" data-no="sosial" data-uk="соціальні" data-th="สังคม" data-ar="اجتماعي">social</span> <span class="vocab" data-no="ferdigheter" data-uk="навички" data-th="ทักษะ" data-ar="مهارات">skills</span>, but they also <span class="vocab" data-no="presenterer" data-uk="запроваджують" data-th="แนะนำ" data-ar="تقدم">introduce</span> <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> to <span class="vocab" data-no="laering" data-uk="навчання" data-th="การเรียนรู้" data-ar="التعلم">learning</span>. For <span class="vocab" data-no="eksempel" data-uk="приклад" data-th="ตัวอย่าง" data-ar="مثال">example</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> may <span class="vocab" data-no="begynne" data-uk="почати" data-th="เริ่มต้น" data-ar="يبدأ">begin</span> to <span class="vocab" data-no="lare" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> the <span class="vocab" data-no="alfabet" data-uk="алфавіт" data-th="ตัวอักษร" data-ar="الأبجدية">alphabet</span> and <span class="vocab" data-no="enkle" data-uk="прості" data-th="ง่าย" data-ar="بسيط">simple</span> <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span> at an <span class="vocab" data-no="tidlig" data-uk="ранньому" data-th="ตอนต้น" data-ar="مبكر">early</span> <span class="vocab" data-no="alder" data-uk="віці" data-th="อายุ" data-ar="سن">age</span>. At the <span class="vocab" data-no="alder" data-uk="віці" data-th="อายุ" data-ar="سن">age</span> of five, most <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, where they <span class="vocab" data-no="bruker" data-uk="проводять" data-th="ใช้เวลา" data-ar="يقضون">spend</span> one <span class="vocab" data-no="aar" data-uk="рік" data-th="ปี" data-ar="سنة">year</span> before <span class="vocab" data-no="flytte" data-uk="переходять" data-th="ย้าย" data-ar="الانتقال">moving</span> on to first <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. In most <span class="vocab" data-no="delstater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">states</span>, <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span> is <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">compulsory</span>. After this, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="gaar" data-uk="відвідують" data-th="เข้าร่วม" data-ar="يحضرون">attend</span> <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائي">elementary</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for five or six <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>, before they <span class="vocab" data-no="fortsetter" data-uk="переходять" data-th="ดำเนินต่อ" data-ar="يستمرون">continue</span> to <span class="vocab" data-no="ungdomsskole" data-uk="середня" data-th="มัธยม" data-ar="الثانوي">secondary</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>.</p>
 
             <h4>Junior and Senior High School</h4>
-            <p>The <span class="vocab" data-no="ungdomsskole" data-uk="середня" data-th="มัธยม" data-ar="الثانوي">secondary</span> <span class="vocab" data-no="nivaa" data-uk="рівень" data-th="ระดับ" data-ar="مستوى">level</span> is often <span class="vocab" data-no="delt" data-uk="розділена" data-th="แบ่ง" data-ar="مقسمة">divided</span> into <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">junior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> and <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبر">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>. <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">Junior</span> high usually <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> six or seven to eight or nine, while <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبر">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> nine or ten to twelve. In high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> are <span class="vocab" data-no="gis" data-uk="дають" data-th="ให้" data-ar="يُعطون">given</span> <span class="vocab" data-no="spesiell" data-uk="спеціальні" data-th="พิเศษ" data-ar="خاص">special</span> <span class="vocab" data-no="navn" data-uk="імена" data-th="ชื่อ" data-ar="أسماء">names</span> <span class="vocab" data-no="avhengig" data-uk="залежно" data-th="ขึ้นอยู่กับ" data-ar="اعتمادا على">depending</span> on their <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. A ninth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> is <span class="vocab" data-no="kalt" data-uk="називається" data-th="เรียกว่า" data-ar="يسمى">called</span> a <span class="vocab" data-no="nybegynner" data-uk="першокурсник" data-th="นักเรียนชั้นหนึ่ง" data-ar="طالب جديد">freshman</span>, a tenth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="andreaar" data-uk="другокурсник" data-th="นักเรียนชั้นสอง" data-ar="طالب السنة الثانية">sophomore</span>, an eleventh-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="junior" data-uk="третьокурсник" data-th="นักเรียนชั้นสาม" data-ar="طالب السنة الثالثة">junior</span>, and a twelfth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="طالب السنة الرابعة">senior</span>.</p>
+            <p>The <span class="vocab" data-no="ungdomsskole" data-uk="середня" data-th="มัธยม" data-ar="الثانوي">secondary</span> <span class="vocab" data-no="nivaa" data-uk="рівень" data-th="ระดับ" data-ar="مستوى">level</span> is often <span class="vocab" data-no="delt" data-uk="розділена" data-th="แบ่ง" data-ar="مقسمة">divided</span> into <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">junior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> and <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبร">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>. <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">Junior</span> high usually <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> six or seven to eight or nine, while <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبر">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> nine or ten to twelve. In high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> are <span class="vocab" data-no="gis" data-uk="дають" data-th="ให้" data-ar="يُعطون">given</span> <span class="vocab" data-no="spesiell" data-uk="спеціальні" data-th="พิเศษ" data-ar="خاص">special</span> <span class="vocab" data-no="navn" data-uk="імена" data-th="ชื่อ" data-ar="أسماء">names</span> <span class="vocab" data-no="avhengig" data-uk="залежно" data-th="ขึ้นอยู่กับ" data-ar="اعتمادا على">depending</span> on their <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. A ninth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> is <span class="vocab" data-no="kalt" data-uk="називається" data-th="เรียกว่า" data-ar="يسمى">called</span> a <span class="vocab" data-no="nybegynner" data-uk="першокурсник" data-th="นักเรียนชั้นหนึ่ง" data-ar="طالب جديد">freshman</span>, a tenth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="andreaar" data-uk="другокурсник" data-th="นักเรียนชั้นสอง" data-ar="طالب السنة الثانية">sophomore</span>, an eleventh-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="junior" data-uk="третьокурсник" data-th="นักเรียนชั้นสาม" data-ar="طالب السنة الثالثة">junior</span>, and a twelfth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="طالب السنة الرابعة">senior</span>.</p>
 
             <h4>Academic and Vocational Courses</h4>
             <p><span class="vocab" data-no="utenom" data-uk="на відміну від" data-th="ต่างจาก" data-ar="بخلاف">Unlike</span> Norwegian <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span>, <span class="vocab" data-no="offentlig" data-uk="державні" data-th="สาธารณะ" data-ar="عامة">public</span> <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> in the <span class="vocab" data-no="forente" data-uk="сполучені" data-th="สหรัฐ" data-ar="متحدة">United</span> <span class="vocab" data-no="stater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">States</span> do not <span class="vocab" data-no="folge" data-uk="дотримуються" data-th="ทำตาม" data-ar="تتبع">follow</span> one <span class="vocab" data-no="nasjonalt" data-uk="національна" data-th="ระดับประเทศ" data-ar="وطني">national</span> <span class="vocab" data-no="laereplan" data-uk="навчальна програма" data-th="หลักสูตร" data-ar="المنهاج">curriculum</span>. This <span class="vocab" data-no="betyr" data-uk="означає" data-th="หมายความว่า" data-ar="يعني">means</span> that <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> have more <span class="vocab" data-no="frihet" data-uk="свободу" data-th="เสรีภาพ" data-ar="حرية">freedom</span> to <span class="vocab" data-no="planlegge" data-uk="планувати" data-th="วางแผน" data-ar="تخطيط">plan</span> their <span class="vocab" data-no="undervisning" data-uk="навчання" data-th="การสอน" data-ar="التدريس">teaching</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> can <span class="vocab" data-no="velge" data-uk="обирати" data-th="เลือก" data-ar="يختارون">choose</span> from a wide <span class="vocab" data-no="utvalg" data-uk="діапазон" data-th="ช่วง" data-ar="نطاق">range</span> of <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>, and they can often <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">select</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> at <span class="vocab" data-no="ulike" data-uk="різні" data-th="แตกต่าง" data-ar="مختلفة">different</span> <span class="vocab" data-no="nivaaer" data-uk="рівні" data-th="ระดับ" data-ar="مستويات">levels</span> <span class="vocab" data-no="avhengig" data-uk="залежно" data-th="ขึ้นอยู่กับ" data-ar="اعتمادا على">depending</span> on their <span class="vocab" data-no="evne" data-uk="здатність" data-th="ความสามารถ" data-ar="القدرة">ability</span> and <span class="vocab" data-no="interesser" data-uk="інтереси" data-th="ความสนใจ" data-ar="الاهتمامات">interests</span>. There are three main <span class="vocab" data-no="typer" data-uk="типи" data-th="ประเภท" data-ar="أنواع">types</span> of <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span>: <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">academic</span>, <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span>, and <span class="vocab" data-no="generell" data-uk="загальні" data-th="ทั่วไป" data-ar="عامة">general</span>. <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">Academic</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> are for <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> who <span class="vocab" data-no="planlegger" data-uk="планують" data-th="วางแผน" data-ar="يخططون">plan</span> to <span class="vocab" data-no="fortsette" data-uk="переходять" data-th="ดำเนินต่อ" data-ar="يستمرون">continue</span> to higher <span class="vocab" data-no="utdanning" data-uk="освіта" data-th="การศึกษา" data-ar="التعليم">education</span>, while <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> <span class="vocab" data-no="forbereder" data-uk="готують" data-th="เตรียม" data-ar="تحضر">prepare</span> <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> for a <span class="vocab" data-no="haandverk" data-uk="ремесло" data-th="ฝีมือ" data-ar="حرفة">trade</span>, such as car <span class="vocab" data-no="mekanikk" data-uk="механіка" data-th="กลศาสตร์" data-ar="الميكانيكا">mechanics</span> or <span class="vocab" data-no="frisorfag" data-uk="перукарство" data-th="การตัดแต่งผม" data-ar="الحلاقة">hairdressing</span>. <span class="vocab" data-no="generell" data-uk="загальні" data-th="ทั่วไป" data-ar="عامة">General</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> usually <span class="vocab" data-no="kombinerer" data-uk="поєднують" data-th="รวมกัน" data-ar="تجمع">combine</span> <span class="vocab" data-no="elementer" data-uk="елементи" data-th="องค์ประกอบ" data-ar="عناصر">elements</span> from both <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">academic</span> and <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>.</p>
 
             <h4>Core Subjects</h4>
-            <p>Even though <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> have some <span class="vocab" data-no="frihet" data-uk="свободу" data-th="เสรีภาพ" data-ar="حرية">freedom</span>, there are still certain <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span> that are <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">compulsory</span> for everyone. These are <span class="vocab" data-no="kalt" data-uk="називаються" data-th="เรียกว่า" data-ar="يسمى">called</span> <span class="vocab" data-no="kjernefag" data-uk="основні" data-th="หลัก" data-ar="أساسي">core</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواด دراسية">subjects</span> and typically <span class="vocab" data-no="inkluderer" data-uk="включають" data-th="รวมถึง" data-ar="يشمل">include</span> English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">mathematics</span>, <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>, <span class="vocab" data-no="sosial" data-uk="соціальні" data-th="สังคม" data-ar="اجتماعي">social</span> <span class="vocab" data-no="studier" data-uk="дослідження" data-th="การศึกษา" data-ar="الدراسات">studies</span>, and <span class="vocab" data-no="fysisk" data-uk="фізичне" data-th="กายภาพ" data-ar="جسدي">physical</span> <span class="vocab" data-no="utdanning" data-uk="освіта" data-th="การศึกษา" data-ar="التعليم">education</span>. In <span class="vocab" data-no="tillegg" data-uk="крім того" data-th="นอกจากนี้" data-ar="بالإضافة إلى">addition</span> to these <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواד دراسية">subjects</span>, most <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> <span class="vocab" data-no="tilbyr" data-uk="пропонують" data-th="เสนอ" data-ar="تقدم">offer</span> <span class="vocab" data-no="valgfag" data-uk="електив" data-th="วิชาเลือก" data-ar="اختياري">elective</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span>, such as <span class="vocab" data-no="fremmedspraak" data-uk="іноземні" data-th="ต่างประเทศ" data-ar="أجنبي">foreign</span> <span class="vocab" data-no="spraak" data-uk="мови" data-th="ภาษา" data-ar="لغات">languages</span>, <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">arts</span>, <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>, and <span class="vocab" data-no="drama" data-uk="драма" data-th="นาฏกรรม" data-ar="الدراما">drama</span>. As a <span class="vocab" data-no="resultat" data-uk="результат" data-th="ผลลัพธ์" data-ar="نتيجة">result</span>, each <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> can <span class="vocab" data-no="lage" data-uk="створювати" data-th="สร้าง" data-ar="إنشاء">create</span> a <span class="vocab" data-no="plan" data-uk="розклад" data-th="ตารางเวลา" data-ar="جدول زمني">schedule</span> that is partly <span class="vocab" data-no="tilpasset" data-uk="адаптована" data-th="ปรับแต่ง" data-ar="مصممة">tailored</span> to their own <span class="vocab" data-no="interesser" data-uk="інтереси" data-th="ความสนใจ" data-ar="الاهتمامات">interests</span> and <span class="vocab" data-no="maal" data-uk="цілі" data-th="เป้าหมาย" data-ar="الأهداف">goals</span>.</p>
+            <p>Even though <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> have some <span class="vocab" data-no="frihet" data-uk="свободу" data-th="เสรีภาพ" data-ar="حرية">freedom</span>, there are still certain <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span> that are <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">compulsory</span> for everyone. These are <span class="vocab" data-no="kalt" data-uk="називаються" data-th="เรียกว่า" data-ar="يسمى">called</span> <span class="vocab" data-no="kjernefag" data-uk="основні" data-th="หลัก" data-ar="أساسي">core</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span> and typically <span class="vocab" data-no="inkluderer" data-uk="включають" data-th="รวมถึง" data-ar="يشمل">include</span> English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">mathematics</span>, <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>, <span class="vocab" data-no="sosial" data-uk="соціальні" data-th="สังคม" data-ar="اجتماعي">social</span> <span class="vocab" data-no="studier" data-uk="дослідження" data-th="การศึกษา" data-ar="الدراسات">studies</span>, and <span class="vocab" data-no="fysisk" data-uk="фізичне" data-th="กายภาพ" data-ar="جسدي">physical</span> <span class="vocab" data-no="utdanning" data-uk="освіта" data-th="การศึกษา" data-ar="التعليم">education</span>. In <span class="vocab" data-no="tillegg" data-uk="крім того" data-th="นอกจากนี้" data-ar="بالإضافة إلى">addition</span> to these <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>, most <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> <span class="vocab" data-no="tilbyr" data-uk="пропонують" data-th="เสนอ" data-ar="تقدم">offer</span> <span class="vocab" data-no="valgfag" data-uk="електив" data-th="วิชาเลือก" data-ar="اختياري">elective</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span>, such as <span class="vocab" data-no="fremmedspraak" data-uk="іноземні" data-th="ต่างประเทศ" data-ar="أجنبي">foreign</span> <span class="vocab" data-no="spraak" data-uk="мови" data-th="ภาษา" data-ar="لغات">languages</span>, <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">arts</span>, <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>, and <span class="vocab" data-no="drama" data-uk="драма" data-th="นาฏกรรม" data-ar="الدراما">drama</span>. As a <span class="vocab" data-no="resultat" data-uk="результат" data-th="ผลลัพธ์" data-ar="نتيجة">result</span>, each <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> can <span class="vocab" data-no="lage" data-uk="створювати" data-th="สร้าง" data-ar="إنشاء">create</span> a <span class="vocab" data-no="plan" data-uk="розклад" data-th="ตารางเวลา" data-ar="جدول زمني">schedule</span> that is partly <span class="vocab" data-no="tilpasset" data-uk="адаптована" data-th="ปรับแต่ง" data-ar="مصممة">tailored</span> to their own <span class="vocab" data-no="interesser" data-uk="інтереси" data-th="ความสนใจ" data-ar="الاهتمامات">interests</span> and <span class="vocab" data-no="maal" data-uk="цілі" data-th="เป้าหมาย" data-ar="الأهداف">goals</span>.</p>
         </div>
 
         <div class="tasks">
@@ -877,33 +1114,43 @@
                 <p>Match the word with its definition:</p>
                 <div style="margin: 15px 0;">
                     <label class="option-label">
-                        <input type="radio" name="vocab1" value="correct" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Required by law or rule
+                        <input type="radio" name="vocabB1_1" value="correct" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Required by law or rule
                     </label>
                     <label class="option-label">
-                        <input type="radio" name="vocab1" value="wrong" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Something that is optional
+                        <input type="radio" name="vocabB1_1" value="wrong" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Something that is optional
                     </label>
                 </div>
                 <div class="feedback" id="feedbackB1_vocab1"></div>
 
                 <div style="margin: 15px 0;">
                     <label class="option-label">
-                        <input type="radio" name="vocab2" value="correct" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related to a profession or trade
+                        <input type="radio" name="vocabB1_2" value="correct" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related to a profession or trade
                     </label>
                     <label class="option-label">
-                        <input type="radio" name="vocab2" value="wrong" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related only to academic study
+                        <input type="radio" name="vocabB1_2" value="wrong" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related only to academic study
                     </label>
                 </div>
                 <div class="feedback" id="feedbackB1_vocab2"></div>
 
                 <div style="margin: 15px 0;">
                     <label class="option-label">
-                        <input type="radio" name="vocab3" value="correct" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject you can choose to take
+                        <input type="radio" name="vocabB1_3" value="correct" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject you can choose to take
                     </label>
                     <label class="option-label">
-                        <input type="radio" name="vocab3" value="wrong" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject that is required
+                        <input type="radio" name="vocabB1_3" value="wrong" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject that is required
                     </label>
                 </div>
                 <div class="feedback" id="feedbackB1_vocab3"></div>
+
+                <div style="margin: 15px 0;">
+                    <label class="option-label">
+                        <input type="radio" name="vocabB1_4" value="correct" onchange="checkB1Vocab4()"> <strong>Curriculum:</strong> The subjects and topics taught in school
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="vocabB1_4" value="wrong" onchange="checkB1Vocab4()"> <strong>Curriculum:</strong> A place where students study
+                    </label>
+                </div>
+                <div class="feedback" id="feedbackB1_vocab4"></div>
             </div>
 
             <div class="task-item">
@@ -925,6 +1172,15 @@
                     <input type="radio" name="taskB1_4b" value="correct" onchange="checkB1Task4b()"> False
                 </label>
                 <div class="feedback" id="feedbackB1_4b"></div>
+
+                <p style="margin-top: 15px;"><strong>3.</strong> Kindergarten is compulsory in all states. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4c" value="wrong" onchange="checkB1Task4c()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4c" value="correct" onchange="checkB1Task4c()"> False
+                </label>
+                <div class="feedback" id="feedbackB1_4c"></div>
             </div>
 
             <div class="task-item">
@@ -934,65 +1190,184 @@
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">Grade 9:</div>
                         <div style="flex: 1;">
-                            <select style="width: 100%; padding: 8px;">
+                            <select onchange="checkB1Classify('9', this)">
                                 <option>Select...</option>
-                                <option>Freshman</option>
-                                <option>Sophomore</option>
-                                <option>Junior</option>
-                                <option>Senior</option>
+                                <option value="correct">Freshman</option>
+                                <option value="wrong">Sophomore</option>
+                                <option value="wrong">Junior</option>
+                                <option value="wrong">Senior</option>
                             </select>
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">Grade 10:</div>
                         <div style="flex: 1;">
-                            <select style="width: 100%; padding: 8px;">
+                            <select onchange="checkB1Classify('10', this)">
                                 <option>Select...</option>
-                                <option>Freshman</option>
-                                <option>Sophomore</option>
-                                <option>Junior</option>
-                                <option>Senior</option>
+                                <option value="wrong">Freshman</option>
+                                <option value="correct">Sophomore</option>
+                                <option value="wrong">Junior</option>
+                                <option value="wrong">Senior</option>
                             </select>
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">Grade 11:</div>
                         <div style="flex: 1;">
-                            <select style="width: 100%; padding: 8px;">
+                            <select onchange="checkB1Classify('11', this)">
                                 <option>Select...</option>
-                                <option>Freshman</option>
-                                <option>Sophomore</option>
-                                <option>Junior</option>
-                                <option>Senior</option>
+                                <option value="wrong">Freshman</option>
+                                <option value="wrong">Sophomore</option>
+                                <option value="correct">Junior</option>
+                                <option value="wrong">Senior</option>
                             </select>
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">Grade 12:</div>
                         <div style="flex: 1;">
-                            <select style="width: 100%; padding: 8px;">
+                            <select onchange="checkB1Classify('12', this)">
                                 <option>Select...</option>
-                                <option>Freshman</option>
-                                <option>Sophomore</option>
-                                <option>Junior</option>
-                                <option>Senior</option>
+                                <option value="wrong">Freshman</option>
+                                <option value="wrong">Sophomore</option>
+                                <option value="wrong">Junior</option>
+                                <option value="correct">Senior</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="pdf-export">
-            <button class="pdf-btn" onclick="exportToPDF('B1')">Lagre som PDF</button>
+            <div class="task-item">
+                <h3>Task 6: Multiple Choice</h3>
+                <p><strong>Why is the American education system different from the Norwegian system?</strong></p>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_6" value="wrong" onchange="checkB1Task6()"> Because American schools are newer
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_6" value="correct" onchange="checkB1Task6()"> Because each state has its own curriculum
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_6" value="wrong" onchange="checkB1Task6()"> Because American students study more subjects
+                </label>
+                <div class="feedback" id="feedbackB1_6"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 7: Short Answer</h3>
+                <p><strong>Explain in your own words: What is the purpose of vocational courses?</strong></p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 8: Summary</h3>
+                <p><strong>Summarize the main stages of American education in 2-3 sentences.</strong></p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 90px;"></textarea>
+            </div>
         </div>
-    </div>
-</div>
 
 <script>
+    // Vocabulary data
+    const vocabA1 = [
+        { word: 'children', icon: '👶', no: 'barn', uk: 'діти', th: 'เด็ก', ar: 'أطفال' },
+        { word: 'school', icon: '🏫', no: 'skole', uk: 'школа', th: 'โรงเรียน', ar: 'مدرسة' },
+        { word: 'teacher', icon: '👨‍🏫', no: 'lærer', uk: 'вчитель', th: 'ครู', ar: 'معلم' },
+        { word: 'student', icon: '📚', no: 'elev', uk: 'учень', th: 'นักเรียน', ar: 'طالب' },
+        { word: 'learn', icon: '🧠', no: 'lærer', uk: 'вчать', th: 'เรียนรู้', ar: 'يتعلم' },
+        { word: 'read', icon: '📖', no: 'lese', uk: 'читати', th: 'อ่าน', ar: 'قراءة' },
+        { word: 'write', icon: '✏️', no: 'skrive', uk: 'писати', th: 'เขียน', ar: 'كتابة' },
+        { word: 'class', icon: '🏛️', no: 'klasse', uk: 'клас', th: 'ชั้นเรียน', ar: 'الفصل' },
+        { word: 'play', icon: '🎮', no: 'leker', uk: 'грають', th: 'เล่น', ar: 'يلعب' },
+        { word: 'friend', icon: '👫', no: 'venn', uk: 'друг', th: 'เพื่อน', ar: 'صديق' }
+    ];
+
+    const vocabA2 = [
+        ...vocabA1,
+        { word: 'kindergarten', icon: '🎈', no: 'barnehage', uk: 'садок', th: 'อนุบาล', ar: 'روضة أطفال' },
+        { word: 'math', icon: '🔢', no: 'matematikk', uk: 'математика', th: 'คณิตศาสตร์', ar: 'الرياضيات' },
+        { word: 'science', icon: '🔬', no: 'naturfag', uk: 'природознавство', th: 'วิทยาศาสตร์', ar: 'العلوم' },
+        { word: 'music', icon: '🎵', no: 'musikk', uk: 'музика', th: 'ดนตรี', ar: 'الموسيقى' },
+        { word: 'art', icon: '🎨', no: 'kunst', uk: 'мистецтво', th: 'ศิลปะ', ar: 'الفنون' }
+    ];
+
+    const vocabB1 = [
+        ...vocabA2,
+        { word: 'education', icon: '🎓', no: 'utdanning', uk: 'освіта', th: 'การศึกษา', ar: 'التعليم' },
+        { word: 'curriculum', icon: '📋', no: 'læreplan', uk: 'навчальна програма', th: 'หลักสูตร', ar: 'المنهاج' },
+        { word: 'subject', icon: '📝', no: 'fag', uk: 'предмет', th: 'วิชา', ar: 'مادة دراسية' },
+        { word: 'exam', icon: '📊', no: 'prøve', uk: 'іспит', th: 'สอบ', ar: 'امتحان' },
+        { word: 'grade', icon: '📈', no: 'karakter', uk: 'оцінка', th: 'เกรด', ar: 'درجة' }
+    ];
+
+    function createVocabGrid(level) {
+        const gridId = 'vocabGrid' + level;
+        const grid = document.getElementById(gridId);
+        
+        let vocabList;
+        if (level === 'A1') vocabList = vocabA1;
+        else if (level === 'A2') vocabList = vocabA2;
+        else vocabList = vocabB1;
+
+        const lang = document.getElementById('lang' + level).value;
+
+        grid.innerHTML = vocabList.map((v, i) => `
+            <div class="vocab-card" onclick="playAudio('${v.word}', ${i}, '${level}')">
+                <div class="vocab-icon">${v.icon}</div>
+                <div class="vocab-word">${v.word}</div>
+                <div class="vocab-translation" id="trans-${level}-${i}">
+                    ${v[lang] || v.no}
+                </div>
+                <div class="vocab-speaker">🔊</div>
+            </div>
+        `).join('');
+    }
+
+    function updateLanguage(level) {
+        const lang = document.getElementById('lang' + level).value;
+        const gridId = 'vocabGrid' + level;
+        const grid = document.getElementById(gridId);
+
+        if (!grid) return;
+
+        let vocabList;
+        if (level === 'A1') vocabList = vocabA1;
+        else if (level === 'A2') vocabList = vocabA2;
+        else vocabList = vocabB1;
+
+        vocabList.forEach((v, i) => {
+            const transEl = document.getElementById(`trans-${level}-${i}`);
+            if (transEl) {
+                transEl.textContent = v[lang] || v.no;
+            }
+        });
+
+        // Update hover tooltips
+        document.querySelectorAll(`#page${level} .vocab`).forEach(el => {
+            let tooltip = el.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.remove();
+            }
+            
+            const translation = el.getAttribute(`data-${lang}`);
+            if (translation) {
+                const newTooltip = document.createElement('div');
+                newTooltip.className = 'tooltip';
+                newTooltip.textContent = translation;
+                el.appendChild(newTooltip);
+            }
+        });
+    }
+
+    function playAudio(word, index, level) {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US';
+        speechSynthesis.speak(utterance);
+    }
+
     function startLevel(level) {
         document.getElementById('levelSelect').style.display = 'none';
         document.getElementById('page' + level).classList.add('active');
+        createVocabGrid(level);
     }
 
     function goBack() {
@@ -1000,38 +1375,16 @@
         document.getElementById('levelSelect').style.display = 'flex';
     }
 
-    function updateLanguage(level) {
-        const selector = document.getElementById('lang' + level);
-        const selectedLang = selector.value;
-        
-        document.querySelectorAll(`#page${level} .vocab`).forEach(el => {
-            const text = el.dataset.text || el.innerText.split('\n')[0];
-            el.dataset.text = text;
-            
-            let tooltip = el.querySelector('.tooltip');
-            if (tooltip) {
-                tooltip.remove();
-            }
-            
-            const translation = el.getAttribute(`data-${selectedLang}`);
-            const newTooltip = document.createElement('div');
-            newTooltip.className = 'tooltip';
-            newTooltip.textContent = translation;
-            el.appendChild(newTooltip);
-        });
-    }
-
+    // A1 Task functions
     function checkA1Task1() {
         const selected = document.querySelector('input[name="taskA1_1"]:checked');
         const feedback = document.getElementById('feedbackA1_1');
         if (selected && selected.value === 'correct') {
-            feedback.textContent = '✓ Correct! School is where American children learn.';
+            feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
         } else if (selected) {
             feedback.textContent = '✗ Try again!';
             feedback.className = 'feedback incorrect';
-        } else {
-            feedback.textContent = '';
         }
     }
 
@@ -1039,13 +1392,11 @@
         const selected = document.querySelector('input[name="taskA1_2"]:checked');
         const feedback = document.getElementById('feedbackA1_2');
         if (selected && selected.value === 'correct') {
-            feedback.textContent = '✓ Correct! Children start school at age five.';
+            feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
         } else if (selected) {
             feedback.textContent = '✗ Try again!';
             feedback.className = 'feedback incorrect';
-        } else {
-            feedback.textContent = '';
         }
     }
 
@@ -1056,27 +1407,60 @@
             feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
         } else if (value) {
-            feedback.textContent = '✗ Try again! (pre-school or daycare)';
+            feedback.textContent = '✗ Try again!';
             feedback.className = 'feedback incorrect';
-        } else {
-            feedback.textContent = '';
         }
     }
 
-    function checkA2Task2() {
-        const selected = document.querySelector('#taskA2_2').value;
-        const feedback = document.getElementById('feedbackA2_2');
-        if (selected === 'daycare') {
+    function checkA1Task5() {
+        const selected = document.querySelector('input[name="taskA1_5"]:checked');
+        const feedback = document.getElementById('feedbackA1_5');
+        if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
         } else if (selected) {
             feedback.textContent = '✗ Try again!';
             feedback.className = 'feedback incorrect';
-        } else {
-            feedback.textContent = '';
         }
     }
 
+    function checkA1Match1() {
+        const selected = document.querySelector('input[name="match1"]:checked');
+        const feedback = document.getElementById('feedbackA1_match1');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA1Match2() {
+        const selected = document.querySelector('input[name="match2"]:checked');
+        const feedback = document.getElementById('feedbackA1_match2');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA1Match3() {
+        const selected = document.querySelector('input[name="match3"]:checked');
+        const feedback = document.getElementById('feedbackA1_match3');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    // A2 Task functions
     function checkA2Task1a() {
         const value = document.getElementById('taskA2_1a').value.toLowerCase().trim();
         const feedback = document.getElementById('feedbackA2_1a');
@@ -1101,9 +1485,9 @@
         }
     }
 
-    function checkA2Task4a() {
-        const selected = document.querySelector('input[name="taskA2_4a"]:checked');
-        const feedback = document.getElementById('feedbackA2_4a');
+    function checkA2Task2() {
+        const selected = document.querySelector('input[name="taskA2_2"]:checked');
+        const feedback = document.getElementById('feedbackA2_2');
         if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
@@ -1113,9 +1497,9 @@
         }
     }
 
-    function checkA2Task4b() {
-        const selected = document.querySelector('input[name="taskA2_4b"]:checked');
-        const feedback = document.getElementById('feedbackA2_4b');
+    function checkA2Task3a() {
+        const selected = document.querySelector('input[name="taskA2_3a"]:checked');
+        const feedback = document.getElementById('feedbackA2_3a');
         if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct! Kindergarten is required in MOST states, not all.';
             feedback.className = 'feedback correct';
@@ -1125,8 +1509,105 @@
         }
     }
 
+    function checkA2Task3b() {
+        const selected = document.querySelector('input[name="taskA2_3b"]:checked');
+        const feedback = document.getElementById('feedbackA2_3b');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task3c() {
+        const selected = document.querySelector('input[name="taskA2_3c"]:checked');
+        const feedback = document.getElementById('feedbackA2_3c');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2MatchKG() {
+        const selected = document.querySelector('input[name="match_kg"]:checked');
+        const feedback = document.getElementById('feedbackA2_matchKG');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2MatchElem() {
+        const selected = document.querySelector('input[name="match_elem"]:checked');
+        const feedback = document.getElementById('feedbackA2_matchElem');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task5a() {
+        const selected = document.querySelector('input[name="taskA2_5a"]:checked');
+        const feedback = document.getElementById('feedbackA2_5a');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task5b() {
+        const selected = document.querySelector('input[name="taskA2_5b"]:checked');
+        const feedback = document.getElementById('feedbackA2_5b');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2MatchMath() {
+        const selected = document.querySelector('input[name="match_math"]:checked');
+        const feedback = document.getElementById('feedbackA2_matchMath');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2MatchSci() {
+        const selected = document.querySelector('input[name="match_sci"]:checked');
+        const feedback = document.getElementById('feedbackA2_matchSci');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    // B1 Functions
     function checkB1Vocab1() {
-        const selected = document.querySelector('input[name="vocab1"]:checked');
+        const selected = document.querySelector('input[name="vocabB1_1"]:checked');
         const feedback = document.getElementById('feedbackB1_vocab1');
         if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct!';
@@ -1138,7 +1619,7 @@
     }
 
     function checkB1Vocab2() {
-        const selected = document.querySelector('input[name="vocab2"]:checked');
+        const selected = document.querySelector('input[name="vocabB1_2"]:checked');
         const feedback = document.getElementById('feedbackB1_vocab2');
         if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct!';
@@ -1150,8 +1631,20 @@
     }
 
     function checkB1Vocab3() {
-        const selected = document.querySelector('input[name="vocab3"]:checked');
+        const selected = document.querySelector('input[name="vocabB1_3"]:checked');
         const feedback = document.getElementById('feedbackB1_vocab3');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Vocab4() {
+        const selected = document.querySelector('input[name="vocabB1_4"]:checked');
+        const feedback = document.getElementById('feedbackB1_vocab4');
         if (selected && selected.value === 'correct') {
             feedback.textContent = '✓ Correct!';
             feedback.className = 'feedback correct';
@@ -1185,6 +1678,41 @@
         }
     }
 
+    function checkB1Task4c() {
+        const selected = document.querySelector('input[name="taskB1_4c"]:checked');
+        const feedback = document.getElementById('feedbackB1_4c');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! Kindergarten is compulsory in MOST states, not all.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Classify(grade, select) {
+        const value = select.value;
+        if (value === 'correct') {
+            select.style.borderColor = '#27ae60';
+            select.style.backgroundColor = 'rgba(39, 174, 96, 0.1)';
+        } else if (value === 'wrong') {
+            select.style.borderColor = '#e74c3c';
+            select.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+        }
+    }
+
+    function checkB1Task6() {
+        const selected = document.querySelector('input[name="taskB1_6"]:checked');
+        const feedback = document.getElementById('feedbackB1_6');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
     function toggleWord(element, level) {
         element.classList.toggle('selected');
         updateSentenceOutput(level);
@@ -1193,6 +1721,8 @@
     function updateSentenceOutput(level) {
         const builder = document.getElementById('builder' + level);
         const output = document.getElementById('output' + level);
+        if (!builder || !output) return;
+        
         const selected = Array.from(builder.querySelectorAll('.word-card.selected')).map(el => el.textContent);
         output.textContent = selected.join(' ');
     }
@@ -1201,14 +1731,16 @@
         window.print();
     }
 
-    // Initialize language tooltips on load
+    // Initialize on load
     window.addEventListener('load', function() {
-        document.querySelectorAll('.content-page').forEach(page => {
-            const levelMatch = page.id.match(/page(A1|A2|B1)/);
-            if (levelMatch) {
-                updateLanguage(levelMatch[1]);
+        // Initialize tooltips if a level is already loaded
+        const activePage = document.querySelector('.content-page.active');
+        if (activePage) {
+            const match = activePage.id.match(/page(A1|A2|B1)/);
+            if (match) {
+                updateLanguage(match[1]);
             }
-        });
+        }
     });
 </script>
 
