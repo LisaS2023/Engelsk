@@ -3,670 +3,1214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US Education - English Learning Resource</title>
+    <title>US Education</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #1e3c72;
-            --secondary: #c41e3a;
-            --accent: #f39c12;
-            --success: #66bb6a;
-            --border: #e0e0e0;
-            --text-dark: #333;
-            --bg-light: #f5f7ff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: #f9f9f9; }
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
-        
-        /* LEVEL SELECT */
-        .level-select { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
-        .level-select.hidden { display: none; }
-        .level-select h1 { color: white; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .level-buttons { display: flex; gap: 2rem; }
-        .level-btn { padding: 1.2rem 2.5rem; font-size: 1.5rem; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; color: white; }
-        .level-btn.a1 { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); }
-        .level-btn.a2 { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
-        .level-btn.b1 { background: linear-gradient(135deg, #c41e3a 0%, #a71830 100%); }
-        .level-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        
-        /* HEADER */
-        header { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; padding: 2rem; text-align: center; }
-        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        header p { font-size: 1.1rem; opacity: 0.9; }
-        
-        /* NAV */
-        nav { background: var(--primary); padding: 1rem; position: sticky; top: 0; z-index: 100; }
-        nav ul { list-style: none; display: flex; gap: 1rem; justify-content: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
-        nav button { background: none; border: 2px solid white; color: white; padding: 0.7rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
-        nav button.active, nav button:hover { background: var(--accent); border-color: var(--accent); }
-        
-        /* CONTAINER */
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
-        .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* BUTTONS */
-        .back-btn { background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 1.5rem; transition: all 0.3s ease; }
-        .back-btn:hover { background: #0f3a7d; transform: translateX(-4px); }
-        .export-btn { background: var(--secondary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 1.5rem; transition: all 0.3s ease; }
-        .export-btn:hover { background: #a71830; }
-        
-        /* READING */
-        .reading-text { background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent); line-height: 1.8; margin-bottom: 2rem; }
-        .reading-text h3 { margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary); }
-        .reading-text p { margin-bottom: 1rem; }
-        
-        /* VOCABULARY */
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-        .vocab-card { background: white; padding: 1.5rem; border-radius: 8px; border: 2px solid var(--primary); text-align: center; cursor: pointer; transition: all 0.3s ease; }
-        .vocab-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .vocab-word { font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
-        .vocab-trans { font-size: 0.9rem; color: #666; }
-        .listen-btn { background: var(--accent); color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-top: 0.5rem; }
-        
-        /* TASKS */
-        .tasks { background: white; padding: 2rem; border-radius: 8px; }
-        .task { margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary); }
-        .task h4 { color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; }
-        
-        /* WORD SEARCH */
-        .ws-grid { display: grid; gap: 0.25rem; margin: 1.5rem 0; width: fit-content; }
-        .ws-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 40px)); gap: 0.25rem; }
-        .ws-letter { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; font-weight: 700; user-select: none; transition: all 0.2s ease; }
-        .ws-letter:hover { background: var(--bg-light); }
-        .ws-letter.selected { background: var(--accent); color: white; border-color: var(--accent); }
-        .ws-letter.found { background: var(--success); color: white; border-color: var(--success); }
-        
-        .ws-words { margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid var(--primary); }
-        .ws-words h5 { margin-bottom: 0.8rem; color: var(--primary); }
-        .ws-word-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-        .ws-word { background: white; border: 2px solid var(--primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; color: var(--primary); transition: all 0.2s ease; }
-        .ws-word.found { background: var(--success); border-color: var(--success); color: white; text-decoration: line-through; }
-        
-        .ws-reset { background: var(--secondary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 1rem; }
-        
-        /* MATCH */
-        .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1.5rem 0; }
-        .match-col { display: flex; flex-direction: column; gap: 0.8rem; }
-        .match-col strong { margin-bottom: 0.5rem; color: var(--primary); }
-        .match-item { padding: 0.8rem 1rem; background: white; border: 2px solid var(--primary); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; text-align: center; }
-        .match-item:hover { background: var(--bg-light); }
-        .match-item.selected { background: var(--accent); color: white; border-color: var(--accent); }
-        .match-item.correct { background: var(--success); color: white; border-color: var(--success); }
-        .match-item.incorrect { background: #ffebee; border-color: var(--secondary); color: var(--secondary); }
-        
-        /* GAP FILL */
-        .gapfill-sentence { background: var(--bg-light); padding: 1rem; border-radius: 6px; margin-bottom: 0.8rem; border-left: 4px solid var(--accent); }
-        .gapfill-input { background: white; border: 2px solid var(--accent); padding: 0.5rem 0.8rem; border-radius: 4px; font-family: inherit; min-width: 120px; }
-        
-        /* MULTIPLE CHOICE */
-        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
-        .mc-option { background: white; border: 2px solid var(--primary); padding: 0.8rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
-        .mc-option:hover { background: var(--bg-light); }
-        .mc-option.correct { background: var(--success); color: white; border-color: var(--success); }
-        .mc-option.incorrect { background: #ffebee; color: var(--secondary); border-color: var(--secondary); }
-        
-        /* TEXTAREA */
-        textarea { width: 100%; padding: 1rem; border: 2px solid var(--primary); border-radius: 8px; font-family: inherit; min-height: 120px; resize: vertical; }
-        textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1); }
-        
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f8f8f8;
+            color: #333;
+        }
+
+        /* ===== LEVEL SELECT PAGE ===== */
+        .level-select {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a3e 100%);
+        }
+
+        .hero-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+        }
+
+        .level-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .level-btn {
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .level-btn-a1 {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .level-btn-a1:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .level-btn-a2 {
+            background: #f39c12;
+            color: white;
+        }
+
+        .level-btn-a2:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .level-btn-b1 {
+            background: #27ae60;
+            color: white;
+        }
+
+        .level-btn-b1:hover {
+            background: #229954;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        /* ===== CONTENT PAGES ===== */
+        .content-page {
+            display: none;
+            min-height: 100vh;
+            background: white;
+        }
+
+        .content-page.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header {
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a3e 100%);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .content-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .language-selector label {
+            color: white;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 0;
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            background: white;
+            color: #1a472a;
+            font-weight: 600;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a472a;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f39c12;
+            padding-bottom: 10px;
+        }
+
+        .reading-text {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .reading-text p {
+            margin-bottom: 15px;
+        }
+
+        .reading-text h4 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1a472a;
+        }
+
+        /* Hover vocabulary styling */
+        .vocab {
+            position: relative;
+            cursor: help;
+            border-bottom: 2px dotted #f39c12;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .vocab:hover {
+            background-color: rgba(243, 156, 18, 0.1);
+        }
+
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1000;
+            background-color: #1a472a;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .vocab:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #1a472a;
+        }
+
+        .tasks {
+            margin-top: 40px;
+        }
+
+        .task-item {
+            background: white;
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item h3 {
+            color: #1a472a;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .task-item p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .task-input, .task-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .task-input:focus, .task-select:focus {
+            outline: none;
+            border-color: #1a472a;
+            box-shadow: 0 0 5px rgba(26, 71, 42, 0.3);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .sentence-builder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .word-card {
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: move;
+            user-select: none;
+            border: 2px solid #ddd;
+            transition: all 0.2s ease;
+        }
+
+        .word-card:hover {
+            background: #e8e8e8;
+            border-color: #1a472a;
+        }
+
+        .word-card.selected {
+            background: #1a472a;
+            color: white;
+            border-color: #1a472a;
+        }
+
+        .sentence-output {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 50px;
+            border: 2px dashed #f39c12;
+        }
+
+        .pdf-export {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .pdf-btn {
+            padding: 12px 30px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #229954;
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .feedback.correct {
+            color: white;
+            background: #27ae60;
+        }
+
+        .feedback.incorrect {
+            color: white;
+            background: #e74c3c;
+        }
+
+        .matching-pair {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+
+        .matching-item {
+            flex: 1;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 3px solid #f39c12;
+        }
+
         @media (max-width: 768px) {
-            .level-buttons { flex-direction: column; gap: 1rem; }
-            .match-grid { grid-template-columns: 1fr; }
-            nav ul { gap: 0.5rem; }
-            .ws-letter { width: 35px; height: 35px; font-size: 0.9rem; }
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .content-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .level-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .level-btn {
+                width: 100%;
+            }
+
+            .content-wrapper {
+                padding: 20px;
+            }
+
+            .language-selector {
+                width: 100%;
+                justify-content: center;
+            }
         }
-        
+
         @media print {
-            nav, .back-btn, .export-btn, .ws-reset { display: none; }
-            .section { page-break-inside: avoid; }
+            body {
+                background: white;
+            }
+
+            .content-header,
+            .header-buttons,
+            .language-selector,
+            .pdf-export {
+                display: none;
+            }
+
+            .content-page {
+                display: block;
+            }
+
+            .content-wrapper {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .level-select {
+                display: none;
+            }
+
+            .task-item {
+                page-break-inside: avoid;
+                border: 1px solid #ddd;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- LEVEL SELECT -->
-    <div class="level-select" id="levelSelect">
-        <h1><i class="fas fa-book"></i> US Education</h1>
-        <div class="level-buttons">
-            <button class="level-btn a1" onclick="selectLevel('a1')">A1</button>
-            <button class="level-btn a2" onclick="selectLevel('a2')">A2</button>
-            <button class="level-btn b1" onclick="selectLevel('b1')">B1</button>
+
+<!-- LEVEL SELECT PAGE -->
+<div class="level-select" id="levelSelect">
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>US Education</h1>
+            <p>Discover how education works in the United States</p>
+            <div class="level-buttons">
+                <button class="level-btn level-btn-a1" onclick="startLevel('A1')">A1</button>
+                <button class="level-btn level-btn-a2" onclick="startLevel('A2')">A2</button>
+                <button class="level-btn level-btn-b1" onclick="startLevel('B1')">B1</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- A1 SECTION -->
-    <div class="section" id="a1-section">
-        <header>
-            <h1><i class="fas fa-book"></i> US Education (A1)</h1>
-            <p>Learn about schools in the United States</p>
-        </header>
+<!-- A1 CONTENT PAGE -->
+<div class="content-page" id="pageA1">
+    <div class="content-header">
+        <h2>US Education - Level A1</h2>
+        <div class="language-selector">
+            <label for="langA1">Velg språk:</label>
+            <select id="langA1" onchange="updateLanguage('A1')">
+                <option value="no">Norsk</option>
+                <option value="uk">Ukrainsk</option>
+                <option value="th">Thai</option>
+                <option value="ar">Arabisk</option>
+            </select>
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" onclick="exportToPDF('A1')">Lagre som PDF</button>
+            <button class="header-btn back-btn" onclick="goBack()">Tilbake</button>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <h3 class="section-title">School in America</h3>
+        <div class="reading-text">
+            <p>American <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for 12 <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>.</p>
+
+            <h4>Before School</h4>
+            <p>Before <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. They <span class="vocab" data-no="leker" data-uk="грають" data-th="เล่น" data-ar="يلعبون">play</span> and <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span>. They <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> to <span class="vocab" data-no="lese" data-uk="читати" data-th="อ่าน" data-ar="قراءة">read</span> and <span class="vocab" data-no="skrive" data-uk="писати" data-th="เขียน" data-ar="كتابة">write</span>. In pre-school, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> many <span class="vocab" data-no="ting" data-uk="речи" data-th="สิ่ง" data-ar="أشياء">things</span>. They <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> about <span class="vocab" data-no="farger" data-uk="кольори" data-th="สี" data-ar="الألوان">colors</span>, <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span>, and <span class="vocab" data-no="bokstaver" data-uk="букви" data-th="ตัวอักษร" data-ar="الحروف">letters</span>.</p>
+
+            <h4>Starting School</h4>
+            <p><span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">Children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> at age <span class="vocab" data-no="fem" data-uk="п'ять" data-th="ห้า" data-ar="خمسة">five</span>. A <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> <span class="vocab" data-no="hjelper" data-uk="допомагає" data-th="ช่วย" data-ar="يساعد">helps</span> the <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span>. The <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> is <span class="vocab" data-no="snill" data-uk="добрий" data-th="ใจดี" data-ar="لطيف">nice</span> and <span class="vocab" data-no="tålmodig" data-uk="терпеливий" data-th="อดทน" data-ar="صبور">patient</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> <span class="vocab" data-no="liker" data-uk="люблять" data-th="ชอบ" data-ar="يحبون">like</span> their <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span>.</p>
+
+            <h4>Learning Subjects</h4>
+            <p><span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> <span class="vocab" data-no="lærer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span> like English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">math</span>, and <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>. In <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, a <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> <span class="vocab" data-no="lærer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلم">learns</span> many <span class="vocab" data-no="ting" data-uk="речи" data-th="สิ่ง" data-ar="أشياء">things</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> have a <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> in <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span>. The <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้นเรียน" data-ar="الفصل">class</span> has <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> of the same age.</p>
+
+            <h4>High School</h4>
+            <p>In <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="المدرسة الثانوية">high school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> some <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد">subjects</span>. This is <span class="vocab" data-no="annerledes" data-uk="інакше" data-th="ต่างกัน" data-ar="مختلف">different</span> from <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">art</span>, <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>, or <span class="vocab" data-no="sport" data-uk="спорт" data-th="ฟุตบอล" data-ar="الرياضة">sports</span>.</p>
+        </div>
+
+        <div class="tasks">
+            <div class="task-item">
+                <h3>Task 1: Choose the correct word</h3>
+                <p>American children go to _____ for 12 years.</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_1" value="correct" onchange="checkA1Task1()"> school
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_1" value="wrong" onchange="checkA1Task1()"> home
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_1" value="wrong" onchange="checkA1Task1()"> park
+                </label>
+                <div class="feedback" id="feedbackA1_1"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 2: True or False?</h3>
+                <p>Children start school at age five. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_2" value="correct" onchange="checkA1Task2()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA1_2" value="wrong" onchange="checkA1Task2()"> False
+                </label>
+                <div class="feedback" id="feedbackA1_2"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 3: Complete the sentence</h3>
+                <p>Before school, many children go to _____.</p>
+                <input type="text" class="task-input" id="taskA1_3" placeholder="Write the answer...">
+                <button class="pdf-btn" style="width: 100px; margin-top: 10px;" onclick="checkA1Task3()">Check</button>
+                <div class="feedback" id="feedbackA1_3"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 4: What do students learn? (Multiple choice)</h3>
+                <p>Students learn subjects like:</p>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA1_4" value="english"> English
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA1_4" value="math"> Math
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA1_4" value="science"> Science
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA1_4" value="football"> Football
+                </label>
+                <div class="feedback" id="feedbackA1_4"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 5: Answer the question</h3>
+                <p>Hva gjør en lærer? (What does a teacher do?)</p>
+                <textarea class="task-input" placeholder="Write your answer..." style="min-height: 70px;"></textarea>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 6: Matching</h3>
+                <p>Match the word with the description:</p>
+                <div class="matching-pair">
+                    <div class="matching-item">
+                        <strong>Teacher</strong><br>
+                        <label class="option-label" style="margin-top: 8px;">
+                            <input type="radio" name="match1" value="correct"> A person who helps students learn
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="match1" value="wrong"> A place to play
+                        </label>
+                    </div>
+                </div>
+                <div class="matching-pair">
+                    <div class="matching-item">
+                        <strong>School</strong><br>
+                        <label class="option-label" style="margin-top: 8px;">
+                            <input type="radio" name="match2" value="correct"> A place where children learn
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="match2" value="wrong"> A place to eat
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 7: Sentence builder</h3>
+                <p>Arrange the words to make a correct sentence: (Ordne ord for å lage riktig setning)</p>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Click the words in the right order</p>
+                <div class="sentence-builder" id="builderA1">
+                    <div class="word-card" onclick="toggleWord(this, 'A1')">Children</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1')">go</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1')">to</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A1')">school</div>
+                </div>
+                <div class="sentence-output" id="outputA1"></div>
+            </div>
+        </div>
+
+        <div class="pdf-export">
+            <button class="pdf-btn" onclick="exportToPDF('A1')">Lagre som PDF</button>
+        </div>
+    </div>
+</div>
+
+<!-- A2 CONTENT PAGE -->
+<div class="content-page" id="pageA2">
+    <div class="content-header">
+        <h2>US Education - Level A2</h2>
+        <div class="language-selector">
+            <label for="langA2">Velg språk:</label>
+            <select id="langA2" onchange="updateLanguage('A2')">
+                <option value="no">Norsk</option>
+                <option value="uk">Ukrainsk</option>
+                <option value="th">Thai</option>
+                <option value="ar">Arabisk</option>
+            </select>
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" onclick="exportToPDF('A2')">Lagre som PDF</button>
+            <button class="header-btn back-btn" onclick="goBack()">Tilbake</button>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <h3 class="section-title">American Schools</h3>
+        <div class="reading-text">
+            <p>American <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for 12 <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>. The first day of <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> is very <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> for <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> and <span class="vocab" data-no="foreldre" data-uk="батьки" data-th="พ่อแม่" data-ar="آباء">parents</span>.</p>
+
+            <h4>Before School - Pre-school and Daycare</h4>
+            <p>Before <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="dagavdeling" data-uk="дитячий садок" data-th="โรงเรียนอนุบาล" data-ar="الحضانة">daycare</span> or <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. These <span class="vocab" data-no="programmer" data-uk="програми" data-th="โปรแกรม" data-ar="برامج">programs</span> are <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> for <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. They <span class="vocab" data-no="fokuserer" data-uk="зосереджуються" data-th="มุ่งเน้น" data-ar="تركز">focus</span> on <span class="vocab" data-no="lek" data-uk="гра" data-th="การเล่น" data-ar="اللعب">play</span> and <span class="vocab" data-no="samspill" data-uk="спілкування" data-th="ปฏิสัมพันธ์" data-ar="التفاعل">interaction</span> with other <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span>. But they also <span class="vocab" data-no="lærer" data-uk="вчають" data-th="เรียนรู้" data-ar="يتعلمون">teach</span> the <span class="vocab" data-no="alfabet" data-uk="алфавіт" data-th="ตัวอักษร" data-ar="الأبجدية">alphabet</span> and <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span>. In pre-school, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> also <span class="vocab" data-no="laerer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> about <span class="vocab" data-no="samarbeid" data-uk="співпраця" data-th="ความร่วมมือ" data-ar="التعاون">teamwork</span> and <span class="vocab" data-no="venner" data-uk="друзі" data-th="เพื่อน" data-ar="أصدقاء">friends</span>.</p>
+
+            <h4>Kindergarten</h4>
+            <p>At age <span class="vocab" data-no="fem" data-uk="п'ять" data-th="ห้า" data-ar="خمسة">five</span>, most <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>. <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">Kindergarten</span> is <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">required</span> in most <span class="vocab" data-no="delstater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">states</span>. <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">Children</span> <span class="vocab" data-no="bruker" data-uk="проводять" data-th="ใช้เวลา" data-ar="يقضون">spend</span> one <span class="vocab" data-no="år" data-uk="рік" data-th="ปี" data-ar="سنة">year</span> there before going to first <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. In <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> still <span class="vocab" data-no="leker" data-uk="грають" data-th="เล่น" data-ar="يلعبون">play</span> a lot, but they also <span class="vocab" data-no="laerer" data-uk="вчиться" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> to <span class="vocab" data-no="lese" data-uk="читати" data-th="อ่าน" data-ar="قراءة">read</span> and <span class="vocab" data-no="skrive" data-uk="писати" data-th="เขียน" data-ar="كتابة">write</span>.</p>
+
+            <h4>Elementary School</h4>
+            <p>After <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span> for five or six <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>. In <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="laerer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> to <span class="vocab" data-no="lese" data-uk="читати" data-th="อ่าน" data-ar="قراءة">read</span>, <span class="vocab" data-no="skrive" data-uk="писати" data-th="เขียน" data-ar="كتابة">write</span>, and do <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">math</span>. They also <span class="vocab" data-no="laerer" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> about <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span> and <span class="vocab" data-no="samfunn" data-uk="суспільство" data-th="สังคม" data-ar="المجتمع">social studies</span>. In <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> have the same <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> for most <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>. The <span class="vocab" data-no="lærer" data-uk="вчитель" data-th="ครู" data-ar="معلم">teacher</span> knows each <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> very well.</p>
+
+            <h4>Middle and High School</h4>
+            <p>After <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائية">elementary school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="gaar" data-uk="ходять" data-th="เข้า" data-ar="يذهبون">go</span> to <span class="vocab" data-no="ungdomsskole" data-uk="молодша школа" data-th="มัธยมต้น" data-ar="المتوسطة">middle school</span> or <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>. In <span class="vocab" data-no="videregaende" data-uk="старша школа" data-th="มัธยมปลาย" data-ar="الثانوية">high school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> can <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">choose</span> many <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواด دراسية">subjects</span>. Some <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> take <span class="vocab" data-no="fremmedspraak" data-uk="іноземні мови" data-th="ภาษาต่างประเทศ" data-ar="لغات أجنبية">foreign languages</span>, <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">art</span>, or <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> have different <span class="vocab" data-no="larere" data-uk="вчителі" data-th="ครู" data-ar="معلمون">teachers</span> for different <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>.</p>
+        </div>
+
+        <div class="tasks">
+            <div class="task-item">
+                <h3>Task 1: Answer the questions</h3>
+                <p><strong>1. How many years do American children go to school?</strong></p>
+                <input type="text" class="task-input" id="taskA2_1a" placeholder="Your answer...">
+                <button class="pdf-btn" style="width: 100px; margin-top: 10px;" onclick="checkA2Task1a()">Check</button>
+                <div class="feedback" id="feedbackA2_1a"></div>
+                <p style="margin-top: 15px;"><strong>2. At what age do children start kindergarten?</strong></p>
+                <input type="text" class="task-input" id="taskA2_1b" placeholder="Your answer...">
+                <button class="pdf-btn" style="width: 100px; margin-top: 10px;" onclick="checkA2Task1b()">Check</button>
+                <div class="feedback" id="feedbackA2_1b"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 2: Gap-fill exercise</h3>
+                <p>Before school, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to __________ (daycare / school / park)</p>
+                <select class="task-select" id="taskA2_2" onchange="checkA2Task2()">
+                    <option value="">Select...</option>
+                    <option value="daycare">daycare</option>
+                    <option value="school">school</option>
+                    <option value="park">park</option>
+                </select>
+                <div class="feedback" id="feedbackA2_2"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 3: Order the school levels</h3>
+                <p>Put the school levels in the correct order. Write 1, 2, 3, 4:</p>
+                <label class="option-label">
+                    <input type="text" style="width: 40px; margin-right: 10px;" placeholder="_"> Kindergarten
+                </label>
+                <label class="option-label">
+                    <input type="text" style="width: 40px; margin-right: 10px;" placeholder="_"> Elementary School
+                </label>
+                <label class="option-label">
+                    <input type="text" style="width: 40px; margin-right: 10px;" placeholder="_"> Middle School
+                </label>
+                <label class="option-label">
+                    <input type="text" style="width: 40px; margin-right: 10px;" placeholder="_"> High School
+                </label>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;"><em>Svar: 1, 2, 3, 4</em></p>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 4: True or False?</h3>
+                <p><strong>1.</strong> Children can choose subjects in pre-school. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_4a" value="wrong" onchange="checkA2Task4a()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_4a" value="correct" onchange="checkA2Task4a()"> False
+                </label>
+                <div class="feedback" id="feedbackA2_4a"></div>
+
+                <p style="margin-top: 15px;"><strong>2.</strong> Kindergarten is required in all states. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_4b" value="wrong" onchange="checkA2Task4b()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskA2_4b" value="correct" onchange="checkA2Task4b()"> False
+                </label>
+                <div class="feedback" id="feedbackA2_4b"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 5: Sentence builder</h3>
+                <p>Arrange the words to make a correct sentence: (Ordne ord for å lage riktig setning)</p>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Click the words in the right order</p>
+                <div class="sentence-builder" id="builderA2">
+                    <div class="word-card" onclick="toggleWord(this, 'A2')">Children</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2')">go</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2')">to</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2')">elementary</div>
+                    <div class="word-card" onclick="toggleWord(this, 'A2')">school</div>
+                </div>
+                <div class="sentence-output" id="outputA2"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 6: What do students learn?</h3>
+                <p>In elementary school, students learn:</p>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA2_6" value="correct"> Reading
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA2_6" value="correct"> Writing
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA2_6" value="correct"> Math
+                </label>
+                <label class="option-label">
+                    <input type="checkbox" name="taskA2_6" value="wrong"> Driving
+                </label>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 7: Fill in the blanks</h3>
+                <p>Complete the sentences with the correct words:</p>
+                <p><strong>1.</strong> In elementary school, students have the same __________ (teacher / students / parents) for most subjects.</p>
+                <input type="text" class="task-input" placeholder="Write the word...">
+                <p style="margin-top: 15px;"><strong>2.</strong> In high school, students can __________ (read / choose / play) many subjects.</p>
+                <input type="text" class="task-input" placeholder="Write the word...">
+            </div>
+        </div>
+
+        <div class="pdf-export">
+            <button class="pdf-btn" onclick="exportToPDF('A2')">Lagre som PDF</button>
+        </div>
+    </div>
+</div>
+
+<!-- B1 CONTENT PAGE -->
+<div class="content-page" id="pageB1">
+    <div class="content-header">
+        <h2>US Education - Level B1</h2>
+        <div class="language-selector">
+            <label for="langB1">Velg språk:</label>
+            <select id="langB1" onchange="updateLanguage('B1')">
+                <option value="no">Norsk</option>
+                <option value="uk">Ukrainsk</option>
+                <option value="th">Thai</option>
+                <option value="ar">Arabisk</option>
+            </select>
+        </div>
+        <div class="header-buttons">
+            <button class="header-btn" onclick="exportToPDF('B1')">Lagre som PDF</button>
+            <button class="header-btn back-btn" onclick="goBack()">Tilbake</button>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <h3 class="section-title">Education System in the United States</h3>
+        <div class="reading-text">
+            <p>American <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> go to <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for 12 <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>. The first day of <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> is an <span class="vocab" data-no="viktig" data-uk="важливо" data-th="สำคัญ" data-ar="مهم">important</span> <span class="vocab" data-no="hendelse" data-uk="подія" data-th="เหตุการณ์" data-ar="حدث">event</span>, not only for the <span class="vocab" data-no="barn" data-uk="дитина" data-th="เด็ก" data-ar="طفل">child</span> but also for <span class="vocab" data-no="foreldre" data-uk="батьки" data-th="พ่อแม่" data-ar="آباء">parents</span> and <span class="vocab" data-no="besteforeldre" data-uk="дідусі й бабусі" data-th="ปู่ย่าตายายพ่อแม่" data-ar="أجداد">grandparents</span>.</p>
+
+            <h4>Kindergarten and Elementary School</h4>
+            <p>Before <span class="vocab" data-no="begynner" data-uk="починає" data-th="เริ่มต้น" data-ar="يبدأ">starting</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, many <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="gaar" data-uk="відвідують" data-th="เข้าร่วม" data-ar="يحضرون">attend</span> <span class="vocab" data-no="dagavdeling" data-uk="дитячий садок" data-th="โรงเรียนอนุบาล" data-ar="الحضانة">daycare</span> or <span class="vocab" data-no="forskole" data-uk="дошкільна освіта" data-th="เตรียมอนุบาล" data-ar="ما قبل المدرسة">pre-school</span>. These <span class="vocab" data-no="programmer" data-uk="програми" data-th="โปรแกรม" data-ar="برامج">programs</span> mainly <span class="vocab" data-no="fokuserer" data-uk="зосереджуються" data-th="มุ่งเน้น" data-ar="تركز">focus</span> on play and the <span class="vocab" data-no="utvikling" data-uk="розвиток" data-th="การพัฒนา" data-ar="التطور">development</span> of <span class="vocab" data-no="sosial" data-uk="соціальні" data-th="สังคม" data-ar="اجتماعي">social</span> <span class="vocab" data-no="ferdigheter" data-uk="навички" data-th="ทักษะ" data-ar="مهارات">skills</span>, but they also <span class="vocab" data-no="presenterer" data-uk="запроваджують" data-th="แนะนำ" data-ar="تقدم">introduce</span> <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> to <span class="vocab" data-no="laering" data-uk="навчання" data-th="การเรียนรู้" data-ar="التعلم">learning</span>. For <span class="vocab" data-no="eksempel" data-uk="приклад" data-th="ตัวอย่าง" data-ar="مثال">example</span>, <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> may <span class="vocab" data-no="begynne" data-uk="почати" data-th="เริ่มต้น" data-ar="يبدأ">begin</span> to <span class="vocab" data-no="lare" data-uk="вчать" data-th="เรียนรู้" data-ar="يتعلمون">learn</span> the <span class="vocab" data-no="alfabet" data-uk="алфавіт" data-th="ตัวอักษร" data-ar="الأبجدية">alphabet</span> and <span class="vocab" data-no="enkle" data-uk="прості" data-th="ง่าย" data-ar="بسيط">simple</span> <span class="vocab" data-no="tall" data-uk="цифри" data-th="ตัวเลข" data-ar="أرقام">numbers</span> at an <span class="vocab" data-no="tidlig" data-uk="ранньому" data-th="ตอนต้น" data-ar="مبكر">early</span> <span class="vocab" data-no="alder" data-uk="віці" data-th="อายุ" data-ar="سن">age</span>. At the <span class="vocab" data-no="alder" data-uk="віці" data-th="อายุ" data-ar="سن">age</span> of five, most <span class="vocab" data-no="barn" data-uk="діти" data-th="เด็ก" data-ar="أطفال">children</span> <span class="vocab" data-no="begynner" data-uk="починають" data-th="เริ่มต้น" data-ar="يبدأون">start</span> <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span>, where they <span class="vocab" data-no="bruker" data-uk="проводять" data-th="ใช้เวลา" data-ar="يقضون">spend</span> one <span class="vocab" data-no="aar" data-uk="рік" data-th="ปี" data-ar="سنة">year</span> before <span class="vocab" data-no="flytte" data-uk="переходять" data-th="ย้าย" data-ar="الانتقال">moving</span> on to first <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. In most <span class="vocab" data-no="delstater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">states</span>, <span class="vocab" data-no="barnehage" data-uk="садок" data-th="อนุบาล" data-ar="روضة أطفال">kindergarten</span> is <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">compulsory</span>. After this, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> <span class="vocab" data-no="gaar" data-uk="відвідують" data-th="เข้าร่วม" data-ar="يحضرون">attend</span> <span class="vocab" data-no="barneskole" data-uk="початкова" data-th="ประถม" data-ar="الابتدائي">elementary</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> for five or six <span class="vocab" data-no="år" data-uk="років" data-th="ปี" data-ar="سنوات">years</span>, before they <span class="vocab" data-no="fortsetter" data-uk="переходять" data-th="ดำเนินต่อ" data-ar="يستمرون">continue</span> to <span class="vocab" data-no="ungdomsskole" data-uk="середня" data-th="มัธยม" data-ar="الثانوي">secondary</span> <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>.</p>
+
+            <h4>Junior and Senior High School</h4>
+            <p>The <span class="vocab" data-no="ungdomsskole" data-uk="середня" data-th="มัธยม" data-ar="الثانوي">secondary</span> <span class="vocab" data-no="nivaa" data-uk="рівень" data-th="ระดับ" data-ar="مستوى">level</span> is often <span class="vocab" data-no="delt" data-uk="розділена" data-th="แบ่ง" data-ar="مقسمة">divided</span> into <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">junior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> and <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبر">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>. <span class="vocab" data-no="junior" data-uk="молодший" data-th="จูเนียร์" data-ar="الأصغر">Junior</span> high usually <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> six or seven to eight or nine, while <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="الأكبر">senior</span> high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span> <span class="vocab" data-no="inkluderer" data-uk="включає" data-th="รวมถึง" data-ar="يشمل">includes</span> <span class="vocab" data-no="klasser" data-uk="класи" data-th="ชั้น" data-ar="صفوف">grades</span> nine or ten to twelve. In high <span class="vocab" data-no="skole" data-uk="школа" data-th="โรงเรียน" data-ar="مدرسة">school</span>, <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> are <span class="vocab" data-no="gis" data-uk="дають" data-th="ให้" data-ar="يُعطون">given</span> <span class="vocab" data-no="spesiell" data-uk="спеціальні" data-th="พิเศษ" data-ar="خاص">special</span> <span class="vocab" data-no="navn" data-uk="імена" data-th="ชื่อ" data-ar="أسماء">names</span> <span class="vocab" data-no="avhengig" data-uk="залежно" data-th="ขึ้นอยู่กับ" data-ar="اعتمادا على">depending</span> on their <span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span>. A ninth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> is <span class="vocab" data-no="kalt" data-uk="називається" data-th="เรียกว่า" data-ar="يسمى">called</span> a <span class="vocab" data-no="nybegynner" data-uk="першокурсник" data-th="นักเรียนชั้นหนึ่ง" data-ar="طالب جديد">freshman</span>, a tenth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="andreaar" data-uk="другокурсник" data-th="นักเรียนชั้นสอง" data-ar="طالب السنة الثانية">sophomore</span>, an eleventh-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="junior" data-uk="третьокурсник" data-th="นักเรียนชั้นสาม" data-ar="طالب السنة الثالثة">junior</span>, and a twelfth-<span class="vocab" data-no="klasse" data-uk="клас" data-th="ชั้น" data-ar="صف">grade</span> <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> a <span class="vocab" data-no="senior" data-uk="старший" data-th="ซีเนียร์" data-ar="طالب السنة الرابعة">senior</span>.</p>
+
+            <h4>Academic and Vocational Courses</h4>
+            <p><span class="vocab" data-no="utenom" data-uk="на відміну від" data-th="ต่างจาก" data-ar="بخلاف">Unlike</span> Norwegian <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span>, <span class="vocab" data-no="offentlig" data-uk="державні" data-th="สาธารณะ" data-ar="عامة">public</span> <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> in the <span class="vocab" data-no="forente" data-uk="сполучені" data-th="สหรัฐ" data-ar="متحدة">United</span> <span class="vocab" data-no="stater" data-uk="штати" data-th="รัฐ" data-ar="الولايات">States</span> do not <span class="vocab" data-no="folge" data-uk="дотримуються" data-th="ทำตาม" data-ar="تتبع">follow</span> one <span class="vocab" data-no="nasjonalt" data-uk="національна" data-th="ระดับประเทศ" data-ar="وطني">national</span> <span class="vocab" data-no="laereplan" data-uk="навчальна програма" data-th="หลักสูตร" data-ar="المنهاج">curriculum</span>. This <span class="vocab" data-no="betyr" data-uk="означає" data-th="หมายความว่า" data-ar="يعني">means</span> that <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> have more <span class="vocab" data-no="frihet" data-uk="свободу" data-th="เสรีภาพ" data-ar="حرية">freedom</span> to <span class="vocab" data-no="planlegge" data-uk="планувати" data-th="วางแผน" data-ar="تخطيط">plan</span> their <span class="vocab" data-no="undervisning" data-uk="навчання" data-th="การสอน" data-ar="التدريس">teaching</span>. <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">Students</span> can <span class="vocab" data-no="velge" data-uk="обирати" data-th="เลือก" data-ar="يختارون">choose</span> from a wide <span class="vocab" data-no="utvalg" data-uk="діапазон" data-th="ช่วง" data-ar="نطاق">range</span> of <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>, and they can often <span class="vocab" data-no="velge" data-uk="вибирати" data-th="เลือก" data-ar="اختيار">select</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> at <span class="vocab" data-no="ulike" data-uk="різні" data-th="แตกต่าง" data-ar="مختلفة">different</span> <span class="vocab" data-no="nivaaer" data-uk="рівні" data-th="ระดับ" data-ar="مستويات">levels</span> <span class="vocab" data-no="avhengig" data-uk="залежно" data-th="ขึ้นอยู่กับ" data-ar="اعتمادا على">depending</span> on their <span class="vocab" data-no="evne" data-uk="здатність" data-th="ความสามารถ" data-ar="القدرة">ability</span> and <span class="vocab" data-no="interesser" data-uk="інтереси" data-th="ความสนใจ" data-ar="الاهتمامات">interests</span>. There are three main <span class="vocab" data-no="typer" data-uk="типи" data-th="ประเภท" data-ar="أنواع">types</span> of <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span>: <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">academic</span>, <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span>, and <span class="vocab" data-no="generell" data-uk="загальні" data-th="ทั่วไป" data-ar="عامة">general</span>. <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">Academic</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> are for <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> who <span class="vocab" data-no="planlegger" data-uk="планують" data-th="วางแผน" data-ar="يخططون">plan</span> to <span class="vocab" data-no="fortsette" data-uk="переходять" data-th="ดำเนินต่อ" data-ar="يستمرون">continue</span> to higher <span class="vocab" data-no="utdanning" data-uk="освіта" data-th="การศึกษา" data-ar="التعليم">education</span>, while <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> <span class="vocab" data-no="forbereder" data-uk="готують" data-th="เตรียม" data-ar="تحضر">prepare</span> <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> for a <span class="vocab" data-no="haandverk" data-uk="ремесло" data-th="ฝีมือ" data-ar="حرفة">trade</span>, such as car <span class="vocab" data-no="mekanikk" data-uk="механіка" data-th="กลศาสตร์" data-ar="الميكانيكا">mechanics</span> or <span class="vocab" data-no="frisorfag" data-uk="перукарство" data-th="การตัดแต่งผม" data-ar="الحلاقة">hairdressing</span>. <span class="vocab" data-no="generell" data-uk="загальні" data-th="ทั่วไป" data-ar="عامة">General</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span> usually <span class="vocab" data-no="kombinerer" data-uk="поєднують" data-th="รวมกัน" data-ar="تجمع">combine</span> <span class="vocab" data-no="elementer" data-uk="елементи" data-th="องค์ประกอบ" data-ar="عناصر">elements</span> from both <span class="vocab" data-no="akademisk" data-uk="академічні" data-th="วิชาการ" data-ar="أكاديمية">academic</span> and <span class="vocab" data-no="yrkesfaglig" data-uk="професійні" data-th="อาชีพ" data-ar="مهنية">vocational</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span>.</p>
+
+            <h4>Core Subjects</h4>
+            <p>Even though <span class="vocab" data-no="elever" data-uk="учні" data-th="นักเรียน" data-ar="طلاب">students</span> have some <span class="vocab" data-no="frihet" data-uk="свободу" data-th="เสรีภาพ" data-ar="حرية">freedom</span>, there are still certain <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواد دراسية">subjects</span> that are <span class="vocab" data-no="obligatorisk" data-uk="обов'язкова" data-th="บังคับ" data-ar="إلزامي">compulsory</span> for everyone. These are <span class="vocab" data-no="kalt" data-uk="називаються" data-th="เรียกว่า" data-ar="يسمى">called</span> <span class="vocab" data-no="kjernefag" data-uk="основні" data-th="หลัก" data-ar="أساسي">core</span> <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواด دراسية">subjects</span> and typically <span class="vocab" data-no="inkluderer" data-uk="включають" data-th="รวมถึง" data-ar="يشمل">include</span> English, <span class="vocab" data-no="matematikk" data-uk="математика" data-th="คณิตศาสตร์" data-ar="الرياضيات">mathematics</span>, <span class="vocab" data-no="naturfag" data-uk="природознавство" data-th="วิทยาศาสตร์" data-ar="العلوم">science</span>, <span class="vocab" data-no="sosial" data-uk="соціальні" data-th="สังคม" data-ar="اجتماعي">social</span> <span class="vocab" data-no="studier" data-uk="дослідження" data-th="การศึกษา" data-ar="الدراسات">studies</span>, and <span class="vocab" data-no="fysisk" data-uk="фізичне" data-th="กายภาพ" data-ar="جسدي">physical</span> <span class="vocab" data-no="utdanning" data-uk="освіта" data-th="การศึกษา" data-ar="التعليم">education</span>. In <span class="vocab" data-no="tillegg" data-uk="крім того" data-th="นอกจากนี้" data-ar="بالإضافة إلى">addition</span> to these <span class="vocab" data-no="fag" data-uk="предмети" data-th="วิชา" data-ar="مواד دراسية">subjects</span>, most <span class="vocab" data-no="skoler" data-uk="школи" data-th="โรงเรียน" data-ar="مدارس">schools</span> <span class="vocab" data-no="tilbyr" data-uk="пропонують" data-th="เสนอ" data-ar="تقدم">offer</span> <span class="vocab" data-no="valgfag" data-uk="електив" data-th="วิชาเลือก" data-ar="اختياري">elective</span> <span class="vocab" data-no="kurs" data-uk="курси" data-th="วิชา" data-ar="دورات">courses</span>, such as <span class="vocab" data-no="fremmedspraak" data-uk="іноземні" data-th="ต่างประเทศ" data-ar="أجنبي">foreign</span> <span class="vocab" data-no="spraak" data-uk="мови" data-th="ภาษา" data-ar="لغات">languages</span>, <span class="vocab" data-no="kunst" data-uk="мистецтво" data-th="ศิลปะ" data-ar="الفنون">arts</span>, <span class="vocab" data-no="musikk" data-uk="музика" data-th="ดนตรี" data-ar="الموسيقى">music</span>, and <span class="vocab" data-no="drama" data-uk="драма" data-th="นาฏกรรม" data-ar="الدراما">drama</span>. As a <span class="vocab" data-no="resultat" data-uk="результат" data-th="ผลลัพธ์" data-ar="نتيجة">result</span>, each <span class="vocab" data-no="elev" data-uk="учень" data-th="นักเรียน" data-ar="طالب">student</span> can <span class="vocab" data-no="lage" data-uk="створювати" data-th="สร้าง" data-ar="إنشاء">create</span> a <span class="vocab" data-no="plan" data-uk="розклад" data-th="ตารางเวลา" data-ar="جدول زمني">schedule</span> that is partly <span class="vocab" data-no="tilpasset" data-uk="адаптована" data-th="ปรับแต่ง" data-ar="مصممة">tailored</span> to their own <span class="vocab" data-no="interesser" data-uk="інтереси" data-th="ความสนใจ" data-ar="الاهتمامات">interests</span> and <span class="vocab" data-no="maal" data-uk="цілі" data-th="เป้าหมาย" data-ar="الأهداف">goals</span>.</p>
+        </div>
+
+        <div class="tasks">
+            <div class="task-item">
+                <h3>Task 1: Comprehension Questions</h3>
+                <p><strong>1. What are the two main divisions of secondary school in the United States?</strong></p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 70px;"></textarea>
+                <p style="margin-top: 15px;"><strong>2. Name three core subjects that are compulsory in American schools.</strong></p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 70px;"></textarea>
+                <p style="margin-top: 15px;"><strong>3. What is the difference between academic and vocational courses?</strong></p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 90px;"></textarea>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 2: Reflection Question</h3>
+                <p>Compare the American education system with the Norwegian system. What are the main differences? (Sammenlikn det amerikanske utdanningssystemet med det norske. Hva er de viktigste forskjellene?)</p>
+                <textarea class="task-input" placeholder="Your answer..." style="min-height: 120px;"></textarea>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 3: Vocabulary Match</h3>
+                <p>Match the word with its definition:</p>
+                <div style="margin: 15px 0;">
+                    <label class="option-label">
+                        <input type="radio" name="vocab1" value="correct" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Required by law or rule
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="vocab1" value="wrong" onchange="checkB1Vocab1()"> <strong>Compulsory:</strong> Something that is optional
+                    </label>
+                </div>
+                <div class="feedback" id="feedbackB1_vocab1"></div>
+
+                <div style="margin: 15px 0;">
+                    <label class="option-label">
+                        <input type="radio" name="vocab2" value="correct" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related to a profession or trade
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="vocab2" value="wrong" onchange="checkB1Vocab2()"> <strong>Vocational:</strong> Related only to academic study
+                    </label>
+                </div>
+                <div class="feedback" id="feedbackB1_vocab2"></div>
+
+                <div style="margin: 15px 0;">
+                    <label class="option-label">
+                        <input type="radio" name="vocab3" value="correct" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject you can choose to take
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="vocab3" value="wrong" onchange="checkB1Vocab3()"> <strong>Elective:</strong> A subject that is required
+                    </label>
+                </div>
+                <div class="feedback" id="feedbackB1_vocab3"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 4: True or False?</h3>
+                <p><strong>1.</strong> All public schools in the United States follow the same curriculum. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4a" value="wrong" onchange="checkB1Task4a()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4a" value="correct" onchange="checkB1Task4a()"> False
+                </label>
+                <div class="feedback" id="feedbackB1_4a"></div>
+
+                <p style="margin-top: 15px;"><strong>2.</strong> Students can choose which subjects to study in elementary school. ___</p>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4b" value="wrong" onchange="checkB1Task4b()"> True
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="taskB1_4b" value="correct" onchange="checkB1Task4b()"> False
+                </label>
+                <div class="feedback" id="feedbackB1_4b"></div>
+            </div>
+
+            <div class="task-item">
+                <h3>Task 5: High school student classifications</h3>
+                <p>Match the grade with the student name:</p>
+                <div style="display: grid; gap: 10px;">
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">Grade 9:</div>
+                        <div style="flex: 1;">
+                            <select style="width: 100%; padding: 8px;">
+                                <option>Select...</option>
+                                <option>Freshman</option>
+                                <option>Sophomore</option>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">Grade 10:</div>
+                        <div style="flex: 1;">
+                            <select style="width: 100%; padding: 8px;">
+                                <option>Select...</option>
+                                <option>Freshman</option>
+                                <option>Sophomore</option>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">Grade 11:</div>
+                        <div style="flex: 1;">
+                            <select style="width: 100%; padding: 8px;">
+                                <option>Select...</option>
+                                <option>Freshman</option>
+                                <option>Sophomore</option>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">Grade 12:</div>
+                        <div style="flex: 1;">
+                            <select style="width: 100%; padding: 8px;">
+                                <option>Select...</option>
+                                <option>Freshman</option>
+                                <option>Sophomore</option>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pdf-export">
+            <button class="pdf-btn" onclick="exportToPDF('B1')">Lagre som PDF</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startLevel(level) {
+        document.getElementById('levelSelect').style.display = 'none';
+        document.getElementById('page' + level).classList.add('active');
+    }
+
+    function goBack() {
+        document.querySelectorAll('.content-page').forEach(page => page.classList.remove('active'));
+        document.getElementById('levelSelect').style.display = 'flex';
+    }
+
+    function updateLanguage(level) {
+        const selector = document.getElementById('lang' + level);
+        const selectedLang = selector.value;
         
-        <nav>
-            <ul>
-                <li><button onclick="showSection('a1', 'vocab')" class="nav-btn active">Vocabulary</button></li>
-                <li><button onclick="showSection('a1', 'reading')" class="nav-btn">Reading</button></li>
-                <li><button onclick="showSection('a1', 'tasks')" class="nav-btn">Tasks</button></li>
-            </ul>
-        </nav>
-
-        <div class="container">
-            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
+        document.querySelectorAll(`#page${level} .vocab`).forEach(el => {
+            const text = el.dataset.text || el.innerText.split('\n')[0];
+            el.dataset.text = text;
             
-            <!-- VOCAB -->
-            <div class="section active" id="a1-vocab">
-                <h2>Vocabulary</h2>
-                <div class="vocab-grid" id="a1-vocab-grid"></div>
-            </div>
-
-            <!-- READING -->
-            <div class="section" id="a1-reading">
-                <h2>Reading</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="reading-text" id="a1-reading-text">
-                    <p>American children go to school for 12 years.</p>
-                    <p>Before school, many children go to pre-school. They play and learn. They learn to read and write.</p>
-                    <p>Children start school at age five. A teacher helps the students.</p>
-                    <p>Students learn subjects like English, math, and science.</p>
-                    <p>In school, a student learns many things. Students have a teacher in class.</p>
-                    <p>In high school, students can choose some subjects.</p>
-                </div>
-            </div>
-
-            <!-- TASKS -->
-            <div class="section" id="a1-tasks">
-                <h2>Tasks</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="a1-tasks-container"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- A2 SECTION -->
-    <div class="section" id="a2-section">
-        <header>
-            <h1><i class="fas fa-book"></i> US Education (A2)</h1>
-            <p>Learn more about schools in the United States</p>
-        </header>
-        
-        <nav>
-            <ul>
-                <li><button onclick="showSection('a2', 'vocab')" class="nav-btn active">Vocabulary</button></li>
-                <li><button onclick="showSection('a2', 'reading')" class="nav-btn">Reading</button></li>
-                <li><button onclick="showSection('a2', 'tasks')" class="nav-btn">Tasks</button></li>
-            </ul>
-        </nav>
-
-        <div class="container">
-            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-            
-            <!-- VOCAB -->
-            <div class="section active" id="a2-vocab">
-                <h2>Vocabulary</h2>
-                <div class="vocab-grid" id="a2-vocab-grid"></div>
-            </div>
-
-            <!-- READING -->
-            <div class="section" id="a2-reading">
-                <h2>Reading</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="reading-text" id="a2-reading-text"></div>
-            </div>
-
-            <!-- TASKS -->
-            <div class="section" id="a2-tasks">
-                <h2>Tasks</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="a2-tasks-container"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- B1 SECTION -->
-    <div class="section" id="b1-section">
-        <header>
-            <h1><i class="fas fa-book"></i> US Education (B1)</h1>
-            <p>Explore American education system in depth</p>
-        </header>
-        
-        <nav>
-            <ul>
-                <li><button onclick="showSection('b1', 'vocab')" class="nav-btn active">Vocabulary</button></li>
-                <li><button onclick="showSection('b1', 'reading')" class="nav-btn">Reading</button></li>
-                <li><button onclick="showSection('b1', 'tasks')" class="nav-btn">Tasks</button></li>
-            </ul>
-        </nav>
-
-        <div class="container">
-            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-            
-            <!-- VOCAB -->
-            <div class="section active" id="b1-vocab">
-                <h2>Vocabulary</h2>
-                <div class="vocab-grid" id="b1-vocab-grid"></div>
-            </div>
-
-            <!-- READING -->
-            <div class="section" id="b1-reading">
-                <h2>Reading</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="reading-text" id="b1-reading-text"></div>
-            </div>
-
-            <!-- TASKS -->
-            <div class="section" id="b1-tasks">
-                <h2>Tasks</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="b1-tasks-container"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // VOCABULARY DATA
-        const a1Vocab = [
-            { word: 'school', norwegian: 'skole' },
-            { word: 'teacher', norwegian: 'lærer' },
-            { word: 'student', norwegian: 'elev' },
-            { word: 'math', norwegian: 'matematikk' },
-            { word: 'play', norwegian: 'leke' },
-            { word: 'read', norwegian: 'lese' },
-            { word: 'write', norwegian: 'skrive' },
-            { word: 'learn', norwegian: 'lære' },
-            { word: 'subject', norwegian: 'fag' },
-            { word: 'English', norwegian: 'engelsk' },
-            { word: 'science', norwegian: 'naturfag' },
-            { word: 'age', norwegian: 'alder' }
-        ];
-
-        const a2Vocab = [
-            { word: 'elementary school', norwegian: 'barneskole' },
-            { word: 'secondary school', norwegian: 'ungdoms- og videregående skole' },
-            { word: 'grade', norwegian: 'trinn/klasse' },
-            { word: 'subject', norwegian: 'fag' },
-            { word: 'course', norwegian: 'kurs' },
-            { word: 'university', norwegian: 'universitet' },
-            { word: 'teacher', norwegian: 'lærer' },
-            { word: 'student', norwegian: 'elev' },
-            { word: 'difficult', norwegian: 'vanskelig' },
-            { word: 'easier', norwegian: 'lettere' },
-            { word: 'choose', norwegian: 'velge' },
-            { word: 'language', norwegian: 'språk' }
-        ];
-
-        const b1Vocab = [
-            { word: 'compulsory', norwegian: 'obligatorisk' },
-            { word: 'vocational', norwegian: 'faglig' },
-            { word: 'curriculum', norwegian: 'lærplan' },
-            { word: 'academic', norwegian: 'akademisk' },
-            { word: 'elective', norwegian: 'valgfritt fag' },
-            { word: 'subject', norwegian: 'fag' },
-            { word: 'education', norwegian: 'utdanning' },
-            { word: 'development', norwegian: 'utvikling' },
-            { word: 'kindergarten', norwegian: 'barnehageklasse' },
-            { word: 'ability', norwegian: 'evne' },
-            { word: 'schedule', norwegian: 'timeplan' },
-            { word: 'core subjects', norwegian: 'kjernefag' }
-        ];
-
-        // WORD SEARCH DATA
-        const wordSearchA1 = {
-            words: ['SCHOOL', 'TEACHER', 'STUDENT', 'MATH', 'PLAY', 'READ', 'WRITE', 'LEARN'],
-            grid: [
-                ['S', 'C', 'H', 'O', 'O', 'L', 'Q', 'W', 'E'],
-                ['R', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'T'],
-                ['Y', 'T', 'E', 'A', 'C', 'H', 'E', 'R', 'U'],
-                ['U', 'I', 'O', 'P', 'S', 'T', 'U', 'D', 'E'],
-                ['N', 'T', 'C', 'D', 'A', 'S', 'D', 'F', 'G'],
-                ['M', 'A', 'T', 'H', 'J', 'K', 'L', 'Z', 'X'],
-                ['P', 'L', 'A', 'Y', 'C', 'V', 'B', 'N', 'M'],
-                ['W', 'R', 'I', 'T', 'E', 'Q', 'W', 'E', 'R'],
-                ['L', 'E', 'A', 'R', 'N', 'T', 'Y', 'U', 'I']
-            ]
-        };
-
-        const wordSearchA2 = {
-            words: ['ELEMENTARY', 'SECONDARY', 'SUBJECT', 'GRADE', 'UNIVERSITY', 'COURSE', 'TEACHER'],
-            grid: [
-                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y'],
-                ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'L', 'K', 'J'],
-                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'H'],
-                ['Q', 'W', 'S', 'U', 'B', 'J', 'E', 'C', 'T', 'G'],
-                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T'],
-                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y'],
-                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V'],
-                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W']
-            ]
-        };
-
-        const wordSearchB1 = {
-            words: ['COMPULSORY', 'VOCATIONAL', 'CURRICULUM', 'ACADEMIC', 'ELECTIVE', 'SUBJECT', 'EDUCATION'],
-            grid: [
-                ['C', 'O', 'M', 'P', 'U', 'L', 'S', 'O', 'R', 'Y'],
-                ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'L', 'K', 'J'],
-                ['V', 'O', 'C', 'A', 'T', 'I', 'O', 'N', 'A', 'L'],
-                ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-                ['C', 'U', 'R', 'R', 'I', 'C', 'U', 'L', 'U', 'M'],
-                ['A', 'C', 'A', 'D', 'E', 'M', 'I', 'C', 'X', 'Y'],
-                ['E', 'L', 'E', 'C', 'T', 'I', 'V', 'E', 'Z', 'W'],
-                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'Q', 'P', 'R'],
-                ['E', 'D', 'U', 'C', 'A', 'T', 'I', 'O', 'N', 'S']
-            ]
-        };
-
-        // WORD SEARCH STATE
-        let wsState = {
-            selected: [],
-            found: []
-        };
-
-        // NAVIGATION
-        function selectLevel(level) {
-            document.getElementById('levelSelect').classList.add('hidden');
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(`${level}-section`).classList.add('active');
-            renderLevel(level);
-        }
-
-        function goBack() {
-            document.getElementById('levelSelect').classList.remove('hidden');
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        }
-
-        function showSection(level, section) {
-            document.querySelectorAll(`#${level}-section .section`).forEach(s => s.classList.remove('active'));
-            document.getElementById(`${level}-${section}`).classList.add('active');
-            document.querySelectorAll(`#${level}-section nav button`).forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        // RENDER LEVEL
-        function renderLevel(level) {
-            const vocab = level === 'a1' ? a1Vocab : level === 'a2' ? a2Vocab : b1Vocab;
-            renderVocab(level, vocab);
-            
-            if (level === 'a1') renderA1();
-            if (level === 'a2') renderA2();
-            if (level === 'b1') renderB1();
-        }
-
-        // VOCABULARY
-        function renderVocab(level, vocab) {
-            const grid = document.getElementById(`${level}-vocab-grid`);
-            grid.innerHTML = vocab.map(v => `
-                <div class="vocab-card">
-                    <div class="vocab-word">${v.word}</div>
-                    <div class="vocab-trans">${v.norwegian}</div>
-                    <button class="listen-btn" onclick="speak('${v.word}')"><i class="fas fa-volume-up"></i></button>
-                </div>
-            `).join('');
-        }
-
-        function speak(word) {
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = 'en-US';
-            speechSynthesis.speak(utterance);
-        }
-
-        // WORD SEARCH
-        function renderWordSearch(level, data) {
-            wsState = { selected: [], found: [] };
-            
-            let html = '<div class="ws-grid">';
-            data.grid.forEach((row, r) => {
-                html += '<div class="ws-row">';
-                row.forEach((letter, c) => {
-                    html += `<div class="ws-letter" data-r="${r}" data-c="${c}" onclick="toggleLetter(this, '${level}', ${r}, ${c})">${letter}</div>`;
-                });
-                html += '</div>';
-            });
-            html += '</div>';
-            
-            html += '<div class="ws-words"><h5>🔍 Finn disse ordene:</h5><div class="ws-word-list">';
-            data.words.forEach(word => {
-                html += `<div class="ws-word" data-word="${word}">${word}</div>`;
-            });
-            html += '</div></div>';
-            html += `<button class="ws-reset" onclick="resetWordSearch('${level}')"><i class="fas fa-redo"></i> Nytt spill</button>`;
-            
-            return html;
-        }
-
-        function toggleLetter(el, level, r, c) {
-            el.classList.toggle('selected');
-            if (el.classList.contains('selected')) {
-                wsState.selected.push({ el, r, c });
-            } else {
-                wsState.selected = wsState.selected.filter(s => s.r !== r || s.c !== c);
+            let tooltip = el.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.remove();
             }
             
-            if (wsState.selected.length >= 2) {
-                checkWord(level);
-            }
-        }
-
-        function checkWord(level) {
-            const data = level === 'a1' ? wordSearchA1 : level === 'a2' ? wordSearchA2 : wordSearchB1;
-            const selected = wsState.selected.map(s => data.grid[s.r][s.c]).join('');
-            
-            for (let word of data.words) {
-                if ((selected === word || selected === word.split('').reverse().join('')) && !wsState.found.includes(word)) {
-                    wsState.found.push(word);
-                    document.querySelectorAll(`[data-word="${word}"]`).forEach(el => el.classList.add('found'));
-                    wsState.selected.forEach(s => s.el.classList.add('found'));
-                }
-            }
-            
-            wsState.selected.forEach(s => s.el.classList.remove('selected'));
-            wsState.selected = [];
-        }
-
-        function resetWordSearch(level) {
-            wsState = { selected: [], found: [] };
-            document.querySelectorAll('.ws-letter').forEach(el => el.classList.remove('selected', 'found'));
-            document.querySelectorAll('.ws-word').forEach(el => el.classList.remove('found'));
-        }
-
-        // A1 CONTENT
-        function renderA1() {
-            const tasksHtml = `
-                <div class="task">
-                    <h4><i class="fas fa-search"></i> Word Search</h4>
-                    ${renderWordSearch('a1', wordSearchA1)}
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-link"></i> Match the words</h4>
-                    <p style="font-style: italic; color: #666; margin-bottom: 1rem;">Klikk på ord og definisjoner for å matche dem</p>
-                    <div class="match-grid">
-                        <div class="match-col">
-                            <strong>English:</strong>
-                            <div class="match-item" data-match="school" onclick="selectWord(this)">school</div>
-                            <div class="match-item" data-match="teacher" onclick="selectWord(this)">teacher</div>
-                            <div class="match-item" data-match="student" onclick="selectWord(this)">student</div>
-                            <div class="match-item" data-match="math" onclick="selectWord(this)">math</div>
-                            <div class="match-item" data-match="play" onclick="selectWord(this)">play</div>
-                        </div>
-                        <div class="match-col">
-                            <strong>Definition:</strong>
-                            <div class="match-item" data-match="play" onclick="selectDefinition(this)">have fun</div>
-                            <div class="match-item" data-match="student" onclick="selectDefinition(this)">a person who learns</div>
-                            <div class="match-item" data-match="school" onclick="selectDefinition(this)">a place to learn</div>
-                            <div class="match-item" data-match="math" onclick="selectDefinition(this)">numbers</div>
-                            <div class="match-item" data-match="teacher" onclick="selectDefinition(this)">a person who teaches</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-edit"></i> Fill in the gaps</h4>
-                    <p style="font-style: italic; margin-bottom: 1rem;">Bruk ordene: school / teacher / student / math / play</p>
-                    <div class="gapfill-sentence">I go to <input class="gapfill-input" type="text"> every day.</div>
-                    <div class="gapfill-sentence">A <input class="gapfill-input" type="text"> teaches in class.</div>
-                    <div class="gapfill-sentence">A <input class="gapfill-input" type="text"> learns in school.</div>
-                    <div class="gapfill-sentence">We learn <input class="gapfill-input" type="text"> in class.</div>
-                    <div class="gapfill-sentence">Children like to <input class="gapfill-input" type="text">.</div>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-question-circle"></i> True or False?</h4>
-                    <p style="margin-bottom: 1rem;">1. Children go to school for 5 years.</p>
-                    <div class="mc-options">
-                        <button class="mc-option" onclick="checkMC(this, false)">True</button>
-                        <button class="mc-option" onclick="checkMC(this, true)">False</button>
-                    </div>
-                    <p style="margin: 1.5rem 0 0.5rem;">2. Children play in pre-school.</p>
-                    <div class="mc-options">
-                        <button class="mc-option" onclick="checkMC(this, true)">True</button>
-                        <button class="mc-option" onclick="checkMC(this, false)">False</button>
-                    </div>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-pen-fancy"></i> Short writing</h4>
-                    <p style="margin-bottom: 1rem;">Write 2-3 sentences about your school.</p>
-                    <textarea placeholder="Skriv svar her..."></textarea>
-                </div>
-            `;
-            document.getElementById('a1-tasks-container').innerHTML = tasksHtml;
-        }
-
-        // A2 CONTENT
-        function renderA2() {
-            const readingHtml = `
-                <h3><i class="fas fa-school"></i> School in the United States</h3>
-                <p>American children go to school for 12 years. Many children start in pre-school or kindergarten. They learn the alphabet, numbers, and social skills.</p>
-                <h3><i class="fas fa-graduation-cap"></i> Elementary School</h3>
-                <p>Children start school at age five. They attend elementary school for five or six years. In elementary school, teachers teach subjects like English, math, science, and social studies.</p>
-                <h3><i class="fas fa-book"></i> Secondary School</h3>
-                <p>After elementary school, students go to secondary school. Secondary school has two parts: junior high school and senior high school. In high school, students can choose many subjects.</p>
-            `;
-            document.getElementById('a2-reading-text').innerHTML = readingHtml;
-
-            const tasksHtml = `
-                <div class="task">
-                    <h4><i class="fas fa-search"></i> Word Search</h4>
-                    ${renderWordSearch('a2', wordSearchA2)}
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-link"></i> Match the words</h4>
-                    <div class="match-grid">
-                        <div class="match-col">
-                            <strong>English:</strong>
-                            <div class="match-item" data-match="elementary" onclick="selectWord(this)">elementary school</div>
-                            <div class="match-item" data-match="secondary" onclick="selectWord(this)">secondary school</div>
-                            <div class="match-item" data-match="grade" onclick="selectWord(this)">grade</div>
-                            <div class="match-item" data-match="course" onclick="selectWord(this)">course</div>
-                            <div class="match-item" data-match="university" onclick="selectWord(this)">university</div>
-                        </div>
-                        <div class="match-col">
-                            <strong>Definition:</strong>
-                            <div class="match-item" data-match="university" onclick="selectDefinition(this)">a school for older students</div>
-                            <div class="match-item" data-match="grade" onclick="selectDefinition(this)">a class level</div>
-                            <div class="match-item" data-match="course" onclick="selectDefinition(this)">a subject you study</div>
-                            <div class="match-item" data-match="secondary" onclick="selectDefinition(this)">junior and senior high school</div>
-                            <div class="match-item" data-match="elementary" onclick="selectDefinition(this)">school for young children</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-pen-fancy"></i> Short writing (2-3 sentences)</h4>
-                    <p style="margin-bottom: 1rem; font-weight: 600;">Describe your school. What subjects do you study?</p>
-                    <textarea placeholder="Skriv 2-3 setninger..." style="min-height: 150px;"></textarea>
-                </div>
-            `;
-            document.getElementById('a2-tasks-container').innerHTML = tasksHtml;
-        }
-
-        // B1 CONTENT
-        function renderB1() {
-            const readingHtml = `
-                <h3><i class="fas fa-graduation-cap"></i> American Education System</h3>
-                <p>American children go to school for 12 years. The education system has different levels including kindergarten, elementary school, secondary school, and higher education. Unlike Norwegian schools, public schools in the United States do not follow one national curriculum.</p>
-                <h3><i class="fas fa-list"></i> Types of Courses</h3>
-                <p>There are three main types of courses: academic, vocational, and general. Academic courses are for students who plan to continue to higher education, while vocational courses prepare students for a trade, such as car mechanics or hairdressing.</p>
-                <h3><i class="fas fa-book-reader"></i> Core and Elective Subjects</h3>
-                <p>Even though students have some freedom, there are still certain subjects that are compulsory for everyone. These are called core subjects and typically include English, mathematics, science, social studies, and physical education. In addition to these subjects, most schools offer elective courses, such as foreign languages, arts, music, and drama.</p>
-            `;
-            document.getElementById('b1-reading-text').innerHTML = readingHtml;
-
-            const tasksHtml = `
-                <div class="task">
-                    <h4><i class="fas fa-search"></i> Word Search</h4>
-                    ${renderWordSearch('b1', wordSearchB1)}
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-search"></i> Scanning for information</h4>
-                    <p style="margin-bottom: 1rem;">Find these in the text:</p>
-                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-                        <li>The levels of American education</li>
-                        <li>Three types of courses</li>
-                        <li>Five core subjects</li>
-                    </ul>
-                    <textarea placeholder="Skriv dine svar her..." style="min-height: 120px;"></textarea>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-book-reader"></i> Reading comprehension</h4>
-                    <p style="margin-bottom: 1rem;">Answer in full sentences:</p>
-                    <ol style="margin-left: 2rem; margin-bottom: 1rem;">
-                        <li>What are the three types of courses?</li>
-                        <li>What are core subjects?</li>
-                        <li>Name three examples of elective subjects.</li>
-                    </ol>
-                    <textarea placeholder="Skriv svar på spørsmålene..." style="min-height: 200px;"></textarea>
-                </div>
-
-                <div class="task">
-                    <h4><i class="fas fa-pen-fancy"></i> Short writing</h4>
-                    <p style="margin-bottom: 1rem;">Write 5-7 sentences comparing American and Norwegian schools.</p>
-                    <textarea placeholder="Skriv ditt svar her..." style="min-height: 180px;"></textarea>
-                </div>
-            `;
-            document.getElementById('b1-tasks-container').innerHTML = tasksHtml;
-        }
-
-        // MATCH FUNCTIONS
-        let selectedWord = null;
-
-        function selectWord(el) {
-            document.querySelectorAll('.match-col:first-child .match-item').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedWord = el.getAttribute('data-match');
-        }
-
-        function selectDefinition(el) {
-            if (!selectedWord) return;
-            const isCorrect = el.getAttribute('data-match') === selectedWord;
-            
-            if (isCorrect) {
-                el.classList.add('correct');
-                document.querySelector(`[data-match="${selectedWord}"].selected`).classList.add('correct');
-            } else {
-                el.classList.add('incorrect');
-                setTimeout(() => el.classList.remove('incorrect'), 500);
-            }
-            selectedWord = null;
-        }
-
-        function checkMC(btn, isCorrect) {
-            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-            btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
-        }
-
-        // INIT
-        window.addEventListener('load', () => {
-            document.getElementById('levelSelect').classList.remove('hidden');
+            const translation = el.getAttribute(`data-${selectedLang}`);
+            const newTooltip = document.createElement('div');
+            newTooltip.className = 'tooltip';
+            newTooltip.textContent = translation;
+            el.appendChild(newTooltip);
         });
-    </script>
+    }
+
+    function checkA1Task1() {
+        const selected = document.querySelector('input[name="taskA1_1"]:checked');
+        const feedback = document.getElementById('feedbackA1_1');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! School is where American children learn.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        } else {
+            feedback.textContent = '';
+        }
+    }
+
+    function checkA1Task2() {
+        const selected = document.querySelector('input[name="taskA1_2"]:checked');
+        const feedback = document.getElementById('feedbackA1_2');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! Children start school at age five.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        } else {
+            feedback.textContent = '';
+        }
+    }
+
+    function checkA1Task3() {
+        const value = document.getElementById('taskA1_3').value.toLowerCase().trim();
+        const feedback = document.getElementById('feedbackA1_3');
+        if (value === 'pre-school' || value === 'preschool' || value === 'daycare') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (value) {
+            feedback.textContent = '✗ Try again! (pre-school or daycare)';
+            feedback.className = 'feedback incorrect';
+        } else {
+            feedback.textContent = '';
+        }
+    }
+
+    function checkA2Task2() {
+        const selected = document.querySelector('#taskA2_2').value;
+        const feedback = document.getElementById('feedbackA2_2');
+        if (selected === 'daycare') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        } else {
+            feedback.textContent = '';
+        }
+    }
+
+    function checkA2Task1a() {
+        const value = document.getElementById('taskA2_1a').value.toLowerCase().trim();
+        const feedback = document.getElementById('feedbackA2_1a');
+        if (value === '12' || value === 'twelve') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (value) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task1b() {
+        const value = document.getElementById('taskA2_1b').value.toLowerCase().trim();
+        const feedback = document.getElementById('feedbackA2_1b');
+        if (value === 'five' || value === '5') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (value) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task4a() {
+        const selected = document.querySelector('input[name="taskA2_4a"]:checked');
+        const feedback = document.getElementById('feedbackA2_4a');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkA2Task4b() {
+        const selected = document.querySelector('input[name="taskA2_4b"]:checked');
+        const feedback = document.getElementById('feedbackA2_4b');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! Kindergarten is required in MOST states, not all.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Vocab1() {
+        const selected = document.querySelector('input[name="vocab1"]:checked');
+        const feedback = document.getElementById('feedbackB1_vocab1');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Vocab2() {
+        const selected = document.querySelector('input[name="vocab2"]:checked');
+        const feedback = document.getElementById('feedbackB1_vocab2');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Vocab3() {
+        const selected = document.querySelector('input[name="vocab3"]:checked');
+        const feedback = document.getElementById('feedbackB1_vocab3');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct!';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Task4a() {
+        const selected = document.querySelector('input[name="taskB1_4a"]:checked');
+        const feedback = document.getElementById('feedbackB1_4a');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! Each state has its own curriculum.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function checkB1Task4b() {
+        const selected = document.querySelector('input[name="taskB1_4b"]:checked');
+        const feedback = document.getElementById('feedbackB1_4b');
+        if (selected && selected.value === 'correct') {
+            feedback.textContent = '✓ Correct! In elementary school, students take required subjects.';
+            feedback.className = 'feedback correct';
+        } else if (selected) {
+            feedback.textContent = '✗ Try again!';
+            feedback.className = 'feedback incorrect';
+        }
+    }
+
+    function toggleWord(element, level) {
+        element.classList.toggle('selected');
+        updateSentenceOutput(level);
+    }
+
+    function updateSentenceOutput(level) {
+        const builder = document.getElementById('builder' + level);
+        const output = document.getElementById('output' + level);
+        const selected = Array.from(builder.querySelectorAll('.word-card.selected')).map(el => el.textContent);
+        output.textContent = selected.join(' ');
+    }
+
+    function exportToPDF(level) {
+        window.print();
+    }
+
+    // Initialize language tooltips on load
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.content-page').forEach(page => {
+            const levelMatch = page.id.match(/page(A1|A2|B1)/);
+            if (levelMatch) {
+                updateLanguage(levelMatch[1]);
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
