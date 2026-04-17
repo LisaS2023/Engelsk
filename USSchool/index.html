@@ -3,190 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US Education – English Learning</title>
+    <title>US Education - English Learning Resource</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
             --primary: #1e3c72;
             --secondary: #c41e3a;
             --accent: #f39c12;
             --success: #66bb6a;
-            --bg-light: #f8f9fa;
-            --text-dark: #1a1a1a;
-            --text-light: #ffffff;
             --border: #e0e0e0;
+            --text-dark: #333;
+            --bg-light: #f5f7ff;
         }
-        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
-
+        
+        body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: #f9f9f9; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
         /* LEVEL SELECT */
-        .level-select { display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .level-select { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
         .level-select.hidden { display: none; }
-        .level-select-content { text-align: center; animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .level-select h1 { font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--text-light); margin-bottom: 1rem; font-weight: 900; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-        .level-select p { font-size: 1.3rem; color: rgba(255, 255, 255, 0.95); margin-bottom: 3rem; font-weight: 500; }
-        .level-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-        .level-btn { padding: 1.3rem 2.8rem; font-size: 1.15rem; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; transition: all 0.4s ease; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
-        .level-btn.a1 { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); color: white; }
-        .level-btn.a2 { background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%); color: white; }
-        .level-btn.b1 { background: linear-gradient(135deg, #c41e3a 0%, #a71830 100%); color: white; }
-        .level-btn:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); }
-        .level-btn i { font-size: 1.4rem; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
-
+        .level-select h1 { color: white; font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .level-buttons { display: flex; gap: 2rem; }
+        .level-btn { padding: 1.2rem 2.5rem; font-size: 1.5rem; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; color: white; }
+        .level-btn.a1 { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); }
+        .level-btn.a2 { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
+        .level-btn.b1 { background: linear-gradient(135deg, #c41e3a 0%, #a71830 100%); }
+        .level-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        
         /* HEADER */
-        header { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; padding: 3rem 20px; text-align: center; margin-bottom: 0; }
-        header h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
-        header h1 i { animation: bounce 3s ease-in-out infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        header p { font-size: 1.2rem; opacity: 0.95; font-weight: 500; }
-
+        header { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; padding: 2rem; text-align: center; }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        
         /* NAV */
-        nav { background: white; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 100; margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
-        nav ul { list-style: none; display: flex; gap: 2rem; max-width: 1000px; margin: 0 auto; padding: 1.2rem 20px; flex-wrap: wrap; }
-        nav button { background: none; border: none; font-size: 1.05rem; font-weight: 700; cursor: pointer; padding: 0.7rem 1.5rem; border-radius: 8px; transition: all 0.3s ease; color: var(--text-dark); display: flex; align-items: center; gap: 0.6rem; }
-        nav button:hover { background: rgba(30, 60, 114, 0.08); }
-        nav button.active { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3); }
-
-        /* CONTENT */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        .content-wrapper { display: none; }
-        .content-wrapper.active { display: block; }
-        .section { display: none; animation: fadeIn 0.5s ease-in; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 2rem; color: var(--primary); border-bottom: 3px solid var(--accent); padding-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
-        h2 i { color: var(--accent); font-size: 2rem; }
-
-        /* BACK BUTTON */
-        .back-btn { background: rgba(255, 255, 255, 0.2); color: white; border: 2px solid rgba(255, 255, 255, 0.4); padding: 0.9rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.6rem; font-size: 1rem; margin-bottom: 2rem; }
-        .back-btn:hover { background: rgba(255, 255, 255, 0.3); border-color: rgba(255, 255, 255, 0.6); transform: translateX(-5px); }
-
-        /* VOCAB */
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; margin-bottom: 2rem; }
-        .vocab-card { background: white; border: 2px solid var(--border); border-radius: 12px; padding: 1.8rem; cursor: pointer; transition: all 0.4s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
-        .vocab-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); border-color: var(--primary); }
-        .vocab-english { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; }
-        .vocab-english i { color: var(--accent); font-size: 1.2rem; }
-        .vocab-norwegian { font-size: 1rem; color: #777; margin-bottom: 1.5rem; font-weight: 500; padding-left: 2rem; }
-        .vocab-btn { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; border: none; padding: 0.8rem 1.6rem; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 700; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.6rem; }
-        .vocab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 20px rgba(30, 60, 114, 0.35); }
-
-        /* TEXT */
-        .reading-text { background: white; padding: 2.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 6px solid var(--accent); line-height: 1.9; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
-        .reading-text p { margin-bottom: 1.2rem; color: #333; }
-        .reading-text h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--secondary); }
-
-        /* TASKS */
-        .tasks { background: white; padding: 2.5rem; border-radius: 12px; margin-bottom: 2rem; border: 2px solid var(--border); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
-        .task { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px dashed var(--border); }
-        .task:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .task h4 { font-weight: 800; margin-bottom: 1.2rem; color: var(--secondary); font-size: 1.15rem; display: flex; align-items: center; gap: 0.8rem; }
-        .task h4 i { color: var(--accent); font-size: 1.3rem; }
-
+        nav { background: var(--primary); padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        nav ul { list-style: none; display: flex; gap: 1rem; justify-content: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; }
+        nav button { background: none; border: 2px solid white; color: white; padding: 0.7rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        nav button.active, nav button:hover { background: var(--accent); border-color: var(--accent); }
+        
+        /* CONTAINER */
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
         /* BUTTONS */
-        .export-btn { background: linear-gradient(135deg, var(--success) 0%, #43a047 100%); color: white; border: none; padding: 1rem 2.5rem; border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.05rem; box-shadow: 0 6px 20px rgba(102, 187, 106, 0.25); }
-        .export-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(102, 187, 106, 0.35); }
-
-        /* MATCH */
-        .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
-        .match-col { display: flex; flex-direction: column; gap: 1rem; }
-        .match-item { background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%); padding: 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; user-select: none; font-weight: 600; }
-        .match-item:hover { background: #e8f4f8; border-color: var(--primary); transform: translateX(8px); }
-        .match-item.selected { background: linear-gradient(135deg, var(--primary) 0%, #0f3a7d 100%); color: white; border-color: var(--primary); box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3); }
-        .match-item.correct { background: #e8f5e9; border-color: var(--success); color: #2e7d32; }
-        .match-item.incorrect { background: #ffebee; border-color: var(--secondary); color: #c41e3a; }
-
+        .back-btn { background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 1.5rem; transition: all 0.3s ease; }
+        .back-btn:hover { background: #0f3a7d; transform: translateX(-4px); }
+        .export-btn { background: var(--secondary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-bottom: 1.5rem; transition: all 0.3s ease; }
+        .export-btn:hover { background: #a71830; }
+        
+        /* READING */
+        .reading-text { background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent); line-height: 1.8; margin-bottom: 2rem; }
+        .reading-text h3 { margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary); }
+        .reading-text p { margin-bottom: 1rem; }
+        
+        /* VOCABULARY */
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .vocab-card { background: white; padding: 1.5rem; border-radius: 8px; border: 2px solid var(--primary); text-align: center; cursor: pointer; transition: all 0.3s ease; }
+        .vocab-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .vocab-word { font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .vocab-trans { font-size: 0.9rem; color: #666; }
+        .listen-btn { background: var(--accent); color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-top: 0.5rem; }
+        
+        /* TASKS */
+        .tasks { background: white; padding: 2rem; border-radius: 8px; }
+        .task { margin-bottom: 2.5rem; padding: 1.5rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary); }
+        .task h4 { color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; }
+        
         /* WORD SEARCH */
-        .wordsearch-container { margin-top: 1.5rem; }
-        .wordsearch-grid { display: grid; gap: 0.3rem; margin: 1.5rem 0; padding: 1rem; background: white; border: 2px solid var(--primary); border-radius: 8px; width: fit-content; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
-        .wordsearch-row { display: flex; gap: 0.3rem; }
-        .wordsearch-letter { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 1.1rem; color: var(--text-dark); transition: all 0.2s ease; user-select: none; }
-        .wordsearch-letter:hover { background: #f0f7ff; border-color: var(--primary); }
-        .wordsearch-letter.selected { background: var(--primary); color: white; border-color: var(--primary); }
-        .wordsearch-letter.found { background: linear-gradient(135deg, var(--success) 0%, #43a047 100%); color: white; border-color: var(--success); }
-        .wordsearch-words { margin-top: 1.5rem; padding: 1rem; background: #f0f7ff; border-radius: 8px; border-left: 4px solid var(--primary); }
-        .wordsearch-words h4 { margin-bottom: 0.8rem; color: var(--primary); font-size: 1rem; }
-        .wordsearch-word-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-        .wordsearch-word-item { background: white; border: 2px solid var(--primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; color: var(--primary); font-size: 0.9rem; transition: all 0.2s ease; }
-        .wordsearch-word-item.found { background: var(--success); border-color: var(--success); color: white; text-decoration: line-through; }
-        .wordsearch-info { background: #fff3e0; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent); margin-bottom: 1rem; font-size: 0.95rem; color: #333; }
-        .wordsearch-reset-btn { background: linear-gradient(135deg, var(--secondary) 0%, #a71830 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; margin-top: 1rem; }
-        .mc-option { background: white; border: 2px solid var(--border); padding: 1.2rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
-        .mc-option:hover { border-color: var(--primary); background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%); transform: translateX(8px); }
-        .mc-option.correct { background: #e8f5e9; border-color: var(--success); color: #2e7d32; }
-        .mc-option.incorrect { background: #ffebee; border-color: var(--secondary); color: #c41e3a; }
-
-        /* INPUTS */
-        .gapfill-sentence { background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%); padding: 1.2rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--accent); }
-        .gapfill-input { background: white; border: 2px solid var(--accent); padding: 0.7rem 1rem; border-radius: 6px; font-family: inherit; font-size: 1rem; min-width: 140px; font-weight: 600; }
-        /* TOOLTIPS */
-        .tooltip-word { position: relative; cursor: help; color: var(--primary); font-weight: 600; border-bottom: 2px dotted var(--accent); }
-        .tooltip-word:hover::after { content: attr(data-no); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; white-space: nowrap; z-index: 1000; font-weight: 500; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
-        .tooltip-word:hover::before { content: ''; position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--primary); z-index: 1000; }
-
+        .ws-grid { display: grid; gap: 0.25rem; margin: 1.5rem 0; width: fit-content; }
+        .ws-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(40px, 40px)); gap: 0.25rem; }
+        .ws-letter { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: white; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; font-weight: 700; user-select: none; transition: all 0.2s ease; }
+        .ws-letter:hover { background: var(--bg-light); }
+        .ws-letter.selected { background: var(--accent); color: white; border-color: var(--accent); }
+        .ws-letter.found { background: var(--success); color: white; border-color: var(--success); }
+        
+        .ws-words { margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .ws-words h5 { margin-bottom: 0.8rem; color: var(--primary); }
+        .ws-word-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .ws-word { background: white; border: 2px solid var(--primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; color: var(--primary); transition: all 0.2s ease; }
+        .ws-word.found { background: var(--success); border-color: var(--success); color: white; text-decoration: line-through; }
+        
+        .ws-reset { background: var(--secondary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 1rem; }
+        
+        /* MATCH */
+        .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1.5rem 0; }
+        .match-col { display: flex; flex-direction: column; gap: 0.8rem; }
+        .match-col strong { margin-bottom: 0.5rem; color: var(--primary); }
+        .match-item { padding: 0.8rem 1rem; background: white; border: 2px solid var(--primary); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .match-item:hover { background: var(--bg-light); }
+        .match-item.selected { background: var(--accent); color: white; border-color: var(--accent); }
+        .match-item.correct { background: var(--success); color: white; border-color: var(--success); }
+        .match-item.incorrect { background: #ffebee; border-color: var(--secondary); color: var(--secondary); }
+        
+        /* GAP FILL */
+        .gapfill-sentence { background: var(--bg-light); padding: 1rem; border-radius: 6px; margin-bottom: 0.8rem; border-left: 4px solid var(--accent); }
+        .gapfill-input { background: white; border: 2px solid var(--accent); padding: 0.5rem 0.8rem; border-radius: 4px; font-family: inherit; min-width: 120px; }
+        
+        /* MULTIPLE CHOICE */
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
+        .mc-option { background: white; border: 2px solid var(--primary); padding: 0.8rem 1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .mc-option:hover { background: var(--bg-light); }
+        .mc-option.correct { background: var(--success); color: white; border-color: var(--success); }
+        .mc-option.incorrect { background: #ffebee; color: var(--secondary); border-color: var(--secondary); }
+        
+        /* TEXTAREA */
+        textarea { width: 100%; padding: 1rem; border: 2px solid var(--primary); border-radius: 8px; font-family: inherit; min-height: 120px; resize: vertical; }
+        textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1); }
+        
         @media (max-width: 768px) {
-            .tooltip-word:hover::after, .tooltip-word:hover::before { display: none; }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .level-select h1 { font-size: 2.8rem; }
+            .level-buttons { flex-direction: column; gap: 1rem; }
             .match-grid { grid-template-columns: 1fr; }
-            nav ul { gap: 0.8rem; }
-            h2 { font-size: 1.8rem; }
+            nav ul { gap: 0.5rem; }
+            .ws-letter { width: 35px; height: 35px; font-size: 0.9rem; }
         }
-
+        
         @media print {
-            .level-select, nav, .back-btn, .export-btn { display: none; }
-            body { background: white; }
+            nav, .back-btn, .export-btn, .ws-reset { display: none; }
+            .section { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
     <!-- LEVEL SELECT -->
     <div class="level-select" id="levelSelect">
-        <div class="level-select-content">
-            <h1><i class="fas fa-book-open"></i> US Education</h1>
-            <p>✨ Velg ditt CEFR-nivå for å starte ✨</p>
-            <div class="level-buttons">
-                <button class="level-btn a1" onclick="selectLevel('a1')"><i class="fas fa-leaf"></i> A1 Beginner</button>
-                <button class="level-btn a2" onclick="selectLevel('a2')"><i class="fas fa-flame"></i> A2 Elementary</button>
-                <button class="level-btn b1" onclick="selectLevel('b1')"><i class="fas fa-rocket"></i> B1 Intermediate</button>
-            </div>
+        <h1><i class="fas fa-book"></i> US Education</h1>
+        <div class="level-buttons">
+            <button class="level-btn a1" onclick="selectLevel('a1')">A1</button>
+            <button class="level-btn a2" onclick="selectLevel('a2')">A2</button>
+            <button class="level-btn b1" onclick="selectLevel('b1')">B1</button>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="content-wrapper" id="contentWrapper">
+    <!-- A1 SECTION -->
+    <div class="section" id="a1-section">
         <header>
-            <h1><i class="fas fa-book-open"></i> US Education</h1>
-            <p id="levelTitle"></p>
+            <h1><i class="fas fa-book"></i> US Education (A1)</h1>
+            <p>Learn about schools in the United States</p>
         </header>
-
-        <nav id="nav" style="display: none;">
-            <ul id="navMenu"></ul>
+        
+        <nav>
+            <ul>
+                <li><button onclick="showSection('a1', 'vocab')" class="nav-btn active">Vocabulary</button></li>
+                <li><button onclick="showSection('a1', 'reading')" class="nav-btn">Reading</button></li>
+                <li><button onclick="showSection('a1', 'tasks')" class="nav-btn">Tasks</button></li>
+            </ul>
         </nav>
 
-        <!-- A1 VOCAB -->
-        <div class="section" id="a1-vocab">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-language"></i> Vocabulary (A1)</h2>
-                <div class="vocab-grid" id="a1VocabGrid"></div>
+        <div class="container">
+            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
+            
+            <!-- VOCAB -->
+            <div class="section active" id="a1-vocab">
+                <h2>Vocabulary</h2>
+                <div class="vocab-grid" id="a1-vocab-grid"></div>
             </div>
-        </div>
 
-        <!-- A1 READING -->
-        <div class="section" id="a1-reading">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-book"></i> Reading (A1)</h2>
-                <div class="reading-text" id="a1ReadingText">
+            <!-- READING -->
+            <div class="section" id="a1-reading">
+                <h2>Reading</h2>
+                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
+                <div class="reading-text" id="a1-reading-text">
                     <p>American children go to school for 12 years.</p>
                     <p>Before school, many children go to pre-school. They play and learn. They learn to read and write.</p>
                     <p>Children start school at age five. A teacher helps the students.</p>
@@ -194,181 +177,152 @@
                     <p>In school, a student learns many things. Students have a teacher in class.</p>
                     <p>In high school, students can choose some subjects.</p>
                 </div>
+            </div>
+
+            <!-- TASKS -->
+            <div class="section" id="a1-tasks">
+                <h2>Tasks</h2>
                 <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
+                <div class="tasks" id="a1-tasks-container"></div>
             </div>
         </div>
+    </div>
 
-        <!-- A1 TASKS -->
-        <div class="section" id="a1-tasks">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-tasks"></i> Tasks (A1)</h2>
+    <!-- A2 SECTION -->
+    <div class="section" id="a2-section">
+        <header>
+            <h1><i class="fas fa-book"></i> US Education (A2)</h1>
+            <p>Learn more about schools in the United States</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><button onclick="showSection('a2', 'vocab')" class="nav-btn active">Vocabulary</button></li>
+                <li><button onclick="showSection('a2', 'reading')" class="nav-btn">Reading</button></li>
+                <li><button onclick="showSection('a2', 'tasks')" class="nav-btn">Tasks</button></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
+            
+            <!-- VOCAB -->
+            <div class="section active" id="a2-vocab">
+                <h2>Vocabulary</h2>
+                <div class="vocab-grid" id="a2-vocab-grid"></div>
+            </div>
+
+            <!-- READING -->
+            <div class="section" id="a2-reading">
+                <h2>Reading</h2>
                 <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="a1TasksContainer"></div>
+                <div class="reading-text" id="a2-reading-text"></div>
             </div>
-        </div>
 
-        <!-- A2 VOCAB -->
-        <div class="section" id="a2-vocab">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-language"></i> Vocabulary (A2)</h2>
-                <div class="vocab-grid" id="a2VocabGrid"></div>
-            </div>
-        </div>
-
-        <!-- A2 READING -->
-        <div class="section" id="a2-reading">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-book"></i> Reading (A2)</h2>
-                <div class="reading-text" id="a2ReadingContent"></div>
+            <!-- TASKS -->
+            <div class="section" id="a2-tasks">
+                <h2>Tasks</h2>
                 <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
+                <div class="tasks" id="a2-tasks-container"></div>
             </div>
         </div>
+    </div>
 
-        <!-- A2 TASKS -->
-        <div class="section" id="a2-tasks">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-tasks"></i> Tasks (A2)</h2>
+    <!-- B1 SECTION -->
+    <div class="section" id="b1-section">
+        <header>
+            <h1><i class="fas fa-book"></i> US Education (B1)</h1>
+            <p>Explore American education system in depth</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><button onclick="showSection('b1', 'vocab')" class="nav-btn active">Vocabulary</button></li>
+                <li><button onclick="showSection('b1', 'reading')" class="nav-btn">Reading</button></li>
+                <li><button onclick="showSection('b1', 'tasks')" class="nav-btn">Tasks</button></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
+            
+            <!-- VOCAB -->
+            <div class="section active" id="b1-vocab">
+                <h2>Vocabulary</h2>
+                <div class="vocab-grid" id="b1-vocab-grid"></div>
+            </div>
+
+            <!-- READING -->
+            <div class="section" id="b1-reading">
+                <h2>Reading</h2>
                 <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="a2TasksContainer"></div>
+                <div class="reading-text" id="b1-reading-text"></div>
             </div>
-        </div>
 
-        <!-- B1 VOCAB -->
-        <div class="section" id="b1-vocab">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-language"></i> Vocabulary (B1)</h2>
-                <div class="vocab-grid" id="b1VocabGrid"></div>
-            </div>
-        </div>
-
-        <!-- B1 READING -->
-        <div class="section" id="b1-reading">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-book"></i> Reading (B1)</h2>
-                <div class="reading-text" id="b1ReadingContent"></div>
+            <!-- TASKS -->
+            <div class="section" id="b1-tasks">
+                <h2>Tasks</h2>
                 <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-            </div>
-        </div>
-
-        <!-- B1 TASKS -->
-        <div class="section" id="b1-tasks">
-            <div class="container">
-                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Tilbake til nivåvalg</button>
-                <h2><i class="fas fa-tasks"></i> Tasks (B1)</h2>
-                <button class="export-btn" onclick="window.print()"><i class="fas fa-file-pdf"></i> Lagre som PDF</button>
-                <div class="tasks" id="b1TasksContainer"></div>
+                <div class="tasks" id="b1-tasks-container"></div>
             </div>
         </div>
     </div>
 
     <script>
+        // VOCABULARY DATA
         const a1Vocab = [
             { word: 'school', norwegian: 'skole' },
-            { word: 'student', norwegian: 'elev' },
             { word: 'teacher', norwegian: 'lærer' },
-            { word: 'learn', norwegian: 'lære' },
-            { word: 'subject', norwegian: 'fag' },
+            { word: 'student', norwegian: 'elev' },
             { word: 'math', norwegian: 'matematikk' },
-            { word: 'English', norwegian: 'engelsk' },
-            { word: 'science', norwegian: 'naturfag' },
             { word: 'play', norwegian: 'leke' },
             { word: 'read', norwegian: 'lese' },
             { word: 'write', norwegian: 'skrive' },
-            { word: 'start', norwegian: 'starte' },
+            { word: 'learn', norwegian: 'lære' },
+            { word: 'subject', norwegian: 'fag' },
+            { word: 'English', norwegian: 'engelsk' },
+            { word: 'science', norwegian: 'naturfag' },
             { word: 'age', norwegian: 'alder' }
         ];
 
         const a2Vocab = [
             { word: 'elementary school', norwegian: 'barneskole' },
             { word: 'secondary school', norwegian: 'ungdoms- og videregående skole' },
-            { word: 'junior high school', norwegian: 'ungdomsskole' },
-            { word: 'senior high school', norwegian: 'videregående skole' },
-            { word: 'grade', norwegian: 'klassetrinn' },
+            { word: 'grade', norwegian: 'trinn/klasse' },
             { word: 'subject', norwegian: 'fag' },
-            { word: 'choose', norwegian: 'velge' },
             { word: 'course', norwegian: 'kurs' },
+            { word: 'university', norwegian: 'universitet' },
+            { word: 'teacher', norwegian: 'lærer' },
+            { word: 'student', norwegian: 'elev' },
             { word: 'difficult', norwegian: 'vanskelig' },
             { word: 'easier', norwegian: 'lettere' },
-            { word: 'university', norwegian: 'universitet' },
-            { word: 'job', norwegian: 'jobb' }
+            { word: 'choose', norwegian: 'velge' },
+            { word: 'language', norwegian: 'språk' }
         ];
 
         const b1Vocab = [
-            { word: 'attend', norwegian: 'gå på' },
-            { word: 'development', norwegian: 'utvikling' },
-            { word: 'social skills', norwegian: 'sosiale ferdigheter' },
-            { word: 'kindergarten', norwegian: 'barnehageklasse' },
             { word: 'compulsory', norwegian: 'obligatorisk' },
-            { word: 'curriculum', norwegian: 'læreplan' },
+            { word: 'vocational', norwegian: 'faglig' },
+            { word: 'curriculum', norwegian: 'lærplan' },
+            { word: 'academic', norwegian: 'akademisk' },
+            { word: 'elective', norwegian: 'valgfritt fag' },
+            { word: 'subject', norwegian: 'fag' },
+            { word: 'education', norwegian: 'utdanning' },
+            { word: 'development', norwegian: 'utvikling' },
+            { word: 'kindergarten', norwegian: 'barnehageklasse' },
             { word: 'ability', norwegian: 'evne' },
-            { word: 'academic', norwegian: 'teoretisk' },
-            { word: 'vocational', norwegian: 'yrkesfaglig' },
-            { word: 'higher education', norwegian: 'høyere utdanning' },
-            { word: 'core subjects', norwegian: 'kjernefag' },
-            { word: 'elective', norwegian: 'valgfag' },
-            { word: 'schedule', norwegian: 'timeplan' }
+            { word: 'schedule', norwegian: 'timeplan' },
+            { word: 'core subjects', norwegian: 'kjernefag' }
         ];
 
-        let currentLevel = null;
-
-        function selectLevel(level) {
-            currentLevel = level;
-            document.getElementById('levelSelect').classList.add('hidden');
-            document.getElementById('contentWrapper').classList.add('active');
-            document.getElementById('nav').style.display = 'block';
-            
-            const titles = { a1: 'A1 – Beginner 🌱', a2: 'A2 – Elementary 🔥', b1: 'B1 – Intermediate 🚀' };
-            document.getElementById('levelTitle').textContent = titles[level];
-            
-            buildNav(level);
-            showSection(level, 'vocab');
-            
-            if (level === 'a1') renderA1();
-            else if (level === 'a2') renderA2();
-            else if (level === 'b1') renderB1();
-        }
-
-        function buildNav(level) {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.innerHTML = '';
-            const sections = [
-                { label: 'Vocabulary', icon: 'fas fa-language', id: 'vocab' },
-                { label: 'Reading', icon: 'fas fa-book', id: 'reading' },
-                { label: 'Tasks', icon: 'fas fa-tasks', id: 'tasks' }
-            ];
-            
-            sections.forEach((section, i) => {
-                const btn = document.createElement('button');
-                btn.innerHTML = `<i class="${section.icon}"></i> ${section.label}`;
-                btn.className = i === 0 ? 'active' : '';
-                btn.onclick = () => showSection(level, section.id);
-                navMenu.appendChild(btn);
-            });
-        }
-
-        function showSection(level, sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(`${level}-${sectionId}`).classList.add('active');
-            
-            document.querySelectorAll('nav button').forEach((btn, i) => {
-                const sectionIds = ['vocab', 'reading', 'tasks'];
-                btn.classList.toggle('active', sectionIds[i] === sectionId);
-            });
-        }
-
-        // WORD SEARCH DATA - Spredt ut i hele gridet
-        const a1WordSearchData = {
+        // WORD SEARCH DATA
+        const wordSearchA1 = {
             words: ['SCHOOL', 'TEACHER', 'STUDENT', 'MATH', 'PLAY', 'READ', 'WRITE', 'LEARN'],
             grid: [
                 ['S', 'C', 'H', 'O', 'O', 'L', 'Q', 'W', 'E'],
-                ['R', 'T', 'E', 'A', 'C', 'H', 'E', 'R', 'T'],
-                ['Y', 'U', 'I', 'O', 'S', 'T', 'U', 'D', 'E'],
+                ['R', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'T'],
+                ['Y', 'T', 'E', 'A', 'C', 'H', 'E', 'R', 'U'],
+                ['U', 'I', 'O', 'P', 'S', 'T', 'U', 'D', 'E'],
                 ['N', 'T', 'C', 'D', 'A', 'S', 'D', 'F', 'G'],
                 ['M', 'A', 'T', 'H', 'J', 'K', 'L', 'Z', 'X'],
                 ['P', 'L', 'A', 'Y', 'C', 'V', 'B', 'N', 'M'],
@@ -377,200 +331,162 @@
             ]
         };
 
-        const a2WordSearchData = {
-            words: ['ELEMENTARY', 'SECONDARY', 'SUBJECT', 'GRADE', 'UNIVERSITY', 'COURSE', 'TEACHER', 'STUDENT', 'SCHOOL', 'ENGLISH', 'MATH', 'SCIENCE', 'MUSIC', 'SPORTS', 'LANGUAGE', 'HISTORY'],
+        const wordSearchA2 = {
+            words: ['ELEMENTARY', 'SECONDARY', 'SUBJECT', 'GRADE', 'UNIVERSITY', 'COURSE', 'TEACHER'],
             grid: [
-                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y', 'Z', 'X', 'C'],
-                ['A', 'S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'V', 'B', 'N'],
-                ['Q', 'W', 'S', 'U', 'B', 'J', 'E', 'C', 'T', 'M', 'L', 'K', 'J'],
-                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T', 'Y', 'U', 'I'],
-                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y', 'O', 'P', 'A'],
-                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'],
-                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W', 'E', 'R', 'T'],
-                ['S', 'T', 'U', 'D', 'E', 'N', 'T', 'A', 'B', 'C', 'H', 'I', 'T'],
-                ['S', 'C', 'H', 'O', 'O', 'L', 'D', 'E', 'F', 'G', 'I', 'S', 'O'],
-                ['E', 'N', 'G', 'L', 'I', 'S', 'H', 'J', 'K', 'L', 'S', 'T', 'R'],
-                ['M', 'A', 'T', 'H', 'M', 'N', 'O', 'P', 'Q', 'R', 'Y', 'U', 'Y']
+                ['E', 'L', 'E', 'M', 'E', 'N', 'T', 'A', 'R', 'Y'],
+                ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'L', 'K', 'J'],
+                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'H'],
+                ['Q', 'W', 'S', 'U', 'B', 'J', 'E', 'C', 'T', 'G'],
+                ['G', 'R', 'A', 'D', 'E', 'W', 'Q', 'P', 'R', 'T'],
+                ['U', 'N', 'I', 'V', 'E', 'R', 'S', 'I', 'T', 'Y'],
+                ['C', 'O', 'U', 'R', 'S', 'E', 'Z', 'X', 'C', 'V'],
+                ['T', 'E', 'A', 'C', 'H', 'E', 'R', 'S', 'Q', 'W']
             ]
         };
 
-        const b1WordSearchData = {
-            words: ['COMPULSORY', 'VOCATIONAL', 'CURRICULUM', 'ACADEMIC', 'ELECTIVE', 'SUBJECT', 'EDUCATION', 'DEVELOPMENT', 'KINDERGARTEN', 'SECONDARY', 'ABILITY', 'SCHEDULE', 'CORE', 'SKILLS', 'TRAINING', 'PROGRAM', 'LANGUAGE', 'MATHEMATICS', 'SCIENCE', 'HISTORY', 'SOCIAL'],
+        const wordSearchB1 = {
+            words: ['COMPULSORY', 'VOCATIONAL', 'CURRICULUM', 'ACADEMIC', 'ELECTIVE', 'SUBJECT', 'EDUCATION'],
             grid: [
-                ['C', 'O', 'M', 'P', 'U', 'L', 'S', 'O', 'R', 'Y', 'D', 'E', 'V', 'E', 'L'],
-                ['V', 'O', 'C', 'A', 'T', 'I', 'O', 'N', 'A', 'L', 'E', 'L', 'O', 'P', 'M'],
-                ['C', 'U', 'R', 'R', 'I', 'C', 'U', 'L', 'U', 'M', 'K', 'I', 'N', 'D', 'E'],
-                ['A', 'C', 'A', 'D', 'E', 'M', 'I', 'C', 'X', 'Y', 'T', 'N', 'T', 'R', 'A'],
-                ['E', 'L', 'E', 'C', 'T', 'I', 'V', 'E', 'Z', 'W', 'S', 'E', 'S', 'E', 'T'],
-                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'Q', 'P', 'R', 'E', 'C', 'U', 'H', 'M'],
-                ['E', 'D', 'U', 'C', 'A', 'T', 'I', 'O', 'N', 'S', 'A', 'O', 'D', 'A', 'A'],
-                ['D', 'E', 'V', 'E', 'L', 'O', 'P', 'M', 'E', 'N', 'T', 'R', 'E', 'S', 'T'],
-                ['K', 'I', 'N', 'D', 'E', 'R', 'G', 'A', 'R', 'T', 'E', 'N', 'F', 'H', 'H'],
-                ['S', 'E', 'C', 'O', 'N', 'D', 'A', 'R', 'Y', 'L', 'A', 'N', 'G', 'U', 'A'],
-                ['A', 'B', 'I', 'L', 'I', 'T', 'Y', 'S', 'K', 'I', 'L', 'L', 'S', 'O', 'L'],
-                ['S', 'C', 'H', 'E', 'D', 'U', 'L', 'E', 'T', 'R', 'A', 'I', 'N', 'I', 'G'],
-                ['P', 'R', 'O', 'G', 'R', 'A', 'M', 'M', 'A', 'T', 'H', 'E', 'M', 'A', 'T'],
-                ['S', 'C', 'I', 'E', 'N', 'C', 'E', 'H', 'I', 'S', 'T', 'O', 'R', 'Y', 'S'],
-                ['S', 'O', 'C', 'I', 'A', 'L', 'S', 'T', 'U', 'D', 'I', 'E', 'S', 'C', 'O']
+                ['C', 'O', 'M', 'P', 'U', 'L', 'S', 'O', 'R', 'Y'],
+                ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'L', 'K', 'J'],
+                ['V', 'O', 'C', 'A', 'T', 'I', 'O', 'N', 'A', 'L'],
+                ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+                ['C', 'U', 'R', 'R', 'I', 'C', 'U', 'L', 'U', 'M'],
+                ['A', 'C', 'A', 'D', 'E', 'M', 'I', 'C', 'X', 'Y'],
+                ['E', 'L', 'E', 'C', 'T', 'I', 'V', 'E', 'Z', 'W'],
+                ['S', 'U', 'B', 'J', 'E', 'C', 'T', 'Q', 'P', 'R'],
+                ['E', 'D', 'U', 'C', 'A', 'T', 'I', 'O', 'N', 'S']
             ]
         };
 
-        let currentWordSearch = null;
-        let selectedCells = [];
-        let isDragging = false;
+        // WORD SEARCH STATE
+        let wsState = {
+            selected: [],
+            found: []
+        };
 
-        function initWordSearch(level) {
-            const data = level === 'a1' ? a1WordSearchData : level === 'a2' ? a2WordSearchData : b1WordSearchData;
-            currentWordSearch = {
-                data: data,
-                found: [],
-                selection: [],
-                cellMap: {}
-            };
-            renderWordSearch(level, data);
+        // NAVIGATION
+        function selectLevel(level) {
+            document.getElementById('levelSelect').classList.add('hidden');
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`${level}-section`).classList.add('active');
+            renderLevel(level);
         }
 
-        function renderWordSearch(level, data) {
-            const containerId = `${level}WordSearchGrid`;
-            const container = document.getElementById(containerId);
+        function goBack() {
+            document.getElementById('levelSelect').classList.remove('hidden');
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        }
+
+        function showSection(level, section) {
+            document.querySelectorAll(`#${level}-section .section`).forEach(s => s.classList.remove('active'));
+            document.getElementById(`${level}-${section}`).classList.add('active');
+            document.querySelectorAll(`#${level}-section nav button`).forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // RENDER LEVEL
+        function renderLevel(level) {
+            const vocab = level === 'a1' ? a1Vocab : level === 'a2' ? a2Vocab : b1Vocab;
+            renderVocab(level, vocab);
             
-            let gridHtml = '<div class="wordsearch-grid" onmouseup="stopDragging()">';
-            data.grid.forEach((row, rowIdx) => {
-                gridHtml += '<div class="wordsearch-row">';
-                row.forEach((letter, colIdx) => {
-                    const cellId = `cell-${level}-${rowIdx}-${colIdx}`;
-                    gridHtml += `<div class="wordsearch-letter" id="${cellId}" onmousedown="startDragging(event, '${level}', ${rowIdx}, ${colIdx})" onmouseenter="addToSelection(event, '${level}', ${rowIdx}, ${colIdx})">${letter}</div>`;
-                    currentWordSearch.cellMap[`${rowIdx}-${colIdx}`] = cellId;
-                });
-                gridHtml += '</div>';
-            });
-            gridHtml += '</div>';
-            
-            let wordsHtml = '<div class="wordsearch-words"><h4>🔍 Find these words:</h4><div class="wordsearch-word-list">';
-            data.words.forEach(word => {
-                wordsHtml += `<div class="wordsearch-word-item" data-word="${word}">${word}</div>`;
-            });
-            wordsHtml += '</div></div>';
-            
-            container.innerHTML = gridHtml + wordsHtml;
+            if (level === 'a1') renderA1();
+            if (level === 'a2') renderA2();
+            if (level === 'b1') renderB1();
         }
 
-        function startDragging(event, level, row, col) {
-            isDragging = true;
-            clearSelection();
-            addToSelection(event, level, row, col);
-        }
-
-        function addToSelection(event, level, row, col) {
-            if (!isDragging) return;
-            
-            const cellKey = `${row}-${col}`;
-            const cellId = `cell-${level}-${row}-${col}`;
-            const el = document.getElementById(cellId);
-            
-            if (el && !el.classList.contains('found') && !selectedCells.includes(cellKey)) {
-                el.classList.add('selected');
-                selectedCells.push(cellKey);
-            }
-        }
-
-        function stopDragging() {
-            isDragging = false;
-            if (selectedCells.length >= 2) {
-                checkWordSearch(currentWordSearch.data);
-            }
-        }
-
-        function checkWordSearch(data) {
-            const selected = selectedCells.map(key => {
-                const [row, col] = key.split('-').map(Number);
-                return data.grid[row][col];
-            }).join('');
-            
-            const reversed = selected.split('').reverse().join('');
-            
-            data.words.forEach(word => {
-                if ((selected === word || reversed === word) && !currentWordSearch.found.includes(word)) {
-                    currentWordSearch.found.push(word);
-                    markWordFound(word, currentWordSearch.data);
-                }
-            });
-            clearSelection();
-        }
-
-        function markWordFound(word, data) {
-            const wordElements = document.querySelectorAll(`[data-word="${word}"]`);
-            wordElements.forEach(el => el.classList.add('found'));
-            
-            selectedCells.forEach(cellKey => {
-                const [row, col] = cellKey.split('-').map(Number);
-                const cellId = Object.values(currentWordSearch.cellMap).find(id => 
-                    id.includes(`${row}-${col}`)
-                );
-                if (cellId) {
-                    const el = document.getElementById(cellId);
-                    if (el) el.classList.add('found');
-                }
-            });
-        }
-
-        function clearSelection() {
-            document.querySelectorAll('.wordsearch-letter.selected').forEach(el => {
-                el.classList.remove('selected');
-            });
-            selectedCells = [];
-        }
-
-        function resetWordSearch(level) {
-            clearSelection();
-            initWordSearch(level);
-        }
-
-        function renderVocab(level, vocabList, containerId) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = vocabList.map(item => `
+        // VOCABULARY
+        function renderVocab(level, vocab) {
+            const grid = document.getElementById(`${level}-vocab-grid`);
+            grid.innerHTML = vocab.map(v => `
                 <div class="vocab-card">
-                    <div class="vocab-english"><i class="fas fa-star"></i> ${item.word}</div>
-                    <div class="vocab-norwegian">${item.norwegian}</div>
-                    <button class="vocab-btn" onclick="speakWord('${item.word}')"><i class="fas fa-volume-up"></i> Lytt</button>
+                    <div class="vocab-word">${v.word}</div>
+                    <div class="vocab-trans">${v.norwegian}</div>
+                    <button class="listen-btn" onclick="speak('${v.word}')"><i class="fas fa-volume-up"></i></button>
                 </div>
             `).join('');
         }
 
-        function addTooltips(elementId, tooltips) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-            
-            let html = element.innerHTML;
-            tooltips.forEach(tooltip => {
-                const regex = new RegExp(`\\b${tooltip.word}\\b`, 'gi');
-                html = html.replace(regex, `<span class="tooltip-word" data-no="${tooltip.norwegian}">${tooltip.word}</span>`);
-            });
-            element.innerHTML = html;
-        }
-
-        function speakWord(word) {
+        function speak(word) {
             const utterance = new SpeechSynthesisUtterance(word);
             utterance.lang = 'en-US';
-            window.speechSynthesis.speak(utterance);
+            speechSynthesis.speak(utterance);
         }
 
-        function renderA1() {
-            renderVocab('a1', a1Vocab, 'a1VocabGrid');
+        // WORD SEARCH
+        function renderWordSearch(level, data) {
+            wsState = { selected: [], found: [] };
             
+            let html = '<div class="ws-grid">';
+            data.grid.forEach((row, r) => {
+                html += '<div class="ws-row">';
+                row.forEach((letter, c) => {
+                    html += `<div class="ws-letter" data-r="${r}" data-c="${c}" onclick="toggleLetter(this, '${level}', ${r}, ${c})">${letter}</div>`;
+                });
+                html += '</div>';
+            });
+            html += '</div>';
+            
+            html += '<div class="ws-words"><h5>🔍 Finn disse ordene:</h5><div class="ws-word-list">';
+            data.words.forEach(word => {
+                html += `<div class="ws-word" data-word="${word}">${word}</div>`;
+            });
+            html += '</div></div>';
+            html += `<button class="ws-reset" onclick="resetWordSearch('${level}')"><i class="fas fa-redo"></i> Nytt spill</button>`;
+            
+            return html;
+        }
+
+        function toggleLetter(el, level, r, c) {
+            el.classList.toggle('selected');
+            if (el.classList.contains('selected')) {
+                wsState.selected.push({ el, r, c });
+            } else {
+                wsState.selected = wsState.selected.filter(s => s.r !== r || s.c !== c);
+            }
+            
+            if (wsState.selected.length >= 2) {
+                checkWord(level);
+            }
+        }
+
+        function checkWord(level) {
+            const data = level === 'a1' ? wordSearchA1 : level === 'a2' ? wordSearchA2 : wordSearchB1;
+            const selected = wsState.selected.map(s => data.grid[s.r][s.c]).join('');
+            
+            for (let word of data.words) {
+                if ((selected === word || selected === word.split('').reverse().join('')) && !wsState.found.includes(word)) {
+                    wsState.found.push(word);
+                    document.querySelectorAll(`[data-word="${word}"]`).forEach(el => el.classList.add('found'));
+                    wsState.selected.forEach(s => s.el.classList.add('found'));
+                }
+            }
+            
+            wsState.selected.forEach(s => s.el.classList.remove('selected'));
+            wsState.selected = [];
+        }
+
+        function resetWordSearch(level) {
+            wsState = { selected: [], found: [] };
+            document.querySelectorAll('.ws-letter').forEach(el => el.classList.remove('selected', 'found'));
+            document.querySelectorAll('.ws-word').forEach(el => el.classList.remove('found'));
+        }
+
+        // A1 CONTENT
+        function renderA1() {
             const tasksHtml = `
                 <div class="task">
                     <h4><i class="fas fa-search"></i> Word Search</h4>
-                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
-                    <div id="a1WordSearchGrid"></div>
-                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('a1')"><i class="fas fa-redo"></i> New Game</button>
+                    ${renderWordSearch('a1', wordSearchA1)}
                 </div>
+
                 <div class="task">
-                    <h4><i class="fas fa-link"></i> Match the words and meanings</h4>
-                    <p style="margin-bottom: 1rem; font-style: italic; color: #666;">Klikk på et ord til venstre, så klikk på den riktige definisjonen til høyre</p>
+                    <h4><i class="fas fa-link"></i> Match the words</h4>
+                    <p style="font-style: italic; color: #666; margin-bottom: 1rem;">Klikk på ord og definisjoner for å matche dem</p>
                     <div class="match-grid">
                         <div class="match-col">
-                            <strong style="margin-bottom: 0.8rem; display: block;">English:</strong>
+                            <strong>English:</strong>
                             <div class="match-item" data-match="school" onclick="selectWord(this)">school</div>
                             <div class="match-item" data-match="teacher" onclick="selectWord(this)">teacher</div>
                             <div class="match-item" data-match="student" onclick="selectWord(this)">student</div>
@@ -578,7 +494,7 @@
                             <div class="match-item" data-match="play" onclick="selectWord(this)">play</div>
                         </div>
                         <div class="match-col">
-                            <strong style="margin-bottom: 0.8rem; display: block;">Definition:</strong>
+                            <strong>Definition:</strong>
                             <div class="match-item" data-match="play" onclick="selectDefinition(this)">have fun</div>
                             <div class="match-item" data-match="student" onclick="selectDefinition(this)">a person who learns</div>
                             <div class="match-item" data-match="school" onclick="selectDefinition(this)">a place to learn</div>
@@ -587,86 +503,63 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="task">
                     <h4><i class="fas fa-edit"></i> Fill in the gaps</h4>
-                    <p style="margin-bottom: 1rem; font-style: italic;">Bruk ordene: school / teacher / student / math / play</p>
+                    <p style="font-style: italic; margin-bottom: 1rem;">Bruk ordene: school / teacher / student / math / play</p>
                     <div class="gapfill-sentence">I go to <input class="gapfill-input" type="text"> every day.</div>
                     <div class="gapfill-sentence">A <input class="gapfill-input" type="text"> teaches in class.</div>
                     <div class="gapfill-sentence">A <input class="gapfill-input" type="text"> learns in school.</div>
                     <div class="gapfill-sentence">We learn <input class="gapfill-input" type="text"> in class.</div>
                     <div class="gapfill-sentence">Children like to <input class="gapfill-input" type="text">.</div>
                 </div>
+
                 <div class="task">
-                    <h4><i class="fas fa-check-circle"></i> True or False?</h4>
-                    <div><p style="margin-bottom: 0.5rem;">1. Children go to school for 5 years.</p><div class="mc-options"><div class="mc-option" onclick="checkTF(this, false)">True</div><div class="mc-option" onclick="checkTF(this, true)">False</div></div></div>
-                    <div style="margin-top: 1.5rem;"><p style="margin-bottom: 0.5rem;">2. Children play in pre-school.</p><div class="mc-options"><div class="mc-option" onclick="checkTF(this, true)">True</div><div class="mc-option" onclick="checkTF(this, false)">False</div></div></div>
-                    <div style="margin-top: 1.5rem;"><p style="margin-bottom: 0.5rem;">3. Children start school at age five.</p><div class="mc-options"><div class="mc-option" onclick="checkTF(this, true)">True</div><div class="mc-option" onclick="checkTF(this, false)">False</div></div></div>
-                    <div style="margin-top: 1.5rem;"><p style="margin-bottom: 0.5rem;">4. Students learn subjects.</p><div class="mc-options"><div class="mc-option" onclick="checkTF(this, true)">True</div><div class="mc-option" onclick="checkTF(this, false)">False</div></div></div>
+                    <h4><i class="fas fa-question-circle"></i> True or False?</h4>
+                    <p style="margin-bottom: 1rem;">1. Children go to school for 5 years.</p>
+                    <div class="mc-options">
+                        <button class="mc-option" onclick="checkMC(this, false)">True</button>
+                        <button class="mc-option" onclick="checkMC(this, true)">False</button>
+                    </div>
+                    <p style="margin: 1.5rem 0 0.5rem;">2. Children play in pre-school.</p>
+                    <div class="mc-options">
+                        <button class="mc-option" onclick="checkMC(this, true)">True</button>
+                        <button class="mc-option" onclick="checkMC(this, false)">False</button>
+                    </div>
                 </div>
+
                 <div class="task">
-                    <h4><i class="fas fa-lightbulb"></i> Answer these questions</h4>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 0.5rem; font-weight: 600;">1. How many years do children go to school?</p><textarea placeholder="Skriv svar her..."></textarea></div>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 0.5rem; font-weight: 600;">2. What do children learn in pre-school?</p><textarea placeholder="Skriv svar her..."></textarea></div>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 0.5rem; font-weight: 600;">3. Name one subject</p><textarea placeholder="Skriv svar her..."></textarea></div>
+                    <h4><i class="fas fa-pen-fancy"></i> Short writing</h4>
+                    <p style="margin-bottom: 1rem;">Write 2-3 sentences about your school.</p>
+                    <textarea placeholder="Skriv svar her..."></textarea>
                 </div>
             `;
-            document.getElementById('a1TasksContainer').innerHTML = tasksHtml;
-            initWordSearch('a1');
-            
-            const a1Tooltips = [
-                { word: 'school', norwegian: 'skole' },
-                { word: 'American', norwegian: 'amerikansk' },
-                { word: 'children', norwegian: 'barn' },
-                { word: 'years', norwegian: 'år' },
-                { word: 'pre-school', norwegian: 'barnehage' },
-                { word: 'play', norwegian: 'leke' },
-                { word: 'learn', norwegian: 'lære' },
-                { word: 'read', norwegian: 'lese' },
-                { word: 'write', norwegian: 'skrive' },
-                { word: 'start', norwegian: 'starte' },
-                { word: 'age', norwegian: 'alder' },
-                { word: 'teacher', norwegian: 'lærer' },
-                { word: 'helps', norwegian: 'hjelper' },
-                { word: 'students', norwegian: 'elever' },
-                { word: 'learn', norwegian: 'lære' },
-                { word: 'subjects', norwegian: 'fag' },
-                { word: 'English', norwegian: 'engelsk' },
-                { word: 'math', norwegian: 'matematikk' },
-                { word: 'science', norwegian: 'naturfag' },
-                { word: 'high school', norwegian: 'videregående skole' },
-                { word: 'choose', norwegian: 'velge' }
-            ];
-            addTooltips('a1ReadingText', a1Tooltips);
+            document.getElementById('a1-tasks-container').innerHTML = tasksHtml;
         }
 
+        // A2 CONTENT
         function renderA2() {
-            renderVocab('a2', a2Vocab, 'a2VocabGrid');
-            
             const readingHtml = `
                 <h3><i class="fas fa-school"></i> School in the United States</h3>
                 <p>American children go to school for 12 years. Many children start in pre-school or kindergarten. They learn the alphabet, numbers, and social skills.</p>
                 <h3><i class="fas fa-graduation-cap"></i> Elementary School</h3>
-                <p>Children start school at age five. They attend elementary school for five or six years. In elementary school, teachers teach subjects like English, math, science, and social studies. Students also learn sports, music, and art.</p>
+                <p>Children start school at age five. They attend elementary school for five or six years. In elementary school, teachers teach subjects like English, math, science, and social studies.</p>
                 <h3><i class="fas fa-book"></i> Secondary School</h3>
-                <p>After elementary school, students go to secondary school. Secondary school has two parts: junior high school and senior high school. In high school, students are older and can choose many subjects. They can study languages, science, math, history, sports, and art.</p>
-                <h3><i class="fas fa-star"></i> Different Subjects</h3>
-                <p>American students have more choices than students in many other countries. In high school, some students take difficult courses because they want to go to university. Other students take easier courses. Students can choose courses for different jobs, like car mechanics or cooking.</p>
+                <p>After elementary school, students go to secondary school. Secondary school has two parts: junior high school and senior high school. In high school, students can choose many subjects.</p>
             `;
-            document.getElementById('a2ReadingContent').innerHTML = readingHtml;
-            
+            document.getElementById('a2-reading-text').innerHTML = readingHtml;
+
             const tasksHtml = `
                 <div class="task">
                     <h4><i class="fas fa-search"></i> Word Search</h4>
-                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
-                    <div id="a2WordSearchGrid"></div>
-                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('a2')"><i class="fas fa-redo"></i> New Game</button>
+                    ${renderWordSearch('a2', wordSearchA2)}
                 </div>
+
                 <div class="task">
-                    <h4><i class="fas fa-link"></i> Match the words and meanings</h4>
-                    <p style="margin-bottom: 1rem; font-style: italic; color: #666;">Klikk på et ord til venstre, så klikk på den riktige definisjonen til høyre</p>
+                    <h4><i class="fas fa-link"></i> Match the words</h4>
                     <div class="match-grid">
                         <div class="match-col">
-                            <strong style="margin-bottom: 0.8rem; display: block;">English:</strong>
+                            <strong>English:</strong>
                             <div class="match-item" data-match="elementary" onclick="selectWord(this)">elementary school</div>
                             <div class="match-item" data-match="secondary" onclick="selectWord(this)">secondary school</div>
                             <div class="match-item" data-match="grade" onclick="selectWord(this)">grade</div>
@@ -674,7 +567,7 @@
                             <div class="match-item" data-match="university" onclick="selectWord(this)">university</div>
                         </div>
                         <div class="match-col">
-                            <strong style="margin-bottom: 0.8rem; display: block;">Definition:</strong>
+                            <strong>Definition:</strong>
                             <div class="match-item" data-match="university" onclick="selectDefinition(this)">a school for older students</div>
                             <div class="match-item" data-match="grade" onclick="selectDefinition(this)">a class level</div>
                             <div class="match-item" data-match="course" onclick="selectDefinition(this)">a subject you study</div>
@@ -683,191 +576,97 @@
                         </div>
                     </div>
                 </div>
-                <div class="task">
-                    <h4><i class="fas fa-edit"></i> Fill in the gaps</h4>
-                    <p style="margin-bottom: 1rem; font-style: italic;">Bruk ordene: elementary / choose / subject / high school / learn</p>
-                    <div class="gapfill-sentence">Children go to <input class="gapfill-input" type="text"> school first.</div>
-                    <div class="gapfill-sentence">They <input class="gapfill-input" type="text"> many things in school.</div>
-                    <div class="gapfill-sentence">In <input class="gapfill-input" type="text">, students can <input class="gapfill-input" type="text"> many subjects.</div>
-                    <div class="gapfill-sentence">English and math are important <input class="gapfill-input" type="text">.</div>
-                </div>
-                <div class="task">
-                    <h4><i class="fas fa-question-circle"></i> Choose the correct answer</h4>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 1rem; font-weight: 600;">1. Can students choose subjects in high school?</p><div class="mc-options"><div class="mc-option" onclick="checkMC(this, false)">Yes, always</div><div class="mc-option" onclick="checkMC(this, true)">Yes, some subjects</div><div class="mc-option" onclick="checkMC(this, false)">No, never</div></div></div>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 1rem; font-weight: 600;">2. What is the first school called?</p><div class="mc-options"><div class="mc-option" onclick="checkMC(this, false)">Elementary school</div><div class="mc-option" onclick="checkMC(this, true)">Kindergarten</div><div class="mc-option" onclick="checkMC(this, false)">Pre-school</div></div></div>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 1rem; font-weight: 600;">3. In which grade is a student a freshman?</p><div class="mc-options"><div class="mc-option" onclick="checkMC(this, true)">9th grade</div><div class="mc-option" onclick="checkMC(this, false)">10th grade</div><div class="mc-option" onclick="checkMC(this, false)">11th grade</div></div></div>
-                    <div style="margin-bottom: 1.5rem;"><p style="margin-bottom: 1rem; font-weight: 600;">4. How long do American children go to school?</p><div class="mc-options"><div class="mc-option" onclick="checkMC(this, false)">10 years</div><div class="mc-option" onclick="checkMC(this, true)">12 years</div><div class="mc-option" onclick="checkMC(this, false)">14 years</div></div></div>
-                </div>
+
                 <div class="task">
                     <h4><i class="fas fa-pen-fancy"></i> Short writing (2-3 sentences)</h4>
-                    <p style="margin-bottom: 1rem; font-weight: 600;">Describe your school. What subjects do you study? Do you like your school?</p>
-                    <textarea placeholder="Skriv 2-3 setninger om skolen din..." style="min-height: 150px;"></textarea>
+                    <p style="margin-bottom: 1rem; font-weight: 600;">Describe your school. What subjects do you study?</p>
+                    <textarea placeholder="Skriv 2-3 setninger..." style="min-height: 150px;"></textarea>
                 </div>
             `;
-            document.getElementById('a2TasksContainer').innerHTML = tasksHtml;
-            initWordSearch('a2');
-            
-            const a2Tooltips = [
-                { word: 'American', norwegian: 'amerikansk' },
-                { word: 'children', norwegian: 'barn' },
-                { word: 'pre-school', norwegian: 'barnehage' },
-                { word: 'kindergarten', norwegian: 'barnehageklasse' },
-                { word: 'alphabet', norwegian: 'alfabet' },
-                { word: 'numbers', norwegian: 'tall' },
-                { word: 'social skills', norwegian: 'sosiale ferdigheter' },
-                { word: 'Elementary School', norwegian: 'Barneskole' },
-                { word: 'attend', norwegian: 'går på' },
-                { word: 'teachers', norwegian: 'lærere' },
-                { word: 'subjects', norwegian: 'fag' },
-                { word: 'English', norwegian: 'engelsk' },
-                { word: 'math', norwegian: 'matematikk' },
-                { word: 'science', norwegian: 'naturfag' },
-                { word: 'social studies', norwegian: 'samfunnsfag' },
-                { word: 'Students', norwegian: 'Elever' },
-                { word: 'sports', norwegian: 'sport' },
-                { word: 'music', norwegian: 'musikk' },
-                { word: 'art', norwegian: 'kunst' },
-                { word: 'Secondary School', norwegian: 'Ungdoms- og videregående skole' },
-                { word: 'junior high school', norwegian: 'ungdomsskole' },
-                { word: 'senior high school', norwegian: 'videregående skole' },
-                { word: 'high school', norwegian: 'videregående skole' },
-                { word: 'older', norwegian: 'eldre' },
-                { word: 'choose', norwegian: 'velge' },
-                { word: 'languages', norwegian: 'språk' },
-                { word: 'history', norwegian: 'historie' },
-                { word: 'difficult', norwegian: 'vanskelig' },
-                { word: 'courses', norwegian: 'kurs' },
-                { word: 'university', norwegian: 'universitet' },
-                { word: 'easier', norwegian: 'lettere' },
-                { word: 'jobs', norwegian: 'jobber' },
-                { word: 'car mechanics', norwegian: 'bilmekanikk' },
-                { word: 'cooking', norwegian: 'matlaging' }
-            ];
-            addTooltips('a2ReadingContent', a2Tooltips);
+            document.getElementById('a2-tasks-container').innerHTML = tasksHtml;
         }
 
+        // B1 CONTENT
         function renderB1() {
-            renderVocab('b1', b1Vocab, 'b1VocabGrid');
-            
             const readingHtml = `
-                <h3><i class="fas fa-graduation-cap"></i> American Education</h3>
-                <p>American children go to school for 12 years. The first day of school is an important event, not only for the child but also for parents and grandparents. What do you remember about your first day at school?</p>
-                <h3><i class="fas fa-child"></i> Kindergarten and Elementary School</h3>
-                <p>Before starting school, many children attend daycare or pre-school. These programs mainly focus on play and the development of social skills, but they also introduce children to learning. For example, children may begin to learn the alphabet and simple numbers at an early age. At the age of five, most children start kindergarten, where they spend one year before moving on to first grade. In most states, kindergarten is compulsory. After this, students attend elementary school for five or six years, before they continue to secondary school.</p>
-                <h3><i class="fas fa-university"></i> Junior and Senior High School</h3>
-                <p>The secondary level is often divided into junior high school and senior high school. Junior high usually includes grades six or seven to eight or nine, while senior high school includes grades nine or ten to twelve. In high school, students are given special names depending on their grade. A ninth-grade student is called a freshman, a tenth-grade student is a sophomore, an eleventh-grade student is a junior, and a twelfth-grade student is a senior.</p>
-                <h3><i class="fas fa-lightbulb"></i> Academic and Vocational Courses</h3>
-                <p>Unlike Norwegian schools, public schools in the United States do not follow one national curriculum. This means that schools have more freedom to plan their teaching. Students can choose from a wide range of subjects, and they can often select courses at different levels depending on their ability and interests. There are three main types of courses: academic, vocational, and general. Academic courses are for students who plan to continue to higher education, while vocational courses prepare students for a trade, such as car mechanics or hairdressing. General courses usually combine elements from both academic and vocational subjects.</p>
-                <h3><i class="fas fa-list"></i> Core Subjects</h3>
-                <p>Even though students have some freedom, there are still certain subjects that are compulsory for everyone. These are called core subjects and typically include English, mathematics, science, social studies, and physical education. In addition to these subjects, most schools offer elective courses, such as foreign languages, arts, music, and drama. As a result, each student can create a schedule that is partly tailored to their own interests and goals.</p>
+                <h3><i class="fas fa-graduation-cap"></i> American Education System</h3>
+                <p>American children go to school for 12 years. The education system has different levels including kindergarten, elementary school, secondary school, and higher education. Unlike Norwegian schools, public schools in the United States do not follow one national curriculum.</p>
+                <h3><i class="fas fa-list"></i> Types of Courses</h3>
+                <p>There are three main types of courses: academic, vocational, and general. Academic courses are for students who plan to continue to higher education, while vocational courses prepare students for a trade, such as car mechanics or hairdressing.</p>
+                <h3><i class="fas fa-book-reader"></i> Core and Elective Subjects</h3>
+                <p>Even though students have some freedom, there are still certain subjects that are compulsory for everyone. These are called core subjects and typically include English, mathematics, science, social studies, and physical education. In addition to these subjects, most schools offer elective courses, such as foreign languages, arts, music, and drama.</p>
             `;
-            document.getElementById('b1ReadingContent').innerHTML = readingHtml;
-            
+            document.getElementById('b1-reading-text').innerHTML = readingHtml;
+
             const tasksHtml = `
                 <div class="task">
                     <h4><i class="fas fa-search"></i> Word Search</h4>
-                    <div class="wordsearch-info">Find the hidden words in the grid. You can search left, right, up, down, and diagonally!</div>
-                    <div id="b1WordSearchGrid"></div>
-                    <button class="wordsearch-reset-btn" onclick="resetWordSearch('b1')"><i class="fas fa-redo"></i> New Game</button>
+                    ${renderWordSearch('b1', wordSearchB1)}
                 </div>
+
                 <div class="task">
                     <h4><i class="fas fa-search"></i> Scanning for information</h4>
                     <p style="margin-bottom: 1rem;">Find these in the text:</p>
                     <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-                        <li>The names for students in different grades</li>
-                        <li>Two examples of vocational courses</li>
-                        <li>Three core subjects</li>
+                        <li>The levels of American education</li>
+                        <li>Three types of courses</li>
+                        <li>Five core subjects</li>
                     </ul>
                     <textarea placeholder="Skriv dine svar her..." style="min-height: 120px;"></textarea>
                 </div>
+
                 <div class="task">
                     <h4><i class="fas fa-book-reader"></i> Reading comprehension</h4>
                     <p style="margin-bottom: 1rem;">Answer in full sentences:</p>
                     <ol style="margin-left: 2rem; margin-bottom: 1rem;">
-                        <li>How many years do American children go to school?</li>
-                        <li>What do children learn in pre-school?</li>
-                        <li>At what age do children start kindergarten?</li>
-                        <li>What is the difference between junior high and senior high school?</li>
-                        <li>What are the three types of courses in high school?</li>
-                        <li>What are core subjects? Give two examples.</li>
-                        <li>What are elective subjects?</li>
+                        <li>What are the three types of courses?</li>
+                        <li>What are core subjects?</li>
+                        <li>Name three examples of elective subjects.</li>
                     </ol>
-                    <textarea placeholder="Skriv svar på spørsmålene ovenfor..." style="min-height: 200px;"></textarea>
+                    <textarea placeholder="Skriv svar på spørsmålene..." style="min-height: 200px;"></textarea>
                 </div>
+
                 <div class="task">
                     <h4><i class="fas fa-pen-fancy"></i> Short writing</h4>
-                    <p style="margin-bottom: 1rem;">Write 5–7 sentences comparing schools in the USA and Norway. You can write about:</p>
-                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-                        <li>Subjects</li>
-                        <li>School system</li>
-                        <li>Choices students have</li>
-                    </ul>
+                    <p style="margin-bottom: 1rem;">Write 5-7 sentences comparing American and Norwegian schools.</p>
                     <textarea placeholder="Skriv ditt svar her..." style="min-height: 180px;"></textarea>
                 </div>
             `;
-            document.getElementById('b1TasksContainer').innerHTML = tasksHtml;
-            initWordSearch('b1');
+            document.getElementById('b1-tasks-container').innerHTML = tasksHtml;
         }
 
+        // MATCH FUNCTIONS
         let selectedWord = null;
 
-        function selectWord(element) {
-            // Fjern forrige valg
-            document.querySelectorAll('.match-col:first-child .match-item').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            // Marker som valgt
-            element.classList.add('selected');
-            selectedWord = element.getAttribute('data-match');
+        function selectWord(el) {
+            document.querySelectorAll('.match-col:first-child .match-item').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedWord = el.getAttribute('data-match');
         }
 
-        function selectDefinition(element) {
-            if (!selectedWord) {
-                alert('Velg et ord først!');
-                return;
-            }
+        function selectDefinition(el) {
+            if (!selectedWord) return;
+            const isCorrect = el.getAttribute('data-match') === selectedWord;
             
-            const correctMatch = element.getAttribute('data-match');
-            
-            if (selectedWord === correctMatch) {
-                // Korrekt match!
-                element.classList.add('correct');
-                element.style.pointerEvents = 'none';
-                
-                // Markér ordet som korrekt også
-                document.querySelectorAll('.match-col:first-child .match-item').forEach(el => {
-                    if (el.getAttribute('data-match') === selectedWord) {
-                        el.classList.add('correct');
-                        el.style.pointerEvents = 'none';
-                    }
-                });
-                
-                selectedWord = null;
+            if (isCorrect) {
+                el.classList.add('correct');
+                document.querySelector(`[data-match="${selectedWord}"].selected`).classList.add('correct');
             } else {
-                // Feil
-                element.classList.add('incorrect');
-                setTimeout(() => {
-                    element.classList.remove('incorrect');
-                }, 500);
+                el.classList.add('incorrect');
+                setTimeout(() => el.classList.remove('incorrect'), 500);
             }
+            selectedWord = null;
         }
 
-        function checkMC(element, isCorrect) {
-            element.classList.add(isCorrect ? 'correct' : 'incorrect');
-            element.style.pointerEvents = 'none';
+        function checkMC(btn, isCorrect) {
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
         }
 
-        function checkTF(element, answer) {
-            element.classList.add(answer ? 'correct' : 'incorrect');
-            element.style.pointerEvents = 'none';
-        }
-
-        function goBack() {
+        // INIT
+        window.addEventListener('load', () => {
             document.getElementById('levelSelect').classList.remove('hidden');
-            document.getElementById('contentWrapper').classList.remove('active');
-            document.getElementById('nav').style.display = 'none';
-        }
+        });
     </script>
 </body>
 </html>
