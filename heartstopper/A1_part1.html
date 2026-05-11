@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heartstopper • Graphic Novel • Part 1 Meet • A1</title>
+
+<style>
+:root{
+  --deep:#10211f;
+  --deep2:#1b3b35;
+  --card:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.14);
+  --pink:#efb1b0;
+  --rose:#df8f8b;
+  --mint:#cfe9df;
+  --cream:#f7f3ef;
+  --soft:#dcebe6;
+  --good:#b8f2c2;
+  --bad:#ffd1d1;
+  --shadow:0 18px 44px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--cream);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(239,177,176,.18), transparent 20%),
+    radial-gradient(circle at 86% 16%, rgba(207,233,223,.14), transparent 22%),
+    linear-gradient(180deg,var(--deep),var(--deep2));
+}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  gap:22px;
+  align-items:stretch;
+  margin-bottom:24px;
+}
+.card,.section{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:30px;
+  box-shadow:var(--shadow);
+}
+.heroText{
+  padding:34px;
+  position:relative;
+  overflow:hidden;
+}
+.heroText:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.48;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.heroText>*{position:relative}
+.badge{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(239,177,176,.15);
+  border:1px solid rgba(239,177,176,.25);
+  font-weight:800;
+  margin-bottom:18px;
+}
+h1{
+  margin:0 0 16px;
+  font-size:clamp(3rem,7vw,5.4rem);
+  line-height:.92;
+  letter-spacing:-.06em;
+}
+.lead{
+  color:var(--soft);
+  line-height:1.65;
+  font-size:1.08rem;
+  max-width:58ch;
+}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--line);
+}
+.heroImage{
+  overflow:hidden;
+  min-height:560px;
+  display:flex;
+}
+.heroImage img{
+  width:100%;
+  min-height:560px;
+  object-fit:cover;
+  display:block;
+}
+.section{
+  padding:26px;
+  margin-bottom:24px;
+}
+.section h2{
+  margin:0 0 8px;
+  font-size:1.8rem;
+}
+.help{
+  color:var(--soft);
+  line-height:1.6;
+  margin:0 0 18px;
+}
+.vocabGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+.word{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+}
+.wordTop{display:flex;gap:12px;align-items:center}
+.icon{
+  width:52px;height:52px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(239,177,176,.14);
+  font-size:1.7rem;
+}
+.word h3{margin:0;font-size:1.25rem}
+.no{color:#ffd9d8;font-weight:800;margin-top:4px}
+.phon{font-size:.92rem;color:#cfe6df;margin-top:10px}
+button{font:inherit}
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:11px 15px;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:10px;
+}
+.primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
+.secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.activity{
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+}
+.activity h3{margin:0 0 12px;font-size:1.25rem}
+.choice{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.075);
+  color:var(--cream);
+  border-radius:16px;
+  padding:13px 14px;
+  margin:7px 0;
+  cursor:pointer;
+}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
+.choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
+input,textarea,select{
+  width:100%;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.08);
+  color:var(--cream);
+  padding:13px;
+  font:inherit;
+  margin-top:8px;
+}
+textarea{min-height:105px;resize:vertical}
+select{color-scheme:dark;background-color:#294640}
+.memoryGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.mem{
+  min-height:86px;
+  border:none;
+  border-radius:18px;
+  background:#496b64;
+  color:#496b64;
+  font-weight:900;
+  cursor:pointer;
+  padding:10px;
+}
+.mem.revealed,.mem.matched{
+  color:var(--cream);
+  background:rgba(255,255,255,.09);
+  border:1px solid var(--line);
+}
+.mem.matched{background:rgba(184,242,194,.17)}
+.sequence{
+  display:grid;
+  gap:10px;
+}
+.seqItem{
+  padding:13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--line);
+  cursor:grab;
+}
+.dropzone{
+  min-height:54px;
+  padding:13px;
+  border:1px dashed rgba(255,255,255,.26);
+  border-radius:16px;
+  margin:8px 0;
+  background:rgba(255,255,255,.04);
+}
+.sentenceStarters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+.starter{
+  padding:10px 12px;
+  border-radius:14px;
+  background:rgba(239,177,176,.13);
+  border:1px solid rgba(239,177,176,.22);
+}
+.scoreRow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.score{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  text-align:center;
+}
+.score strong{display:block;font-size:1.6rem}
+.footer{text-align:center;margin:24px 0}
+.small{font-size:.92rem;color:var(--soft)}
+@media(max-width:950px){
+  .hero,.grid2{grid-template-columns:1fr}
+  .memoryGrid{grid-template-columns:repeat(3,1fr)}
+  .heroImage,.heroImage img{min-height:360px}
+}
+@media(max-width:620px){
+  .memoryGrid,.scoreRow{grid-template-columns:1fr 1fr}
+  .wrap{padding:14px}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="card heroText">
+    <div class="badge">Friday Reading Studio • Graphic Novel • Part 1 • A1</div>
+    <h1>Part 1<br>Meet</h1>
+    <p class="lead">
+      First read about 1/3 of the chapter. Then work with vocabulary, reading comprehension, and simple reflection.
+      This page is for A1 learners and uses short answers, choices, emojis and sentence starters.
+    </p>
+    <div class="pills">
+      <div class="pill">📚 45 min reading</div>
+      <div class="pill">🔊 45 min vocabulary + comprehension</div>
+      <div class="pill">💭 45 min reflection + writing</div>
+      <div class="pill">📄 PDF export</div>
+    </div>
+  </div>
+  <div class="card heroImage">
+    <img src="images/A1_part1_comic.png" alt="Comic panels for Part 1" onerror="this.src='images/book.png'">
+  </div>
+</section>
+
+<section class="section">
+  <h2>1. Vocabulary first</h2>
+  <p class="help">Listen to the words. Say the words aloud. These words help you understand the first part of the chapter.</p>
+  <div class="vocabGrid" id="vocabGrid"></div>
+</section>
+
+<section class="section">
+  <h2>2. Vocabulary games</h2>
+  <p class="help">Practise the words before you answer the reading questions.</p>
+  <div class="grid2">
+    <div class="activity">
+      <h3>Memory game: English → Norwegian</h3>
+      <button class="btn secondary" onclick="resetMemory()">New game</button>
+      <div class="memoryGrid" id="memoryGrid"></div>
+      <div class="feedback" id="memoryFb">Find all pairs.</div>
+    </div>
+
+    <div class="activity">
+      <h3>Choose the correct Norwegian word</h3>
+      <p class="help">What does <strong>shy</strong> mean?</p>
+      <div class="choice" onclick="checkChoice(this,true,'vocabChoiceFb')">sjenert</div>
+      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb')">glad</div>
+      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb')">sint</div>
+      <div class="feedback" id="vocabChoiceFb"></div>
+
+      <p class="help" style="margin-top:18px">What does <strong>friend</strong> mean?</p>
+      <div class="choice" onclick="checkChoice(this,true,'vocabChoiceFb2')">venn</div>
+      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb2')">skole</div>
+      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb2')">snakke</div>
+      <div class="feedback" id="vocabChoiceFb2"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. Reading comprehension</h2>
+  <p class="help">Answer these questions after reading the first part of the chapter.</p>
+
+  <div class="grid2">
+    <div class="activity">
+      <h3>1. Where do Charlie and Nick meet?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q1')">At school</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">At a party</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">At the beach</div>
+      <div class="feedback" id="q1"></div>
+    </div>
+
+    <div class="activity">
+      <h3>2. Who sits next to Charlie?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q2')">Nick Nelson</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">Tao</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">Elle</div>
+      <div class="feedback" id="q2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>3. How does Charlie seem at first?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q3')">Shy or nervous</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">Angry</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">Very loud</div>
+      <div class="feedback" id="q3"></div>
+    </div>
+
+    <div class="activity">
+      <h3>4. How does Nick seem?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q4')">Friendly</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">Rude</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">Scared</div>
+      <div class="feedback" id="q4"></div>
+    </div>
+
+    <div class="activity">
+      <h3>5. True or false?</h3>
+      <p>Charlie and Nick start talking.</p>
+      <div class="choice" onclick="checkChoice(this,true,'q5')">True</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">False</div>
+      <div class="feedback" id="q5"></div>
+    </div>
+
+    <div class="activity">
+      <h3>6. Who says “Hi”?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q6')">Nick</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">A teacher</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">Tao</div>
+      <div class="feedback" id="q6"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>4. More comprehension activities</h2>
+  <p class="help">Now show that you understand the story in different ways.</p>
+
+  <div class="grid2">
+    <div class="activity">
+      <h3>Put the events in order</h3>
+      <p class="help">Drag the events into the correct order.</p>
+      <div id="seqBank" class="sequence"></div>
+      <div id="seqDrops"></div>
+      <button class="btn primary" onclick="checkSequence()">Check order</button>
+      <div class="feedback" id="seqFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Fill in the missing words</h3>
+      <label>Charlie gets a new ______.</label>
+      <input id="fill1" placeholder="Write one word">
+      <label>Nick is ______ to Charlie.</label>
+      <input id="fill2" placeholder="Write one word">
+      <label>They start to ______.</label>
+      <input id="fill3" placeholder="Write one word">
+      <button class="btn primary" onclick="checkFill()">Check words</button>
+      <div class="feedback" id="fillFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Match character and feeling</h3>
+      <p>Charlie →</p>
+      <select id="charlieFeeling">
+        <option value="">Choose one</option>
+        <option value="correct">shy / nervous</option>
+        <option value="wrong">angry / rude</option>
+        <option value="wrong">bored / sleepy</option>
+      </select>
+
+      <p style="margin-top:12px">Nick →</p>
+      <select id="nickFeeling">
+        <option value="">Choose one</option>
+        <option value="correct">friendly / kind</option>
+        <option value="wrong">mean / rude</option>
+        <option value="wrong">sad / alone</option>
+      </select>
+
+      <button class="btn primary" onclick="checkFeelings()">Check</button>
+      <div class="feedback" id="feelingsFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Complete the dialogue</h3>
+      <p>Nick: “Hi.”</p>
+      <p>Charlie: “_____”</p>
+      <input id="dialogue1" placeholder="Write a short answer">
+      <p style="margin-top:12px">Write one more friendly sentence.</p>
+      <input id="dialogue2" placeholder="Example: Nice to meet you.">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>5. Reflection and opinions</h2>
+  <p class="help">Now think about the story. Use simple English. You can use the sentence starters.</p>
+
+  <div class="grid2">
+    <div class="activity">
+      <h3>1. Do you like Nick as a classmate?</h3>
+      <div class="choice" onclick="saveChoice('opinion1','Yes')">😊 Yes</div>
+      <div class="choice" onclick="saveChoice('opinion1','Maybe')">🤔 Maybe</div>
+      <div class="choice" onclick="saveChoice('opinion1','No')">❌ No</div>
+      <textarea id="opinionWhy1" placeholder="Why? Nick is..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>2. What makes a good friend?</h3>
+      <div class="choice" onclick="saveChoice('opinion2','kind')">💬 kind</div>
+      <div class="choice" onclick="saveChoice('opinion2','friendly')">😊 friendly</div>
+      <div class="choice" onclick="saveChoice('opinion2','helpful')">🤝 helpful</div>
+      <div class="choice" onclick="saveChoice('opinion2','funny')">😄 funny</div>
+      <textarea id="friendWhy" placeholder="A good friend is..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>3. How would you feel?</h3>
+      <p>You get a new seating partner. How do you feel?</p>
+      <div class="choice" onclick="saveChoice('opinion3','nervous')">😰 nervous</div>
+      <div class="choice" onclick="saveChoice('opinion3','happy')">😊 happy</div>
+      <div class="choice" onclick="saveChoice('opinion3','shy')">😳 shy</div>
+      <textarea id="newSeatFeeling" placeholder="I feel... because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>4. Best moment</h3>
+      <p>Which moment do you like best?</p>
+      <textarea id="bestMoment" placeholder="I like the moment when..."></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>6. Writing</h2>
+  <p class="help">Use the sentence starters. Write short answers.</p>
+
+  <div class="sentenceStarters">
+    <div class="starter">Charlie is...</div>
+    <div class="starter">Nick is...</div>
+    <div class="starter">I think...</div>
+    <div class="starter">The classroom is...</div>
+    <div class="starter">My favourite moment is...</div>
+    <div class="starter">A good friend...</div>
+  </div>
+
+  <div class="grid2">
+    <div class="activity">
+      <h3>Describe Charlie</h3>
+      <textarea id="writeCharlie" placeholder="Charlie is..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Describe Nick</h3>
+      <textarea id="writeNick" placeholder="Nick is..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Describe the classroom</h3>
+      <textarea id="writeClassroom" placeholder="I can see... The classroom is..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Create a speech bubble</h3>
+      <p>Write one short sentence Charlie could say.</p>
+      <textarea id="speechBubble" placeholder="Hi Nick!"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>7. Progress</h2>
+  <div class="scoreRow">
+    <div class="score"><strong id="scoreListen">0</strong>words listened to</div>
+    <div class="score"><strong id="scoreMemory">0</strong>pairs found</div>
+    <div class="score"><strong id="scoreChecked">0</strong>answers checked</div>
+    <div class="score"><strong>3×45</strong>minutes Friday work</div>
+  </div>
+  <p class="small" style="margin-top:14px">When you are finished, download your answers as a PDF.</p>
+</section>
+
+<div class="footer">
+  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const words = [
+  {en:"hello", no:"hei", icon:"👋", phonetic:"/həˈləʊ/"},
+  {en:"school", no:"skole", icon:"🏫", phonetic:"/skuːl/"},
+  {en:"shy", no:"sjenert", icon:"😊", phonetic:"/ʃaɪ/"},
+  {en:"friend", no:"venn", icon:"👫", phonetic:"/frend/"},
+  {en:"talk", no:"snakke", icon:"💬", phonetic:"/tɔːk/"},
+  {en:"new", no:"ny", icon:"✨", phonetic:"/njuː/"},
+  {en:"sit", no:"sitte", icon:"🪑", phonetic:"/sɪt/"},
+  {en:"kind", no:"snill", icon:"🤝", phonetic:"/kaɪnd/"},
+  {en:"smile", no:"smile", icon:"🙂", phonetic:"/smaɪl/"},
+  {en:"classroom", no:"klasserom", icon:"📚", phonetic:"/ˈklɑːsruːm/"}
+];
+
+let listened = new Set();
+let checked = 0;
+let memoryPairs = 0;
+let firstCard = null;
+let lock = false;
+let savedChoices = {};
+
+function updateScores(){
+  document.getElementById("scoreListen").textContent = listened.size;
+  document.getElementById("scoreMemory").textContent = memoryPairs;
+  document.getElementById("scoreChecked").textContent = checked;
+}
+
+function speakWord(word){
+  if(!("speechSynthesis" in window)){
+    alert("Speech is not supported in this browser.");
+    return;
+  }
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find(v => v.lang === "en-GB") || voices.find(v => v.lang === "en-US") || voices.find(v => v.lang && v.lang.startsWith("en"));
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = voice?.lang || "en-GB";
+  if(voice) utterance.voice = voice;
+  utterance.rate = 0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+  listened.add(word);
+  updateScores();
+}
+
+function buildVocab(){
+  const grid = document.getElementById("vocabGrid");
+  words.forEach(w => {
+    const card = document.createElement("div");
+    card.className = "word";
+    card.innerHTML = `
+      <div class="wordTop">
+        <div class="icon">${w.icon}</div>
+        <div>
+          <h3>${w.en}</h3>
+          <div class="no">${w.no}</div>
+        </div>
+      </div>
+      <div class="phon">Pronunciation: ${w.phonetic}</div>
+      <button class="btn primary" onclick="speakWord('${w.en}')">🔊 Listen</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function checkChoice(el, isCorrect, fbId){
+  const parent = el.parentElement;
+  [...parent.querySelectorAll(".choice")].forEach(c => c.classList.remove("correct","wrong"));
+  if(isCorrect){
+    el.classList.add("correct");
+    document.getElementById(fbId).textContent = "Correct!";
+  } else {
+    el.classList.add("wrong");
+    document.getElementById(fbId).textContent = "Try again.";
+  }
+  checked++;
+  updateScores();
+}
+
+function saveChoice(key, value){
+  savedChoices[key] = value;
+  checked++;
+  updateScores();
+}
+
+function resetMemory(){
+  const grid = document.getElementById("memoryGrid");
+  grid.innerHTML = "";
+  firstCard = null;
+  lock = false;
+  memoryPairs = 0;
+  updateScores();
+
+  let cards = [];
+  words.slice(0,8).forEach(w => {
+    cards.push({text:w.en, pair:w.en});
+    cards.push({text:w.no, pair:w.en});
+  });
+  cards.sort(() => Math.random() - 0.5);
+
+  cards.forEach(c => {
+    const btn = document.createElement("button");
+    btn.className = "mem";
+    btn.textContent = c.text;
+    btn.dataset.pair = c.pair;
+    btn.onclick = () => flipMemory(btn);
+    grid.appendChild(btn);
+  });
+}
+
+function flipMemory(btn){
+  if(lock || btn.classList.contains("matched") || btn === firstCard) return;
+  btn.classList.add("revealed");
+
+  if(!firstCard){
+    firstCard = btn;
+    return;
+  }
+
+  if(firstCard.dataset.pair === btn.dataset.pair){
+    firstCard.classList.add("matched");
+    btn.classList.add("matched");
+    firstCard = null;
+    memoryPairs++;
+    document.getElementById("memoryFb").textContent = memoryPairs === 8 ? "Great! All pairs found." : "Good. Keep going.";
+    updateScores();
+  } else {
+    lock = true;
+    document.getElementById("memoryFb").textContent = "Try again.";
+    setTimeout(() => {
+      btn.classList.remove("revealed");
+      firstCard.classList.remove("revealed");
+      firstCard = null;
+      lock = false;
+    }, 850);
+  }
+}
+
+const sequenceCorrect = [
+  "Charlie gets a new seating plan.",
+  "Charlie sits next to Nick.",
+  "Nick says hello.",
+  "Charlie and Nick start talking."
+];
+
+function buildSequence(){
+  const bank = document.getElementById("seqBank");
+  const drops = document.getElementById("seqDrops");
+  const shuffled = [...sequenceCorrect].sort(() => Math.random() - 0.5);
+
+  shuffled.forEach(txt => {
+    const item = document.createElement("div");
+    item.className = "seqItem";
+    item.draggable = true;
+    item.textContent = txt;
+    item.dataset.text = txt;
+    item.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", txt));
+    bank.appendChild(item);
+  });
+
+  sequenceCorrect.forEach((txt, i) => {
+    const dz = document.createElement("div");
+    dz.className = "dropzone";
+    dz.innerHTML = `<strong>${i+1}.</strong>`;
+    dz.dataset.answer = txt;
+    dz.addEventListener("dragover", e => e.preventDefault());
+    dz.addEventListener("drop", e => {
+      e.preventDefault();
+      const val = e.dataTransfer.getData("text/plain");
+      dz.dataset.value = val;
+      dz.innerHTML = `<strong>${i+1}.</strong> ${val}`;
+      const old = [...document.querySelectorAll(".seqItem")].find(x => x.dataset.text === val);
+      if(old) old.remove();
+    });
+    drops.appendChild(dz);
+  });
+}
+
+function checkSequence(){
+  const ok = [...document.querySelectorAll(".dropzone")].every(d => d.dataset.value === d.dataset.answer);
+  document.getElementById("seqFb").textContent = ok ? "Correct order!" : "Check the order and try again.";
+  checked++;
+  updateScores();
+}
+
+function checkFill(){
+  const f1 = document.getElementById("fill1").value.trim().toLowerCase();
+  const f2 = document.getElementById("fill2").value.trim().toLowerCase();
+  const f3 = document.getElementById("fill3").value.trim().toLowerCase();
+  const ok = (f1 === "seat" || f1 === "seating plan") && (f2 === "kind" || f2 === "friendly") && (f3 === "talk");
+  document.getElementById("fillFb").textContent = ok ? "Correct!" : "Check your words and try again.";
+  checked++;
+  updateScores();
+}
+
+function checkFeelings(){
+  const c = document.getElementById("charlieFeeling").value;
+  const n = document.getElementById("nickFeeling").value;
+  document.getElementById("feelingsFb").textContent = (c === "correct" && n === "correct") ? "Correct!" : "Try again.";
+  checked++;
+  updateScores();
+}
+
+function safe(id){
+  const el = document.getElementById(id);
+  return el ? (el.value || "").replace(/\s+/g," ").trim() : "";
+}
+
+function downloadPDF(){
+  const jspdf = window.jspdf;
+  if(!jspdf){
+    alert("PDF library not loaded.");
+    return;
+  }
+
+  const doc = new jspdf.jsPDF();
+  let y = 20;
+
+  function add(text){
+    const lines = doc.splitTextToSize(text, 180);
+    doc.text(lines, 10, y);
+    y += lines.length * 7;
+    if(y > 270){
+      doc.addPage();
+      y = 20;
+    }
+  }
+
+  doc.setFontSize(16);
+  add("Heartstopper Graphic Novel – Part 1 Meet – A1");
+  y += 3;
+  doc.setFontSize(12);
+
+  add("Vocabulary listened to: " + listened.size + " words");
+  add("Memory pairs found: " + memoryPairs);
+  add("Answers checked: " + checked);
+  y += 2;
+
+  add("Fill in:");
+  add("Charlie gets a new: " + safe("fill1"));
+  add("Nick is: " + safe("fill2"));
+  add("They start to: " + safe("fill3"));
+  y += 2;
+
+  add("Character and feeling:");
+  add("Charlie: " + document.getElementById("charlieFeeling").value);
+  add("Nick: " + document.getElementById("nickFeeling").value);
+  y += 2;
+
+  add("Dialogue:");
+  add("Charlie says: " + safe("dialogue1"));
+  add("Friendly sentence: " + safe("dialogue2"));
+  y += 2;
+
+  add("Reflection:");
+  add("Would you like Nick as a classmate? " + (savedChoices.opinion1 || ""));
+  add("Why? " + safe("opinionWhy1"));
+  add("Good friend word: " + (savedChoices.opinion2 || ""));
+  add("A good friend is: " + safe("friendWhy"));
+  add("New seating partner feeling: " + (savedChoices.opinion3 || ""));
+  add("I feel: " + safe("newSeatFeeling"));
+  add("Best moment: " + safe("bestMoment"));
+  y += 2;
+
+  add("Writing:");
+  add("Charlie: " + safe("writeCharlie"));
+  add("Nick: " + safe("writeNick"));
+  add("Classroom: " + safe("writeClassroom"));
+  add("Speech bubble: " + safe("speechBubble"));
+
+  doc.save("A1_part1_meet_answers.pdf");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  buildVocab();
+  resetMemory();
+  buildSequence();
+  updateScores();
+});
+</script>
+</body>
+</html>
