@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heartstopper • Graphic Novel • Part 3 Kiss • A2</title>
+<style>
+:root{
+  --deep:#10211f;--deep2:#1b3b35;--card:rgba(255,255,255,.075);--line:rgba(255,255,255,.14);
+  --pink:#efb1b0;--rose:#df8f8b;--mint:#cfe9df;--cream:#f7f3ef;--soft:#dcebe6;
+  --good:#b8f2c2;--bad:#ffd1d1;--shadow:0 18px 44px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cream);
+  background:radial-gradient(circle at 16% 8%,rgba(239,177,176,.18),transparent 20%),
+  radial-gradient(circle at 86% 16%,rgba(207,233,223,.14),transparent 22%),
+  linear-gradient(180deg,var(--deep),var(--deep2));}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:stretch;margin-bottom:24px}
+.card,.section{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.heroText{padding:34px;position:relative;overflow:hidden}
+.heroText:before{content:"";position:absolute;inset:0;opacity:.48;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px}
+.heroText>*{position:relative}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(239,177,176,.15);border:1px solid rgba(239,177,176,.25);font-weight:800;margin-bottom:18px}
+h1{margin:0 0 16px;font-size:clamp(3rem,7vw,5.4rem);line-height:.92;letter-spacing:-.06em}
+.lead{color:var(--soft);line-height:1.65;font-size:1.08rem;max-width:58ch}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.heroImage{overflow:hidden;min-height:560px;display:flex}
+.heroImage img{width:100%;min-height:560px;object-fit:cover;display:block}
+.section{padding:26px;margin-bottom:24px}
+.section h2{margin:0 0 8px;font-size:1.8rem}
+.help{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.vocabGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.word{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:22px;padding:16px}
+.wordTop{display:flex;gap:12px;align-items:center}
+.icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(239,177,176,.14);font-size:1.7rem}
+.word h3{margin:0;font-size:1.25rem}
+.no{color:#ffd9d8;font-weight:800;margin-top:4px}
+.phon{font-size:.92rem;color:#cfe6df;margin-top:10px}
+button{font:inherit}
+.btn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;margin-top:10px}
+.primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
+.secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.activity{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:18px}
+.activity h3{margin:0 0 12px;font-size:1.25rem}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.075);color:var(--cream);border-radius:16px;padding:13px 14px;margin:7px 0;cursor:pointer}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
+.choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
+input,textarea,select{width:100%;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:13px;font:inherit;margin-top:8px}
+textarea{min-height:115px;resize:vertical}
+select{color-scheme:dark;background-color:#294640}
+.sentenceStarters{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:14px}
+.starter{padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22)}
+.matchRow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.matchLabel{min-width:140px;padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22);font-weight:700}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
+.score strong{display:block;font-size:1.6rem}
+.footer{text-align:center;margin:24px 0}
+.small{font-size:.92rem;color:var(--soft)}
+@media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.heroImage,.heroImage img{min-height:360px}}
+@media(max-width:620px){.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="card heroText">
+    <div class="badge">Graphic Novel • Part 3 • A2</div>
+    <h1>Part 3<br>Kiss</h1>
+    <p class="lead">Read Chapter 3 and explore the key moment in the story. Work with vocabulary, comprehension, character analysis and a writing task. This page is for A2 learners.</p>
+    <div class="pills">
+      <div class="pill">📄 PDF export</div>
+    </div>
+  </div>
+  <div class="card heroImage">
+    <img src="../images/A2_part3_comic.png" alt="Comic panels for Part 3" onerror="this.src='../images/book.png'">
+  </div>
+</section>
+
+<section class="section">
+  <h2>1. Vocabulary in context</h2>
+  <div class="vocabGrid" id="vocabGrid"></div>
+</section>
+
+<section class="section">
+  <h2>2. Vocabulary activities</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Choose the best synonym</h3>
+      <p class="help">What is another word for <strong>realise</strong>?</p>
+      <div class="choice" onclick="checkChoice(this,false,'syn1')">forget</div>
+      <div class="choice" onclick="checkChoice(this,true,'syn1')">suddenly understand something</div>
+      <div class="choice" onclick="checkChoice(this,false,'syn1')">run away</div>
+      <div class="feedback" id="syn1"></div>
+      <p class="help" style="margin-top:16px">What is another word for <strong>overwhelmed</strong>?</p>
+      <div class="choice" onclick="checkChoice(this,false,'syn2')">calm and relaxed</div>
+      <div class="choice" onclick="checkChoice(this,true,'syn2')">having too many strong feelings at once</div>
+      <div class="choice" onclick="checkChoice(this,false,'syn2')">bored</div>
+      <div class="feedback" id="syn2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Complete the sentences</h3>
+      <p style="color:var(--pink);font-weight:700">realise · overwhelmed · deny · impulsive · process</p>
+      <label>Nick seems to ______ that he has feelings for Charlie.</label>
+      <input id="fill1" placeholder="Type the word">
+      <label>Charlie is ______ with emotions after the kiss.</label>
+      <input id="fill2" placeholder="Type the word">
+      <label>Nick's action was ______ – he did not think first.</label>
+      <input id="fill3" placeholder="Type the word">
+      <button class="btn primary" onclick="checkFill()">Check answers</button>
+      <div class="feedback" id="fillFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Match words and meanings</h3>
+      <div id="matchArea"></div>
+      <button class="btn primary" onclick="checkMatch()">Check matches</button>
+      <div class="feedback" id="matchFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>True, False or Not Given?</h3>
+      <div id="tfArea"></div>
+      <button class="btn primary" onclick="checkTF()">Check</button>
+      <div class="feedback" id="tfFb"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. Reading comprehension</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. What makes the kiss significant in the story?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q1')">It is the first sign that Nick also has feelings for Charlie</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">It means they are now enemies</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">It was planned by Charlie</div>
+      <div class="feedback" id="q1"></div>
+    </div>
+
+    <div class="activity">
+      <h3>2. Why does Nick run away after the kiss?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He dislikes Charlie</div>
+      <div class="choice" onclick="checkChoice(this,true,'q2')">He is confused and scared of his own feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He has to go to class</div>
+      <div class="feedback" id="q2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>3. What conflict does Nick have in this chapter?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q3')">He is beginning to question his own identity and feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">He argues with Charlie</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">He has problems at home</div>
+      <div class="feedback" id="q3"></div>
+    </div>
+
+    <div class="activity">
+      <h3>4. How does Charlie react to the kiss?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q4')">He is happy but confused by Nick running away</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">He is angry</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">He pretends it did not happen</div>
+      <div class="feedback" id="q4"></div>
+    </div>
+
+    <div class="activity">
+      <h3>5. What visual technique does Alice Oseman use to show the importance of the kiss?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q5')">A large, detailed panel or full-page moment that slows down time</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">A very small panel with no detail</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">She does not show it in the pictures</div>
+      <div class="feedback" id="q5"></div>
+    </div>
+
+    <div class="activity">
+      <h3>6. How has the story changed after this moment?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q6')">Both characters now have to deal with new and complicated feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">Nothing changes – everything goes back to normal</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">They decide to forget each other</div>
+      <div class="feedback" id="q6"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>4. Character comparison: before and after</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Charlie: before and after</h3>
+      <p class="help">How has Charlie's situation changed between Chapter 1 and Chapter 3?</p>
+      <div class="sentenceStarters">
+        <div class="starter">In Chapter 1, Charlie...</div>
+        <div class="starter">By Chapter 3, Charlie...</div>
+        <div class="starter">The biggest change is...</div>
+      </div>
+      <textarea id="charlieBefore" placeholder="In Chapter 1, Charlie was shy and liked Nick secretly. By Chapter 3..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Nick: before and after</h3>
+      <p class="help">Nick seemed confident and carefree at first. How has he changed by Chapter 3?</p>
+      <textarea id="nickBefore" placeholder="At first, Nick seemed... But in Chapter 3, he seems..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>The reader's feelings</h3>
+      <p class="help">How did you feel as a reader at the end of Chapter 3? Did you feel happy? Worried? Both? Explain.</p>
+      <textarea id="readerResponse" placeholder="When I finished reading Chapter 3, I felt... because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Sympathy</h3>
+      <p class="help">Which character do you feel most sympathy for at the end of Chapter 3, and why?</p>
+      <div class="choice" onclick="saveChoice('sympathy','Charlie')">💙 Charlie – because he has waited so long</div>
+      <div class="choice" onclick="saveChoice('sympathy','Nick')">💜 Nick – because this is new and scary for him</div>
+      <div class="choice" onclick="saveChoice('sympathy','Both equally')">❤️ Both equally</div>
+      <textarea id="sympathyWhy" placeholder="I feel most sympathy for... because..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>5. Reflection</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. Is this a happy ending for Chapter 3?</h3>
+      <div class="choice" onclick="saveChoice('r1','Yes – it is hopeful')">😊 Yes – it is hopeful</div>
+      <div class="choice" onclick="saveChoice('r1','Mixed – happy but also uncertain')">🤔 Mixed – happy but uncertain</div>
+      <div class="choice" onclick="saveChoice('r1','No – it feels unresolved')">😟 No – it feels unresolved</div>
+      <textarea id="r1why" placeholder="I think this because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>2. Why do you think Nick kisses Charlie without planning it?</h3>
+      <textarea id="r2" placeholder="I think Nick kisses Charlie because... He probably does not even realise that he..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>3. Your rating for the three chapters so far</h3>
+      <div class="choice" onclick="saveChoice('rating','⭐⭐⭐⭐⭐ Very engaging')">⭐⭐⭐⭐⭐ Very engaging</div>
+      <div class="choice" onclick="saveChoice('rating','⭐⭐⭐ OK')">⭐⭐⭐ OK</div>
+      <div class="choice" onclick="saveChoice('rating','⭐ Not really for me')">⭐ Not really for me</div>
+      <textarea id="ratingWhy" placeholder="I give it this rating because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>4. What question would you ask Alice Oseman?</h3>
+      <textarea id="authorQ" placeholder="If I could ask Alice Oseman one question, it would be..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>6. Writing task</h2>
+  <div class="sentenceStarters">
+    <div class="starter">After the kiss, Charlie...</div>
+    <div class="starter">Nick runs away because...</div>
+    <div class="starter">In the panels, we can see that...</div>
+    <div class="starter">I think this moment is important because...</div>
+    <div class="starter">The chapter ends with...</div>
+  </div>
+  <div class="grid2">
+    <div class="activity">
+      <h3>Option A: Analysis</h3>
+      <p class="help">Why is the kiss in Chapter 3 the most important moment in the story so far? Discuss the feelings of both characters.</p>
+      <textarea id="analysis" placeholder="The kiss is the most important moment because..."></textarea>
+    </div>
+    <div class="activity">
+      <h3>Option B: Continue the story</h3>
+      <p class="help">What happens the next day at school? Write a short scene of 5–8 sentences.</p>
+      <textarea id="continue" placeholder="The next morning, Charlie walked into school and saw Nick..."></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>7. Progress</h2>
+  <div class="scoreRow">
+    <div class="score"><strong id="scoreChecked">0</strong>answers checked</div>
+    <div class="score"><strong id="scoreOpen">0</strong>open tasks done</div>
+    
+  </div>
+</section>
+
+<div class="footer">
+  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const words = [
+  {en:"realise",no:"innse / forstå plutselig",icon:"💡",phonetic:"/ˈrɪəlaɪz/",example:"Nick starts to realise he has feelings for Charlie."},
+  {en:"overwhelmed",no:"overveldet",icon:"🌊",phonetic:"/ˌəʊvəˈwelmd/",example:"Charlie is overwhelmed after the kiss."},
+  {en:"impulsive",no:"impulsiv",icon:"⚡",phonetic:"/ɪmˈpʌlsɪv/",example:"Nick's kiss was impulsive – he did not plan it."},
+  {en:"deny",no:"nekte / fornekte",icon:"🙅",phonetic:"/dɪˈnaɪ/",example:"Nick tries to deny his feelings."},
+  {en:"process",no:"fordøye / bearbeide",icon:"🧠",phonetic:"/ˈprəʊses/",example:"Nick needs time to process what happened."},
+  {en:"conflict",no:"konflikt / indre kamp",icon:"⚖️",phonetic:"/ˈkɒnflɪkt/",example:"Nick has an internal conflict about his feelings."},
+  {en:"courage",no:"mot",icon:"🦁",phonetic:"/ˈkʌrɪdʒ/",example:"It takes courage to show your real feelings."},
+  {en:"identity",no:"identitet",icon:"🌈",phonetic:"/aɪˈdentɪti/",example:"Nick begins to question his identity."}
+];
+
+const matchData = [
+  {word:"impulsive",options:["planned and careful","done without thinking","slow and quiet"],correct:1},
+  {word:"overwhelmed",options:["calm and in control","having too many feelings","very tired"],correct:1},
+  {word:"identity",options:["a kind of sport","who you are as a person","a type of school"],correct:1}
+];
+
+const tfData = [
+  {stmt:"Nick planned the kiss in advance.",answer:"F"},
+  {stmt:"Charlie has feelings for Nick.",answer:"T"},
+  {stmt:"Nick and Charlie had a fight before the kiss.",answer:"NG"},
+  {stmt:"Nick runs away after the kiss.",answer:"T"}
+];
+
+let checked=0; let openDone=0; let savedChoices={};
+
+function updateScores(){
+  document.getElementById("scoreChecked").textContent=checked;
+  document.getElementById("scoreOpen").textContent=openDone;
+}
+
+function speakWord(word){
+  if(!("speechSynthesis" in window)) return;
+  const voices=speechSynthesis.getVoices();
+  const voice=voices.find(v=>v.lang==="en-GB")||voices.find(v=>v.lang==="en-US")||voices.find(v=>v.lang&&v.lang.startsWith("en"));
+  const u=new SpeechSynthesisUtterance(word);
+  u.lang=voice?.lang||"en-GB"; if(voice)u.voice=voice; u.rate=0.9;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function buildVocab(){
+  const grid=document.getElementById("vocabGrid");
+  words.forEach(w=>{
+    const card=document.createElement("div");
+    card.className="word";
+    card.innerHTML=`<div class="wordTop"><div class="icon">${w.icon}</div><div><h3>${w.en}</h3><div class="no">${w.no}</div></div></div>
+      <div class="phon">Pronunciation: ${w.phonetic}</div>
+      <div class="phon" style="margin-top:6px;font-style:italic">"${w.example}"</div>
+      <button class="btn primary" onclick="speakWord('${w.en}')">🔊 Listen</button>`;
+    grid.appendChild(card);
+  });
+}
+
+function checkChoice(el,isCorrect,fbId){
+  const parent=el.parentElement;
+  [...parent.querySelectorAll(".choice")].forEach(c=>c.classList.remove("correct","wrong"));
+  el.classList.add(isCorrect?"correct":"wrong");
+  document.getElementById(fbId).textContent=isCorrect?"Correct!":"Try again.";
+  checked++; updateScores();
+}
+
+function saveChoice(key,val){savedChoices[key]=val;checked++;updateScores();}
+
+function buildMatch(){
+  const area=document.getElementById("matchArea");
+  matchData.forEach((m,i)=>{
+    const row=document.createElement("div"); row.className="matchRow";
+    row.innerHTML=`<div class="matchLabel">${m.word}</div>
+      <select style="flex:1;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:10px;font:inherit;color-scheme:dark;background-color:#294640" id="match${i}">
+        <option value="">Choose...</option>
+        ${m.options.map((o,j)=>`<option value="${j}">${o}</option>`).join("")}
+      </select>`;
+    area.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  let ok=0;
+  matchData.forEach((m,i)=>{if(parseInt(document.getElementById("match"+i).value)===m.correct)ok++;});
+  document.getElementById("matchFb").textContent=ok===matchData.length?"All correct!":ok+" out of "+matchData.length+" correct.";
+  checked++; updateScores();
+}
+
+function buildTF(){
+  const area=document.getElementById("tfArea");
+  tfData.forEach((t,i)=>{
+    const row=document.createElement("div"); row.style.marginBottom="10px";
+    row.innerHTML=`<p style="margin:0 0 5px">${t.stmt}</p><div style="display:flex;gap:8px">
+      ${["T","F","NG"].map(opt=>`<button class="btn secondary" style="padding:8px 14px" onclick="selectTF(this,'${opt}','${t.answer}')">${opt}</button>`).join("")}
+      </div>`;
+    area.appendChild(row);
+  });
+}
+
+function selectTF(btn,val,correct){
+  const parent=btn.parentElement;
+  [...parent.querySelectorAll("button")].forEach(b=>{b.style.background="rgba(255,255,255,.08)";b.style.borderColor="var(--line)"});
+  btn.style.background=val===correct?"rgba(184,242,194,.2)":"rgba(255,209,209,.15)";
+  btn.style.borderColor=val===correct?"rgba(184,242,194,.5)":"rgba(255,209,209,.5)";
+}
+
+function checkTF(){document.getElementById("tfFb").textContent="Answers highlighted above.";checked++;updateScores();}
+
+function checkFill(){
+  const f1=document.getElementById("fill1").value.trim().toLowerCase();
+  const f2=document.getElementById("fill2").value.trim().toLowerCase();
+  const f3=document.getElementById("fill3").value.trim().toLowerCase();
+  const ok=(f1==="realise"||f1==="realize")&&(f2==="overwhelmed")&&(f3==="impulsive");
+  document.getElementById("fillFb").textContent=ok?"All correct!":"Check your words and try again.";
+  checked++; updateScores();
+}
+
+function trackOpen(id){
+  const el=document.getElementById(id);
+  if(el&&el.value.trim().length>10){openDone++;updateScores();}
+}
+
+function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+
+function downloadPDF(){
+  const jspdf=window.jspdf;
+  if(!jspdf){alert("PDF library not loaded.");return;}
+  const doc=new jspdf.jsPDF(); let y=20;
+  function add(text,sz=12){
+    doc.setFontSize(sz);
+    const lines=doc.splitTextToSize(text,180);
+    doc.text(lines,10,y);y+=lines.length*7;
+    if(y>270){doc.addPage();y=20;}
+  }
+  add("Heartstopper Graphic Novel – Part 3 Kiss – A2",16);y+=4;
+  add("Fill in: "+safe("fill1")+" | "+safe("fill2")+" | "+safe("fill3"));y+=2;
+  add("Charlie before/after: "+safe("charlieBefore"));
+  add("Nick before/after: "+safe("nickBefore"));
+  add("Reader response: "+safe("readerResponse"));
+  add("Sympathy for: "+(savedChoices.sympathy||"")+" – "+safe("sympathyWhy"));y+=2;
+  add("Reflection:");
+  add("Happy ending? "+(savedChoices.r1||"")+" – "+safe("r1why"));
+  add("Why impulsive? "+safe("r2"));
+  add("Rating: "+(savedChoices.rating||"")+" – "+safe("ratingWhy"));
+  add("Question to author: "+safe("authorQ"));y+=2;
+  add("Writing – Analysis: "+safe("analysis"));
+  add("Writing – Continue: "+safe("continue"));
+  doc.save("A2_part3_kiss_answers.pdf");
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  buildVocab(); buildMatch(); buildTF(); updateScores();
+  ["charlieBefore","nickBefore","readerResponse","sympathyWhy","r1why","r2","ratingWhy","authorQ","analysis","continue"]
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("blur",()=>trackOpen(id));});
+});
+</script>
+</body>
+</html>

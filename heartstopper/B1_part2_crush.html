@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heartstopper • Graphic Novel • Part 2 Crush • B1</title>
+<style>
+:root{
+  --deep:#10211f;--deep2:#1b3b35;--card:rgba(255,255,255,.075);--line:rgba(255,255,255,.14);
+  --pink:#efb1b0;--rose:#df8f8b;--mint:#cfe9df;--cream:#f7f3ef;--soft:#dcebe6;
+  --good:#b8f2c2;--bad:#ffd1d1;--shadow:0 18px 44px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cream);
+  background:radial-gradient(circle at 16% 8%,rgba(239,177,176,.18),transparent 20%),
+  radial-gradient(circle at 86% 16%,rgba(207,233,223,.14),transparent 22%),
+  linear-gradient(180deg,var(--deep),var(--deep2));}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:stretch;margin-bottom:24px}
+.card,.section{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.heroText{padding:34px;position:relative;overflow:hidden}
+.heroText:before{content:"";position:absolute;inset:0;opacity:.48;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px}
+.heroText>*{position:relative}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(239,177,176,.15);border:1px solid rgba(239,177,176,.25);font-weight:800;margin-bottom:18px}
+h1{margin:0 0 16px;font-size:clamp(3rem,7vw,5.4rem);line-height:.92;letter-spacing:-.06em}
+.lead{color:var(--soft);line-height:1.65;font-size:1.08rem;max-width:58ch}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.heroImage{overflow:hidden;min-height:560px;display:flex}
+.heroImage img{width:100%;min-height:560px;object-fit:cover;display:block}
+.section{padding:26px;margin-bottom:24px}
+.section h2{margin:0 0 8px;font-size:1.8rem}
+.help{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.activity{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:18px}
+.activity h3{margin:0 0 10px;font-size:1.2rem}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.075);color:var(--cream);border-radius:16px;padding:13px 14px;margin:7px 0;cursor:pointer}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
+.choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
+button{font:inherit}
+.btn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;margin-top:10px}
+.primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
+.secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+textarea,input{width:100%;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:13px;font:inherit;margin-top:8px}
+textarea{min-height:130px;resize:vertical}
+.sentenceStarters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+.starter{padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22)}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
+.score strong{display:block;font-size:1.6rem}
+.footer{text-align:center;margin:24px 0}
+.small{font-size:.92rem;color:var(--soft)}
+@media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.heroImage,.heroImage img{min-height:360px}}
+@media(max-width:620px){.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="card heroText">
+    <div class="badge">Graphic Novel • Part 2 • B1</div>
+    <h1>Part 2<br>Crush</h1>
+    <p class="lead">Explore how Alice Oseman develops Charlie's internal world in "Crush" through visual metaphors, narrative tension, and the complexity of unspoken feelings. This page is for B1 learners.</p>
+    <div class="pills">
+      <div class="pill">📄 PDF export</div>
+    </div>
+  </div>
+  <div class="card heroImage">
+    <img src="../images/B1_part2_comic.png" alt="Comic panels for Part 2" onerror="this.src='../images/book.png'">
+  </div>
+</section>
+
+<section class="section">
+  <h2>1. Analytical vocabulary</h2>
+  <p class="help">These words will help you discuss and analyse Chapter 2 at B1 level.</p>
+  <div id="vocabGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px"></div>
+</section>
+
+<section class="section">
+  <h2>2. Inference and critical reading</h2>
+  <p class="help">Use what you have read to answer these more challenging questions. There may be more than one valid answer.</p>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. Why is the title "Crush" effective?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q1')">It captures both the romantic feeling and the overwhelming, difficult nature of that feeling</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">It refers to a sports match Charlie loses</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">It only means someone Charlie dislikes</div>
+      <div class="feedback" id="q1"></div>
+    </div>
+
+    <div class="activity">
+      <h3>2. What does Charlie's inability to concentrate tell us?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q2')">His feelings for Nick are taking over his thoughts and daily life</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He is lazy and does not care about school</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He has a medical condition</div>
+      <div class="feedback" id="q2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>3. What is the narrative tension in "Crush"?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">Whether Charlie and Nick will finish a school project</div>
+      <div class="choice" onclick="checkChoice(this,true,'q3')">The gap between Charlie's secret feelings and Nick's unawareness</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">Whether Nick will move schools</div>
+      <div class="feedback" id="q3"></div>
+    </div>
+
+    <div class="activity">
+      <h3>4. How does Alice Oseman use visual metaphors in this chapter?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q4')">She draws hearts and floating images around Charlie to externalise his internal feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">She only uses realistic, factual images</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">The visuals have no special meaning</div>
+      <div class="feedback" id="q4"></div>
+    </div>
+
+    <div class="activity">
+      <h3>5. Why might Nick be written as unaware of Charlie's feelings?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">Nick is deliberately cruel</div>
+      <div class="choice" onclick="checkChoice(this,true,'q5')">It creates dramatic irony and reader empathy for Charlie</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">Nick has never met anyone before</div>
+      <div class="feedback" id="q5"></div>
+    </div>
+
+    <div class="activity">
+      <h3>6. How does "Crush" build on what we learned in "Meet"?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q6')">The friendship established in "Meet" makes Charlie's developing romantic feelings more complex and painful</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">The two chapters are completely unrelated</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">Charlie and Nick meet for the first time again</div>
+      <div class="feedback" id="q6"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. Visual and narrative analysis</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Visual metaphor analysis</h3>
+      <p class="help">Alice Oseman uses floating hearts, leaves, and other visual elements around Charlie when he is near Nick. What is the effect of this technique? What does it communicate?</p>
+      <textarea id="visualMeta" placeholder="The floating hearts around Charlie suggest... This technique is effective because... The reader understands that..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Dramatic irony</h3>
+      <p class="help">Dramatic irony is when the reader knows something that a character does not. How does Alice Oseman use dramatic irony in "Crush"? What is the effect on the reader?</p>
+      <textarea id="dramIrony" placeholder="The reader knows that Charlie has feelings for Nick, but Nick does not know this. This creates..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Pacing and panel choice</h3>
+      <p class="help">Alice Oseman sometimes uses full-page or large panels for important emotional moments. How does she use pacing in "Crush" to build emotion?</p>
+      <textarea id="pacing" placeholder="In key moments, the artist uses larger panels to... This slows down the narrative and..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Comparing chapters</h3>
+      <p class="help">How is the visual atmosphere in "Crush" different from "Meet"? What has changed?</p>
+      <textarea id="compareChap" placeholder="In 'Meet', the visuals were... but in 'Crush', the atmosphere has become... This reflects Charlie's changing..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>4. Themes and identity</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Sexuality and identity</h3>
+      <p class="help">Charlie is gay, but the story does not make a big deal of this – it simply shows his experience. Why is this approach important in a story for young readers?</p>
+      <textarea id="identity" placeholder="I think it is important because... When stories show characters like Charlie, it..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>The cost of secrecy</h3>
+      <p class="help">Keeping your feelings secret has a psychological cost. How does Alice Oseman show this in "Crush"? What is the effect on Charlie?</p>
+      <textarea id="secrecy" placeholder="In 'Crush', keeping his feelings secret affects Charlie by... The artist shows this through..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Universal themes</h3>
+      <p class="help">Even though "Crush" is specifically about Charlie's experience, what feelings or themes in this chapter are universal – shared by many people?</p>
+      <textarea id="universal" placeholder="Many people can relate to 'Crush' because... The feeling of... is universal because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Discussion: Is it always better to be honest?</h3>
+      <p class="help">Charlie hides his feelings. Do you think it is always better to be honest about your emotions? Discuss with examples from the story and your own ideas.</p>
+      <textarea id="honest" placeholder="I think being honest is... However, Charlie chooses not to tell Nick because... I think this is..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>5. Extended writing</h2>
+  <p class="help">Choose ONE task. Write a developed response of at least 10 sentences.</p>
+  <div class="sentenceStarters">
+    <div class="starter">Alice Oseman conveys... through...</div>
+    <div class="starter">The visual metaphor of... represents...</div>
+    <div class="starter">The reader is invited to feel...</div>
+    <div class="starter">This is significant because...</div>
+    <div class="starter">Compared to "Meet", in "Crush"...</div>
+    <div class="starter">The narrative tension arises from...</div>
+  </div>
+  <div class="grid2">
+    <div class="activity">
+      <h3>Option A: Analytical essay</h3>
+      <p class="help">How does Alice Oseman develop Charlie's character and internal world in "Crush"? Analyse both visual and written techniques.</p>
+      <textarea id="essay" style="min-height:200px" placeholder="In 'Crush', Alice Oseman develops Charlie's character through..."></textarea>
+    </div>
+    <div class="activity">
+      <h3>Option B: Nick's perspective</h3>
+      <p class="help">Imagine you are Nick in this chapter. Write a journal entry about your growing friendship with Charlie. What do you notice? What do you feel? (Nick is not yet aware of Charlie's feelings.)</p>
+      <textarea id="nickJournal" style="min-height:200px" placeholder="There's something about Charlie that I keep thinking about..."></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>6. Progress</h2>
+  <div class="scoreRow">
+    <div class="score"><strong id="scoreChecked">0</strong>questions answered</div>
+    <div class="score"><strong id="scoreOpen">0</strong>analysis tasks done</div>
+    
+  </div>
+</section>
+
+<div class="footer">
+  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const vocabB1 = [
+  {en:"narrative tension",no:"narrativ spenning",icon:"😬",phonetic:"/ˈnærətɪv ˈtenʃn/",note:"The feeling of suspense or uncertainty that keeps the reader engaged."},
+  {en:"dramatic irony",no:"dramatisk ironi",icon:"🎭",phonetic:"/drəˈmætɪk ˈaɪrəni/",note:"When the reader knows something a character does not. We know Charlie likes Nick; Nick does not."},
+  {en:"visual metaphor",no:"visuell metafor",icon:"🖼️",phonetic:"/ˈvɪʒuəl ˈmetəfə/",note:"A picture or image that stands for an idea. Floating hearts = love feelings."},
+  {en:"internalise",no:"internalisere / holde inne",icon:"🔐",phonetic:"/ɪnˈtɜːnəlaɪz/",note:"To keep feelings or thoughts to yourself. Charlie internalises his love for Nick."},
+  {en:"unrequited",no:"ugjengjeldt",icon:"💔",phonetic:"/ˌʌnrɪˈkwaɪtɪd/",note:"Unrequited love = loving someone who does not love you back (yet)."},
+  {en:"pacing",no:"tempo / rytme",icon:"⏱️",phonetic:"/ˈpeɪsɪŋ/",note:"How fast or slow the story moves. Pacing can build tension or create tenderness."},
+  {en:"empathy",no:"empati",icon:"🤝",phonetic:"/ˈempəθi/",note:"Understanding and sharing the feelings of another person or character."},
+  {en:"nuance",no:"nyanse",icon:"🔍",phonetic:"/ˈnjuːɑːns/",note:"A small but important difference in meaning, feeling, or expression."}
+];
+
+let checked = 0; let openDone = 0;
+
+function updateScores(){
+  document.getElementById("scoreChecked").textContent = checked;
+  document.getElementById("scoreOpen").textContent = openDone;
+}
+
+function checkChoice(el,isCorrect,fbId){
+  const parent = el.parentElement;
+  [...parent.querySelectorAll(".choice")].forEach(c=>c.classList.remove("correct","wrong"));
+  el.classList.add(isCorrect?"correct":"wrong");
+  document.getElementById(fbId).textContent = isCorrect?"Correct! ✓":"Consider the other options.";
+  checked++; updateScores();
+}
+
+function buildVocab(){
+  const grid = document.getElementById("vocabGrid");
+  vocabB1.forEach(w=>{
+    const card = document.createElement("div");
+    card.style.cssText = "background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:22px;padding:16px";
+    card.innerHTML = `
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px">
+        <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(239,177,176,.14);font-size:1.5rem">${w.icon}</div>
+        <div><div style="font-weight:800;font-size:1.1rem">${w.en}</div><div style="color:#ffd9d8;font-weight:700;font-size:.95rem">${w.no}</div></div>
+      </div>
+      <div style="font-size:.88rem;color:#cfe6df;margin-bottom:6px">${w.phonetic}</div>
+      <div style="font-size:.93rem;color:var(--soft);line-height:1.5;font-style:italic">${w.note}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function trackOpen(id){
+  const el=document.getElementById(id);
+  if(el&&el.value.trim().length>15){openDone++;updateScores();}
+}
+
+function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+
+function downloadPDF(){
+  const jspdf=window.jspdf;
+  if(!jspdf){alert("PDF library not loaded.");return;}
+  const doc=new jspdf.jsPDF();
+  let y=20;
+  function add(text,sz=12){
+    doc.setFontSize(sz);
+    const lines=doc.splitTextToSize(text,180);
+    doc.text(lines,10,y);y+=lines.length*7;
+    if(y>270){doc.addPage();y=20;}
+  }
+  add("Heartstopper Graphic Novel – Part 2 Crush – B1",16);y+=4;
+  add("Visual metaphor: "+safe("visualMeta"));
+  add("Dramatic irony: "+safe("dramIrony"));
+  add("Pacing: "+safe("pacing"));
+  add("Comparing chapters: "+safe("compareChap"));y+=2;
+  add("Themes – Identity: "+safe("identity"));
+  add("Cost of secrecy: "+safe("secrecy"));
+  add("Universal themes: "+safe("universal"));
+  add("Honesty: "+safe("honest"));y+=2;
+  add("Essay: "+safe("essay"));
+  add("Nick's journal: "+safe("nickJournal"));
+  doc.save("B1_part2_crush_answers.pdf");
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  buildVocab(); updateScores();
+  ["visualMeta","dramIrony","pacing","compareChap","identity","secrecy","universal","honest","essay","nickJournal"]
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("blur",()=>trackOpen(id));});
+});
+</script>
+</body>
+</html>

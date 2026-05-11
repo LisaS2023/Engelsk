@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heartstopper • Graphic Novel • Part 1 Meet • B1</title>
+<style>
+:root{
+  --deep:#10211f;--deep2:#1b3b35;--card:rgba(255,255,255,.075);--line:rgba(255,255,255,.14);
+  --pink:#efb1b0;--rose:#df8f8b;--mint:#cfe9df;--cream:#f7f3ef;--soft:#dcebe6;
+  --good:#b8f2c2;--bad:#ffd1d1;--shadow:0 18px 44px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cream);
+  background:radial-gradient(circle at 16% 8%,rgba(239,177,176,.18),transparent 20%),
+  radial-gradient(circle at 86% 16%,rgba(207,233,223,.14),transparent 22%),
+  linear-gradient(180deg,var(--deep),var(--deep2));}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:stretch;margin-bottom:24px}
+.card,.section{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.heroText{padding:34px;position:relative;overflow:hidden}
+.heroText:before{content:"";position:absolute;inset:0;opacity:.48;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px}
+.heroText>*{position:relative}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(239,177,176,.15);border:1px solid rgba(239,177,176,.25);font-weight:800;margin-bottom:18px}
+h1{margin:0 0 16px;font-size:clamp(3rem,7vw,5.4rem);line-height:.92;letter-spacing:-.06em}
+.lead{color:var(--soft);line-height:1.65;font-size:1.08rem;max-width:58ch}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.heroImage{overflow:hidden;min-height:560px;display:flex}
+.heroImage img{width:100%;min-height:560px;object-fit:cover;display:block}
+.section{padding:26px;margin-bottom:24px}
+.section h2{margin:0 0 8px;font-size:1.8rem}
+.help{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.activity{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:18px}
+.activity h3{margin:0 0 10px;font-size:1.2rem}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.075);color:var(--cream);border-radius:16px;padding:13px 14px;margin:7px 0;cursor:pointer}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
+.choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
+button{font:inherit}
+.btn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;margin-top:10px}
+.primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
+.secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+textarea,input,select{width:100%;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:13px;font:inherit;margin-top:8px}
+textarea{min-height:130px;resize:vertical}
+select{color-scheme:dark;background-color:#294640}
+.sentenceStarters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:14px}
+.starter{padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22)}
+.quoteBox{background:rgba(239,177,176,.10);border-left:4px solid var(--pink);border-radius:12px;padding:16px;margin:12px 0;font-style:italic}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
+.score strong{display:block;font-size:1.6rem}
+.footer{text-align:center;margin:24px 0}
+.small{font-size:.92rem;color:var(--soft)}
+@media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.heroImage,.heroImage img{min-height:360px}}
+@media(max-width:620px){.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="card heroText">
+    <div class="badge">Graphic Novel • Part 1 • B1</div>
+    <h1>Part 1<br>Meet</h1>
+    <p class="lead">Read Chapter 1 and explore how Alice Oseman uses visuals and character design to introduce Charlie and Nick. This page is for B1 learners.</p>
+    <div class="pills">
+      <div class="pill">📄 PDF export</div>
+    </div>
+  </div>
+  <div class="card heroImage">
+    <img src="../images/B1_part1_comic.png" alt="Comic panels for Part 1" onerror="this.src='../images/book.png'">
+  </div>
+</section>
+
+<!-- 1. BEFORE YOU READ -->
+<section class="section">
+  <h2>1. Before you read</h2>
+  <p class="help">Activate your thinking before you read the chapter.</p>
+  <div class="grid2">
+    <div class="activity">
+      <h3>What do you already know?</h3>
+      <p class="help">What do you know about Heartstopper? Write 2–3 sentences about the story, the characters, or the themes.</p>
+      <textarea id="priorKnow" placeholder="I know that Heartstopper is about..."></textarea>
+    </div>
+    <div class="activity">
+      <h3>Graphic novel conventions</h3>
+      <p class="help">A graphic novel uses panels, gutters, speech bubbles, and visual storytelling. Which of these techniques do you notice in "Meet"? Write your observations.</p>
+      <textarea id="conventions" placeholder="I notice that the artist uses..."></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- 2. KEY VOCABULARY -->
+<section class="section">
+  <h2>2. Key vocabulary for analysis</h2>
+  <p class="help">These words will help you discuss and analyse the chapter at B1 level.</p>
+  <div id="vocabGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px"></div>
+</section>
+
+<!-- 3. COMPREHENSION AND INFERENCE -->
+<section class="section">
+  <h2>3. Comprehension and inference</h2>
+  <p class="help">At B1 level, you go beyond the text. Inference means reading between the lines.</p>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. Why might Nick's friendliness surprise Charlie?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q1')">Charlie is used to being overlooked or bullied</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">Charlie does not like talking to people</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">Charlie already knows Nick is friendly</div>
+      <div class="feedback" id="q1"></div>
+    </div>
+
+    <div class="activity">
+      <h3>2. What does the seating plan represent in the story?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">A problem that must be solved</div>
+      <div class="choice" onclick="checkChoice(this,true,'q2')">A chance encounter that changes everything</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">A punishment from the teacher</div>
+      <div class="feedback" id="q2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>3. How does Alice Oseman show Charlie's emotions visually?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">Through his words only</div>
+      <div class="choice" onclick="checkChoice(this,true,'q3')">Through small body language details and sweat drops</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">She doesn't show his emotions at all</div>
+      <div class="feedback" id="q3"></div>
+    </div>
+
+    <div class="activity">
+      <h3>4. What is the effect of starting the story with Charlie getting a new seat?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q4')">It creates an unexpected situation that forces the characters together</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">It shows that Charlie is a troublemaker</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">It introduces all the characters at once</div>
+      <div class="feedback" id="q4"></div>
+    </div>
+
+    <div class="activity">
+      <h3>5. What does Nick's immediate friendliness tell us about his character?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">He is trying to impress the teacher</div>
+      <div class="choice" onclick="checkChoice(this,true,'q5')">He treats people with natural warmth regardless of their status</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">He is only friendly because he wants something</div>
+      <div class="feedback" id="q5"></div>
+    </div>
+
+    <div class="activity">
+      <h3>6. How does the pacing of the panels affect the mood?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">Fast, crowded panels create excitement</div>
+      <div class="choice" onclick="checkChoice(this,true,'q6')">Quiet, close-up panels slow things down and build tension</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">There is no mood – it's just a school scene</div>
+      <div class="feedback" id="q6"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. VISUAL ANALYSIS -->
+<section class="section">
+  <h2>4. Visual storytelling analysis</h2>
+  <p class="help">In a graphic novel, the pictures tell as much of the story as the words. Analyse how Alice Oseman uses visuals in "Meet".</p>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Close reading: a panel</h3>
+      <p class="help">Choose a panel or moment from "Meet" that stands out to you. Describe what you see and explain what it shows about the characters or the atmosphere.</p>
+      <textarea id="panelAnalysis" placeholder="In this panel, I can see... This suggests that... The artist uses... to show..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Body language and expression</h3>
+      <p class="help">How does Alice Oseman use body language, facial expressions and small details to show Charlie's and Nick's feelings? Give at least two examples.</p>
+      <textarea id="bodyLang" placeholder="For example, Charlie's posture shows... Nick's expression suggests..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Colour and atmosphere</h3>
+      <p class="help">What colours does the artist use? What atmosphere or feeling do these colours create?</p>
+      <textarea id="colourAnalysis" placeholder="The artist mainly uses... colours, which creates a feeling of..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>What the visuals add</h3>
+      <p class="help">Think about this: what would we lose if this chapter was written as a regular book chapter instead of a graphic novel? What does the visual format give us?</p>
+      <textarea id="visualValue" placeholder="If this was a regular book, we would lose... The graphic novel format helps us understand..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5. THEMES -->
+<section class="section">
+  <h2>5. Themes and meaning</h2>
+  <p class="help">Heartstopper explores several important themes. Think about what you have read so far.</p>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>First meetings and first impressions</h3>
+      <p class="help">How does "Meet" explore the idea of first impressions? Can first impressions be misleading? Write your thoughts.</p>
+      <textarea id="theme1" placeholder="In 'Meet', the theme of first impressions is shown through... I think first impressions can..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Kindness and belonging</h3>
+      <p class="help">Nick's simple act of saying hello matters a lot to Charlie. Why do you think small acts of kindness can have a big impact? Connect this to the story.</p>
+      <textarea id="theme2" placeholder="Nick's kindness shows that... In my own experience, small acts of kindness..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Discussion question</h3>
+      <p class="help">Heartstopper is a story about a gay teenager. Why is it important to have books and stories that represent different kinds of people? Write 3–5 sentences.</p>
+      <textarea id="represent" placeholder="I think it is important because... Stories like Heartstopper show that..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Your personal connection</h3>
+      <p class="help">Have you ever felt like an outsider in a new situation? How did it feel? How does Alice Oseman capture this feeling?</p>
+      <textarea id="personal" placeholder="I have felt like an outsider when... Alice Oseman captures this feeling by..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<!-- 6. EXTENDED WRITING -->
+<section class="section">
+  <h2>6. Extended writing</h2>
+  <p class="help">Choose ONE task. Write a developed response of at least 8–10 sentences.</p>
+  <div class="sentenceStarters">
+    <div class="starter">Alice Oseman introduces... by...</div>
+    <div class="starter">The reader can infer that...</div>
+    <div class="starter">This is significant because...</div>
+    <div class="starter">A key visual detail is...</div>
+    <div class="starter">This suggests that...</div>
+    <div class="starter">In contrast to..., Nick...</div>
+  </div>
+  <div class="grid2">
+    <div class="activity">
+      <h3>Option A: Essay</h3>
+      <p class="help">How does Alice Oseman introduce Charlie and Nick in the first chapter of Heartstopper? Discuss both visual and written techniques.</p>
+      <textarea id="essay" style="min-height:200px" placeholder="Alice Oseman introduces the two main characters in 'Meet' through..."></textarea>
+    </div>
+    <div class="activity">
+      <h3>Option B: Alternative perspective</h3>
+      <p class="help">Rewrite the scene of their first meeting from Nick's point of view. What does Nick notice about Charlie? What does he think?</p>
+      <textarea id="altPov" style="min-height:200px" placeholder="I was sitting in class when the teacher said there would be a new seating plan..."></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PROGRESS -->
+<section class="section">
+  <h2>7. Progress</h2>
+  <div class="scoreRow">
+    <div class="score"><strong id="scoreChecked">0</strong>questions answered</div>
+    <div class="score"><strong id="scoreOpen">0</strong>analysis tasks done</div>
+    
+  </div>
+  <p class="small" style="margin-top:14px">When you are finished, download your answers as a PDF.</p>
+</section>
+
+<div class="footer">
+  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const vocabB1 = [
+  {en:"vulnerability",no:"sårbarhet",icon:"💙",phonetic:"/ˌvʌlnərəˈbɪlɪti/",note:"Showing your true feelings even when it is risky. Charlie shows vulnerability when he meets Nick."},
+  {en:"approachable",no:"lett å snakke med",icon:"🤗",phonetic:"/əˈprəʊtʃəbl/",note:"Easy and comfortable to talk to. Nick is approachable from the first moment."},
+  {en:"panel",no:"panel / rute",icon:"🖼️",phonetic:"/ˈpænl/",note:"A single frame or picture box in a graphic novel."},
+  {en:"gutter",no:"mellomrom mellom paneler",icon:"⬜",phonetic:"/ˈɡʌtə/",note:"The space between panels. The reader imagines what happens in the gutter."},
+  {en:"body language",no:"kroppsspråk",icon:"🧍",phonetic:"/ˈbɒdi ˌlæŋɡwɪdʒ/",note:"How a character holds or moves their body to show feelings."},
+  {en:"atmosphere",no:"atmosfære / stemning",icon:"🌫️",phonetic:"/ˈætməsfɪə/",note:"The general feeling or mood of a scene."},
+  {en:"infer",no:"slutte / tolke",icon:"🔍",phonetic:"/ɪnˈfɜː/",note:"To understand something that is not directly stated. We can infer that Charlie is lonely."},
+  {en:"representation",no:"representasjon",icon:"🌈",phonetic:"/ˌreprɪzenˈteɪʃn/",note:"Showing different types of people in stories and media."}
+];
+
+let checked = 0;
+let openDone = 0;
+
+function updateScores(){
+  document.getElementById("scoreChecked").textContent = checked;
+  document.getElementById("scoreOpen").textContent = openDone;
+}
+
+function checkChoice(el,isCorrect,fbId){
+  const parent = el.parentElement;
+  [...parent.querySelectorAll(".choice")].forEach(c=>c.classList.remove("correct","wrong"));
+  el.classList.add(isCorrect?"correct":"wrong");
+  document.getElementById(fbId).textContent = isCorrect?"Correct! ✓":"Consider the other options.";
+  checked++; updateScores();
+}
+
+function buildVocab(){
+  const grid = document.getElementById("vocabGrid");
+  vocabB1.forEach(w=>{
+    const card = document.createElement("div");
+    card.style.cssText = "background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:22px;padding:16px";
+    card.innerHTML = `
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px">
+        <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(239,177,176,.14);font-size:1.5rem">${w.icon}</div>
+        <div>
+          <div style="font-weight:800;font-size:1.1rem">${w.en}</div>
+          <div style="color:#ffd9d8;font-weight:700;font-size:.95rem">${w.no}</div>
+        </div>
+      </div>
+      <div style="font-size:.88rem;color:#cfe6df;margin-bottom:6px">${w.phonetic}</div>
+      <div style="font-size:.93rem;color:var(--soft);line-height:1.5;font-style:italic">${w.note}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function trackOpen(id){
+  const el = document.getElementById(id);
+  if(el && el.value.trim().length > 15){ openDone++; updateScores(); }
+}
+
+function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+
+function downloadPDF(){
+  const jspdf = window.jspdf;
+  if(!jspdf){alert("PDF library not loaded.");return;}
+  const doc = new jspdf.jsPDF();
+  let y = 20;
+  function add(text,sz=12){
+    doc.setFontSize(sz);
+    const lines = doc.splitTextToSize(text,180);
+    doc.text(lines,10,y);
+    y += lines.length*7;
+    if(y>270){doc.addPage();y=20;}
+  }
+  add("Heartstopper Graphic Novel – Part 1 Meet – B1",16);
+  y+=4;
+  add("Before reading – Prior knowledge: "+safe("priorKnow"));
+  add("Graphic novel conventions: "+safe("conventions"));
+  y+=2;
+  add("Analysis – Panel close reading: "+safe("panelAnalysis"));
+  add("Body language analysis: "+safe("bodyLang"));
+  add("Colour and atmosphere: "+safe("colourAnalysis"));
+  add("Value of visual format: "+safe("visualValue"));
+  y+=2;
+  add("Themes – First impressions: "+safe("theme1"));
+  add("Kindness and belonging: "+safe("theme2"));
+  add("Representation: "+safe("represent"));
+  add("Personal connection: "+safe("personal"));
+  y+=2;
+  add("Writing – Essay: "+safe("essay"));
+  add("Writing – Alternative POV: "+safe("altPov"));
+  doc.save("B1_part1_meet_answers.pdf");
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  buildVocab();
+  updateScores();
+  const openFields = ["priorKnow","conventions","panelAnalysis","bodyLang","colourAnalysis","visualValue","theme1","theme2","represent","personal","essay","altPov"];
+  openFields.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.addEventListener("blur",()=>trackOpen(id));
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Heartstopper • Graphic Novel • Part 2 Crush • A2</title>
+<style>
+:root{
+  --deep:#10211f;--deep2:#1b3b35;--card:rgba(255,255,255,.075);--line:rgba(255,255,255,.14);
+  --pink:#efb1b0;--rose:#df8f8b;--mint:#cfe9df;--cream:#f7f3ef;--soft:#dcebe6;
+  --good:#b8f2c2;--bad:#ffd1d1;--shadow:0 18px 44px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cream);
+  background:radial-gradient(circle at 16% 8%,rgba(239,177,176,.18),transparent 20%),
+  radial-gradient(circle at 86% 16%,rgba(207,233,223,.14),transparent 22%),
+  linear-gradient(180deg,var(--deep),var(--deep2));}
+.wrap{max-width:1200px;margin:auto;padding:24px}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:stretch;margin-bottom:24px}
+.card,.section{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.heroText{padding:34px;position:relative;overflow:hidden}
+.heroText:before{content:"";position:absolute;inset:0;opacity:.48;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:28px 28px}
+.heroText>*{position:relative}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(239,177,176,.15);border:1px solid rgba(239,177,176,.25);font-weight:800;margin-bottom:18px}
+h1{margin:0 0 16px;font-size:clamp(3rem,7vw,5.4rem);line-height:.92;letter-spacing:-.06em}
+.lead{color:var(--soft);line-height:1.65;font-size:1.08rem;max-width:58ch}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.heroImage{overflow:hidden;min-height:560px;display:flex}
+.heroImage img{width:100%;min-height:560px;object-fit:cover;display:block}
+.section{padding:26px;margin-bottom:24px}
+.section h2{margin:0 0 8px;font-size:1.8rem}
+.help{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.vocabGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.word{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:22px;padding:16px}
+.wordTop{display:flex;gap:12px;align-items:center}
+.icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(239,177,176,.14);font-size:1.7rem}
+.word h3{margin:0;font-size:1.25rem}
+.no{color:#ffd9d8;font-weight:800;margin-top:4px}
+.phon{font-size:.92rem;color:#cfe6df;margin-top:10px}
+button{font:inherit}
+.btn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;margin-top:10px}
+.primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
+.secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.activity{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:18px}
+.activity h3{margin:0 0 12px;font-size:1.25rem}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.075);color:var(--cream);border-radius:16px;padding:13px 14px;margin:7px 0;cursor:pointer}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
+.choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
+input,textarea,select{width:100%;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:13px;font:inherit;margin-top:8px}
+textarea{min-height:115px;resize:vertical}
+select{color-scheme:dark;background-color:#294640}
+.sentenceStarters{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:14px}
+.starter{padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22)}
+.matchRow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.matchLabel{min-width:140px;padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22);font-weight:700}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
+.score strong{display:block;font-size:1.6rem}
+.footer{text-align:center;margin:24px 0}
+.small{font-size:.92rem;color:var(--soft)}
+@media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.heroImage,.heroImage img{min-height:360px}}
+@media(max-width:620px){.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="card heroText">
+    <div class="badge">Graphic Novel • Part 2 • A2</div>
+    <h1>Part 2<br>Crush</h1>
+    <p class="lead">Read Chapter 2 and explore how Charlie's feelings develop. Work with vocabulary in context, comprehension and character writing. This page is for A2 learners.</p>
+    <div class="pills">
+      <div class="pill">📄 PDF export</div>
+    </div>
+  </div>
+  <div class="card heroImage">
+    <img src="../images/A2_part2_comic.png" alt="Comic panels for Part 2" onerror="this.src='../images/book.png'">
+  </div>
+</section>
+
+<section class="section">
+  <h2>1. Vocabulary in context</h2>
+  <p class="help">These words appear in Chapter 2. Read the word, the Norwegian translation, and the example.</p>
+  <div class="vocabGrid" id="vocabGrid"></div>
+</section>
+
+<section class="section">
+  <h2>2. Vocabulary activities</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>Choose the best synonym</h3>
+      <p class="help">What is another word for <strong>crush</strong>?</p>
+      <div class="choice" onclick="checkChoice(this,false,'syn1')">a feeling of anger</div>
+      <div class="choice" onclick="checkChoice(this,true,'syn1')">someone you have romantic feelings for</div>
+      <div class="choice" onclick="checkChoice(this,false,'syn1')">a good school subject</div>
+      <div class="feedback" id="syn1"></div>
+      <p class="help" style="margin-top:16px">What is another word for <strong>confused</strong>?</p>
+      <div class="choice" onclick="checkChoice(this,false,'syn2')">clear and sure</div>
+      <div class="choice" onclick="checkChoice(this,true,'syn2')">not sure / mixed up about your feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'syn2')">very happy</div>
+      <div class="feedback" id="syn2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Complete the sentences</h3>
+      <p style="color:var(--pink);font-weight:700">secret · confused · heart · distracted · feelings</p>
+      <label>Charlie keeps his ______ hidden from Nick.</label>
+      <input id="fill1" placeholder="Type the word">
+      <label>Charlie is ______ in class because he thinks about Nick.</label>
+      <input id="fill2" placeholder="Type the word">
+      <label>Charlie's ______ races when Nick talks to him.</label>
+      <input id="fill3" placeholder="Type the word">
+      <button class="btn primary" onclick="checkFill()">Check answers</button>
+      <div class="feedback" id="fillFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Match words and meanings</h3>
+      <div id="matchArea"></div>
+      <button class="btn primary" onclick="checkMatch()">Check matches</button>
+      <div class="feedback" id="matchFb"></div>
+    </div>
+
+    <div class="activity">
+      <h3>True, False or Not Given?</h3>
+      <div id="tfArea"></div>
+      <button class="btn primary" onclick="checkTF()">Check</button>
+      <div class="feedback" id="tfFb"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. Reading comprehension</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. How do Charlie's feelings about Nick change in this chapter?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q1')">His friendship feelings grow into romantic feelings</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">He stops liking Nick</div>
+      <div class="choice" onclick="checkChoice(this,false,'q1')">He feels angry at Nick</div>
+      <div class="feedback" id="q1"></div>
+    </div>
+
+    <div class="activity">
+      <h3>2. Why does Charlie not tell Nick his feelings?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He is angry at Nick</div>
+      <div class="choice" onclick="checkChoice(this,true,'q2')">He is scared of how Nick will react</div>
+      <div class="choice" onclick="checkChoice(this,false,'q2')">He does not have any feelings</div>
+      <div class="feedback" id="q2"></div>
+    </div>
+
+    <div class="activity">
+      <h3>3. How does Nick treat Charlie in this chapter?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">He ignores Charlie</div>
+      <div class="choice" onclick="checkChoice(this,true,'q3')">He is friendly and includes Charlie</div>
+      <div class="choice" onclick="checkChoice(this,false,'q3')">He is sometimes mean</div>
+      <div class="feedback" id="q3"></div>
+    </div>
+
+    <div class="activity">
+      <h3>4. What effect does Nick have on Charlie?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q4')">Charlie blushes, smiles, and loses concentration</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">Charlie feels nothing special</div>
+      <div class="choice" onclick="checkChoice(this,false,'q4')">Charlie becomes more confident</div>
+      <div class="feedback" id="q4"></div>
+    </div>
+
+    <div class="activity">
+      <h3>5. What does the chapter title "Crush" tell us?</h3>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">About a sports competition</div>
+      <div class="choice" onclick="checkChoice(this,true,'q5')">About Charlie's romantic feelings for Nick</div>
+      <div class="choice" onclick="checkChoice(this,false,'q5')">About a difficult homework task</div>
+      <div class="feedback" id="q5"></div>
+    </div>
+
+    <div class="activity">
+      <h3>6. How does Alice Oseman show Charlie's feelings without words?</h3>
+      <div class="choice" onclick="checkChoice(this,true,'q6')">Through red cheeks, sweat drops and hearts in the panels</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">Through angry faces and crossed arms</div>
+      <div class="choice" onclick="checkChoice(this,false,'q6')">She only uses speech bubbles</div>
+      <div class="feedback" id="q6"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>4. Character development</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>How has Charlie changed?</h3>
+      <p class="help">Compare Charlie in "Meet" with Charlie in "Crush". How is he different now?</p>
+      <div class="sentenceStarters">
+        <div class="starter">In "Meet", Charlie was...</div>
+        <div class="starter">Now in "Crush", Charlie is also...</div>
+        <div class="starter">He has changed because...</div>
+      </div>
+      <textarea id="charlieDev" placeholder="In 'Meet', Charlie was just shy. Now in 'Crush', he is also..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Charlie's feelings – a spectrum</h3>
+      <p class="help">Choose words that describe how Charlie feels in Chapter 2. Choose all that apply.</p>
+      <div id="feelingWords"></div>
+    </div>
+
+    <div class="activity">
+      <h3>Nick's role</h3>
+      <p class="help">What does Nick do in this chapter? How does he affect Charlie? Write 2–3 sentences.</p>
+      <textarea id="nickRole" placeholder="Nick is friendly and... He affects Charlie by..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>Empathy task</h3>
+      <p class="help">Imagine you are Charlie. What is the hardest part of having a secret crush on someone? Write a short answer.</p>
+      <textarea id="empathy" placeholder="The hardest part is... because..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>5. Reflection</h2>
+  <div class="grid2">
+
+    <div class="activity">
+      <h3>1. Do you understand why Charlie keeps his feelings secret?</h3>
+      <div class="choice" onclick="saveChoice('r1','Yes – it is natural')">😊 Yes – it is natural</div>
+      <div class="choice" onclick="saveChoice('r1','A little')">🤔 A little</div>
+      <div class="choice" onclick="saveChoice('r1','No – he should just say it')">💬 No – he should just say it</div>
+      <textarea id="r1why" placeholder="I understand because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>2. Do you think Nick has any feelings for Charlie?</h3>
+      <div class="choice" onclick="saveChoice('r2','Yes, I think so')">💕 Yes, I think so</div>
+      <div class="choice" onclick="saveChoice('r2','Maybe')">🤔 Maybe</div>
+      <div class="choice" onclick="saveChoice('r2','No, not yet')">❌ No, not yet</div>
+      <textarea id="r2why" placeholder="I think this because in the chapter I can see..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>3. What is the mood of this chapter?</h3>
+      <div class="choice" onclick="saveChoice('mood','Sweet and nervous')">😊 Sweet and nervous</div>
+      <div class="choice" onclick="saveChoice('mood','Sad and lonely')">😢 Sad and lonely</div>
+      <div class="choice" onclick="saveChoice('mood','Exciting and happy')">🤩 Exciting and happy</div>
+      <textarea id="moodWhy" placeholder="I chose this because..."></textarea>
+    </div>
+
+    <div class="activity">
+      <h3>4. What do you predict for Chapter 3?</h3>
+      <textarea id="predict" placeholder="I think in the next chapter, Charlie and Nick will..."></textarea>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>6. Writing task</h2>
+  <p class="help">Choose ONE task. Write at least 5–7 sentences.</p>
+  <div class="sentenceStarters">
+    <div class="starter">Charlie feels... because...</div>
+    <div class="starter">When Nick..., Charlie...</div>
+    <div class="starter">The hardest part for Charlie is...</div>
+    <div class="starter">I think Nick...</div>
+    <div class="starter">Alice Oseman shows feelings by...</div>
+  </div>
+  <div class="grid2">
+    <div class="activity">
+      <h3>Option A: Analyse Charlie</h3>
+      <p class="help">Describe how Charlie feels in "Crush" and explain why he acts the way he does.</p>
+      <textarea id="analyseCharlie" placeholder="In 'Crush', Charlie feels..."></textarea>
+    </div>
+    <div class="activity">
+      <h3>Option B: Text message</h3>
+      <p class="help">Imagine Charlie is writing to his best friend about his feelings for Nick. Write the text messages.</p>
+      <textarea id="textMsg" placeholder="Charlie: OMG, I think I really like Nick...\nFriend: What?! Tell me everything!\nCharlie: ..."></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>7. Progress</h2>
+  <div class="scoreRow">
+    <div class="score"><strong id="scoreChecked">0</strong>answers checked</div>
+    <div class="score"><strong id="scoreOpen">0</strong>open tasks done</div>
+    
+  </div>
+</section>
+
+<div class="footer">
+  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const words = [
+  {en:"crush",no:"forelskelse / den du liker",icon:"💕",phonetic:"/krʌʃ/",example:"Charlie has a crush on Nick."},
+  {en:"distracted",no:"ukonsentrert / uoppmerksom",icon:"💭",phonetic:"/dɪˈstræktɪd/",example:"Charlie is distracted in class because of Nick."},
+  {en:"blush",no:"bli rød i ansiktet",icon:"😊",phonetic:"/blʌʃ/",example:"Charlie blushes every time Nick talks to him."},
+  {en:"feelings",no:"følelser",icon:"❤️",phonetic:"/ˈfiːlɪŋz/",example:"Charlie has strong feelings for Nick."},
+  {en:"confused",no:"forvirret",icon:"😵",phonetic:"/kənˈfjuːzd/",example:"Charlie is confused about why he feels this way."},
+  {en:"secret",no:"hemmelighet",icon:"🤫",phonetic:"/ˈsiːkrɪt/",example:"Charlie keeps his feelings a secret."},
+  {en:"heart",no:"hjerte",icon:"💓",phonetic:"/hɑːt/",example:"Charlie's heart beats faster around Nick."},
+  {en:"ignore",no:"ignorere",icon:"🙈",phonetic:"/ɪɡˈnɔː/",example:"Charlie tries to ignore his feelings but cannot."}
+];
+
+const matchData = [
+  {word:"distracted",options:["very focused","cannot concentrate","very confident"],correct:1},
+  {word:"blush",options:["feel sick","go red in the face","start crying"],correct:1},
+  {word:"secret",options:["something shared with everyone","something hidden","something funny"],correct:1}
+];
+
+const tfData = [
+  {stmt:"Charlie tells Nick about his feelings.",answer:"F"},
+  {stmt:"Nick is kind to Charlie in this chapter.",answer:"T"},
+  {stmt:"Charlie has two sisters.",answer:"NG"},
+  {stmt:"Charlie is distracted in class.",answer:"T"}
+];
+
+const feelingWordList = ["nervous","happy","confused","excited","embarrassed","hopeful","scared","lonely","in love","unsure"];
+
+let checked = 0; let openDone = 0; let savedChoices = {};
+let feelingSelected = new Set();
+
+function updateScores(){
+  document.getElementById("scoreChecked").textContent = checked;
+  document.getElementById("scoreOpen").textContent = openDone;
+}
+
+function speakWord(word){
+  if(!("speechSynthesis" in window)) return;
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find(v=>v.lang==="en-GB")||voices.find(v=>v.lang==="en-US")||voices.find(v=>v.lang&&v.lang.startsWith("en"));
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = voice?.lang||"en-GB";
+  if(voice) u.voice = voice;
+  u.rate = 0.9;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function buildVocab(){
+  const grid = document.getElementById("vocabGrid");
+  words.forEach(w=>{
+    const card = document.createElement("div");
+    card.className = "word";
+    card.innerHTML = `
+      <div class="wordTop">
+        <div class="icon">${w.icon}</div>
+        <div><h3>${w.en}</h3><div class="no">${w.no}</div></div>
+      </div>
+      <div class="phon">Pronunciation: ${w.phonetic}</div>
+      <div class="phon" style="margin-top:6px;font-style:italic">"${w.example}"</div>
+      <button class="btn primary" onclick="speakWord('${w.en}')">🔊 Listen</button>`;
+    grid.appendChild(card);
+  });
+}
+
+function checkChoice(el,isCorrect,fbId){
+  const parent = el.parentElement;
+  [...parent.querySelectorAll(".choice")].forEach(c=>c.classList.remove("correct","wrong"));
+  el.classList.add(isCorrect?"correct":"wrong");
+  document.getElementById(fbId).textContent = isCorrect?"Correct!":"Try again.";
+  checked++; updateScores();
+}
+
+function saveChoice(key,val){savedChoices[key]=val;checked++;updateScores();}
+
+function buildMatch(){
+  const area = document.getElementById("matchArea");
+  matchData.forEach((m,i)=>{
+    const row = document.createElement("div");
+    row.className = "matchRow";
+    row.innerHTML = `<div class="matchLabel">${m.word}</div>
+      <select style="flex:1;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:var(--cream);padding:10px;font:inherit;color-scheme:dark;background-color:#294640" id="match${i}">
+        <option value="">Choose...</option>
+        ${m.options.map((o,j)=>`<option value="${j}">${o}</option>`).join("")}
+      </select>`;
+    area.appendChild(row);
+  });
+}
+
+function checkMatch(){
+  let ok=0;
+  matchData.forEach((m,i)=>{if(parseInt(document.getElementById("match"+i).value)===m.correct)ok++;});
+  document.getElementById("matchFb").textContent = ok===matchData.length?"All correct!":ok+" out of "+matchData.length+" correct.";
+  checked++; updateScores();
+}
+
+function buildTF(){
+  const area = document.getElementById("tfArea");
+  tfData.forEach((t,i)=>{
+    const row = document.createElement("div");
+    row.style.marginBottom = "10px";
+    row.innerHTML = `<p style="margin:0 0 5px">${t.stmt}</p>
+      <div style="display:flex;gap:8px">
+        ${["T","F","NG"].map(opt=>`<button class="btn secondary" style="padding:8px 14px" onclick="selectTF(this,'${opt}','${t.answer}')">${opt}</button>`).join("")}
+      </div>`;
+    area.appendChild(row);
+  });
+}
+
+function selectTF(btn,val,correct){
+  const parent = btn.parentElement;
+  [...parent.querySelectorAll("button")].forEach(b=>{b.style.background="rgba(255,255,255,.08)";b.style.borderColor="var(--line)"});
+  btn.style.background = val===correct?"rgba(184,242,194,.2)":"rgba(255,209,209,.15)";
+  btn.style.borderColor = val===correct?"rgba(184,242,194,.5)":"rgba(255,209,209,.5)";
+}
+
+function checkTF(){document.getElementById("tfFb").textContent="Answers highlighted above.";checked++;updateScores();}
+
+function buildFeelingWords(){
+  const area = document.getElementById("feelingWords");
+  feelingWordList.forEach(f=>{
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.style.cssText = "display:inline-block;width:auto;margin:4px";
+    btn.textContent = f;
+    btn.onclick = ()=>{
+      if(feelingSelected.has(f)){feelingSelected.delete(f);btn.classList.remove("correct")}
+      else{feelingSelected.add(f);btn.classList.add("correct")}
+    };
+    area.appendChild(btn);
+  });
+}
+
+function checkFill(){
+  const f1=document.getElementById("fill1").value.trim().toLowerCase();
+  const f2=document.getElementById("fill2").value.trim().toLowerCase();
+  const f3=document.getElementById("fill3").value.trim().toLowerCase();
+  const ok=(f1==="secret"||f1==="feelings")&&(f2==="distracted")&&(f3==="heart");
+  document.getElementById("fillFb").textContent = ok?"All correct!":"Check your words and try again.";
+  checked++; updateScores();
+}
+
+function trackOpen(id){
+  const el=document.getElementById(id);
+  if(el&&el.value.trim().length>10){openDone++;updateScores();}
+}
+
+function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+
+function downloadPDF(){
+  const jspdf=window.jspdf;
+  if(!jspdf){alert("PDF library not loaded.");return;}
+  const doc=new jspdf.jsPDF();
+  let y=20;
+  function add(text,sz=12){
+    doc.setFontSize(sz);
+    const lines=doc.splitTextToSize(text,180);
+    doc.text(lines,10,y);y+=lines.length*7;
+    if(y>270){doc.addPage();y=20;}
+  }
+  add("Heartstopper Graphic Novel – Part 2 Crush – A2",16);y+=4;
+  add("Fill in: "+safe("fill1")+" | "+safe("fill2")+" | "+safe("fill3"));y+=2;
+  add("Feeling words selected: "+[...feelingSelected].join(", "));y+=2;
+  add("Character development – Charlie: "+safe("charlieDev"));
+  add("Nick's role: "+safe("nickRole"));
+  add("Empathy task: "+safe("empathy"));y+=2;
+  add("Reflection:");
+  add("Understand secret? "+(savedChoices.r1||"")+" – "+safe("r1why"));
+  add("Nick has feelings? "+(savedChoices.r2||"")+" – "+safe("r2why"));
+  add("Mood: "+(savedChoices.mood||"")+" – "+safe("moodWhy"));
+  add("Prediction: "+safe("predict"));y+=2;
+  add("Writing – Analyse Charlie: "+safe("analyseCharlie"));
+  add("Writing – Text message: "+safe("textMsg"));
+  doc.save("A2_part2_crush_answers.pdf");
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  buildVocab();buildMatch();buildTF();buildFeelingWords();updateScores();
+  ["charlieDev","nickRole","empathy","r1why","r2why","moodWhy","predict","analyseCharlie","textMsg"]
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener("blur",()=>trackOpen(id));});
+});
+</script>
+</body>
+</html>
