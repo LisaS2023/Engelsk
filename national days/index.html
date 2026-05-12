@@ -884,6 +884,180 @@
         .headline-country h4 { text-align: center; margin-bottom: 0.75rem; }
         .headline-drop { min-height: 80px; display: flex; flex-direction: column; gap: 0.5rem; }
 
+        /* Typing Game */
+        .typing-game {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+        .typing-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .typing-stat {
+            background: rgba(255,255,255,0.15);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            min-width: 100px;
+        }
+        .typing-stat-label { font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.25rem; }
+        .typing-stat-value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+        .typing-prompt {
+            margin-bottom: 1.5rem;
+        }
+        .typing-hint { font-size: 3rem; margin-bottom: 0.5rem; }
+        .typing-translation { font-size: 1.1rem; opacity: 0.9; margin-bottom: 0.5rem; }
+        .typing-word {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .typing-input-container { position: relative; max-width: 400px; margin: 0 auto 1rem; }
+        .typing-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: inherit;
+            letter-spacing: 2px;
+        }
+        .typing-input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.15); }
+        .typing-input.correct { border-color: #28a745; background: rgba(40, 167, 69, 0.2); }
+        .typing-input.incorrect { border-color: #dc3545; background: rgba(220, 53, 69, 0.2); }
+        .typing-input::placeholder { color: rgba(255,255,255,0.5); }
+        .typing-timer {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .typing-timer.warning { color: #ffc107; }
+        .typing-timer.danger { color: #dc3545; animation: pulse 0.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .typing-progress {
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .typing-progress-bar {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .typing-feedback {
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .typing-feedback.success { background: rgba(40, 167, 69, 0.3); }
+        .typing-feedback.error { background: rgba(220, 53, 69, 0.3); }
+        .typing-start-btn {
+            background: var(--gold);
+            color: var(--blue);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .typing-start-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .typing-results {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .typing-results h4 { color: var(--gold); margin-bottom: 1rem; font-size: 1.3rem; }
+        .typing-final-score { font-size: 3rem; font-weight: 700; color: var(--gold); }
+        .typing-grade { font-size: 1.5rem; margin-top: 0.5rem; }
+        .typing-details { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+        .typing-detail { text-align: center; }
+        .typing-detail-value { font-size: 1.5rem; font-weight: 700; }
+        .typing-detail-label { font-size: 0.85rem; opacity: 0.8; }
+
+        /* Word Search */
+        .wordsearch-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .wordsearch-grid {
+            display: inline-grid;
+            gap: 4px;
+            background: var(--blue);
+            padding: 8px;
+            border-radius: 12px;
+            user-select: none;
+        }
+        .wordsearch-cell {
+            width: 36px;
+            height: 36px;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--blue);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-transform: uppercase;
+        }
+        .wordsearch-cell:hover { background: #e8f4fc; }
+        .wordsearch-cell.selected { background: var(--gold); color: var(--blue); }
+        .wordsearch-cell.found { background: #28a745; color: white; }
+        .wordsearch-cell.found-alt { background: var(--red); color: white; }
+        .wordsearch-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            max-width: 500px;
+        }
+        .wordsearch-word {
+            padding: 0.5rem 1rem;
+            background: var(--cream);
+            border: 2px solid var(--blue);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .wordsearch-word.found {
+            background: #d4edda;
+            border-color: #28a745;
+            text-decoration: line-through;
+        }
+        .wordsearch-score {
+            background: var(--blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .wordsearch-score span { color: var(--gold); font-size: 1.2rem; }
+        @media (max-width: 500px) {
+            .wordsearch-cell { width: 28px; height: 28px; font-size: 0.9rem; }
+        }
+
         @media print {
             .hero, .level-nav, footer, .print-btn, .audio-btn, .language-selector, .reset-btn, .print-section, .check-btn { display: none !important; }
             .level-section { display: block !important; }
@@ -1237,6 +1411,46 @@
                 <button class="reset-btn" onclick="nextPuzzle()">➡️ Next word</button>
             </div>
 
+            <!-- A1: Typing Speed Game -->
+            <div class="exercise-section">
+                <h3>⌨️ Typing Challenge — A1</h3>
+                <p style="margin-bottom: 1rem; color: #666;">See the word and type it as fast as you can! 15 seconds per word.</p>
+                
+                <div class="typing-game" id="typingGameA1">
+                    <div class="typing-stats">
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Score</div>
+                            <div class="typing-stat-value" id="a1Score">0</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Words</div>
+                            <div class="typing-stat-value"><span id="a1WordCount">0</span>/10</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Correct</div>
+                            <div class="typing-stat-value" id="a1Correct">0</div>
+                        </div>
+                    </div>
+                    
+                    <div id="a1GameArea">
+                        <button class="typing-start-btn" onclick="startTypingGame('a1')">🚀 Start Game</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- A1: Word Search -->
+            <div class="exercise-section">
+                <h3>🔍 Word Search — A1</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Find the celebration words! Click and drag to select letters.</p>
+                
+                <div class="wordsearch-container">
+                    <div class="wordsearch-score">Words found: <span id="a1WSFound">0</span> / <span id="a1WSTotal">6</span></div>
+                    <div class="wordsearch-grid" id="a1WSGrid" style="grid-template-columns: repeat(10, 1fr);"></div>
+                    <div class="wordsearch-words" id="a1WSWords"></div>
+                </div>
+                <button class="reset-btn" onclick="initWordSearch('a1')">🔄 New puzzle</button>
+            </div>
+
             <div class="print-section">
                 <button class="print-btn global-print" onclick="printSection('a1')">🖨️ Lagre A1 som PDF</button>
             </div>
@@ -1522,6 +1736,46 @@
                 <button class="reset-btn" onclick="resetFacts()">🔄 Start again</button>
             </div>
 
+            <!-- A2: Typing Speed Game -->
+            <div class="exercise-section">
+                <h3>⌨️ Typing Challenge — A2</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Type comparison words! 12 seconds per word. Bonus points for speed and streaks!</p>
+                
+                <div class="typing-game" id="typingGameA2">
+                    <div class="typing-stats">
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Score</div>
+                            <div class="typing-stat-value" id="a2Score">0</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Words</div>
+                            <div class="typing-stat-value"><span id="a2WordCount">0</span>/12</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Streak</div>
+                            <div class="typing-stat-value" id="a2Streak">0</div>
+                        </div>
+                    </div>
+                    
+                    <div id="a2GameArea">
+                        <button class="typing-start-btn" onclick="startTypingGame('a2')">🚀 Start Game</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- A2: Word Search -->
+            <div class="exercise-section">
+                <h3>🔍 Word Search — A2</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Find words about comparing national days!</p>
+                
+                <div class="wordsearch-container">
+                    <div class="wordsearch-score">Words found: <span id="a2WSFound">0</span> / <span id="a2WSTotal">8</span></div>
+                    <div class="wordsearch-grid" id="a2WSGrid" style="grid-template-columns: repeat(12, 1fr);"></div>
+                    <div class="wordsearch-words" id="a2WSWords"></div>
+                </div>
+                <button class="reset-btn" onclick="initWordSearch('a2')">🔄 New puzzle</button>
+            </div>
+
             <div class="print-section">
                 <button class="print-btn global-print" onclick="printSection('a2')">🖨️ Lagre A2 som PDF</button>
             </div>
@@ -1728,6 +1982,46 @@
                     </div>
                 </div>
                 <button class="reset-btn" onclick="resetHeadlines()">🔄 Start again</button>
+            </div>
+
+            <!-- B1: Typing Speed Game -->
+            <div class="exercise-section">
+                <h3>⌨️ Typing Challenge — B1</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Type abstract concepts! 10 seconds per word. Perfect spelling required!</p>
+                
+                <div class="typing-game" id="typingGameB1">
+                    <div class="typing-stats">
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Score</div>
+                            <div class="typing-stat-value" id="b1Score">0</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">Words</div>
+                            <div class="typing-stat-value"><span id="b1WordCount">0</span>/15</div>
+                        </div>
+                        <div class="typing-stat">
+                            <div class="typing-stat-label">WPM</div>
+                            <div class="typing-stat-value" id="b1WPM">0</div>
+                        </div>
+                    </div>
+                    
+                    <div id="b1GameArea">
+                        <button class="typing-start-btn" onclick="startTypingGame('b1')">🚀 Start Game</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B1: Word Search -->
+            <div class="exercise-section">
+                <h3>🔍 Word Search — B1</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Find words about identity and belonging!</p>
+                
+                <div class="wordsearch-container">
+                    <div class="wordsearch-score">Words found: <span id="b1WSFound">0</span> / <span id="b1WSTotal">10</span></div>
+                    <div class="wordsearch-grid" id="b1WSGrid" style="grid-template-columns: repeat(14, 1fr);"></div>
+                    <div class="wordsearch-words" id="b1WSWords"></div>
+                </div>
+                <button class="reset-btn" onclick="initWordSearch('b1')">🔄 New puzzle</button>
             </div>
 
             <div class="print-section">
@@ -2208,9 +2502,536 @@
             selectedHeadline = null;
         }
 
+        // ========== TYPING SPEED GAMES ==========
+        const typingData = {
+            a1: {
+                words: [
+                    { emoji: '🇳🇴', word: 'flag', translation: 'flagg' },
+                    { emoji: '🎺', word: 'parade', translation: 'tog' },
+                    { emoji: '👗', word: 'bunad', translation: 'bunad' },
+                    { emoji: '🎵', word: 'music', translation: 'musikk' },
+                    { emoji: '🍦', word: 'ice cream', translation: 'is' },
+                    { emoji: '🌭', word: 'hot dog', translation: 'pølse' },
+                    { emoji: '👑', word: 'king', translation: 'konge' },
+                    { emoji: '🏰', word: 'palace', translation: 'slott' },
+                    { emoji: '🎈', word: 'balloon', translation: 'ballong' },
+                    { emoji: '👧👦', word: 'children', translation: 'barn' },
+                    { emoji: '😊', word: 'happy', translation: 'glad' },
+                    { emoji: '🎉', word: 'party', translation: 'fest' }
+                ],
+                timePerWord: 15,
+                totalWords: 10,
+                basePoints: 10,
+                showWord: true // A1 shows the English word to copy
+            },
+            a2: {
+                words: [
+                    { emoji: '🔗', word: 'both', translation: 'begge' },
+                    { emoji: '↔️', word: 'different', translation: 'forskjellig' },
+                    { emoji: '🤝', word: 'similar', translation: 'lik' },
+                    { emoji: '🎆', word: 'fireworks', translation: 'fyrverkeri' },
+                    { emoji: '🎖️', word: 'independence', translation: 'uavhengighet' },
+                    { emoji: '📜', word: 'constitution', translation: 'grunnlov' },
+                    { emoji: '🎊', word: 'celebration', translation: 'feiring' },
+                    { emoji: '🏛️', word: 'tradition', translation: 'tradisjon' },
+                    { emoji: '🇺🇸', word: 'United States', translation: 'USA' },
+                    { emoji: '🇬🇧', word: 'United Kingdom', translation: 'Storbritannia' },
+                    { emoji: '🔥', word: 'bonfire', translation: 'bål' },
+                    { emoji: '🍖', word: 'barbecue', translation: 'grilling' },
+                    { emoji: '⚖️', word: 'compare', translation: 'sammenligne' },
+                    { emoji: '🌍', word: 'national', translation: 'nasjonal' }
+                ],
+                timePerWord: 12,
+                totalWords: 12,
+                basePoints: 15,
+                showWord: false
+            },
+            b1: {
+                words: [
+                    { emoji: '🪪', word: 'identity', translation: 'identitet' },
+                    { emoji: '🏠', word: 'belonging', translation: 'tilhørighet' },
+                    { emoji: '🌈', word: 'diversity', translation: 'mangfold' },
+                    { emoji: '🤲', word: 'inclusive', translation: 'inkluderende' },
+                    { emoji: '🏛️', word: 'democracy', translation: 'demokrati' },
+                    { emoji: '🗳️', word: 'citizenship', translation: 'statsborgerskap' },
+                    { emoji: '🪶', word: 'indigenous', translation: 'urfolk' },
+                    { emoji: '🔄', word: 'integration', translation: 'integrering' },
+                    { emoji: '🎭', word: 'nationalism', translation: 'nasjonalisme' },
+                    { emoji: '📖', word: 'heritage', translation: 'kulturarv' },
+                    { emoji: '🤔', word: 'perspective', translation: 'perspektiv' },
+                    { emoji: '💬', word: 'expression', translation: 'uttrykk' },
+                    { emoji: '⚖️', word: 'equality', translation: 'likhet' },
+                    { emoji: '🕊️', word: 'reconciliation', translation: 'forsoning' },
+                    { emoji: '🌍', word: 'multicultural', translation: 'flerkulturell' },
+                    { emoji: '💪', word: 'empowerment', translation: 'myndiggjøring' }
+                ],
+                timePerWord: 10,
+                totalWords: 15,
+                basePoints: 20,
+                showWord: false
+            }
+        };
+
+        const typingState = {
+            a1: { score: 0, wordIndex: 0, correct: 0, timer: null, timeLeft: 0, words: [], startTime: 0 },
+            a2: { score: 0, wordIndex: 0, correct: 0, streak: 0, timer: null, timeLeft: 0, words: [], startTime: 0 },
+            b1: { score: 0, wordIndex: 0, correct: 0, timer: null, timeLeft: 0, words: [], startTime: 0, totalTime: 0 }
+        };
+
+        function shuffleArray(arr) {
+            const shuffled = [...arr];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startTypingGame(level) {
+            const data = typingData[level];
+            const state = typingState[level];
+            
+            // Reset state
+            state.score = 0;
+            state.wordIndex = 0;
+            state.correct = 0;
+            state.streak = 0;
+            state.words = shuffleArray(data.words).slice(0, data.totalWords);
+            state.startTime = Date.now();
+            state.totalTime = 0;
+            
+            // Update display
+            document.getElementById(`${level}Score`).textContent = '0';
+            document.getElementById(`${level}WordCount`).textContent = '0';
+            if (level === 'a1') document.getElementById('a1Correct').textContent = '0';
+            if (level === 'a2') document.getElementById('a2Streak').textContent = '0';
+            if (level === 'b1') document.getElementById('b1WPM').textContent = '0';
+            
+            showTypingWord(level);
+        }
+
+        function showTypingWord(level) {
+            const data = typingData[level];
+            const state = typingState[level];
+            
+            if (state.wordIndex >= state.words.length) {
+                endTypingGame(level);
+                return;
+            }
+            
+            const word = state.words[state.wordIndex];
+            state.timeLeft = data.timePerWord;
+            
+            // A1 shows the English word to copy, A2/B1 show translation
+            const promptContent = data.showWord 
+                ? `<div class="typing-hint">${word.emoji}</div>
+                   <div class="typing-word">${word.word}</div>
+                   <div class="typing-translation" style="font-size: 0.95rem;">Type this word!</div>`
+                : `<div class="typing-hint">${word.emoji}</div>
+                   <div class="typing-translation">Norwegian: <strong>${word.translation}</strong></div>`;
+            
+            const gameArea = document.getElementById(`${level}GameArea`);
+            gameArea.innerHTML = `
+                <div class="typing-prompt">
+                    ${promptContent}
+                </div>
+                <div class="typing-timer" id="${level}Timer">${state.timeLeft}</div>
+                <div class="typing-progress">
+                    <div class="typing-progress-bar" id="${level}Progress" style="width: 100%"></div>
+                </div>
+                <div class="typing-input-container">
+                    <input type="text" class="typing-input" id="${level}Input" 
+                           placeholder="${data.showWord ? 'Type the word...' : 'Type the English word...'}" 
+                           autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                </div>
+                <div class="typing-feedback" id="${level}Feedback" style="visibility: hidden;">Ready!</div>
+            `;
+            
+            const input = document.getElementById(`${level}Input`);
+            input.focus();
+            input.addEventListener('input', () => checkTypingInput(level));
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') submitTypingAnswer(level);
+            });
+            
+            // Start timer
+            clearInterval(state.timer);
+            state.timer = setInterval(() => updateTypingTimer(level), 1000);
+        }
+
+        function updateTypingTimer(level) {
+            const data = typingData[level];
+            const state = typingState[level];
+            state.timeLeft--;
+            
+            const timerEl = document.getElementById(`${level}Timer`);
+            const progressEl = document.getElementById(`${level}Progress`);
+            
+            timerEl.textContent = state.timeLeft;
+            progressEl.style.width = `${(state.timeLeft / data.timePerWord) * 100}%`;
+            
+            // Color warnings
+            timerEl.classList.remove('warning', 'danger');
+            if (state.timeLeft <= 3) timerEl.classList.add('danger');
+            else if (state.timeLeft <= 5) timerEl.classList.add('warning');
+            
+            if (state.timeLeft <= 0) {
+                submitTypingAnswer(level, true);
+            }
+        }
+
+        function checkTypingInput(level) {
+            const state = typingState[level];
+            const word = state.words[state.wordIndex];
+            const input = document.getElementById(`${level}Input`);
+            const userInput = input.value.trim().toLowerCase();
+            const correctWord = word.word.toLowerCase();
+            
+            input.classList.remove('correct', 'incorrect');
+            
+            if (userInput === correctWord) {
+                input.classList.add('correct');
+            } else if (!correctWord.startsWith(userInput) && userInput.length > 0) {
+                input.classList.add('incorrect');
+            }
+        }
+
+        function submitTypingAnswer(level, timeout = false) {
+            const data = typingData[level];
+            const state = typingState[level];
+            clearInterval(state.timer);
+            
+            const word = state.words[state.wordIndex];
+            const input = document.getElementById(`${level}Input`);
+            const feedback = document.getElementById(`${level}Feedback`);
+            const userInput = input ? input.value.trim().toLowerCase() : '';
+            const correctWord = word.word.toLowerCase();
+            
+            const isCorrect = userInput === correctWord;
+            
+            feedback.style.visibility = 'visible';
+            
+            if (isCorrect) {
+                state.correct++;
+                const timeBonus = Math.floor(state.timeLeft * 2);
+                const points = data.basePoints + timeBonus;
+                state.score += points;
+                
+                if (level === 'a2') {
+                    state.streak++;
+                    if (state.streak >= 3) state.score += 5; // Streak bonus
+                }
+                
+                feedback.textContent = `✓ Correct! +${points} points` + (state.timeLeft > 5 ? ' (Speed bonus!)' : '');
+                feedback.className = 'typing-feedback success';
+                if (input) input.classList.add('correct');
+            } else {
+                if (level === 'a2') state.streak = 0;
+                feedback.textContent = timeout ? `⏰ Time's up! The answer was: ${word.word}` : `✗ The answer was: ${word.word}`;
+                feedback.className = 'typing-feedback error';
+                if (input) input.classList.add('incorrect');
+            }
+            
+            // Update stats
+            document.getElementById(`${level}Score`).textContent = state.score;
+            document.getElementById(`${level}WordCount`).textContent = state.wordIndex + 1;
+            if (level === 'a1') document.getElementById('a1Correct').textContent = state.correct;
+            if (level === 'a2') document.getElementById('a2Streak').textContent = state.streak;
+            if (level === 'b1') {
+                const elapsed = (Date.now() - state.startTime) / 1000 / 60;
+                const wpm = elapsed > 0 ? Math.round(state.correct / elapsed) : 0;
+                document.getElementById('b1WPM').textContent = wpm;
+            }
+            
+            state.wordIndex++;
+            
+            setTimeout(() => showTypingWord(level), 1500);
+        }
+
+        function endTypingGame(level) {
+            const data = typingData[level];
+            const state = typingState[level];
+            clearInterval(state.timer);
+            
+            const accuracy = Math.round((state.correct / data.totalWords) * 100);
+            const elapsed = (Date.now() - state.startTime) / 1000;
+            const wpm = elapsed > 0 ? Math.round((state.correct * 60) / elapsed) : 0;
+            
+            let grade = '🌟';
+            let gradeText = 'Excellent!';
+            if (accuracy >= 90) { grade = '🏆'; gradeText = 'Outstanding!'; }
+            else if (accuracy >= 80) { grade = '🥇'; gradeText = 'Great job!'; }
+            else if (accuracy >= 70) { grade = '🥈'; gradeText = 'Good work!'; }
+            else if (accuracy >= 60) { grade = '🥉'; gradeText = 'Keep practicing!'; }
+            else { grade = '💪'; gradeText = 'Try again!'; }
+            
+            const gameArea = document.getElementById(`${level}GameArea`);
+            gameArea.innerHTML = `
+                <div class="typing-results">
+                    <h4>${grade} ${gradeText}</h4>
+                    <div class="typing-final-score">${state.score}</div>
+                    <div class="typing-grade">${accuracy}% Accuracy</div>
+                    <div class="typing-details">
+                        <div class="typing-detail">
+                            <div class="typing-detail-value">${state.correct}/${data.totalWords}</div>
+                            <div class="typing-detail-label">Correct</div>
+                        </div>
+                        <div class="typing-detail">
+                            <div class="typing-detail-value">${Math.round(elapsed)}s</div>
+                            <div class="typing-detail-label">Time</div>
+                        </div>
+                        <div class="typing-detail">
+                            <div class="typing-detail-value">${wpm}</div>
+                            <div class="typing-detail-label">WPM</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="typing-start-btn" onclick="startTypingGame('${level}')" style="margin-top: 1.5rem;">🔄 Play Again</button>
+            `;
+        }
+
+        // ========== WORD SEARCH ==========
+        const wsData = {
+            a1: {
+                words: ['FLAG', 'PARADE', 'MUSIC', 'KING', 'PALACE', 'HAPPY', 'PARTY', 'CHILDREN'],
+                gridSize: 10,
+                wordCount: 6
+            },
+            a2: {
+                words: ['BOTH', 'DIFFERENT', 'SIMILAR', 'FIREWORKS', 'TRADITION', 'COMPARE', 'NATIONAL', 'BONFIRE', 'CELEBRATE'],
+                gridSize: 12,
+                wordCount: 8
+            },
+            b1: {
+                words: ['IDENTITY', 'BELONGING', 'DIVERSITY', 'INCLUSIVE', 'DEMOCRACY', 'HERITAGE', 'EQUALITY', 'CULTURE', 'COMMUNITY', 'PRIDE'],
+                gridSize: 14,
+                wordCount: 10
+            }
+        };
+
+        const wsState = {
+            a1: { grid: [], words: [], found: [], selecting: false, selected: [], foundCount: 0 },
+            a2: { grid: [], words: [], found: [], selecting: false, selected: [], foundCount: 0 },
+            b1: { grid: [], words: [], found: [], selecting: false, selected: [], foundCount: 0 }
+        };
+
+        function initWordSearch(level) {
+            const data = wsData[level];
+            const state = wsState[level];
+            const size = data.gridSize;
+            
+            // Reset state
+            state.found = [];
+            state.selected = [];
+            state.selecting = false;
+            state.foundCount = 0;
+            
+            // Choose random words
+            const shuffled = [...data.words].sort(() => Math.random() - 0.5);
+            state.words = shuffled.slice(0, data.wordCount);
+            
+            // Create empty grid
+            state.grid = Array(size).fill(null).map(() => Array(size).fill(''));
+            
+            // Place words
+            const directions = [
+                [0, 1],   // right
+                [1, 0],   // down
+                [1, 1],   // diagonal down-right
+                [0, -1],  // left
+                [1, -1]   // diagonal down-left
+            ];
+            
+            state.words.forEach(word => {
+                let placed = false;
+                let attempts = 0;
+                while (!placed && attempts < 100) {
+                    attempts++;
+                    const dir = directions[Math.floor(Math.random() * directions.length)];
+                    const startRow = Math.floor(Math.random() * size);
+                    const startCol = Math.floor(Math.random() * size);
+                    
+                    // Check if word fits
+                    let fits = true;
+                    const positions = [];
+                    for (let i = 0; i < word.length; i++) {
+                        const r = startRow + dir[0] * i;
+                        const c = startCol + dir[1] * i;
+                        if (r < 0 || r >= size || c < 0 || c >= size) { fits = false; break; }
+                        if (state.grid[r][c] !== '' && state.grid[r][c] !== word[i]) { fits = false; break; }
+                        positions.push([r, c]);
+                    }
+                    
+                    if (fits) {
+                        positions.forEach((pos, i) => { state.grid[pos[0]][pos[1]] = word[i]; });
+                        placed = true;
+                    }
+                }
+            });
+            
+            // Fill empty cells with random letters
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    if (state.grid[r][c] === '') {
+                        state.grid[r][c] = letters[Math.floor(Math.random() * letters.length)];
+                    }
+                }
+            }
+            
+            renderWordSearch(level);
+        }
+
+        function renderWordSearch(level) {
+            const data = wsData[level];
+            const state = wsState[level];
+            const gridEl = document.getElementById(`${level}WSGrid`);
+            const wordsEl = document.getElementById(`${level}WSWords`);
+            
+            // Render grid
+            gridEl.innerHTML = '';
+            for (let r = 0; r < data.gridSize; r++) {
+                for (let c = 0; c < data.gridSize; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'wordsearch-cell';
+                    cell.textContent = state.grid[r][c];
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    cell.addEventListener('mousedown', (e) => startWSSelect(level, r, c, e));
+                    cell.addEventListener('mouseenter', () => continueWSSelect(level, r, c));
+                    cell.addEventListener('mouseup', () => endWSSelect(level));
+                    cell.addEventListener('touchstart', (e) => { e.preventDefault(); startWSSelect(level, r, c, e); });
+                    cell.addEventListener('touchmove', (e) => handleWSTouchMove(level, e));
+                    cell.addEventListener('touchend', () => endWSSelect(level));
+                    
+                    gridEl.appendChild(cell);
+                }
+            }
+            
+            // Render word list
+            wordsEl.innerHTML = state.words.map(word => 
+                `<div class="wordsearch-word ${state.found.includes(word) ? 'found' : ''}">${word}</div>`
+            ).join('');
+            
+            // Update counter
+            document.getElementById(`${level}WSFound`).textContent = state.foundCount;
+            document.getElementById(`${level}WSTotal`).textContent = state.words.length;
+        }
+
+        function startWSSelect(level, row, col, e) {
+            e.preventDefault();
+            const state = wsState[level];
+            state.selecting = true;
+            state.selected = [[row, col]];
+            updateWSSelection(level);
+        }
+
+        function continueWSSelect(level, row, col) {
+            const state = wsState[level];
+            if (!state.selecting) return;
+            
+            const last = state.selected[state.selected.length - 1];
+            if (last[0] === row && last[1] === col) return;
+            
+            // Check if this continues a valid line
+            if (state.selected.length === 1) {
+                state.selected.push([row, col]);
+            } else {
+                const first = state.selected[0];
+                const dr = state.selected.length > 1 ? (state.selected[1][0] - first[0]) : 0;
+                const dc = state.selected.length > 1 ? (state.selected[1][1] - first[1]) : 0;
+                
+                // Normalize direction
+                const len = Math.max(Math.abs(dr), Math.abs(dc)) || 1;
+                const dirR = dr / len;
+                const dirC = dc / len;
+                
+                // Check if new cell is on the same line
+                const expectedR = first[0] + dirR * state.selected.length;
+                const expectedC = first[1] + dirC * state.selected.length;
+                
+                if (Math.abs(row - expectedR) < 0.5 && Math.abs(col - expectedC) < 0.5) {
+                    state.selected.push([row, col]);
+                }
+            }
+            updateWSSelection(level);
+        }
+
+        function handleWSTouchMove(level, e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (element && element.classList.contains('wordsearch-cell')) {
+                const row = parseInt(element.dataset.row);
+                const col = parseInt(element.dataset.col);
+                continueWSSelect(level, row, col);
+            }
+        }
+
+        function endWSSelect(level) {
+            const state = wsState[level];
+            state.selecting = false;
+            
+            // Get selected word
+            const selectedWord = state.selected.map(([r, c]) => state.grid[r][c]).join('');
+            const reversedWord = selectedWord.split('').reverse().join('');
+            
+            // Check if it's a valid word
+            const foundWord = state.words.find(w => 
+                (w === selectedWord || w === reversedWord) && !state.found.includes(w)
+            );
+            
+            if (foundWord) {
+                state.found.push(foundWord);
+                state.foundCount++;
+                
+                // Mark cells as found
+                const gridEl = document.getElementById(`${level}WSGrid`);
+                const data = wsData[level];
+                state.selected.forEach(([r, c]) => {
+                    const index = r * data.gridSize + c;
+                    const cell = gridEl.children[index];
+                    cell.classList.remove('selected');
+                    cell.classList.add(state.foundCount % 2 === 0 ? 'found-alt' : 'found');
+                });
+                
+                renderWordSearch(level);
+            } else {
+                // Clear selection
+                state.selected = [];
+                updateWSSelection(level);
+            }
+        }
+
+        function updateWSSelection(level) {
+            const state = wsState[level];
+            const data = wsData[level];
+            const gridEl = document.getElementById(`${level}WSGrid`);
+            
+            // Clear all selections (but not found)
+            Array.from(gridEl.children).forEach(cell => {
+                if (!cell.classList.contains('found') && !cell.classList.contains('found-alt')) {
+                    cell.classList.remove('selected');
+                }
+            });
+            
+            // Highlight selected cells
+            state.selected.forEach(([r, c]) => {
+                const index = r * data.gridSize + c;
+                const cell = gridEl.children[index];
+                if (!cell.classList.contains('found') && !cell.classList.contains('found-alt')) {
+                    cell.classList.add('selected');
+                }
+            });
+        }
+
         // Init
         resetMemory();
         setupPuzzle();
+        initWordSearch('a1');
+        initWordSearch('a2');
+        initWordSearch('b1');
     </script>
 </body>
 </html>
