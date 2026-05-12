@@ -1045,6 +1045,13 @@
             background: #d4edda;
             border-color: #28a745;
             text-decoration: line-through;
+            color: #666;
+            position: relative;
+        }
+        .wordsearch-word.found::after {
+            content: ' ✓';
+            color: #28a745;
+            font-weight: 700;
         }
         .wordsearch-score {
             background: var(--blue);
@@ -1634,26 +1641,30 @@
             </div>
 
             <div class="exercise-section">
-                <h3>🗣️ Speaking Cards</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Click a card to see a question.</p>
-                <div class="speaking-cards">
-                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">💭 Card 1</div>
-                        <div class="card-back">What do you eat on 17. mai?</div>
-                    </div>
-                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">💭 Card 2</div>
-                        <div class="card-back">How is 4th of July different from 17. mai?</div>
-                    </div>
-                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">💭 Card 3</div>
-                        <div class="card-back">Why doesn't the UK have one national day?</div>
-                    </div>
-                    <div class="speaking-card" onclick="this.classList.toggle('flipped')">
-                        <div class="card-front">💭 Card 4</div>
-                        <div class="card-back">Which national day would you like to experience?</div>
-                    </div>
+                <h3>✏️ Answer the Questions</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Write 2-3 sentences to answer each question.</p>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--red); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">1. What do you eat on 17. mai?</p>
+                    <textarea class="writing-textarea" id="a2Q1" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
                 </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--red); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">2. How is 4th of July different from 17. mai?</p>
+                    <textarea class="writing-textarea" id="a2Q2" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--red); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">3. Why doesn't the UK have one national day?</p>
+                    <textarea class="writing-textarea" id="a2Q3" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--red); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">4. Which national day would you like to experience? Why?</p>
+                    <textarea class="writing-textarea" id="a2Q4" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <button class="print-btn" onclick="printA2Questions()">🖨️ Lagre svarene som PDF</button>
             </div>
 
             <div class="exercise-section">
@@ -1739,7 +1750,7 @@
             <!-- A2: Typing Speed Game -->
             <div class="exercise-section">
                 <h3>⌨️ Typing Challenge — A2</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Type comparison words! 12 seconds per word. Bonus points for speed and streaks!</p>
+                <p style="margin-bottom: 1rem; color: #666;">See the word and type it correctly! 12 seconds per word. Bonus for speed and streaks!</p>
                 
                 <div class="typing-game" id="typingGameA2">
                     <div class="typing-stats">
@@ -1890,12 +1901,30 @@
             </div>
 
             <div class="exercise-section">
-                <h3>🎲 Discussion Dice</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Click the dice for a random question!</p>
-                <div class="dice-container">
-                    <div class="dice" onclick="rollDice()">🎲</div>
-                    <div class="dice-question" id="diceQuestion">Click the dice to start!</div>
+                <h3>💬 Discussion Questions</h3>
+                <p style="margin-bottom: 1rem; color: #666;">Think carefully and write your answers. Use examples to support your ideas.</p>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--blue); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">1. What does your national day mean to you personally?</p>
+                    <textarea class="writing-textarea" id="b1Disc1" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
                 </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--blue); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">2. Can you celebrate a country you weren't born in? Why or why not?</p>
+                    <textarea class="writing-textarea" id="b1Disc2" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--blue); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">3. Is it possible to be proud of your country while also being critical of its history?</p>
+                    <textarea class="writing-textarea" id="b1Disc3" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <div class="discussion-question-box" style="background: var(--cream); border-left: 3px solid var(--blue); padding: 1rem; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                    <p style="font-weight: 600; color: var(--blue); margin-bottom: 0.5rem;">4. How can national days be made more inclusive for minorities and immigrants?</p>
+                    <textarea class="writing-textarea" id="b1Disc4" placeholder="Write your answer..." rows="3" style="margin-bottom: 0;"></textarea>
+                </div>
+                
+                <button class="print-btn" onclick="printB1Discussion()">🖨️ Lagre svarene som PDF</button>
             </div>
 
             <div class="exercise-section">
@@ -1907,47 +1936,6 @@
                 <div class="writing-box">
                     <textarea class="writing-textarea" id="b1Essay" placeholder="Write your essay..." rows="10"></textarea>
                     <button class="print-btn" onclick="printWriting('b1Essay', 'B1 Essay: National Days and Diversity')">🖨️ Lagre som PDF</button>
-                </div>
-            </div>
-
-            <!-- B1: Role Play Cards -->
-            <div class="exercise-section">
-                <h3>🎭 Role Play Scenarios</h3>
-                <p style="margin-bottom: 1rem; color: #666;">Practice discussing national days from different perspectives.</p>
-                
-                <div class="roleplay-cards">
-                    <div class="roleplay-card">
-                        <h4>🎭 Scenario 1</h4>
-                        <div class="roleplay-roles">
-                            <div class="roleplay-role">Person A: Norwegian</div>
-                            <div class="roleplay-role">Person B: American</div>
-                        </div>
-                        <p class="roleplay-scenario">You are explaining your national day to each other. What makes your celebration special? What would you like to try from the other country?</p>
-                    </div>
-                    <div class="roleplay-card">
-                        <h4>🎭 Scenario 2</h4>
-                        <div class="roleplay-roles">
-                            <div class="roleplay-role">Person A: Sami Norwegian</div>
-                            <div class="roleplay-role">Person B: New immigrant</div>
-                        </div>
-                        <p class="roleplay-scenario">Discuss how it feels to celebrate 17. mai when you also have your own cultural identity. How can Norway make the day more inclusive?</p>
-                    </div>
-                    <div class="roleplay-card">
-                        <h4>🎭 Scenario 3</h4>
-                        <div class="roleplay-roles">
-                            <div class="roleplay-role">Person A: Teacher</div>
-                            <div class="roleplay-role">Person B: Student</div>
-                        </div>
-                        <p class="roleplay-scenario">The student asks why some countries have national days and others don't. The teacher explains the history and different perspectives.</p>
-                    </div>
-                    <div class="roleplay-card">
-                        <h4>🎭 Scenario 4</h4>
-                        <div class="roleplay-roles">
-                            <div class="roleplay-role">Person A: Traditionalist</div>
-                            <div class="roleplay-role">Person B: Modernist</div>
-                        </div>
-                        <p class="roleplay-scenario">Debate whether national days should stay traditional or change to reflect modern, diverse societies. Give arguments for both sides.</p>
-                    </div>
                 </div>
             </div>
 
@@ -2305,6 +2293,36 @@
             w.document.close(); w.print();
         }
 
+        function printA2Questions() {
+            const qs = [
+                {id:'a2Q1',q:'1. What do you eat on 17. mai?'},
+                {id:'a2Q2',q:'2. How is 4th of July different from 17. mai?'},
+                {id:'a2Q3',q:'3. Why doesn\'t the UK have one national day?'},
+                {id:'a2Q4',q:'4. Which national day would you like to experience? Why?'}
+            ];
+            let c = '';
+            qs.forEach(x => { const t = document.getElementById(x.id).value.trim(); if(t) c += `<div class="q"><strong>${x.q}</strong></div><div class="a">${t}</div>`; });
+            if (!c) { alert('Skriv svar på minst ett spørsmål.'); return; }
+            const w = window.open('', '_blank');
+            w.document.write(`<!DOCTYPE html><html><head><title>A2 Questions</title><style>body{font-family:'Segoe UI',sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.8}h1{color:#00205B;border-bottom:3px solid #BA0C2F;padding-bottom:10px}.q{background:#BA0C2F;color:white;padding:12px 16px;margin-top:20px;border-radius:8px 8px 0 0}.a{white-space:pre-wrap;background:#f9f9f9;padding:16px;border:1px solid #ddd;border-top:none;border-radius:0 0 8px 8px}.footer{margin-top:30px;font-size:0.85rem;color:#666;border-top:1px solid #ddd;padding-top:15px;text-align:center}</style></head><body><h1>✏️ Questions — A2</h1>${c}<div class="footer">🇳🇴 🇺🇸 🇬🇧<br>17. mai og nasjonaldager — English for Minorities<br>Dato: ${new Date().toLocaleDateString('nb-NO')}</div></body></html>`);
+            w.document.close(); w.print();
+        }
+
+        function printB1Discussion() {
+            const qs = [
+                {id:'b1Disc1',q:'1. What does your national day mean to you personally?'},
+                {id:'b1Disc2',q:'2. Can you celebrate a country you weren\'t born in? Why or why not?'},
+                {id:'b1Disc3',q:'3. Is it possible to be proud of your country while also being critical of its history?'},
+                {id:'b1Disc4',q:'4. How can national days be made more inclusive for minorities and immigrants?'}
+            ];
+            let c = '';
+            qs.forEach(x => { const t = document.getElementById(x.id).value.trim(); if(t) c += `<div class="q"><strong>${x.q}</strong></div><div class="a">${t}</div>`; });
+            if (!c) { alert('Skriv svar på minst ett spørsmål.'); return; }
+            const w = window.open('', '_blank');
+            w.document.write(`<!DOCTYPE html><html><head><title>B1 Discussion</title><style>body{font-family:'Segoe UI',sans-serif;max-width:700px;margin:40px auto;padding:20px;line-height:1.8}h1{color:#00205B;border-bottom:3px solid #BA0C2F;padding-bottom:10px}.q{background:#00205B;color:white;padding:12px 16px;margin-top:20px;border-radius:8px 8px 0 0}.a{white-space:pre-wrap;background:#f9f9f9;padding:16px;border:1px solid #ddd;border-top:none;border-radius:0 0 8px 8px}.footer{margin-top:30px;font-size:0.85rem;color:#666;border-top:1px solid #ddd;padding-top:15px;text-align:center}</style></head><body><h1>💬 Discussion Questions — B1</h1>${c}<div class="footer">🇳🇴 🇺🇸 🇬🇧<br>17. mai og nasjonaldager — English for Minorities<br>Dato: ${new Date().toLocaleDateString('nb-NO')}</div></body></html>`);
+            w.document.close(); w.print();
+        }
+
         function printSection(levelId) {
             const names = {'a1':'A1 — Celebration Words','a2':'A2 — Comparing National Days','b1':'B1 — Identity and Belonging'};
             const clone = document.getElementById(levelId).cloneNode(true);
@@ -2544,7 +2562,7 @@
                 timePerWord: 12,
                 totalWords: 12,
                 basePoints: 15,
-                showWord: false
+                showWord: true
             },
             b1: {
                 words: [
