@@ -4,666 +4,582 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Heartstopper • Graphic Novel • Part 1 Meet • A1</title>
-
 <style>
 :root{
-  --deep:#10211f;
-  --deep2:#1b3b35;
-  --card:rgba(255,255,255,.075);
-  --line:rgba(255,255,255,.14);
-  --pink:#efb1b0;
-  --rose:#df8f8b;
-  --mint:#cfe9df;
-  --cream:#f7f3ef;
-  --soft:#dcebe6;
-  --good:#b8f2c2;
-  --bad:#ffd1d1;
-  --shadow:0 18px 44px rgba(0,0,0,.26);
+  --deep:#10211f;--deep2:#1b3b35;--card:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.14);--pink:#efb1b0;--rose:#df8f8b;
+  --mint:#cfe9df;--cream:#f7f3ef;--soft:#dcebe6;--good:#b8f2c2;
+  --bad:#ffd1d1;--shadow:0 18px 44px rgba(0,0,0,.26);
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--cream);
-  background:
-    radial-gradient(circle at 16% 8%, rgba(239,177,176,.18), transparent 20%),
-    radial-gradient(circle at 86% 16%, rgba(207,233,223,.14), transparent 22%),
-    linear-gradient(180deg,var(--deep),var(--deep2));
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--cream);
+  background:radial-gradient(circle at 16% 8%,rgba(239,177,176,.18),transparent 20%),
+  radial-gradient(circle at 86% 16%,rgba(207,233,223,.14),transparent 22%),
+  linear-gradient(180deg,var(--deep),var(--deep2));}
 .wrap{max-width:1200px;margin:auto;padding:24px}
-.hero{
-  display:grid;
-  grid-template-columns:1fr 1.05fr;
-  gap:22px;
-  align-items:stretch;
-  margin-bottom:24px;
-}
-.card,.section{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:30px;
-  box-shadow:var(--shadow);
-}
-.heroText{
-  padding:34px;
-  position:relative;
-  overflow:hidden;
-}
-.heroText:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:.48;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:28px 28px;
-}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;align-items:stretch;margin-bottom:24px}
+.card,.section{background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+.heroText{padding:34px;position:relative;overflow:hidden}
+.heroText:before{content:"";position:absolute;inset:0;opacity:.48;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:28px 28px}
 .heroText>*{position:relative}
-.badge{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:999px;
-  background:rgba(239,177,176,.15);
-  border:1px solid rgba(239,177,176,.25);
-  font-weight:800;
-  margin-bottom:18px;
-}
-h1{
-  margin:0 0 16px;
-  font-size:clamp(3rem,7vw,5.4rem);
-  line-height:.92;
-  letter-spacing:-.06em;
-}
-.lead{
-  color:var(--soft);
-  line-height:1.65;
-  font-size:1.08rem;
-  max-width:58ch;
-}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:rgba(239,177,176,.15);
+  border:1px solid rgba(239,177,176,.25);font-weight:800;margin-bottom:18px}
+h1{margin:0 0 16px;font-size:clamp(3rem,7vw,5.4rem);line-height:.92;letter-spacing:-.06em}
+.lead{color:var(--soft);line-height:1.65;font-size:1.08rem;max-width:58ch}
 .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.pill{
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  border:1px solid var(--line);
-}
-.heroImage{
-  overflow:hidden;
-  min-height:560px;
-  display:flex;
-}
-.heroImage img{
-  width:100%;
-  min-height:560px;
-  object-fit:cover;
-  display:block;
-}
-.section{
-  padding:26px;
-  margin-bottom:24px;
-}
-.section h2{
-  margin:0 0 8px;
-  font-size:1.8rem;
-}
-.help{
-  color:var(--soft);
-  line-height:1.6;
-  margin:0 0 18px;
-}
-.vocabGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;
-}
-.word{
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:16px;
-}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.heroImage{overflow:hidden;min-height:560px;display:flex}
+.heroImage img{width:100%;min-height:560px;object-fit:cover;display:block}
+.section{padding:26px;margin-bottom:24px}
+.section h2{margin:0 0 8px;font-size:1.8rem}
+.help{color:var(--soft);line-height:1.6;margin:0 0 18px}
+.vocabGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.word{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:22px;padding:16px}
 .wordTop{display:flex;gap:12px;align-items:center}
-.icon{
-  width:52px;height:52px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(239,177,176,.14);
-  font-size:1.7rem;
-}
+.icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  background:rgba(239,177,176,.14);font-size:1.7rem}
 .word h3{margin:0;font-size:1.25rem}
 .no{color:#ffd9d8;font-weight:800;margin-top:4px}
 .phon{font-size:.92rem;color:#cfe6df;margin-top:10px}
 button{font:inherit}
-.btn{
-  border:none;
-  border-radius:999px;
-  padding:11px 15px;
-  font-weight:800;
-  cursor:pointer;
-  margin-top:10px;
-}
+.btn{border:none;border-radius:999px;padding:11px 15px;font-weight:800;cursor:pointer;margin-top:10px}
 .primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#1a1717}
 .secondary{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid var(--line)}
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-.activity{
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:18px;
-}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.activity{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:18px}
 .activity h3{margin:0 0 12px;font-size:1.25rem}
-.choice{
-  width:100%;
-  text-align:left;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.075);
-  color:var(--cream);
-  border-radius:16px;
-  padding:13px 14px;
-  margin:7px 0;
-  cursor:pointer;
-}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.075);
+  color:var(--cream);border-radius:16px;padding:13px 14px;margin:7px 0;cursor:pointer}
 .choice:hover{background:rgba(255,255,255,.12)}
 .choice.correct{background:rgba(184,242,194,.17);border-color:rgba(184,242,194,.5)}
 .choice.wrong{background:rgba(255,209,209,.14);border-color:rgba(255,209,209,.5)}
+.choice.selected{background:rgba(239,177,176,.22);border-color:rgba(239,177,176,.5)}
 .feedback{min-height:1.25rem;color:var(--soft);font-weight:800;margin-top:8px}
-input,textarea,select{
-  width:100%;
-  border-radius:16px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.08);
-  color:var(--cream);
-  padding:13px;
-  font:inherit;
-  margin-top:8px;
-}
+input,textarea,select{width:100%;border-radius:16px;border:1px solid var(--line);
+  background:rgba(255,255,255,.08);color:var(--cream);padding:13px;font:inherit;margin-top:8px}
 textarea{min-height:105px;resize:vertical}
 select{color-scheme:dark;background-color:#294640}
-.memoryGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-.mem{
-  min-height:86px;
-  border:none;
-  border-radius:18px;
-  background:#496b64;
-  color:#496b64;
-  font-weight:900;
-  cursor:pointer;
-  padding:10px;
-}
-.mem.revealed,.mem.matched{
-  color:var(--cream);
-  background:rgba(255,255,255,.09);
-  border:1px solid var(--line);
-}
+.memoryGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mem{min-height:86px;border:none;border-radius:18px;background:#496b64;color:#496b64;
+  font-weight:900;cursor:pointer;padding:10px}
+.mem.revealed,.mem.matched{color:var(--cream);background:rgba(255,255,255,.09);border:1px solid var(--line)}
 .mem.matched{background:rgba(184,242,194,.17)}
-.sequence{
-  display:grid;
-  gap:10px;
-}
-.seqItem{
-  padding:13px;
-  border-radius:16px;
-  background:rgba(255,255,255,.08);
-  border:1px solid var(--line);
-  cursor:grab;
-}
-.dropzone{
-  min-height:54px;
-  padding:13px;
-  border:1px dashed rgba(255,255,255,.26);
-  border-radius:16px;
-  margin:8px 0;
-  background:rgba(255,255,255,.04);
-}
-.sentenceStarters{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-  margin-bottom:12px;
-}
-.starter{
-  padding:10px 12px;
-  border-radius:14px;
-  background:rgba(239,177,176,.13);
-  border:1px solid rgba(239,177,176,.22);
-}
-.scoreRow{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-.score{
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  text-align:center;
-}
+.sequence{display:grid;gap:10px}
+.seqItem{padding:13px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid var(--line);cursor:grab}
+.dropzone{min-height:54px;padding:13px;border:1px dashed rgba(255,255,255,.26);
+  border-radius:16px;margin:8px 0;background:rgba(255,255,255,.04)}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center}
 .score strong{display:block;font-size:1.6rem}
 .footer{text-align:center;margin:24px 0}
 .small{font-size:.92rem;color:var(--soft)}
-@media(max-width:950px){
-  .hero,.grid2{grid-template-columns:1fr}
-  .memoryGrid{grid-template-columns:repeat(3,1fr)}
-  .heroImage,.heroImage img{min-height:360px}
-}
-@media(max-width:620px){
-  .memoryGrid,.scoreRow{grid-template-columns:1fr 1fr}
-  .wrap{padding:14px}
-}
+
+/* Language selector */
+.langBar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.langBar label{font-weight:800;color:var(--soft)}
+.langBar select{width:auto;margin:0;padding:10px 16px;border-radius:999px}
+
+/* Word-click starters */
+.wordChips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{padding:9px 14px;border-radius:12px;background:rgba(239,177,176,.13);
+  border:1px solid rgba(239,177,176,.3);cursor:pointer;font-weight:700;transition:.15s}
+.chip:hover,.chip.active{background:rgba(239,177,176,.35);border-color:rgba(239,177,176,.7)}
+.suggestedStarter{margin:10px 0 6px;padding:10px 14px;border-radius:14px;
+  background:rgba(207,233,223,.13);border:1px solid rgba(207,233,223,.28);
+  color:var(--mint);font-style:italic;display:none}
+.suggestedStarter.show{display:block}
+
+@media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.memoryGrid{grid-template-columns:repeat(3,1fr)}.heroImage,.heroImage img{min-height:360px}}
+@media(max-width:620px){.memoryGrid,.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
+<!-- Language bar -->
+<div class="langBar">
+  <label id="lbl-lang">🌍 Choose language / Velg språk:</label>
+  <select id="langSelect" onchange="setLang(this.value)">
+    <option value="no">🇳🇴 Norsk</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ar">🇸🇦 العربية</option>
+    <option value="uk">🇺🇦 Українська</option>
+  </select>
+</div>
+
 <section class="hero">
   <div class="card heroText">
-    <div class="badge">Friday Reading Studio • Graphic Novel • Part 1 • A1</div>
+    <div class="badge">Graphic Novel • Part 1 • A1</div>
     <h1>Part 1<br>Meet</h1>
-    <p class="lead">
-      First read about 1/3 of the chapter. Then work with vocabulary, reading comprehension, and simple reflection.
-      This page is for A1 learners and uses short answers, choices, emojis and sentence starters.
-    </p>
+    <p class="lead" id="heroLead">Les første del av kapittelet. Jobb med gloser, leseforståelse og refleksjon.</p>
     <div class="pills">
-      <div class="pill">📚 45 min reading</div>
-      <div class="pill">🔊 45 min vocabulary + comprehension</div>
-      <div class="pill">💭 45 min reflection + writing</div>
       <div class="pill">📄 PDF export</div>
     </div>
   </div>
   <div class="card heroImage">
-    <img src="images/A1_part1_comic.png" alt="Comic panels for Part 1" onerror="this.src='images/book.png'">
+    <img src="data:image/png;base64,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" alt="Nick and Charlie saying hi">
   </div>
 </section>
 
 <section class="section">
-  <h2>1. Vocabulary first</h2>
-  <p class="help">Listen to the words. Say the words aloud. These words help you understand the first part of the chapter.</p>
+  <h2 id="h-vocab">1. Gloser</h2>
+  <p class="help" id="help-vocab">Lytt til ordene. Si dem høyt. Disse ordene hjelper deg å forstå første del av kapittelet.</p>
   <div class="vocabGrid" id="vocabGrid"></div>
 </section>
 
 <section class="section">
-  <h2>2. Vocabulary games</h2>
-  <p class="help">Practise the words before you answer the reading questions.</p>
+  <h2 id="h-games">2. Glosespill</h2>
+  <p class="help" id="help-games">Øv på ordene før du svarer på spørsmålene.</p>
   <div class="grid2">
     <div class="activity">
-      <h3>Memory game: English → Norwegian</h3>
-      <button class="btn secondary" onclick="resetMemory()">New game</button>
+      <h3 id="h-memory">Memory: Engelsk → Norsk</h3>
+      <button class="btn secondary" onclick="resetMemory()" id="btn-newgame">Nytt spill</button>
       <div class="memoryGrid" id="memoryGrid"></div>
-      <div class="feedback" id="memoryFb">Find all pairs.</div>
+      <div class="feedback" id="memoryFb"></div>
     </div>
 
     <div class="activity">
-      <h3>Choose the correct Norwegian word</h3>
-      <p class="help">What does <strong>shy</strong> mean?</p>
-      <div class="choice" onclick="checkChoice(this,true,'vocabChoiceFb')">sjenert</div>
-      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb')">glad</div>
-      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb')">sint</div>
+      <h3 id="h-chooseword">Velg riktig oversettelse</h3>
+      <p class="help" id="help-shy">Hva betyr <strong>shy</strong>?</p>
+      <div id="shyChoices"></div>
       <div class="feedback" id="vocabChoiceFb"></div>
-
-      <p class="help" style="margin-top:18px">What does <strong>friend</strong> mean?</p>
-      <div class="choice" onclick="checkChoice(this,true,'vocabChoiceFb2')">venn</div>
-      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb2')">skole</div>
-      <div class="choice" onclick="checkChoice(this,false,'vocabChoiceFb2')">snakke</div>
+      <p class="help" id="help-friend" style="margin-top:18px">Hva betyr <strong>friend</strong>?</p>
+      <div id="friendChoices"></div>
       <div class="feedback" id="vocabChoiceFb2"></div>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>3. Reading comprehension</h2>
-  <p class="help">Answer these questions after reading the first part of the chapter.</p>
+  <h2>3. Typing practice</h2>
+  <p class="help">Type each word as fast as you can. You get more points for speed!</p>
+  <div id="typingGame" style="text-align:center;padding:10px 0">
+    <div id="tgScore" style="font-size:1.5rem;font-weight:800;color:var(--pink);margin-bottom:8px">Score: 0</div>
+    <div id="tgProgress" style="color:var(--soft);margin-bottom:18px"></div>
+    <div id="tgCard" style="background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:24px;padding:28px 32px;display:inline-block;min-width:260px;margin-bottom:18px">
+      <div id="tgIcon" style="font-size:2.8rem;margin-bottom:8px"></div>
+      <div id="tgWord" style="font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px"></div>
+      <div id="tgPhon" style="font-size:.9rem;color:var(--mint)"></div>
+      <div id="tgTimer" style="font-size:.85rem;color:var(--soft);margin-top:6px"></div>
+    </div>
+    <div>
+      <input id="tgInput" type="text" placeholder="Type the word and press Enter"
+        style="max-width:320px;text-align:center;font-size:1.1rem"
+        onkeydown="if(event.key==='Enter') submitTyping()">
+    </div>
+    <div id="tgFb" style="min-height:1.4rem;font-weight:800;font-size:1.1rem;margin-top:10px"></div>
+    <div id="tgResult" style="display:none;margin-top:16px">
+      <div style="font-size:1.4rem;font-weight:800;margin-bottom:8px">🎉 Finished!</div>
+      <div id="tgFinalScore" style="font-size:2rem;font-weight:800;color:var(--pink)"></div>
+      <button class="btn primary" onclick="buildTyping()" style="margin-top:14px">Play again</button>
+    </div>
+  </div>
+</section>
 
+<section class="section">
+  <h2>4. Word search</h2>
+  <p class="help">Find the 10 vocabulary words. Click and drag across the letters to select a word.</p>
+  <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+    <div>
+      <div id="wsGrid" style="display:inline-grid;gap:3px;cursor:crosshair"></div>
+      <div class="feedback" id="wsFb" style="margin-top:10px"></div>
+    </div>
+    <div id="wsWordList" style="display:flex;flex-direction:column;gap:6px;min-width:120px"></div>
+  </div>
+  <button class="btn secondary" onclick="buildWordSearch()" style="margin-top:14px">New grid</button>
+</section>
+
+<section class="section">
+  <h2 id="h-comp">5. Leseforståelse</h2>
+
+  <p class="help" id="help-comp">Svar på disse spørsmålene etter at du har lest første del av kapittelet.</p>
   <div class="grid2">
     <div class="activity">
-      <h3>1. Where do Charlie and Nick meet?</h3>
-      <div class="choice" onclick="checkChoice(this,true,'q1')">At school</div>
-      <div class="choice" onclick="checkChoice(this,false,'q1')">At a party</div>
-      <div class="choice" onclick="checkChoice(this,false,'q1')">At the beach</div>
+      <h3 >1. Where do Charlie and Nick meet?</h3>
+      <div id="q1choices"></div>
       <div class="feedback" id="q1"></div>
     </div>
-
     <div class="activity">
-      <h3>2. Who sits next to Charlie?</h3>
-      <div class="choice" onclick="checkChoice(this,true,'q2')">Nick Nelson</div>
-      <div class="choice" onclick="checkChoice(this,false,'q2')">Tao</div>
-      <div class="choice" onclick="checkChoice(this,false,'q2')">Elle</div>
+      <h3 >2. Who sits next to Charlie?</h3>
+      <div id="q2choices"></div>
       <div class="feedback" id="q2"></div>
     </div>
-
     <div class="activity">
-      <h3>3. How does Charlie seem at first?</h3>
-      <div class="choice" onclick="checkChoice(this,true,'q3')">Shy or nervous</div>
-      <div class="choice" onclick="checkChoice(this,false,'q3')">Angry</div>
-      <div class="choice" onclick="checkChoice(this,false,'q3')">Very loud</div>
+      <h3 >3. How does Charlie seem at first?</h3>
+      <div id="q3choices"></div>
       <div class="feedback" id="q3"></div>
     </div>
-
     <div class="activity">
-      <h3>4. How does Nick seem?</h3>
-      <div class="choice" onclick="checkChoice(this,true,'q4')">Friendly</div>
-      <div class="choice" onclick="checkChoice(this,false,'q4')">Rude</div>
-      <div class="choice" onclick="checkChoice(this,false,'q4')">Scared</div>
+      <h3 >4. How does Nick seem?</h3>
+      <div id="q4choices"></div>
       <div class="feedback" id="q4"></div>
     </div>
-
     <div class="activity">
-      <h3>5. True or false?</h3>
-      <p>Charlie and Nick start talking.</p>
-      <div class="choice" onclick="checkChoice(this,true,'q5')">True</div>
-      <div class="choice" onclick="checkChoice(this,false,'q5')">False</div>
+      <h3 >5. True or false?</h3>
+      <p >Charlie and Nick start talking.</p>
+      <div id="q5choices"></div>
       <div class="feedback" id="q5"></div>
     </div>
-
     <div class="activity">
-      <h3>6. Who says “Hi”?</h3>
-      <div class="choice" onclick="checkChoice(this,true,'q6')">Nick</div>
-      <div class="choice" onclick="checkChoice(this,false,'q6')">A teacher</div>
-      <div class="choice" onclick="checkChoice(this,false,'q6')">Tao</div>
+      <h3 >6. Who says "Hi"?</h3>
+      <div id="q6choices"></div>
       <div class="feedback" id="q6"></div>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>4. More comprehension activities</h2>
-  <p class="help">Now show that you understand the story in different ways.</p>
-
+  <h2 id="h-more">6. Flere oppgaver</h2>
+  <p class="help" id="help-more">Vis at du forstår historien på ulike måter.</p>
   <div class="grid2">
     <div class="activity">
-      <h3>Put the events in order</h3>
-      <p class="help">Drag the events into the correct order.</p>
+      <h3 id="h-seq">Sett hendelsene i riktig rekkefølge</h3>
+      <p class="help" id="help-seq">Dra hendelsene til riktig plass.</p>
       <div id="seqBank" class="sequence"></div>
       <div id="seqDrops"></div>
-      <button class="btn primary" onclick="checkSequence()">Check order</button>
+      <button class="btn primary" onclick="checkSequence()" id="btn-checkseq">Sjekk rekkefølge</button>
       <div class="feedback" id="seqFb"></div>
     </div>
-
     <div class="activity">
-      <h3>Fill in the missing words</h3>
-      <label>Charlie gets a new ______.</label>
-      <input id="fill1" placeholder="Write one word">
-      <label>Nick is ______ to Charlie.</label>
-      <input id="fill2" placeholder="Write one word">
-      <label>They start to ______.</label>
-      <input id="fill3" placeholder="Write one word">
-      <button class="btn primary" onclick="checkFill()">Check words</button>
+      <h3 id="h-fill">Fyll inn de manglende ordene</h3>
+      <label >Charlie gets a new ______.</label>
+      <input id="fill1" placeholder="Skriv ett ord">
+      <label >Nick is ______ to Charlie.</label>
+      <input id="fill2" placeholder="Skriv ett ord">
+      <label >They start to ______.</label>
+      <input id="fill3" placeholder="Skriv ett ord">
+      <button class="btn primary" onclick="checkFill()" id="btn-checkfill">Sjekk ord</button>
       <div class="feedback" id="fillFb"></div>
     </div>
-
     <div class="activity">
-      <h3>Match character and feeling</h3>
-      <p>Charlie →</p>
-      <select id="charlieFeeling">
-        <option value="">Choose one</option>
-        <option value="correct">shy / nervous</option>
-        <option value="wrong">angry / rude</option>
-        <option value="wrong">bored / sleepy</option>
-      </select>
-
-      <p style="margin-top:12px">Nick →</p>
-      <select id="nickFeeling">
-        <option value="">Choose one</option>
-        <option value="correct">friendly / kind</option>
-        <option value="wrong">mean / rude</option>
-        <option value="wrong">sad / alone</option>
-      </select>
-
-      <button class="btn primary" onclick="checkFeelings()">Check</button>
+      <h3 id="h-feelings">Match karakter og følelse</h3>
+      <p >Charlie →</p>
+      <div id="charlieChoices"></div>
+      <p style="margin-top:12px" style="margin-top:12px">Nick →</p>
+      <div id="nickChoices"></div>
+      <button class="btn primary" onclick="checkFeelings()" id="btn-checkfeel">Sjekk</button>
       <div class="feedback" id="feelingsFb"></div>
     </div>
-
     <div class="activity">
-      <h3>Complete the dialogue</h3>
-      <p>Nick: “Hi.”</p>
-      <p>Charlie: “_____”</p>
-      <input id="dialogue1" placeholder="Write a short answer">
-      <p style="margin-top:12px">Write one more friendly sentence.</p>
-      <input id="dialogue2" placeholder="Example: Nice to meet you.">
+      <h3 id="h-dialogue">Fullfør dialogen</h3>
+      <p>Nick: "Hi."</p>
+      <p >Nick: "Hi."</p>
+      <p>Charlie: "_____"</p>
+      <input id="dialogue1" placeholder="Skriv et kort svar">
+      <p style="margin-top:12px" style="margin-top:12px">Write one more friendly sentence.</p>
+      <input id="dialogue2" placeholder="Nice to meet you.">
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>5. Reflection and opinions</h2>
-  <p class="help">Now think about the story. Use simple English. You can use the sentence starters.</p>
-
+  <h2 id="h-reflect">7. Refleksjon og meninger</h2>
+  <p class="help" id="help-reflect">Tenk på historien. Klikk på et ord for å få et setningsstarter, og skriv svaret ditt.</p>
   <div class="grid2">
     <div class="activity">
-      <h3>1. Do you like Nick as a classmate?</h3>
-      <div class="choice" onclick="saveChoice('opinion1','Yes')">😊 Yes</div>
-      <div class="choice" onclick="saveChoice('opinion1','Maybe')">🤔 Maybe</div>
-      <div class="choice" onclick="saveChoice('opinion1','No')">❌ No</div>
-      <textarea id="opinionWhy1" placeholder="Why? Nick is..."></textarea>
+      <h3 >1. Do you like Nick as a classmate?</h3>
+      <div class="wordChips" id="chips-ref1">
+        <div class="chip" onclick="pickChip(this,'ref1','yes')">😊 Ja</div>
+        <div class="chip" onclick="pickChip(this,'ref1','maybe')">🤔 Kanskje</div>
+        <div class="chip" onclick="pickChip(this,'ref1','no')">❌ Nei</div>
+      </div>
+      <div class="suggestedStarter" id="starter-ref1"></div>
+      <textarea id="opinionWhy1" placeholder="Skriv svaret ditt her..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>2. What makes a good friend?</h3>
-      <div class="choice" onclick="saveChoice('opinion2','kind')">💬 kind</div>
-      <div class="choice" onclick="saveChoice('opinion2','friendly')">😊 friendly</div>
-      <div class="choice" onclick="saveChoice('opinion2','helpful')">🤝 helpful</div>
-      <div class="choice" onclick="saveChoice('opinion2','funny')">😄 funny</div>
-      <textarea id="friendWhy" placeholder="A good friend is..."></textarea>
+      <h3 >2. What makes a good friend?</h3>
+      <div class="wordChips" id="chips-ref2">
+        <div class="chip" onclick="pickChip(this,'ref2','kind')">💬 kind</div>
+        <div class="chip" onclick="pickChip(this,'ref2','friendly')">😊 friendly</div>
+        <div class="chip" onclick="pickChip(this,'ref2','helpful')">🤝 hjelpsom</div>
+        <div class="chip" onclick="pickChip(this,'ref2','funny')">😄 morsom</div>
+      </div>
+      <div class="suggestedStarter" id="starter-ref2"></div>
+      <textarea id="friendWhy" placeholder="Skriv svaret ditt her..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>3. How would you feel?</h3>
-      <p>You get a new seating partner. How do you feel?</p>
-      <div class="choice" onclick="saveChoice('opinion3','nervous')">😰 nervous</div>
-      <div class="choice" onclick="saveChoice('opinion3','happy')">😊 happy</div>
-      <div class="choice" onclick="saveChoice('opinion3','shy')">😳 shy</div>
-      <textarea id="newSeatFeeling" placeholder="I feel... because..."></textarea>
+      <h3 >3. How would you feel?</h3>
+      <p >You get a new seating partner. How do you feel?</p>
+      <div class="wordChips" id="chips-ref3">
+        <div class="chip" onclick="pickChip(this,'ref3','nervous')">😰 nervous</div>
+        <div class="chip" onclick="pickChip(this,'ref3','happy')">😊 happy</div>
+        <div class="chip" onclick="pickChip(this,'ref3','shy')">😳 shy</div>
+      </div>
+      <div class="suggestedStarter" id="starter-ref3"></div>
+      <textarea id="newSeatFeeling" placeholder="Skriv svaret ditt her..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>4. Best moment</h3>
-      <p>Which moment do you like best?</p>
-      <textarea id="bestMoment" placeholder="I like the moment when..."></textarea>
+      <h3 >4. Best moment</h3>
+      <p >Which moment do you like best?</p>
+      <textarea id="bestMoment" placeholder="Jeg liker øyeblikket når..."></textarea>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>6. Writing</h2>
-  <p class="help">Use the sentence starters. Write short answers.</p>
-
-  <div class="sentenceStarters">
-    <div class="starter">Charlie is...</div>
-    <div class="starter">Nick is...</div>
-    <div class="starter">I think...</div>
-    <div class="starter">The classroom is...</div>
-    <div class="starter">My favourite moment is...</div>
-    <div class="starter">A good friend...</div>
-  </div>
-
+  <h2 id="h-write">8. Skriving</h2>
+  <p class="help" id="help-write">Klikk på et ord for å få et setningsstarter. Skriv korte svar.</p>
   <div class="grid2">
     <div class="activity">
-      <h3>Describe Charlie</h3>
+      <h3 >Describe Charlie</h3>
+      <div class="wordChips">
+        <div class="chip" onclick="pickWriteChip(this,'writeCharlie','Charlie is...')">shy</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeCharlie','Charlie seems...')">quiet</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeCharlie','Charlie feels...')">nervous</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeCharlie','I think Charlie...')">kind</div>
+      </div>
+      <div class="suggestedStarter" id="starter-writeCharlie"></div>
       <textarea id="writeCharlie" placeholder="Charlie is..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>Describe Nick</h3>
+      <h3 >Describe Nick</h3>
+      <div class="wordChips">
+        <div class="chip" onclick="pickWriteChip(this,'writeNick','Nick is...')">friendly</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeNick','Nick seems...')">kind</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeNick','Nick says...')">happy</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeNick','I think Nick...')">brave</div>
+      </div>
+      <div class="suggestedStarter" id="starter-writeNick"></div>
       <textarea id="writeNick" placeholder="Nick is..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>Describe the classroom</h3>
+      <h3 >Describe the classroom</h3>
+      <div class="wordChips">
+        <div class="chip" onclick="pickWriteChip(this,'writeClassroom','I can see...')">chairs</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeClassroom','The classroom is...')">quiet</div>
+        <div class="chip" onclick="pickWriteChip(this,'writeClassroom','In the classroom...')">students</div>
+      </div>
+      <div class="suggestedStarter" id="starter-writeClassroom"></div>
       <textarea id="writeClassroom" placeholder="I can see... The classroom is..."></textarea>
     </div>
-
     <div class="activity">
-      <h3>Create a speech bubble</h3>
-      <p>Write one short sentence Charlie could say.</p>
+      <h3 >Create a speech bubble</h3>
+      <p >Write one short sentence Charlie could say.</p>
+      <div class="wordChips">
+        <div class="chip" onclick="pickWriteChip(this,'speechBubble','Hi, my name is...')">greet</div>
+        <div class="chip" onclick="pickWriteChip(this,'speechBubble','Nice to meet you!')">friendly</div>
+        <div class="chip" onclick="pickWriteChip(this,'speechBubble','Are you new here?')">ask</div>
+      </div>
+      <div class="suggestedStarter" id="starter-speechBubble"></div>
       <textarea id="speechBubble" placeholder="Hi Nick!"></textarea>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>7. Progress</h2>
+  <h2 id="h-progress">9. Fremgang</h2>
   <div class="scoreRow">
-    <div class="score"><strong id="scoreListen">0</strong>words listened to</div>
-    <div class="score"><strong id="scoreMemory">0</strong>pairs found</div>
-    <div class="score"><strong id="scoreChecked">0</strong>answers checked</div>
-    <div class="score"><strong>3×45</strong>minutes Friday work</div>
+    <div class="score"><strong id="scoreListen">0</strong><span id="lbl-listened">ord lyttet til</span></div>
+    <div class="score"><strong id="scoreMemory">0</strong><span id="lbl-pairs">par funnet</span></div>
+    <div class="score"><strong id="scoreChecked">0</strong><span id="lbl-checked">svar sjekket</span></div>
   </div>
-  <p class="small" style="margin-top:14px">When you are finished, download your answers as a PDF.</p>
+  <p class="small" style="margin-top:14px" id="lbl-pdf">Når du er ferdig, last ned svarene som PDF.</p>
 </section>
 
 <div class="footer">
-  <button class="btn primary" onclick="downloadPDF()">📄 Download answers as PDF</button>
+  <button class="btn primary" onclick="downloadPDF()" id="btn-pdf">📄 Last ned svar som PDF</button>
 </div>
 
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────────
+// ── VOCAB LANGUAGE (dropdown controls translation on vocab cards + memory only) ──
+const vocabLangKey = { no:"no", ar:"ar", uk:"uk" };
+
+let lang = "no";
+let listened = new Set(), checked = 0, memoryPairs = 0;
+let firstCard = null, lock = false, savedChoices = {};
+
+function setLang(l){
+  lang = l;
+  buildVocab();
+  resetMemory();
+}
+
+function t(key){
+  const fb = {
+    correct:"Correct!", wrong:"Try again.",
+    memAll:"Great! All pairs found.", memGo:"Good. Keep going.",
+    seqOk:"Correct order!", seqNo:"Check the order and try again.",
+    fillOk:"Correct!", fillNo:"Check your words and try again.",
+    feelOk:"Correct!", feelNo:"Try again.",
+    listenBtn:"🔊 Listen"
+  };
+  return fb[key] || key;
+}
+
+// ── VOCABULARY DATA ───────────────────────────────────────────────────────────
 const words = [
-  {en:"hello", no:"hei", icon:"👋", phonetic:"/həˈləʊ/"},
-  {en:"school", no:"skole", icon:"🏫", phonetic:"/skuːl/"},
-  {en:"shy", no:"sjenert", icon:"😊", phonetic:"/ʃaɪ/"},
-  {en:"friend", no:"venn", icon:"👫", phonetic:"/frend/"},
-  {en:"talk", no:"snakke", icon:"💬", phonetic:"/tɔːk/"},
-  {en:"new", no:"ny", icon:"✨", phonetic:"/njuː/"},
-  {en:"sit", no:"sitte", icon:"🪑", phonetic:"/sɪt/"},
-  {en:"kind", no:"snill", icon:"🤝", phonetic:"/kaɪnd/"},
-  {en:"smile", no:"smile", icon:"🙂", phonetic:"/smaɪl/"},
-  {en:"classroom", no:"klasserom", icon:"📚", phonetic:"/ˈklɑːsruːm/"}
+  {en:"hello",     no:"hei",        ar:"مرحبا",        uk:"привіт",              icon:"👋", phonetic:"/həˈləʊ/"},
+  {en:"school",    no:"skole",      ar:"مدرسة",        uk:"школа",               icon:"🏫", phonetic:"/skuːl/"},
+  {en:"shy",       no:"sjenert",    ar:"خجول",         uk:"сором'язливий",       icon:"😊", phonetic:"/ʃaɪ/"},
+  {en:"friend",    no:"venn",       ar:"صديق",         uk:"друг",                icon:"👫", phonetic:"/frend/"},
+  {en:"talk",      no:"snakke",     ar:"يتحدث",        uk:"розмовляти",          icon:"💬", phonetic:"/tɔːk/"},
+  {en:"new",       no:"ny",         ar:"جديد",         uk:"новий",               icon:"✨", phonetic:"/njuː/"},
+  {en:"sit",       no:"sitte",      ar:"يجلس",         uk:"сидіти",              icon:"🪑", phonetic:"/sɪt/"},
+  {en:"kind",      no:"snill",      ar:"لطيف",         uk:"добрий",              icon:"🤝", phonetic:"/kaɪnd/"},
+  {en:"smile",     no:"smile",      ar:"يبتسم",        uk:"посміхатися",         icon:"🙂", phonetic:"/smaɪl/"},
+  {en:"classroom", no:"klasserom",  ar:"فصل دراسي",   uk:"клас",                icon:"📚", phonetic:"/ˈklɑːsruːm/"}
 ];
 
-let listened = new Set();
-let checked = 0;
-let memoryPairs = 0;
-let firstCard = null;
-let lock = false;
-let savedChoices = {};
+// ── COMPREHENSION QUESTIONS ───────────────────────────────────────────────────
+const questions = {
+  q1:{ correct:"At school",      wrong:["At a party","At the beach"]},
+  q2:{ correct:"Nick Nelson",    wrong:["Tao","Elle"]},
+  q3:{ correct:"Shy or nervous", wrong:["Angry","Very loud"]},
+  q4:{ correct:"Friendly",       wrong:["Rude","Scared"]},
+  q5:{ correct:"True",           wrong:["False"]},
+  q6:{ correct:"Nick",           wrong:["A teacher","Tao"]}
+};
 
-function updateScores(){
-  document.getElementById("scoreListen").textContent = listened.size;
-  document.getElementById("scoreMemory").textContent = memoryPairs;
-  document.getElementById("scoreChecked").textContent = checked;
-}
+const feelingData = {
+  charlie:{ correct:"shy / nervous",  wrong:["angry / rude","bored / sleepy"]},
+  nick:   { correct:"friendly / kind", wrong:["mean / rude","sad / alone"]}
+};
 
-function speakWord(word){
-  if(!("speechSynthesis" in window)){
-    alert("Speech is not supported in this browser.");
-    return;
-  }
-  const voices = speechSynthesis.getVoices();
-  const voice = voices.find(v => v.lang === "en-GB") || voices.find(v => v.lang === "en-US") || voices.find(v => v.lang && v.lang.startsWith("en"));
-  const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = voice?.lang || "en-GB";
-  if(voice) utterance.voice = voice;
-  utterance.rate = 0.9;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-  listened.add(word);
-  updateScores();
-}
+const chipStarters = {
+  ref1:{ yes:"Yes, I like Nick because...", maybe:"Maybe, because Nick seems...", no:"No, because I think Nick..."},
+  ref2:{ kind:"A good friend is kind because...", friendly:"A good friend is friendly and...", helpful:"A good friend helps you when...", funny:"A good friend is funny and..."},
+  ref3:{ nervous:"I would feel nervous because...", happy:"I would feel happy because...", shy:"I would feel shy because..."}
+};
 
+// ── VOCAB ─────────────────────────────────────────────────────────────────────
 function buildVocab(){
   const grid = document.getElementById("vocabGrid");
+  grid.innerHTML = "";
   words.forEach(w => {
+    const translation = w[lang] || w.no;
     const card = document.createElement("div");
     card.className = "word";
     card.innerHTML = `
       <div class="wordTop">
         <div class="icon">${w.icon}</div>
-        <div>
-          <h3>${w.en}</h3>
-          <div class="no">${w.no}</div>
-        </div>
+        <div><h3>${w.en}</h3><div class="no">${translation}</div></div>
       </div>
       <div class="phon">Pronunciation: ${w.phonetic}</div>
-      <button class="btn primary" onclick="speakWord('${w.en}')">🔊 Listen</button>
-    `;
+      <button class="btn primary" onclick="speakWord('${w.en}')">${t('listenBtn')}</button>`;
     grid.appendChild(card);
   });
 }
 
-function checkChoice(el, isCorrect, fbId){
+function speakWord(word){
+  if(!("speechSynthesis" in window)){alert("Speech not supported.");return;}
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find(v=>v.lang==="en-GB")||voices.find(v=>v.lang==="en-US")||voices.find(v=>v.lang&&v.lang.startsWith("en"));
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = voice?.lang||"en-GB"; if(voice) u.voice=voice; u.rate=0.9;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+  listened.add(word); updateScores();
+}
+
+// ── CHOICE QUESTIONS ──────────────────────────────────────────────────────────
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+
+function buildChoiceQ(containerId, fbId, correct, wrongArr){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  c.innerHTML="";
+  const opts = shuffle([{text:correct, correct:true}, ...wrongArr.map(w=>({text:w, correct:false}))]);
+  opts.forEach(o=>{
+    const btn = document.createElement("div");
+    btn.className="choice"; btn.textContent=o.text;
+    btn.onclick=()=>checkChoiceEl(btn,o.correct,fbId);
+    c.appendChild(btn);
+  });
+}
+
+function buildChoiceQuestions(){
+  buildChoiceQ("shyChoices","vocabChoiceFb","shy",["happy","angry"]);
+  buildChoiceQ("friendChoices","vocabChoiceFb2","friend",["school","talk"]);
+  Object.keys(questions).forEach(qid=>{
+    const q = questions[qid];
+    buildChoiceQ(qid+"choices", qid, q.correct, q.wrong);
+  });
+}
+
+function checkChoiceEl(el, isCorrect, fbId){
   const parent = el.parentElement;
-  [...parent.querySelectorAll(".choice")].forEach(c => c.classList.remove("correct","wrong"));
-  if(isCorrect){
-    el.classList.add("correct");
-    document.getElementById(fbId).textContent = "Correct!";
-  } else {
-    el.classList.add("wrong");
-    document.getElementById(fbId).textContent = "Try again.";
-  }
-  checked++;
-  updateScores();
+  [...parent.querySelectorAll(".choice")].forEach(c=>c.classList.remove("correct","wrong"));
+  el.classList.add(isCorrect?"correct":"wrong");
+  document.getElementById(fbId).textContent = isCorrect ? t("correct") : t("wrong");
+  checked++; updateScores();
 }
 
-function saveChoice(key, value){
-  savedChoices[key] = value;
-  checked++;
-  updateScores();
+// ── FEELINGS ──────────────────────────────────────────────────────────────────
+function buildFeelingChoices(){
+  ["charlie","nick"].forEach(char=>{
+    const data = feelingData[char];
+    const c = document.getElementById(char+"Choices");
+    if(!c) return;
+    c.innerHTML="";
+    const opts = shuffle([{text:data.correct, val:"correct"},
+      ...data.wrong.map(w=>({text:w, val:"wrong"}))]);
+    opts.forEach(o=>{
+      const btn = document.createElement("div");
+      btn.className="choice";
+      btn.textContent=o.text;
+      btn.dataset.val=o.val;
+      btn.dataset.char=char;
+      btn.onclick=()=>{
+        const p=btn.parentElement;
+        [...p.querySelectorAll(".choice")].forEach(x=>x.classList.remove("selected"));
+        btn.classList.add("selected");
+        savedChoices[char+"Feel"]=o.val;
+      };
+      c.appendChild(btn);
+    });
+  });
 }
 
+function checkFeelings(){
+  const c = savedChoices["charlieFeeling"] || savedChoices["charlieFeel"] || "";
+  const n = savedChoices["nickFeeling"] || savedChoices["nickFeel"] || "";
+  // Check selected values
+  const cSel = document.querySelector('#charlieChoices .selected');
+  const nSel = document.querySelector('#nickChoices .selected');
+  const ok = cSel?.dataset.val==="correct" && nSel?.dataset.val==="correct";
+  document.getElementById("feelingsFb").textContent = ok ? t("feelOk") : t("feelNo");
+  checked++; updateScores();
+}
+
+// ── MEMORY ────────────────────────────────────────────────────────────────────
 function resetMemory(){
   const grid = document.getElementById("memoryGrid");
-  grid.innerHTML = "";
-  firstCard = null;
-  lock = false;
-  memoryPairs = 0;
-  updateScores();
-
-  let cards = [];
-  words.slice(0,8).forEach(w => {
-    cards.push({text:w.en, pair:w.en});
-    cards.push({text:w.no, pair:w.en});
+  grid.innerHTML=""; firstCard=null; lock=false; memoryPairs=0; updateScores();
+  let cards=[];
+  words.slice(0,8).forEach(w=>{
+    const trans = w[lang] || w.no;
+    cards.push({text:w.en,pair:w.en});
+    cards.push({text:trans,pair:w.en});
   });
-  cards.sort(() => Math.random() - 0.5);
-
-  cards.forEach(c => {
-    const btn = document.createElement("button");
-    btn.className = "mem";
-    btn.textContent = c.text;
-    btn.dataset.pair = c.pair;
-    btn.onclick = () => flipMemory(btn);
-    grid.appendChild(btn);
+  cards.sort(()=>Math.random()-.5);
+  cards.forEach(c=>{
+    const btn=document.createElement("button");
+    btn.className="mem"; btn.textContent=c.text; btn.dataset.pair=c.pair;
+    btn.onclick=()=>flipMemory(btn); grid.appendChild(btn);
   });
+  document.getElementById("memoryFb").textContent="";
 }
 
 function flipMemory(btn){
-  if(lock || btn.classList.contains("matched") || btn === firstCard) return;
+  if(lock||btn.classList.contains("matched")||btn===firstCard) return;
   btn.classList.add("revealed");
-
-  if(!firstCard){
-    firstCard = btn;
-    return;
-  }
-
-  if(firstCard.dataset.pair === btn.dataset.pair){
-    firstCard.classList.add("matched");
-    btn.classList.add("matched");
-    firstCard = null;
+  if(!firstCard){firstCard=btn;return;}
+  if(firstCard.dataset.pair===btn.dataset.pair){
+    firstCard.classList.add("matched"); btn.classList.add("matched"); firstCard=null;
     memoryPairs++;
-    document.getElementById("memoryFb").textContent = memoryPairs === 8 ? "Great! All pairs found." : "Good. Keep going.";
+    document.getElementById("memoryFb").textContent = memoryPairs===8 ? t("memAll") : t("memGo");
     updateScores();
   } else {
-    lock = true;
-    document.getElementById("memoryFb").textContent = "Try again.";
-    setTimeout(() => {
-      btn.classList.remove("revealed");
-      firstCard.classList.remove("revealed");
-      firstCard = null;
-      lock = false;
-    }, 850);
+    lock=true; document.getElementById("memoryFb").textContent=t("wrong");
+    setTimeout(()=>{btn.classList.remove("revealed");firstCard.classList.remove("revealed");firstCard=null;lock=false;},850);
   }
 }
 
+// ── SEQUENCE ──────────────────────────────────────────────────────────────────
 const sequenceCorrect = [
   "Charlie gets a new seating plan.",
   "Charlie sits next to Nick.",
@@ -672,32 +588,24 @@ const sequenceCorrect = [
 ];
 
 function buildSequence(){
-  const bank = document.getElementById("seqBank");
-  const drops = document.getElementById("seqDrops");
-  const shuffled = [...sequenceCorrect].sort(() => Math.random() - 0.5);
-
-  shuffled.forEach(txt => {
-    const item = document.createElement("div");
-    item.className = "seqItem";
-    item.draggable = true;
-    item.textContent = txt;
-    item.dataset.text = txt;
-    item.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", txt));
+  const bank=document.getElementById("seqBank");
+  const drops=document.getElementById("seqDrops");
+  bank.innerHTML=""; drops.innerHTML="";
+  const shuffled=[...sequenceCorrect].sort(()=>Math.random()-.5);
+  shuffled.forEach(txt=>{
+    const item=document.createElement("div");
+    item.className="seqItem"; item.draggable=true; item.textContent=txt; item.dataset.text=txt;
+    item.addEventListener("dragstart",e=>e.dataTransfer.setData("text/plain",txt));
     bank.appendChild(item);
   });
-
-  sequenceCorrect.forEach((txt, i) => {
-    const dz = document.createElement("div");
-    dz.className = "dropzone";
-    dz.innerHTML = `<strong>${i+1}.</strong>`;
-    dz.dataset.answer = txt;
-    dz.addEventListener("dragover", e => e.preventDefault());
-    dz.addEventListener("drop", e => {
-      e.preventDefault();
-      const val = e.dataTransfer.getData("text/plain");
-      dz.dataset.value = val;
-      dz.innerHTML = `<strong>${i+1}.</strong> ${val}`;
-      const old = [...document.querySelectorAll(".seqItem")].find(x => x.dataset.text === val);
+  sequenceCorrect.forEach((txt,i)=>{
+    const dz=document.createElement("div");
+    dz.className="dropzone"; dz.innerHTML=`<strong>${i+1}.</strong>`; dz.dataset.answer=txt;
+    dz.addEventListener("dragover",e=>e.preventDefault());
+    dz.addEventListener("drop",e=>{
+      e.preventDefault(); const val=e.dataTransfer.getData("text/plain");
+      dz.dataset.value=val; dz.innerHTML=`<strong>${i+1}.</strong> ${val}`;
+      const old=[...document.querySelectorAll(".seqItem")].find(x=>x.dataset.text===val);
       if(old) old.remove();
     });
     drops.appendChild(dz);
@@ -705,104 +613,312 @@ function buildSequence(){
 }
 
 function checkSequence(){
-  const ok = [...document.querySelectorAll(".dropzone")].every(d => d.dataset.value === d.dataset.answer);
-  document.getElementById("seqFb").textContent = ok ? "Correct order!" : "Check the order and try again.";
-  checked++;
-  updateScores();
+  const ok=[...document.querySelectorAll(".dropzone")].every(d=>d.dataset.value===d.dataset.answer);
+  document.getElementById("seqFb").textContent = ok ? t("seqOk") : t("seqNo");
+  checked++; updateScores();
 }
 
+// ── FILL IN ───────────────────────────────────────────────────────────────────
 function checkFill(){
-  const f1 = document.getElementById("fill1").value.trim().toLowerCase();
-  const f2 = document.getElementById("fill2").value.trim().toLowerCase();
-  const f3 = document.getElementById("fill3").value.trim().toLowerCase();
-  const ok = (f1 === "seat" || f1 === "seating plan") && (f2 === "kind" || f2 === "friendly") && (f3 === "talk");
-  document.getElementById("fillFb").textContent = ok ? "Correct!" : "Check your words and try again.";
-  checked++;
-  updateScores();
+  const f1=document.getElementById("fill1").value.trim().toLowerCase();
+  const f2=document.getElementById("fill2").value.trim().toLowerCase();
+  const f3=document.getElementById("fill3").value.trim().toLowerCase();
+  const ok=(f1==="seat"||f1==="seating plan"||f1==="sitteplan"||f1==="plan")&&
+           (f2==="kind"||f2==="friendly"||f2==="snill"||f2==="vennlig")&&
+           (f3==="talk"||f3==="snakke"||f3==="speak");
+  document.getElementById("fillFb").textContent = ok ? t("fillOk") : t("fillNo");
+  checked++; updateScores();
 }
 
-function checkFeelings(){
-  const c = document.getElementById("charlieFeeling").value;
-  const n = document.getElementById("nickFeeling").value;
-  document.getElementById("feelingsFb").textContent = (c === "correct" && n === "correct") ? "Correct!" : "Try again.";
-  checked++;
-  updateScores();
+// ── CHIP STARTERS ─────────────────────────────────────────────────────────────
+function pickChip(chipEl, group, key){
+  const container = chipEl.parentElement;
+  [...container.querySelectorAll(".chip")].forEach(c=>c.classList.remove("active"));
+  chipEl.classList.add("active");
+  savedChoices[group]=key;
+  const starter = chipStarters[group]?.[key];
+  if(starter){
+    const el = document.getElementById("starter-"+group);
+    if(el){ el.textContent = starter; el.classList.add("show"); }
+  }
+  checked++; updateScores();
 }
 
-function safe(id){
-  const el = document.getElementById(id);
-  return el ? (el.value || "").replace(/\s+/g," ").trim() : "";
+function pickWriteChip(chipEl, textareaId, starter){
+  const container = chipEl.parentElement;
+  [...container.querySelectorAll(".chip")].forEach(c=>c.classList.remove("active"));
+  chipEl.classList.add("active");
+  const el = document.getElementById("starter-"+textareaId);
+  if(el){ el.textContent = starter; el.classList.add("show"); }
+  const ta = document.getElementById(textareaId);
+  if(ta && !ta.value) ta.value = starter + " ";
 }
+
+function updateChipLabels(){
+  ["ref1","ref2","ref3"].forEach(group=>{
+    const key = savedChoices[group];
+    const starter = chipStarters[group]?.[key];
+    if(starter){
+      const el = document.getElementById("starter-"+group);
+      if(el) el.textContent = starter;
+    }
+  });
+}
+
+// ── TYPING PRACTICE (gamified, one word at a time) ────────────────────────────
+let tgWords = [], tgIndex = 0, tgScore = 0, tgStartTime = 0, tgMistakes = 0;
+
+function buildTyping(){
+  tgWords = [...words].sort(() => Math.random() - .5);
+  tgIndex = 0; tgScore = 0; tgMistakes = 0;
+  document.getElementById("tgResult").style.display = "none";
+  document.getElementById("tgFb").textContent = "";
+  document.getElementById("tgScore").textContent = "Score: 0";
+  showTypingWord();
+}
+
+function showTypingWord(){
+  if(tgIndex >= tgWords.length){ endTyping(); return; }
+  const w = tgWords[tgIndex];
+  document.getElementById("tgIcon").textContent = w.icon;
+  document.getElementById("tgWord").textContent = w.en;
+  document.getElementById("tgPhon").textContent = w.phonetic;
+  document.getElementById("tgProgress").textContent = `Word ${tgIndex+1} of ${tgWords.length}`;
+  document.getElementById("tgTimer").textContent = "";
+  document.getElementById("tgFb").textContent = "";
+  const inp = document.getElementById("tgInput");
+  inp.value = ""; inp.style.borderColor = ""; inp.disabled = false;
+  inp.focus();
+  tgStartTime = Date.now();
+  tgMistakes = 0;
+}
+
+function submitTyping(){
+  const inp = document.getElementById("tgInput");
+  const val = inp.value.trim().toLowerCase();
+  const correct = tgWords[tgIndex].en.toLowerCase();
+  if(val === correct){
+    const elapsed = (Date.now() - tgStartTime) / 1000;
+    // Points: base 100, -10 per mistake, -5 per second (min 10)
+    const pts = Math.max(10, Math.round(100 - tgMistakes*10 - elapsed*5));
+    tgScore += pts;
+    document.getElementById("tgScore").textContent = "Score: " + tgScore;
+    document.getElementById("tgFb").textContent = `✓ Correct! +${pts} pts (${elapsed.toFixed(1)}s)`;
+    document.getElementById("tgFb").style.color = "var(--good)";
+    inp.style.borderColor = "rgba(184,242,194,.5)";
+    inp.disabled = true;
+    checked++; updateScores();
+    setTimeout(() => { tgIndex++; showTypingWord(); }, 900);
+  } else {
+    tgMistakes++;
+    document.getElementById("tgFb").textContent = "✗ Try again!";
+    document.getElementById("tgFb").style.color = "#ffd1d1";
+    inp.style.borderColor = "rgba(255,209,209,.5)";
+    setTimeout(() => { inp.style.borderColor = ""; document.getElementById("tgFb").textContent=""; }, 500);
+    inp.value = ""; inp.select();
+  }
+}
+
+function endTyping(){
+  document.getElementById("tgCard").style.display = "none";
+  const res = document.getElementById("tgResult");
+  res.style.display = "block";
+  const max = tgWords.length * 100;
+  const pct = Math.round(tgScore / max * 100);
+  const medal = pct >= 80 ? "🥇" : pct >= 50 ? "🥈" : "🥉";
+  document.getElementById("tgFinalScore").textContent = `${medal} ${tgScore} / ${max} points`;
+  res.querySelector("button").onclick = () => {
+    document.getElementById("tgCard").style.display = "";
+    buildTyping();
+  };
+}
+
+
+
+// ── WORD SEARCH (drag to select) ──────────────────────────────────────────────
+const WS_SIZE = 14;
+let wsPlaced = [], wsFound = new Set(), wsCells = [];
+let wsDragging = false, wsDragCells = [];
+
+function buildWordSearch(){
+  wsFound = new Set(); wsDragCells = []; wsDragging = false;
+  const wordList = words.map(w => w.en.toUpperCase().replace(/\s/g,''));
+  const grid = Array.from({length:WS_SIZE}, () => Array(WS_SIZE).fill(''));
+  wsPlaced = [];
+
+  const dirs = [[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+
+  wordList.forEach(word => {
+    for(let a=0;a<200;a++){
+      const [dr,dc] = dirs[Math.floor(Math.random()*dirs.length)];
+      const r = Math.floor(Math.random()*WS_SIZE);
+      const c = Math.floor(Math.random()*WS_SIZE);
+      let fits = true;
+      for(let i=0;i<word.length;i++){
+        const nr=r+dr*i, nc=c+dc*i;
+        if(nr<0||nr>=WS_SIZE||nc<0||nc>=WS_SIZE||
+          (grid[nr][nc]!==''&&grid[nr][nc]!==word[i])){fits=false;break;}
+      }
+      if(fits){
+        for(let i=0;i<word.length;i++) grid[r+dr*i][c+dc*i]=word[i];
+        wsPlaced.push({word,r,c,dr,dc});
+        break;
+      }
+    }
+  });
+
+  const alpha='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for(let r=0;r<WS_SIZE;r++) for(let c=0;c<WS_SIZE;c++)
+    if(!grid[r][c]) grid[r][c]=alpha[Math.floor(Math.random()*26)];
+
+  // Render grid
+  const el = document.getElementById("wsGrid");
+  el.style.gridTemplateColumns = `repeat(${WS_SIZE},30px)`;
+  el.innerHTML = ""; wsCells = [];
+
+  for(let r=0;r<WS_SIZE;r++) for(let c=0;c<WS_SIZE;c++){
+    const cell = document.createElement("div");
+    cell.textContent = grid[r][c];
+    cell.dataset.r = r; cell.dataset.c = c;
+    cell.style.cssText = "width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:7px;font-weight:700;font-size:.88rem;background:rgba(255,255,255,.07);border:1px solid var(--line);transition:background .08s;-webkit-user-select:none;user-select:none";
+
+    cell.addEventListener("mousedown",  e=>{ e.preventDefault(); wsStartDrag(cell); });
+    cell.addEventListener("mouseover",  ()=>{ if(wsDragging) wsMoveDrag(cell); });
+    cell.addEventListener("touchstart", e=>{ e.preventDefault(); wsStartDrag(cell); },{passive:false});
+    cell.addEventListener("touchmove",  e=>{ e.preventDefault();
+      const t=e.touches[0], el2=document.elementFromPoint(t.clientX,t.clientY);
+      if(el2&&el2.dataset.r!==undefined) wsMoveDrag(el2);
+    },{passive:false});
+
+    el.appendChild(cell);
+    wsCells.push(cell);
+  }
+
+  document.addEventListener("mouseup",  wsEndDrag);
+  document.addEventListener("touchend", wsEndDrag);
+
+  // Word list — only show words that were actually placed
+  const wl = document.getElementById("wsWordList");
+  wl.innerHTML = "";
+  wsPlaced.forEach(p => {
+    const display = p.word.charAt(0) + p.word.slice(1).toLowerCase();
+    const d = document.createElement("div");
+    d.id = "ws-" + p.word.toLowerCase();
+    d.style.cssText = "padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:.9rem";
+    d.textContent = display;
+    wl.appendChild(d);
+  });
+  document.getElementById("wsFb").textContent = `Find ${wsPlaced.length} words`;
+}
+
+function wsStartDrag(cell){
+  wsDragging = true;
+  wsDragCells = [cell];
+  cell.style.background = "rgba(239,177,176,.4)";
+}
+
+function wsMoveDrag(cell){
+  if(!wsDragging) return;
+  const first = wsDragCells[0];
+  const r0=+first.dataset.r, c0=+first.dataset.c;
+  const r1=+cell.dataset.r, c1=+cell.dataset.c;
+  if(r1===r0&&c1===c0) return;
+  // Must be straight line: horizontal, vertical or 45° diagonal
+  const dr=r1===r0?0:Math.sign(r1-r0), dc=c1===c0?0:Math.sign(c1-c0);
+  if(r1!==r0 && c1!==c0 && Math.abs(r1-r0)!==Math.abs(c1-c0)) return;
+
+  const steps = Math.max(Math.abs(r1-r0),Math.abs(c1-c0));
+  const newSel = [];
+  for(let i=0;i<=steps;i++){
+    const nr=r0+dr*i, nc=c0+dc*i;
+    const idx=nr*WS_SIZE+nc;
+    if(wsCells[idx]) newSel.push(wsCells[idx]);
+  }
+  // Reset old non-found highlights
+  wsDragCells.forEach(c=>{ if(!c.dataset.found) c.style.background="rgba(255,255,255,.07)"; });
+  newSel.forEach(c=>{ if(!c.dataset.found) c.style.background="rgba(239,177,176,.4)"; });
+  wsDragCells = newSel;
+}
+
+function wsEndDrag(){
+  if(!wsDragging) return;
+  wsDragging = false;
+  if(wsDragCells.length < 2){
+    wsDragCells.forEach(c=>{ if(!c.dataset.found) c.style.background="rgba(255,255,255,.07)"; });
+    wsDragCells=[]; return;
+  }
+
+  const selected = wsDragCells.map(c=>c.textContent).join("");
+  const selectedRev = [...selected].reverse().join("");
+
+  let foundWord = null;
+  for(const p of wsPlaced){
+    if(wsFound.has(p.word)) continue;
+    if(selected===p.word || selectedRev===p.word){ foundWord=p; break; }
+  }
+
+  if(foundWord){
+    wsFound.add(foundWord.word);
+    wsDragCells.forEach(c=>{
+      c.style.background="rgba(184,242,194,.28)";
+      c.style.borderColor="rgba(184,242,194,.6)";
+      c.dataset.found="1";
+    });
+    const key = foundWord.word.toLowerCase();
+    const wItem = document.getElementById("ws-"+key);
+    if(wItem){ wItem.style.textDecoration="line-through"; wItem.style.opacity=".45"; }
+    checked++; updateScores();
+    const fb = document.getElementById("wsFb");
+    // Only celebrate when ALL placed words are found
+    fb.textContent = wsFound.size===wsPlaced.length
+      ? "🎉 All words found!"
+      : `✓ Found "${foundWord.word.charAt(0)+foundWord.word.slice(1).toLowerCase()}" — ${wsFound.size}/${wsPlaced.length} words`;
+  } else {
+    wsDragCells.forEach(c=>{ if(!c.dataset.found) c.style.background="rgba(255,100,100,.18)"; });
+    setTimeout(()=>{ wsDragCells.forEach(c=>{ if(!c.dataset.found) c.style.background="rgba(255,255,255,.07)"; }); },350);
+  }
+  wsDragCells=[];
+}
+
+
+
+
+
+
+function updateScores(){
+  document.getElementById("scoreListen").textContent=listened.size;
+  document.getElementById("scoreMemory").textContent=memoryPairs;
+  document.getElementById("scoreChecked").textContent=checked;
+}
+
+// ── PDF ───────────────────────────────────────────────────────────────────────
+function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
 
 function downloadPDF(){
-  const jspdf = window.jspdf;
-  if(!jspdf){
-    alert("PDF library not loaded.");
-    return;
-  }
-
-  const doc = new jspdf.jsPDF();
-  let y = 20;
-
-  function add(text){
-    const lines = doc.splitTextToSize(text, 180);
-    doc.text(lines, 10, y);
-    y += lines.length * 7;
-    if(y > 270){
-      doc.addPage();
-      y = 20;
-    }
-  }
-
-  doc.setFontSize(16);
-  add("Heartstopper Graphic Novel – Part 1 Meet – A1");
-  y += 3;
-  doc.setFontSize(12);
-
-  add("Vocabulary listened to: " + listened.size + " words");
-  add("Memory pairs found: " + memoryPairs);
-  add("Answers checked: " + checked);
-  y += 2;
-
-  add("Fill in:");
-  add("Charlie gets a new: " + safe("fill1"));
-  add("Nick is: " + safe("fill2"));
-  add("They start to: " + safe("fill3"));
-  y += 2;
-
-  add("Character and feeling:");
-  add("Charlie: " + document.getElementById("charlieFeeling").value);
-  add("Nick: " + document.getElementById("nickFeeling").value);
-  y += 2;
-
-  add("Dialogue:");
-  add("Charlie says: " + safe("dialogue1"));
-  add("Friendly sentence: " + safe("dialogue2"));
-  y += 2;
-
-  add("Reflection:");
-  add("Would you like Nick as a classmate? " + (savedChoices.opinion1 || ""));
-  add("Why? " + safe("opinionWhy1"));
-  add("Good friend word: " + (savedChoices.opinion2 || ""));
-  add("A good friend is: " + safe("friendWhy"));
-  add("New seating partner feeling: " + (savedChoices.opinion3 || ""));
-  add("I feel: " + safe("newSeatFeeling"));
-  add("Best moment: " + safe("bestMoment"));
-  y += 2;
-
-  add("Writing:");
-  add("Charlie: " + safe("writeCharlie"));
-  add("Nick: " + safe("writeNick"));
-  add("Classroom: " + safe("writeClassroom"));
-  add("Speech bubble: " + safe("speechBubble"));
-
+  const j=window.jspdf; if(!j){alert("PDF not loaded.");return;}
+  const doc=new j.jsPDF(); let y=20;
+  function add(txt){const l=doc.splitTextToSize(txt,180);doc.text(l,10,y);y+=l.length*7;if(y>270){doc.addPage();y=20;}}
+  doc.setFontSize(16); add("Heartstopper – Part 1 Meet – A1"); y+=3; doc.setFontSize(12);
+  add("Words listened: "+listened.size); add("Memory pairs: "+memoryPairs); add("Answers checked: "+checked); y+=2;
+  add("Fill in: "+safe("fill1")+", "+safe("fill2")+", "+safe("fill3")); y+=2;
+  add("Dialogue 1: "+safe("dialogue1")); add("Dialogue 2: "+safe("dialogue2")); y+=2;
+  add("Opinion 1 choice: "+(savedChoices.ref1||"")); add("Opinion 1: "+safe("opinionWhy1"));
+  add("Friend word: "+(savedChoices.ref2||"")); add("Good friend: "+safe("friendWhy"));
+  add("Seat feeling: "+(savedChoices.ref3||"")); add("Feeling text: "+safe("newSeatFeeling"));
+  add("Best moment: "+safe("bestMoment")); y+=2;
+  add("Charlie: "+safe("writeCharlie")); add("Nick: "+safe("writeNick"));
+  add("Classroom: "+safe("writeClassroom")); add("Speech bubble: "+safe("speechBubble"));
   doc.save("A1_part1_meet_answers.pdf");
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  buildVocab();
-  resetMemory();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+window.addEventListener("DOMContentLoaded",()=>{
+  setLang("no");
+  buildChoiceQuestions();
+  buildFeelingChoices();
   buildSequence();
+  buildTyping();
+  buildWordSearch();
   updateScores();
 });
 </script>
