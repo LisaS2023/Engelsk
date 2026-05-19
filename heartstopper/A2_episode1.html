@@ -741,7 +741,7 @@ function wsHighlight(line) {
   wsSelCells = line;
 }
 
-const sbSentences = [{"words": ["Charlie", "and", "Nick", "meet", "at", "school", "."], "answer": "Charlie and Nick meet at school ."}, {"words": ["The", "first", "impression", "is", "important", "."], "answer": "The first impression is important ."}, {"words": ["Nick", "starts", "a", "conversation", "."], "answer": "Nick starts a conversation ."}, {"words": ["Charlie", "seems", "shy", "and", "quiet", "."], "answer": "Charlie seems shy and quiet ."}, {"words": ["They", "are", "in", "the", "same", "class", "."], "answer": "They are in the same class ."}];
+const sbSentences = [{"words": ["They", "meet", "in", "a", "classroom", "at", "school", "."], "answer": "They meet in a classroom at school ."}, {"words": ["The", "first", "impression", "is", "important", "."], "answer": "The first impression is important ."}, {"words": ["Nick", "starts", "a", "conversation", "."], "answer": "Nick starts a conversation ."}, {"words": ["Charlie", "seems", "nervous", "in", "the", "classroom", "."], "answer": "Charlie seems nervous in the classroom ."}, {"words": ["They", "are", "in", "the", "same", "class", "."], "answer": "They are in the same class ."}];
 let sbScores = new Array(sbSentences.length).fill(false);
 function sbRender() {
   const area = document.getElementById('sentenceBuilderArea');
