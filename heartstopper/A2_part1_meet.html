@@ -65,6 +65,14 @@ select{color-scheme:dark;background-color:#294640}
 .matchRow{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
 .matchLabel{min-width:130px;padding:10px 12px;border-radius:14px;background:rgba(239,177,176,.13);border:1px solid rgba(239,177,176,.22);font-weight:700}
 .matchSel{flex:1}
+/* Typing game */
+.tgCard{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:24px;padding:28px 32px;display:inline-block;min-width:260px;margin-bottom:18px}
+/* Word search */
+.wsCell{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:800;font-size:.95rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);cursor:crosshair;user-select:none;transition:background .1s}
+.wsCell.highlight{background:rgba(239,177,176,.35);border-color:rgba(239,177,176,.6)}
+.wsCell.found{background:rgba(184,242,194,.25);border-color:rgba(184,242,194,.5)}
+.wsWord{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.06);font-size:.9rem}
+.wsWord.found{text-decoration:line-through;opacity:.5}
 @media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.heroImage,.heroImage img{min-height:360px}}
 @media(max-width:620px){.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
 </style>
@@ -281,9 +289,56 @@ select{color-scheme:dark;background-color:#294640}
   </div>
 </section>
 
-<!-- 6. WRITING -->
+<!-- 6. TYPING PRACTICE -->
 <section class="section">
-  <h2>6. Writing task</h2>
+  <h2>6. Typing practice</h2>
+  <p class="help">Type each vocabulary word before time runs out. More speed = more points!</p>
+  <div id="typingGame" style="text-align:center;padding:10px 0">
+    <div id="tgStart">
+      <p style="color:var(--soft);margin-bottom:16px">Type each word in English before time runs out. You get more points for speed!</p>
+      <button class="btn primary" onclick="buildTyping()" style="font-size:1.1rem;padding:14px 28px">▶ Start spillet</button>
+    </div>
+    <div id="tgGame" style="display:none">
+      <div id="tgScore" style="font-size:1.5rem;font-weight:800;color:var(--pink);margin-bottom:8px">Score: 0</div>
+      <div id="tgProgress" style="color:var(--soft);margin-bottom:18px"></div>
+      <div class="tgCard">
+        <div id="tgIcon" style="font-size:2.8rem;margin-bottom:8px"></div>
+        <div id="tgWord" style="font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px"></div>
+        <div id="tgNo" style="font-size:.95rem;color:#ffd9d8;font-weight:700;margin-bottom:4px"></div>
+        <div id="tgTimer" style="font-size:.85rem;color:var(--soft);margin-top:6px"></div>
+      </div>
+      <div>
+        <input id="tgInput" type="text" placeholder="Type the English word and press Enter"
+          style="max-width:340px;text-align:center;font-size:1.1rem"
+          onkeydown="if(event.key==='Enter') submitTyping()">
+      </div>
+      <div id="tgFb" style="min-height:1.4rem;font-weight:800;font-size:1.1rem;margin-top:10px"></div>
+    </div>
+    <div id="tgResult" style="display:none;margin-top:16px">
+      <div style="font-size:1.4rem;font-weight:800;margin-bottom:8px">🎉 Finished!</div>
+      <div id="tgFinalScore" style="font-size:2rem;font-weight:800;color:var(--pink)"></div>
+      <button class="btn primary" onclick="buildTyping()" style="margin-top:14px">Play again</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WORD SEARCH -->
+<section class="section">
+  <h2>7. Word search</h2>
+  <p class="help">Find all 8 vocabulary words in the grid. Click and drag to select a word.</p>
+  <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+    <div>
+      <div id="wsGrid" style="display:inline-grid;gap:3px;cursor:crosshair"></div>
+      <div class="feedback" id="wsFb" style="margin-top:10px"></div>
+    </div>
+    <div id="wsWordList" style="display:flex;flex-direction:column;gap:6px;min-width:130px"></div>
+  </div>
+  <button class="btn secondary" onclick="buildWordSearch()" style="margin-top:14px">New grid</button>
+</section>
+
+<!-- 8. WRITING -->
+<section class="section">
+  <h2>8. Writing task</h2>
   <p class="help">Choose ONE writing task. Write at least 4–6 sentences.</p>
   <div class="sentenceStarters">
     <div class="starter">Charlie is a boy who...</div>
@@ -306,9 +361,9 @@ select{color-scheme:dark;background-color:#294640}
   </div>
 </section>
 
-<!-- 7. PROGRESS -->
+<!-- 9. PROGRESS -->
 <section class="section">
-  <h2>7. Progress</h2>
+  <h2>9. Progress</h2>
   <div class="scoreRow">
     <div class="score"><strong id="scoreChecked">0</strong>answers checked</div>
     <div class="score"><strong id="scoreOpen">0</strong>open tasks done</div>
@@ -501,61 +556,155 @@ function trackOpen(id){
   if(el&&el.value.trim().length>10){openDone++;updateScores();}
 }
 
-function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+function safe(id){const el=document.getElementById(id);if(!el) return "";return (el.value||"").replace(/\s+/g," ").trim();}
+
+// ── TYPING GAME ──────────────────────────────────────────────────────────────
+let tgQueue=[],tgCurrent=null,tgInterval=null,tgTimeLeft=0,tgScore=0;
+function buildTyping(){
+  tgQueue=[...words].sort(()=>Math.random()-.5);
+  tgScore=0;
+  document.getElementById("tgStart").style.display="none";
+  document.getElementById("tgGame").style.display="block";
+  document.getElementById("tgScore").textContent="Score: 0";
+  document.getElementById("tgResult").style.display="none";
+  document.getElementById("tgFb").textContent="";
+  nextTyping();
+}
+function nextTyping(){
+  if(!tgQueue.length){
+    document.getElementById("tgGame").style.display="none";
+    document.getElementById("tgResult").style.display="block";
+    document.getElementById("tgFinalScore").textContent="Final score: "+tgScore;
+    clearInterval(tgInterval);return;
+  }
+  tgCurrent=tgQueue.shift(); tgTimeLeft=15;
+  document.getElementById("tgIcon").textContent=tgCurrent.icon;
+  document.getElementById("tgWord").textContent=tgCurrent.en;
+  document.getElementById("tgNo").textContent=tgCurrent.no;
+  document.getElementById("tgProgress").textContent=(words.length-tgQueue.length)+" / "+words.length;
+  document.getElementById("tgInput").value="";document.getElementById("tgInput").focus();
+  document.getElementById("tgFb").textContent="";
+  clearInterval(tgInterval);
+  tgInterval=setInterval(()=>{
+    tgTimeLeft--;document.getElementById("tgTimer").textContent="Time: "+tgTimeLeft+"s";
+    if(tgTimeLeft<=0){clearInterval(tgInterval);document.getElementById("tgFb").textContent="⏱ Time up! Answer: "+tgCurrent.en;setTimeout(nextTyping,1400);}
+  },1000);
+  document.getElementById("tgTimer").textContent="Time: 15s";
+}
+function submitTyping(){
+  if(!tgCurrent) return;
+  const val=document.getElementById("tgInput").value.trim().toLowerCase();
+  clearInterval(tgInterval);
+  if(val===tgCurrent.en.toLowerCase()){
+    const pts=tgTimeLeft*10;tgScore+=pts;
+    document.getElementById("tgScore").textContent="Score: "+tgScore;
+    document.getElementById("tgFb").textContent="✓ Correct! +"+pts+" pts";
+  } else {document.getElementById("tgFb").textContent="✗ Answer: "+tgCurrent.en;}
+  setTimeout(nextTyping,1200);
+}
+
+// ── WORD SEARCH ──────────────────────────────────────────────────────────────
+const wsWords=words.map(w=>w.en.toUpperCase().replace(/\s+/g,""));
+let wsGrid2=[],wsSize=12,wsDragging=false,wsStartCell=null,wsFoundWords=new Set();
+function buildWordSearch(){
+  wsFoundWords=new Set();
+  const size=wsSize;
+  const grid=Array.from({length:size},()=>Array(size).fill(""));
+  const dirs=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+  const toPlace=[...wsWords].sort((a,b)=>b.length-a.length);
+  for(const word of toPlace){
+    let ok=false;
+    for(let att=0;att<300&&!ok;att++){
+      const [dr,dc]=dirs[Math.floor(Math.random()*dirs.length)];
+      const r0=Math.floor(Math.random()*size),c0=Math.floor(Math.random()*size);
+      const r1=r0+dr*(word.length-1),c1=c0+dc*(word.length-1);
+      if(r1<0||r1>=size||c1<0||c1>=size) continue;
+      let fits=true;
+      for(let i=0;i<word.length;i++){const ch=grid[r0+dr*i][c0+dc*i];if(ch&&ch!==word[i]){fits=false;break;}}
+      if(fits){for(let i=0;i<word.length;i++) grid[r0+dr*i][c0+dc*i]=word[i];ok=true;}
+    }
+  }
+  const alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(!grid[r][c]) grid[r][c]=alpha[Math.floor(Math.random()*26)];
+  wsGrid2=grid; renderWSGrid(); renderWSWordList(); document.getElementById("wsFb").textContent="";
+}
+function renderWSGrid(){
+  const el=document.getElementById("wsGrid");
+  el.style.gridTemplateColumns="repeat("+wsSize+",32px)"; el.innerHTML="";
+  wsGrid2.forEach((row,r)=>row.forEach((ch,c)=>{
+    const cell=document.createElement("div");
+    cell.className="wsCell"; cell.textContent=ch; cell.dataset.r=r; cell.dataset.c=c;
+    cell.addEventListener("mousedown",e=>{wsDragging=true;wsStartCell={r,c};wsHighlightPath(r,c,r,c);e.preventDefault();});
+    cell.addEventListener("mouseover",()=>{if(wsDragging&&wsStartCell) wsHighlightPath(wsStartCell.r,wsStartCell.c,r,c);});
+    cell.addEventListener("mouseup",()=>{if(wsDragging&&wsStartCell){wsDragging=false;wsCheck(wsStartCell.r,wsStartCell.c,r,c);wsStartCell=null;}});
+    el.appendChild(cell);
+  }));
+}
+function wsHighlightPath(r0,c0,r1,c1){
+  clearWSHighlights();
+  const dr=Math.sign(r1-r0),dc=Math.sign(c1-c0);
+  const dist=Math.max(Math.abs(r1-r0),Math.abs(c1-c0));
+  const cells=document.querySelectorAll(".wsCell");
+  for(let i=0;i<=dist;i++){const rr=r0+dr*i,cc=c0+dc*i;const idx=rr*wsSize+cc;if(cells[idx]&&!cells[idx].classList.contains("found")) cells[idx].classList.add("highlight");}
+}
+function clearWSHighlights(){document.querySelectorAll(".wsCell.highlight").forEach(c=>c.classList.remove("highlight"));}
+function wsCheck(r0,c0,r1,c1){
+  const dr=Math.sign(r1-r0)||0,dc=Math.sign(c1-c0)||0;
+  const dist=Math.max(Math.abs(r1-r0),Math.abs(c1-c0));
+  let sel=""; for(let i=0;i<=dist;i++) sel+=wsGrid2[r0+dr*i]?.[c0+dc*i]||"";
+  clearWSHighlights();
+  for(const w of wsWords){
+    if((sel===w||sel===w.split("").reverse().join(""))&&!wsFoundWords.has(w)){
+      wsFoundWords.add(w);
+      const cells=document.querySelectorAll(".wsCell");
+      for(let i=0;i<=dist;i++) cells[(r0+dr*i)*wsSize+(c0+dc*i)].classList.add("found");
+      document.querySelectorAll(".wsWord").forEach(el=>{if(el.dataset.word===w) el.classList.add("found");});
+      if(wsFoundWords.size===wsWords.length) document.getElementById("wsFb").textContent="🎉 All words found!";
+      return;
+    }
+  }
+}
+function renderWSWordList(){
+  const el=document.getElementById("wsWordList"); el.innerHTML="";
+  wsWords.forEach(w=>{const d=document.createElement("div");d.className="wsWord";d.dataset.word=w;d.textContent=w;el.appendChild(d);});
+}
 
 function downloadPDF(){
-  const jspdf = window.jspdf;
-  if(!jspdf){alert("PDF library not loaded.");return;}
-  const doc = new jspdf.jsPDF();
-  let y = 20;
-  function add(text,sz=12){
-    doc.setFontSize(sz);
-    const lines = doc.splitTextToSize(text,180);
-    doc.text(lines,10,y);
-    y += lines.length*7;
-    if(y>270){doc.addPage();y=20;}
-  }
-  add("Heartstopper Graphic Novel – Part 1 Meet – A2",16);
-  y+=3;
-  add("Vocabulary: "+words.map(w=>w.en).join(", "));
-  y+=2;
-  add("Fill in: seating plan="+safe("fill1")+" | nervous="+safe("fill2")+" | kind="+safe("fill3"));
-  y+=2;
-  add("Comprehension: questions answered interactively");
-  y+=2;
-  add("Character – Charlie selected: "+[...charlieSelected].join(", "));
-  add("Character – Nick selected: "+[...nickSelected].join(", "));
-  add("Comparison: "+safe("compareWrite"));
-  add("First impression: "+safe("impressionWrite"));
-  y+=2;
-  add("Reflection:");
-  add("Felt like Charlie? "+(savedChoices.r1||""));
-  add("Why: "+safe("r1why"));
+  const jspdf=window.jspdf; if(!jspdf){alert("PDF library not loaded.");return;}
+  const doc=new jspdf.jsPDF(); let y=20;
+  function add(text,sz=12){doc.setFontSize(sz);const lines=doc.splitTextToSize(text,180);doc.text(lines,10,y);y+=lines.length*7;if(y>270){doc.addPage();y=20;}}
+  function section(title){y+=4;doc.setFontSize(13);doc.setFont(undefined,"bold");add(title);doc.setFont(undefined,"normal");doc.setFontSize(12);}
+  add("Heartstopper – Part 1 Meet – A2",16);
+  add("Dato: ________________________  Navn: ________________________",11); y+=4;
+  section("1. Vocabulary fill-in");
+  add("1. seating plan = "+safe("fill1"));
+  add("2. nervous = "+safe("fill2"));
+  add("3. kind = "+safe("fill3"));
+  section("2. Character analysis");
+  add("Charlie: "+[...charlieSelected].join(", "));
+  add("Nick: "+[...nickSelected].join(", "));
+  const cmp=safe("compareWrite"); if(cmp){add("Comparison:"); add(cmp);}
+  const imp=safe("impressionWrite"); if(imp){add("First impression:"); add(imp);}
+  section("3. Reflection");
+  add("Felt like Charlie: "+(savedChoices.r1||""));
+  const r1w=safe("r1why"); if(r1w) add(r1w);
   add("Approachable traits: "+[...approachSelected].join(", "));
-  add("Approachable write: "+safe("approachWrite"));
-  add("Prediction: "+safe("predict"));
-  add("Rating: "+(savedChoices.rating||""));
-  add("Rating why: "+safe("ratingWhy"));
-  y+=2;
-  add("Writing – Retell: "+safe("retell"));
-  add("Writing – Diary: "+safe("diary"));
+  const aw=safe("approachWrite"); if(aw) add(aw);
+  const pr=safe("predict"); if(pr){add("Prediction:"); add(pr);}
+  add("Rating: "+(savedChoices.rating||"")); const rw=safe("ratingWhy"); if(rw) add(rw);
+  section("4. Writing task");
+  const ret=safe("retell"); if(ret){add("Retell:"); add(ret);}
+  const di=safe("diary"); if(di){add("Diary:"); add(di);}
   doc.save("A2_part1_meet_answers.pdf");
 }
 
 window.addEventListener("DOMContentLoaded",()=>{
-  buildVocab();
-  buildMatch();
-  buildTF();
+  buildVocab(); buildMatch(); buildTF();
   buildWordSelector("charlieWords",charlieAdj,charlieSelected,"charlieFb");
   buildWordSelector("nickWords",nickAdj,nickSelected,"nickFb");
-  buildApproach();
-  updateScores();
-
+  buildApproach(); buildWordSearch(); updateScores();
   ["compareWrite","impressionWrite","r1why","approachWrite","predict","ratingWhy","retell","diary"]
-    .forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.addEventListener("blur",()=>trackOpen(id));
-    });
+    .forEach(id=>{const el=document.getElementById(id);if(el) el.addEventListener("blur",()=>trackOpen(id));});
 });
 </script>
 </body>
