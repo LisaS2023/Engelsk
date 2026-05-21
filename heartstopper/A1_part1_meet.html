@@ -492,8 +492,8 @@ function buildChoiceQ(containerId, fbId, correct, wrongArr){
 }
 
 function buildChoiceQuestions(){
-  buildChoiceQ("shyChoices","vocabChoiceFb","shy",["happy","angry"]);
-  buildChoiceQ("friendChoices","vocabChoiceFb2","friend",["school","talk"]);
+  buildChoiceQ("shyChoices","vocabChoiceFb","sjenert",["glad","sint"]);
+  buildChoiceQ("friendChoices","vocabChoiceFb2","venn",["skole","snakke"]);
   Object.keys(questions).forEach(qid=>{
     const q = questions[qid];
     buildChoiceQ(qid+"choices", qid, q.correct, q.wrong);
@@ -892,22 +892,43 @@ function updateScores(){
 }
 
 // ── PDF ───────────────────────────────────────────────────────────────────────
-function safe(id){const el=document.getElementById(id);return el?(el.value||"").replace(/\s+/g," ").trim():"";}
+function safe(id){const el=document.getElementById(id);if(!el) return "";return (el.value||"").replace(/\s+/g," ").trim();}
 
 function downloadPDF(){
   const j=window.jspdf; if(!j){alert("PDF not loaded.");return;}
   const doc=new j.jsPDF(); let y=20;
-  function add(txt){const l=doc.splitTextToSize(txt,180);doc.text(l,10,y);y+=l.length*7;if(y>270){doc.addPage();y=20;}}
-  doc.setFontSize(16); add("Heartstopper – Part 1 Meet – A1"); y+=3; doc.setFontSize(12);
-  add("Words listened: "+listened.size); add("Memory pairs: "+memoryPairs); add("Answers checked: "+checked); y+=2;
-  add("Fill in: "+safe("fill1")+", "+safe("fill2")+", "+safe("fill3")); y+=2;
-  add("Dialogue 1: "+safe("dialogue1")); add("Dialogue 2: "+safe("dialogue2")); y+=2;
-  add("Opinion 1 choice: "+(savedChoices.ref1||"")); add("Opinion 1: "+safe("opinionWhy1"));
-  add("Friend word: "+(savedChoices.ref2||"")); add("Good friend: "+safe("friendWhy"));
-  add("Seat feeling: "+(savedChoices.ref3||"")); add("Feeling text: "+safe("newSeatFeeling"));
-  add("Best moment: "+safe("bestMoment")); y+=2;
-  add("Charlie: "+safe("writeCharlie")); add("Nick: "+safe("writeNick"));
-  add("Classroom: "+safe("writeClassroom")); add("Speech bubble: "+safe("speechBubble"));
+  function add(txt,sz=12){doc.setFontSize(sz);const l=doc.splitTextToSize(txt,180);doc.text(l,10,y);y+=l.length*7;if(y>270){doc.addPage();y=20;}}
+  function section(title){y+=4;doc.setFontSize(13);doc.setFont(undefined,"bold");add(title);doc.setFont(undefined,"normal");doc.setFontSize(12);}
+  add("Heartstopper – Part 1 Meet – A1",16);
+  add("Dato: ________________________  Navn: ________________________",11); y+=4;
+
+  section("1. Gloser og spill");
+  add("Ord lyttet til: "+listened.size+" | Memory-par: "+memoryPairs+" | Svar sjekket: "+checked);
+
+  section("2. Fyll inn manglende ord");
+  add("1. Charlie gets a new: "+safe("fill1"));
+  add("2. Nick is: "+safe("fill2"));
+  add("3. They start to: "+safe("fill3"));
+
+  section("3. Fullfør dialogen");
+  const d1=safe("dialogue1"); if(d1) add("Charlie svarer: "+d1);
+  const d2=safe("dialogue2"); if(d2) add("Ekstra setning: "+d2);
+
+  section("4. Refleksjon");
+  add("Nick som klassekamerat: "+(savedChoices.ref1||""));
+  const ow1=safe("opinionWhy1"); if(ow1) add(ow1);
+  add("Hva gjør en god venn: "+(savedChoices.ref2||""));
+  const fw=safe("friendWhy"); if(fw) add(fw);
+  add("Ny plass i klassen: "+(savedChoices.ref3||""));
+  const nsf=safe("newSeatFeeling"); if(nsf) add(nsf);
+  const bm=safe("bestMoment"); if(bm){add("Favorittøyeblikk:"); add(bm);}
+
+  section("5. Skriveoppgaver");
+  const wc=safe("writeCharlie"); if(wc){add("Charlie:"); add(wc);}
+  const wn=safe("writeNick"); if(wn){add("Nick:"); add(wn);}
+  const wcr=safe("writeClassroom"); if(wcr){add("Klasserommet:"); add(wcr);}
+  const sb=safe("speechBubble"); if(sb){add("Snakkeboble:"); add(sb);}
+
   doc.save("A1_part1_meet_answers.pdf");
 }
 
