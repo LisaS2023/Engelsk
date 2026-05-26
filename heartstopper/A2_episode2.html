@@ -94,15 +94,7 @@
   .ws-word{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);font-size:.9rem}
   .ws-word.found{text-decoration:line-through;opacity:.5}
 
-  .sb-sentence{margin-bottom:20px}
-  .sb-prompt{font-weight:bold;margin-bottom:8px;color:var(--soft)}
-  .sb-answer-area{min-height:42px;border:1px dashed var(--line);border-radius:14px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:rgba(255,255,255,.04)}
-  .sb-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
-  .sb-token{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.1);cursor:pointer;font-size:.95rem;transition:background .15s}
-  .sb-token:hover{background:rgba(255,255,255,.18)}
-  .sb-token.placed{background:var(--pink);color:#1b1717;border-color:var(--pink)}
-  .sb-token.correct-tok{background:#6f9c95;color:#fff;border-color:#6f9c95}
-  .sb-token.wrong-tok{background:#df8f8b;color:#fff;border-color:#df8f8b}
+
 </style>
 </head>
 <body>
@@ -650,9 +642,15 @@ function downloadPDF(){
   paraQuestions.forEach((q, i) => addLine(q + " " + safeText(document.getElementById("para"+i).value)));
   y += 2;
 
-  const sentence = sentenceSelect.selectedIndex >= 0 ? sentenceSelect.options[sentenceSelect.selectedIndex].text : "";
   addLine("Sentence builder:");
-  addLine(safeText(sentence));
+  sbSentences.forEach((_,idx)=>{
+    const ans=document.getElementById('sb-ans-'+idx);
+    if(ans){
+      const placed=[...ans.querySelectorAll('.sb-token')].map(t=>t.textContent).join(' ');
+      addLine('  Sentence '+(idx+1)+': '+safeText(placed));
+    }
+  });
+  y += 2;
 
   doc.save("A2_episode2_crush_answers.pdf");
 }
