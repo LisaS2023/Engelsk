@@ -76,6 +76,33 @@
   .download-wrap{text-align:center;margin-top:20px}
   @media (max-width:960px){.hero,.grid{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(3,1fr)}}
   @media (max-width:640px){.hero-side{grid-template-columns:1fr 1fr}.memory-grid{grid-template-columns:repeat(2,1fr)}.drag-area{grid-template-columns:1fr}.score-box{grid-template-columns:1fr}}
+
+  .sb-sentence{margin-bottom:20px}
+  .sb-prompt{font-weight:bold;margin-bottom:8px;color:var(--soft)}
+  .sb-answer-area{min-height:42px;border:1px dashed var(--line);border-radius:14px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:rgba(255,255,255,.04)}
+  .sb-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .sb-token{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.1);cursor:pointer;font-size:.95rem;transition:background .15s}
+  .sb-token:hover{background:rgba(255,255,255,.18)}
+  .sb-token.placed{background:var(--pink);color:#1b1717;border-color:var(--pink)}
+  .sb-token.correct-tok{background:#6f9c95;color:#fff;border-color:#6f9c95}
+  .sb-token.wrong-tok{background:#df8f8b;color:#fff;border-color:#df8f8b}
+  .ws-grid{display:grid;gap:3px;margin-bottom:10px;touch-action:none}
+  .ws-cell{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:7px;border:1px solid var(--line);background:rgba(255,255,255,.06);cursor:pointer;font-weight:bold;font-size:.97rem;user-select:none;-webkit-user-select:none}
+  .ws-cell.selected{background:var(--pink);color:#1b1717}
+  .ws-cell.found{background:#6f9c95;color:#fff;border-color:#6f9c95}
+  .ws-words{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+  .ws-word{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);font-size:.9rem}
+  .ws-word.found{text-decoration:line-through;opacity:.5}
+
+  .sb-sentence{margin-bottom:20px}
+  .sb-prompt{font-weight:bold;margin-bottom:8px;color:var(--soft)}
+  .sb-answer-area{min-height:42px;border:1px dashed var(--line);border-radius:14px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:rgba(255,255,255,.04)}
+  .sb-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .sb-token{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.1);cursor:pointer;font-size:.95rem;transition:background .15s}
+  .sb-token:hover{background:rgba(255,255,255,.18)}
+  .sb-token.placed{background:var(--pink);color:#1b1717;border-color:var(--pink)}
+  .sb-token.correct-tok{background:#6f9c95;color:#fff;border-color:#6f9c95}
+  .sb-token.wrong-tok{background:#df8f8b;color:#fff;border-color:#df8f8b}
 </style>
 </head>
 <body>
@@ -118,6 +145,15 @@
       </section>
 
       <section class="panel">
+        <h2 class="section-title">Word search</h2>
+        <p class="helper">Dra over bokstavene for å finne ordene!</p>
+        <div class="btn-row" style="margin-bottom:10px">
+          <button class="btn btn-secondary" onclick="wsRender()">New grid</button>
+        </div>
+        <div id="wsPanel"></div>
+      </section>
+
+      <section class="panel">
         <h2 class="section-title">Drag and match</h2>
         <p class="helper">Drag the English words to the correct Norwegian meaning.</p>
         <div class="drag-area">
@@ -138,20 +174,31 @@
 
         <div class="task-card">
           <h3>1. Choose the correct answer</h3>
-          <div class="helper">What best shows friendship in episode 2?</div>
+          <div class="helper">What best shows the friendship developing in episode 2?</div>
           <div class="choices" id="mcq1"></div>
           <div class="feedback" id="mcq1fb"></div>
         </div>
-
         <div class="task-card">
           <h3>2. Choose the best answer</h3>
-          <div class="helper">What helps the relationship develop?</div>
+          <div class="helper">How does Charlie feel around Nick in this episode?</div>
           <div class="choices" id="mcq2"></div>
           <div class="feedback" id="mcq2fb"></div>
         </div>
+        <div class="task-card">
+          <h3>3. Choose the best answer</h3>
+          <div class="helper">What does episode 2 focus on?</div>
+          <div class="choices" id="mcq3"></div>
+          <div class="feedback" id="mcq3fb"></div>
+        </div>
+        <div class="task-card">
+          <h3>4. Choose the best answer</h3>
+          <div class="helper">Which word best describes Nick's behaviour in episode 2?</div>
+          <div class="choices" id="mcq4"></div>
+          <div class="feedback" id="mcq4fb"></div>
+        </div>
 
         <div class="task-card">
-          <h3>3. Fill in the word</h3>
+          <h3>5. Fill in the word</h3>
           <div id="fillArea"></div>
           <div class="btn-row">
             <button class="btn btn-primary" onclick="checkFillIns()">Check answers</button>
@@ -160,23 +207,25 @@
         </div>
 
         <div class="task-card">
-          <h3>4. Write short answers</h3>
+          <h3>6. Write short answers</h3>
           <div id="shortArea"></div>
         </div>
 
         <div class="task-card">
-          <h3>5. Write a longer answer</h3>
+          <h3>7. Write a longer answer</h3>
           <div id="paraArea"></div>
         </div>
 
+
+
         <div class="task-card">
-          <h3>6. Sentence builder</h3>
-          <div class="helper">Choose the best sentence.</div>
-          <select id="sentenceSelect"></select>
+          <h3>8. Sentence builder</h3>
+          <p class="helper">Click the words to put them in the correct order. Click a placed word to move it back.</p>
+          <div id="sentenceBuilderArea"></div>
           <div class="btn-row">
-            <button class="btn btn-primary" onclick="checkSentence()">Check sentence</button>
+            <button class="btn btn-primary" onclick="sbCheckAll()">Check all sentences</button>
           </div>
-          <div class="feedback" id="sentenceFeedback"></div>
+          <div class="feedback" id="sbAllFeedback"></div>
         </div>
 
         <div class="task-card">
@@ -200,9 +249,129 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+
+const wsWords = ["TRUST","CURIOUS","GESTURE","DIALOGUE","DEVELOP","FEELINGS"];
+const wsGridSize = 10;
+let wsGrid=[],wsFound=new Set(),wsSelStart=null,wsSelCells=[],wsDragging=false;
+function wsBuildGrid(){
+  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const g=Array.from({length:wsGridSize},()=>Array(wsGridSize).fill(''));
+  const dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  [...wsWords].sort(()=>Math.random()-.5).forEach(word=>{
+    let placed=false;
+    for(let t=0;t<200&&!placed;t++){
+      const d=dirs[Math.floor(Math.random()*dirs.length)];
+      const r=Math.floor(Math.random()*wsGridSize),c=Math.floor(Math.random()*wsGridSize);
+      let ok=true;
+      for(let i=0;i<word.length;i++){const nr=r+d[0]*i,nc=c+d[1]*i;if(nr<0||nr>=wsGridSize||nc<0||nc>=wsGridSize||(g[nr][nc]&&g[nr][nc]!==word[i])){ok=false;break;}}
+      if(ok){for(let i=0;i<word.length;i++)g[r+d[0]*i][c+d[1]*i]=word[i];placed=true;}
+    }
+  });
+  for(let r=0;r<wsGridSize;r++)for(let c=0;c<wsGridSize;c++)if(!g[r][c])g[r][c]=letters[Math.floor(Math.random()*26)];
+  return g;
+}
+function wsGetLine(r1,c1,r2,c2){const cells=[],dr=Math.sign(r2-r1),dc=Math.sign(c2-c1);const steps=Math.max(Math.abs(r2-r1),Math.abs(c2-c1));for(let i=0;i<=steps;i++)cells.push([r1+dr*i,c1+dc*i]);return cells;}
+function wsCellEl(r,c){return document.querySelector('.ws-cell[data-r="'+r+'"][data-c="'+c+'"]');}
+function wsRender(){
+  const panel=document.getElementById('wsPanel');if(!panel)return;
+  wsGrid=wsBuildGrid();wsFound=new Set();wsSelStart=null;wsSelCells=[];panel.innerHTML='';
+  const gridDiv=document.createElement('div');gridDiv.className='ws-grid';
+  gridDiv.style.gridTemplateColumns='repeat('+wsGridSize+', 32px)';gridDiv.style.userSelect='none';
+  for(let r=0;r<wsGridSize;r++)for(let c=0;c<wsGridSize;c++){
+    const cell=document.createElement('div');cell.className='ws-cell';cell.textContent=wsGrid[r][c];
+    cell.dataset.r=r;cell.dataset.c=c;
+    cell.addEventListener('mousedown',wsStartDrag);cell.addEventListener('mousemove',wsDragOver);cell.addEventListener('mouseup',wsEndDrag);
+    cell.addEventListener('touchstart',wsTouchStart,{passive:true});cell.addEventListener('touchmove',wsTouchMove,{passive:true});cell.addEventListener('touchend',wsTouchEnd);
+    gridDiv.appendChild(cell);
+  }
+  gridDiv.addEventListener('mouseleave',wsEndDrag);panel.appendChild(gridDiv);
+  const wordsDiv=document.createElement('div');wordsDiv.className='ws-words';
+  wsWords.forEach(w=>{const sp=document.createElement('span');sp.className='ws-word';sp.id='wsw_'+w;sp.textContent=w;wordsDiv.appendChild(sp);});
+  panel.appendChild(wordsDiv);
+  const fb=document.createElement('div');fb.className='feedback';fb.id='wsFeedback';fb.textContent='Dra over bokstavene for å finne ordene!';panel.appendChild(fb);
+}
+function wsStartDrag(e){wsDragging=true;wsSelStart=[+e.currentTarget.dataset.r,+e.currentTarget.dataset.c];wsSelCells=[];wsHighlight([wsSelStart]);}
+function wsDragOver(e){if(!wsDragging||!wsSelStart)return;wsHighlight(wsGetLine(wsSelStart[0],wsSelStart[1],+e.currentTarget.dataset.r,+e.currentTarget.dataset.c));}
+function wsEndDrag(e){
+  if(!wsDragging||!wsSelStart)return;wsDragging=false;
+  const line=wsSelCells.slice();const str=line.map(([rr,cc])=>wsGrid[rr][cc]).join('');const strR=str.split('').reverse().join('');
+  let hit=null;for(const w of wsWords){if(!wsFound.has(w)&&(str===w||strR===w)){hit=w;break;}}
+  if(hit){wsFound.add(hit);line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el){el.classList.remove('selected');el.classList.add('found');}});
+    const wEl=document.getElementById('wsw_'+hit);if(wEl)wEl.classList.add('found');
+    const fb=document.getElementById('wsFeedback');if(fb)fb.textContent=wsFound.size===wsWords.length?'🎉 Bra! Du fant alle ordene!':'Bra! '+wsFound.size+'/'+wsWords.length+' funnet.';}
+  else{line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el&&!el.classList.contains('found'))el.classList.remove('selected');});}
+  wsSelStart=null;wsSelCells=[];
+}
+function wsCellFromTouch(t){const el=document.elementFromPoint(t.clientX,t.clientY);return(el&&el.classList.contains('ws-cell'))?el:null;}
+function wsTouchStart(e){const cell=wsCellFromTouch(e.changedTouches[0]);if(!cell)return;wsDragging=true;wsSelStart=[+cell.dataset.r,+cell.dataset.c];wsSelCells=[];wsHighlight([wsSelStart]);}
+function wsTouchMove(e){if(!wsDragging||!wsSelStart)return;const cell=wsCellFromTouch(e.changedTouches[0]);if(!cell)return;wsHighlight(wsGetLine(wsSelStart[0],wsSelStart[1],+cell.dataset.r,+cell.dataset.c));}
+function wsTouchEnd(e){wsEndDrag(e);}
+function wsHighlight(line){document.querySelectorAll('.ws-cell.selected').forEach(el=>{if(!el.classList.contains('found'))el.classList.remove('selected');});line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el&&!el.classList.contains('found'))el.classList.add('selected');});wsSelCells=line;}
+const sbSentences = [
+  {words:["Their","trust","starts","to","develop","."], answer:"Their trust starts to develop ."},
+  {words:["A","small","gesture","can","mean","a","lot","."], answer:"A small gesture can mean a lot ."},
+  {words:["The","dialogue","feels","natural","and","easy","."], answer:"The dialogue feels natural and easy ."},
+  {words:["Being","kind","helps","friendships","grow","."], answer:"Being kind helps friendships grow ."}
+];
+
+let sbScores=[];
+function sbRender(){
+  const area=document.getElementById('sentenceBuilderArea');
+  if(!area)return;
+  area.innerHTML='';
+  sbScores=sbSentences.map(()=>null);
+  sbSentences.forEach((s,idx)=>{
+    const wrap=document.createElement('div');wrap.className='sb-sentence';
+    const prompt=document.createElement('div');prompt.className='sb-prompt';
+    prompt.textContent='Sentence '+(idx+1)+':';wrap.appendChild(prompt);
+    const answerArea=document.createElement('div');answerArea.className='sb-answer-area';answerArea.id='sb-ans-'+idx;wrap.appendChild(answerArea);
+    const bank=document.createElement('div');bank.className='sb-bank';bank.id='sb-bank-'+idx;
+    [...s.words].sort(()=>Math.random()-.5).forEach(word=>{
+      const tok=document.createElement('button');tok.className='sb-token';tok.textContent=word;
+      tok.onclick=()=>sbMove(idx,tok,false);bank.appendChild(tok);
+    });
+    wrap.appendChild(bank);
+    const fb=document.createElement('div');fb.className='feedback';fb.id='sb-fb-'+idx;wrap.appendChild(fb);
+    area.appendChild(wrap);
+  });
+}
+function sbMove(idx,tok,fromAnswer){
+  const bank=document.getElementById('sb-bank-'+idx);
+  const ans=document.getElementById('sb-ans-'+idx);
+  tok.classList.remove('placed','correct-tok','wrong-tok');
+  if(fromAnswer){bank.appendChild(tok);tok.onclick=()=>sbMove(idx,tok,false);}
+  else{ans.appendChild(tok);tok.classList.add('placed');tok.onclick=()=>sbMove(idx,tok,true);}
+  if(ans.querySelectorAll('.sb-token').length===sbSentences[idx].words.length)sbCheckOne(idx);
+}
+function sbCheckOne(idx){
+  const ans=document.getElementById('sb-ans-'+idx);
+  const placed=[...ans.querySelectorAll('.sb-token')].map(t=>t.textContent);
+  const correct=sbSentences[idx].answer.split(' ');
+  const ok=placed.join(' ')===correct.join(' ');
+  sbScores[idx]=ok;
+  const fb=document.getElementById('sb-fb-'+idx);
+  if(fb)fb.textContent=ok?'✅ Correct!':'❌ Not quite – try again.';
+  [...ans.querySelectorAll('.sb-token')].forEach((t,i)=>{
+    t.classList.remove('correct-tok','wrong-tok','placed');
+    t.classList.add(placed[i]===correct[i]?'correct-tok':'wrong-tok');
+  });
+}
+function sbCheckAll(){
+  sbSentences.forEach((_,idx)=>{
+    const ans=document.getElementById('sb-ans-'+idx);
+    if(ans&&ans.querySelectorAll('.sb-token').length>0)sbCheckOne(idx);
+  });
+  const done=sbScores.filter(s=>s===true).length;
+  const fb=document.getElementById('sbAllFeedback');
+  if(fb)fb.textContent=done===sbSentences.length?'🎉 All correct!':'Score: '+done+'/'+sbSentences.length+'. Keep trying!';
+  tasksChecked+=1;updateScore();
+}
+
 const words = [{"en": "trust", "no": "tillit", "icon": "🤝", "phonetic": "/trʌst/"}, {"en": "dialogue", "no": "dialog", "icon": "🗨️", "phonetic": "/ˈdaɪəlɒɡ/"}, {"en": "gesture", "no": "bevegelse", "icon": "👀", "phonetic": "/ˈdʒestʃə/"}, {"en": "comfortable", "no": "komfortabel", "icon": "😌", "phonetic": "/ˈkʌmftəbəl/"}, {"en": "curious", "no": "nysgjerrig", "icon": "❓", "phonetic": "/ˈkjʊəriəs/"}, {"en": "develop", "no": "utvikle", "icon": "🌱", "phonetic": "/dɪˈveləp/"}];
-const mcq1Data = {"prompt": "What best shows friendship in episode 2?", "options": ["Small conversations and gestures", "A newspaper article", "A football injury"], "answer": 0};
-const mcq2Data = {"prompt": "What helps the relationship develop?", "options": ["Trust and dialogue", "Silence only", "Anger"], "answer": 0};
+const mcq1Data = {prompt:"What best shows the friendship developing in episode 2?", options:["A dramatic argument","Small conversations and kind gestures","A school test"], answer:1};
+const mcq2Data = {prompt:"How does Charlie feel around Nick in this episode?", options:["Completely relaxed","Angry and frustrated","More comfortable but still a little nervous"], answer:2};
+const mcq3Data = {prompt:"What does episode 2 focus on?", options:["A sports competition","The developing friendship between Nick and Charlie","A family argument"], answer:1};
+const mcq4Data = {prompt:"Which word best describes Nick's behaviour in episode 2?", options:["Unfriendly","Curious and kind","Loud and confident"], answer:1};
 const fillItems = [{"prompt": "The friendship starts to ______.", "answer": "develop"}, {"prompt": "Small ______ help show emotion.", "answer": "gestures"}];
 const sentenceOptions = [{"text": "Dialogue and gestures show the relationship developing.", "correct": true}, {"text": "Dialogue and gestures shows the relationship developing.", "correct": false}, {"text": "Dialogue and gestures is development the relationship.", "correct": false}];
 const shortQuestions = ["How does the friendship develop?", "Which moment feels important?", "How do looks and gestures help?"];
@@ -292,8 +461,6 @@ paraQuestions.forEach((q, i) => {
   paraArea.appendChild(div);
 });
 
-const sentenceSelect = document.getElementById("sentenceSelect");
-sentenceSelect.innerHTML = '<option value="">Choose one</option>' + sentenceOptions.map((opt) => `<option value="${opt.correct ? 1 : 0}">${opt.text}</option>`).join("");
 
 let firstMemoryCard = null;
 let lockMemory = false;
@@ -424,8 +591,10 @@ function buildChoiceSet(id, data, feedbackId) {
     wrap.appendChild(btn);
   });
 }
-buildChoiceSet("mcq1", mcq1Data, "mcq1fb");
-buildChoiceSet("mcq2", mcq2Data, "mcq2fb");
+buildChoiceSet("mcq1",mcq1Data,"mcq1fb");
+buildChoiceSet("mcq2",mcq2Data,"mcq2fb");
+buildChoiceSet("mcq3",mcq3Data,"mcq3fb");
+buildChoiceSet("mcq4",mcq4Data,"mcq4fb");
 
 function checkFillIns() {
   const results = fillItems.map((item, i) => (document.getElementById("fill"+i).value || "").trim().toLowerCase() === item.answer.toLowerCase());
@@ -436,23 +605,6 @@ function checkFillIns() {
   } else {
     fb.textContent = "Check your words and try again.";
     fb.style.color = "#ffd9d8";
-  }
-  tasksChecked += 1;
-  updateScore();
-}
-
-function checkSentence() {
-  const val = document.getElementById("sentenceSelect").value;
-  const fb = document.getElementById("sentenceFeedback");
-  if (val === "1") {
-    fb.textContent = "Correct!";
-    fb.style.color = "#b9efc7";
-  } else if (val === "0") {
-    fb.textContent = "Try again.";
-    fb.style.color = "#ffd9d8";
-  } else {
-    fb.textContent = "Choose one sentence first.";
-    fb.style.color = "#d9ebe5";
   }
   tasksChecked += 1;
   updateScore();
@@ -505,6 +657,8 @@ function downloadPDF(){
   doc.save("A2_episode2_crush_answers.pdf");
 }
 
+wsRender();
+sbRender();
 resetMemory();
 resetDragGame();
 updateScore();
