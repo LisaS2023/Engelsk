@@ -637,9 +637,15 @@ function downloadPDF(){
   paraQuestions.forEach((q, i) => addLine(q + " " + safeText(document.getElementById("para"+i).value)));
   y += 2;
 
-  const sentence = sentenceSelect.selectedIndex >= 0 ? sentenceSelect.options[sentenceSelect.selectedIndex].text : "";
   addLine("Sentence builder:");
-  addLine(safeText(sentence));
+  sbSentences.forEach((_,idx)=>{
+    const ans=document.getElementById('sb-ans-'+idx);
+    if(ans){
+      const placed=[...ans.querySelectorAll('.sb-token')].map(t=>t.textContent).join(' ');
+      addLine('  Sentence '+(idx+1)+': '+safeText(placed));
+    }
+  });
+  y += 2;
 
   doc.save("A1_episode2_crush_answers.pdf");
 }
