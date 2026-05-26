@@ -76,6 +76,23 @@
   .download-wrap{text-align:center;margin-top:20px}
   @media (max-width:960px){.hero,.grid{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(3,1fr)}}
   @media (max-width:640px){.hero-side{grid-template-columns:1fr 1fr}.memory-grid{grid-template-columns:repeat(2,1fr)}.drag-area{grid-template-columns:1fr}.score-box{grid-template-columns:1fr}}
+
+  .sb-sentence{margin-bottom:20px}
+  .sb-prompt{font-weight:bold;margin-bottom:8px;color:var(--soft)}
+  .sb-answer-area{min-height:42px;border:1px dashed var(--line);border-radius:14px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;background:rgba(255,255,255,.04)}
+  .sb-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .sb-token{padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.1);cursor:pointer;font-size:.95rem;transition:background .15s}
+  .sb-token:hover{background:rgba(255,255,255,.18)}
+  .sb-token.placed{background:var(--pink);color:#1b1717;border-color:var(--pink)}
+  .sb-token.correct-tok{background:#6f9c95;color:#fff;border-color:#6f9c95}
+  .sb-token.wrong-tok{background:#df8f8b;color:#fff;border-color:#df8f8b}
+  .ws-grid{display:grid;gap:3px;margin-bottom:10px;touch-action:none}
+  .ws-cell{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:7px;border:1px solid var(--line);background:rgba(255,255,255,.06);cursor:pointer;font-weight:bold;font-size:.97rem;user-select:none;-webkit-user-select:none}
+  .ws-cell.selected{background:var(--pink);color:#1b1717}
+  .ws-cell.found{background:#6f9c95;color:#fff;border-color:#6f9c95}
+  .ws-words{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px}
+  .ws-word{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);font-size:.9rem}
+  .ws-word.found{text-decoration:line-through;opacity:.5}
 </style>
 </head>
 <body>
@@ -118,6 +135,15 @@
       </section>
 
       <section class="panel">
+        <h2 class="section-title">Word search</h2>
+        <p class="helper">Dra over bokstavene for å finne ordene!</p>
+        <div class="btn-row" style="margin-bottom:10px">
+          <button class="btn btn-secondary" onclick="wsRender()">New grid</button>
+        </div>
+        <div id="wsPanel"></div>
+      </section>
+
+      <section class="panel">
         <h2 class="section-title">Drag and match</h2>
         <p class="helper">Drag the English words to the correct Norwegian meaning.</p>
         <div class="drag-area">
@@ -138,20 +164,31 @@
 
         <div class="task-card">
           <h3>1. Choose the correct answer</h3>
-          <div class="helper">What communicates subtext most clearly in episode 2?</div>
+          <div class="helper">What technique does episode 2 use most to show the growing connection?</div>
           <div class="choices" id="mcq1"></div>
           <div class="feedback" id="mcq1fb"></div>
         </div>
-
         <div class="task-card">
           <h3>2. Choose the best answer</h3>
-          <div class="helper">Which idea best fits the episode?</div>
+          <div class="helper">What does Charlie's hesitation reveal about him?</div>
           <div class="choices" id="mcq2"></div>
           <div class="feedback" id="mcq2fb"></div>
         </div>
+        <div class="task-card">
+          <h3>3. Choose the best answer</h3>
+          <div class="helper">What does Nick's behaviour suggest about his character?</div>
+          <div class="choices" id="mcq3"></div>
+          <div class="feedback" id="mcq3fb"></div>
+        </div>
+        <div class="task-card">
+          <h3>4. Choose the best answer</h3>
+          <div class="helper">Which concept best describes how Nick and Charlie communicate?</div>
+          <div class="choices" id="mcq4"></div>
+          <div class="feedback" id="mcq4fb"></div>
+        </div>
 
         <div class="task-card">
-          <h3>3. Fill in the word</h3>
+          <h3>5. Fill in the word</h3>
           <div id="fillArea"></div>
           <div class="btn-row">
             <button class="btn btn-primary" onclick="checkFillIns()">Check answers</button>
@@ -160,24 +197,16 @@
         </div>
 
         <div class="task-card">
-          <h3>4. Write short answers</h3>
+          <h3>6. Write short answers</h3>
           <div id="shortArea"></div>
         </div>
 
         <div class="task-card">
-          <h3>5. Write a longer answer</h3>
+          <h3>7. Write a longer answer</h3>
           <div id="paraArea"></div>
         </div>
 
-        <div class="task-card">
-          <h3>6. Sentence builder</h3>
-          <div class="helper">Choose the best sentence.</div>
-          <select id="sentenceSelect"></select>
-          <div class="btn-row">
-            <button class="btn btn-primary" onclick="checkSentence()">Check sentence</button>
-          </div>
-          <div class="feedback" id="sentenceFeedback"></div>
-        </div>
+
 
         <div class="task-card">
           <h3>Progress</h3>
@@ -200,9 +229,69 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+
+const wsWords = ["SUBTEXT","GESTURE","TRUST","HESITATION","INTERACTION","TENSION"];
+const wsGridSize = 12;
+let wsGrid=[],wsFound=new Set(),wsSelStart=null,wsSelCells=[],wsDragging=false;
+function wsBuildGrid(){
+  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const g=Array.from({length:wsGridSize},()=>Array(wsGridSize).fill(''));
+  const dirs=[[0,1],[1,0],[1,1],[0,-1],[-1,0],[-1,-1],[1,-1],[-1,1]];
+  [...wsWords].sort(()=>Math.random()-.5).forEach(word=>{
+    let placed=false;
+    for(let t=0;t<200&&!placed;t++){
+      const d=dirs[Math.floor(Math.random()*dirs.length)];
+      const r=Math.floor(Math.random()*wsGridSize),c=Math.floor(Math.random()*wsGridSize);
+      let ok=true;
+      for(let i=0;i<word.length;i++){const nr=r+d[0]*i,nc=c+d[1]*i;if(nr<0||nr>=wsGridSize||nc<0||nc>=wsGridSize||(g[nr][nc]&&g[nr][nc]!==word[i])){ok=false;break;}}
+      if(ok){for(let i=0;i<word.length;i++)g[r+d[0]*i][c+d[1]*i]=word[i];placed=true;}
+    }
+  });
+  for(let r=0;r<wsGridSize;r++)for(let c=0;c<wsGridSize;c++)if(!g[r][c])g[r][c]=letters[Math.floor(Math.random()*26)];
+  return g;
+}
+function wsGetLine(r1,c1,r2,c2){const cells=[],dr=Math.sign(r2-r1),dc=Math.sign(c2-c1);const steps=Math.max(Math.abs(r2-r1),Math.abs(c2-c1));for(let i=0;i<=steps;i++)cells.push([r1+dr*i,c1+dc*i]);return cells;}
+function wsCellEl(r,c){return document.querySelector('.ws-cell[data-r="'+r+'"][data-c="'+c+'"]');}
+function wsRender(){
+  const panel=document.getElementById('wsPanel');if(!panel)return;
+  wsGrid=wsBuildGrid();wsFound=new Set();wsSelStart=null;wsSelCells=[];panel.innerHTML='';
+  const gridDiv=document.createElement('div');gridDiv.className='ws-grid';
+  gridDiv.style.gridTemplateColumns='repeat('+wsGridSize+', 32px)';gridDiv.style.userSelect='none';
+  for(let r=0;r<wsGridSize;r++)for(let c=0;c<wsGridSize;c++){
+    const cell=document.createElement('div');cell.className='ws-cell';cell.textContent=wsGrid[r][c];
+    cell.dataset.r=r;cell.dataset.c=c;
+    cell.addEventListener('mousedown',wsStartDrag);cell.addEventListener('mousemove',wsDragOver);cell.addEventListener('mouseup',wsEndDrag);
+    cell.addEventListener('touchstart',wsTouchStart,{passive:true});cell.addEventListener('touchmove',wsTouchMove,{passive:true});cell.addEventListener('touchend',wsTouchEnd);
+    gridDiv.appendChild(cell);
+  }
+  gridDiv.addEventListener('mouseleave',wsEndDrag);panel.appendChild(gridDiv);
+  const wordsDiv=document.createElement('div');wordsDiv.className='ws-words';
+  wsWords.forEach(w=>{const sp=document.createElement('span');sp.className='ws-word';sp.id='wsw_'+w;sp.textContent=w;wordsDiv.appendChild(sp);});
+  panel.appendChild(wordsDiv);
+  const fb=document.createElement('div');fb.className='feedback';fb.id='wsFeedback';fb.textContent='Dra over bokstavene for å finne ordene!';panel.appendChild(fb);
+}
+function wsStartDrag(e){wsDragging=true;wsSelStart=[+e.currentTarget.dataset.r,+e.currentTarget.dataset.c];wsSelCells=[];wsHighlight([wsSelStart]);}
+function wsDragOver(e){if(!wsDragging||!wsSelStart)return;wsHighlight(wsGetLine(wsSelStart[0],wsSelStart[1],+e.currentTarget.dataset.r,+e.currentTarget.dataset.c));}
+function wsEndDrag(e){
+  if(!wsDragging||!wsSelStart)return;wsDragging=false;
+  const line=wsSelCells.slice();const str=line.map(([rr,cc])=>wsGrid[rr][cc]).join('');const strR=str.split('').reverse().join('');
+  let hit=null;for(const w of wsWords){if(!wsFound.has(w)&&(str===w||strR===w)){hit=w;break;}}
+  if(hit){wsFound.add(hit);line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el){el.classList.remove('selected');el.classList.add('found');}});
+    const wEl=document.getElementById('wsw_'+hit);if(wEl)wEl.classList.add('found');
+    const fb=document.getElementById('wsFeedback');if(fb)fb.textContent=wsFound.size===wsWords.length?'🎉 Bra! Du fant alle ordene!':'Bra! '+wsFound.size+'/'+wsWords.length+' funnet.';}
+  else{line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el&&!el.classList.contains('found'))el.classList.remove('selected');});}
+  wsSelStart=null;wsSelCells=[];
+}
+function wsCellFromTouch(t){const el=document.elementFromPoint(t.clientX,t.clientY);return(el&&el.classList.contains('ws-cell'))?el:null;}
+function wsTouchStart(e){const cell=wsCellFromTouch(e.changedTouches[0]);if(!cell)return;wsDragging=true;wsSelStart=[+cell.dataset.r,+cell.dataset.c];wsSelCells=[];wsHighlight([wsSelStart]);}
+function wsTouchMove(e){if(!wsDragging||!wsSelStart)return;const cell=wsCellFromTouch(e.changedTouches[0]);if(!cell)return;wsHighlight(wsGetLine(wsSelStart[0],wsSelStart[1],+cell.dataset.r,+cell.dataset.c));}
+function wsTouchEnd(e){wsEndDrag(e);}
+function wsHighlight(line){document.querySelectorAll('.ws-cell.selected').forEach(el=>{if(!el.classList.contains('found'))el.classList.remove('selected');});line.forEach(([rr,cc])=>{const el=wsCellEl(rr,cc);if(el&&!el.classList.contains('found'))el.classList.add('selected');});wsSelCells=line;}
 const words = [{"en": "subtext", "no": "undertekst", "icon": "🔍", "phonetic": "/ˈsʌbtekst/"}, {"en": "non-verbal", "no": "ikke-verbal", "icon": "🤐", "phonetic": "/ˌnɒnˈvɜːbəl/"}, {"en": "interaction", "no": "samspill", "icon": "🔄", "phonetic": "/ˌɪntərˈækʃən/"}, {"en": "hesitation", "no": "nøling", "icon": "⏸️", "phonetic": "/ˌhezɪˈteɪʃən/"}, {"en": "vulnerability", "no": "sårbarhet", "icon": "💙", "phonetic": "/ˌvʌlnərəˈbɪləti/"}, {"en": "development", "no": "utvikling", "icon": "📈", "phonetic": "/dɪˈveləpmənt/"}];
-const mcq1Data = {"prompt": "What communicates subtext most clearly in episode 2?", "options": ["Body language and pauses", "A narrator explaining everything", "A long classroom speech"], "answer": 0};
-const mcq2Data = {"prompt": "Which idea best fits the episode?", "options": ["Growing emotional vulnerability", "Complete emotional distance", "A plot about school rules"], "answer": 0};
+const mcq1Data = {prompt:"What technique does episode 2 use most to show the growing connection?", options:["A direct speech from Nick","Non-verbal communication and hesitation","A third-person narrator explaining feelings"], answer:1};
+const mcq2Data = {prompt:"What does Charlie's hesitation in episode 2 reveal about him?", options:["He is confident about his feelings","He is emotionally vulnerable and cautious","He is completely indifferent to Nick"], answer:1};
+const mcq3Data = {prompt:"What does Nick's behaviour in episode 2 suggest about his character?", options:["He is indifferent to others","He only cares about his friends","He is perceptive and empathetic"], answer:2};
+const mcq4Data = {prompt:"Which concept best describes the way Nick and Charlie communicate in this episode?", options:["Subtext through hesitation and non-verbal cues","Direct and confident verbal expression","Complete avoidance of interaction"], answer:0};
 const fillItems = [{"prompt": "Pauses and body language create ______.", "answer": "subtext"}, {"prompt": "The relationship shows emotional ______.", "answer": "development"}];
 const sentenceOptions = [{"text": "Subtext is created through pauses, looks and small reactions.", "correct": true}, {"text": "Subtext are created through pauses, looks and small reactions.", "correct": false}, {"text": "Subtext create by pauses, looks and reaction.", "correct": false}];
 const shortQuestions = ["How does the episode use subtext?", "What role do pauses play?", "How does the relationship develop emotionally?"];
@@ -292,8 +381,6 @@ paraQuestions.forEach((q, i) => {
   paraArea.appendChild(div);
 });
 
-const sentenceSelect = document.getElementById("sentenceSelect");
-sentenceSelect.innerHTML = '<option value="">Choose one</option>' + sentenceOptions.map((opt) => `<option value="${opt.correct ? 1 : 0}">${opt.text}</option>`).join("");
 
 let firstMemoryCard = null;
 let lockMemory = false;
@@ -424,8 +511,10 @@ function buildChoiceSet(id, data, feedbackId) {
     wrap.appendChild(btn);
   });
 }
-buildChoiceSet("mcq1", mcq1Data, "mcq1fb");
-buildChoiceSet("mcq2", mcq2Data, "mcq2fb");
+buildChoiceSet("mcq1",mcq1Data,"mcq1fb");
+buildChoiceSet("mcq2",mcq2Data,"mcq2fb");
+buildChoiceSet("mcq3",mcq3Data,"mcq3fb");
+buildChoiceSet("mcq4",mcq4Data,"mcq4fb");
 
 function checkFillIns() {
   const results = fillItems.map((item, i) => (document.getElementById("fill"+i).value || "").trim().toLowerCase() === item.answer.toLowerCase());
@@ -436,23 +525,6 @@ function checkFillIns() {
   } else {
     fb.textContent = "Check your words and try again.";
     fb.style.color = "#ffd9d8";
-  }
-  tasksChecked += 1;
-  updateScore();
-}
-
-function checkSentence() {
-  const val = document.getElementById("sentenceSelect").value;
-  const fb = document.getElementById("sentenceFeedback");
-  if (val === "1") {
-    fb.textContent = "Correct!";
-    fb.style.color = "#b9efc7";
-  } else if (val === "0") {
-    fb.textContent = "Try again.";
-    fb.style.color = "#ffd9d8";
-  } else {
-    fb.textContent = "Choose one sentence first.";
-    fb.style.color = "#d9ebe5";
   }
   tasksChecked += 1;
   updateScore();
@@ -505,6 +577,7 @@ function downloadPDF(){
   doc.save("B1_episode2_crush_answers.pdf");
 }
 
+wsRender();
 resetMemory();
 resetDragGame();
 updateScore();
