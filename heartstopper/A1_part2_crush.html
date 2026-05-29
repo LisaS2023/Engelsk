@@ -71,6 +71,84 @@ select{color-scheme:dark;background-color:#294640}
 .small{font-size:.92rem;color:var(--soft)}
 @media(max-width:950px){.hero,.grid2{grid-template-columns:1fr}.memoryGrid{grid-template-columns:repeat(3,1fr)}.heroImage,.heroImage img{min-height:360px}}
 @media(max-width:620px){.memoryGrid,.scoreRow{grid-template-columns:1fr 1fr}.wrap{padding:14px}}
+
+  /* Crossword */
+  .cw-grid{display:inline-grid;gap:3px;margin-bottom:16px}
+  .cw-cell{width:38px;height:38px;position:relative}
+  .cw-cell.black{background:#1a2e28;border-radius:4px}
+  .cw-cell input{width:100%;height:100%;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);
+    border-radius:4px;color:#f5ede0;font-size:1rem;font-weight:700;text-align:center;
+    text-transform:uppercase;outline:none;caret-color:transparent;font-family:inherit}
+  .cw-cell input:focus{background:rgba(192,89,106,.25);border-color:#C0596A}
+  .cw-cell input.cw-correct{background:rgba(46,125,114,.4);border-color:#2E7D72}
+  .cw-cell input.cw-wrong{background:rgba(192,89,106,.35);border-color:#C0596A}
+  .cw-num{position:absolute;top:2px;left:3px;font-size:.55rem;color:#8aafa8;pointer-events:none;z-index:2;line-height:1}
+  .clue-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;margin-top:12px}
+  .clue-group h4{color:#2E7D72;font-size:.9rem;margin-bottom:8px;font-weight:700}
+  .clue-item{font-size:.88rem;margin-bottom:6px;line-height:1.4}
+  .clue-item span{color:#C0596A;font-weight:700;margin-right:4px}
+  .cw-btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  /* Typing */
+  .typing-wrap{background:rgba(255,255,255,.04);border-radius:16px;padding:18px;margin-bottom:14px;border:1px solid rgba(255,255,255,.1)}
+  .typing-prompt{font-size:1.1rem;font-weight:700;color:#f5ede0;margin-bottom:10px;min-height:30px}
+  .typing-hint{font-size:.85rem;color:#8aafa8;margin-bottom:10px;font-style:italic}
+  .typing-input{width:100%;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.18);color:#f5ede0;font-size:1rem;font-family:inherit;outline:none}
+  .typing-input:focus{border-color:#2E7D72}
+  .typing-input.t-correct{border-color:#2E7D72;background:rgba(46,125,114,.15)}
+  .typing-input.t-wrong{border-color:#C0596A;background:rgba(192,89,106,.1)}
+  .typing-fb{margin-top:8px;font-size:.9rem;font-weight:600;min-height:22px;color:#8aafa8}
+  .typing-counter{font-size:.85rem;color:#8aafa8;margin-bottom:10px}
+  @media(max-width:560px){.clue-cols{grid-template-columns:1fr}.cw-cell{width:30px;height:30px}.cw-cell input{font-size:.85rem}}
+
+
+  /* Anagram */
+  .anagram-word{font-family:'Courier New',monospace;font-size:1.6rem;font-weight:700;
+    letter-spacing:.18em;color:var(--pink);text-align:center;margin:10px 0 4px}
+  .anagram-no{text-align:center;font-size:.9rem;color:var(--soft);margin-bottom:14px;font-style:italic}
+  .anagram-tiles{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:14px;min-height:50px}
+  .anagram-answer{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;
+    min-height:50px;border:1px dashed rgba(255,255,255,.2);border-radius:14px;
+    padding:8px 12px;background:rgba(255,255,255,.03);margin-bottom:12px}
+  .atile{width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+    border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+    font-size:1.1rem;font-weight:700;cursor:pointer;user-select:none;
+    transition:background .15s,transform .1s;color:var(--cream)}
+  .atile:hover{background:rgba(255,255,255,.18);transform:scale(1.08)}
+  .atile.placed{background:var(--pink);border-color:var(--pink);color:#fff}
+  .atile.correct{background:var(--teal);border-color:var(--teal);color:#fff}
+  .atile.wrong{background:#df8f8b;border-color:#df8f8b;color:#fff}
+  /* Emotion slider */
+  .emo-scene{background:rgba(255,255,255,.05);border-radius:16px;padding:18px 20px;
+    margin-bottom:16px;border:1px solid rgba(255,255,255,.1)}
+  .emo-scene-text{font-size:1rem;margin-bottom:16px;line-height:1.5}
+  .emo-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .emo-label{font-size:.85rem;font-weight:600;min-width:80px;color:var(--soft)}
+  .emo-label.right{text-align:right}
+  .emo-slider{flex:1;accent-color:var(--pink)}
+  .emo-val{font-size:.8rem;color:var(--soft);text-align:center;min-height:18px;margin-bottom:8px}
+  .emo-explain{width:100%;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.15);color:var(--cream);font-family:inherit;
+    font-size:.9rem;resize:none;outline:none;min-height:56px}
+  .emo-explain:focus{border-color:var(--teal)}
+  .emo-nav{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+  .emo-counter{font-size:.82rem;color:var(--soft)}
+  /* Jigsaw */
+  .jig-scene{font-size:.88rem;color:var(--soft);font-style:italic;margin-bottom:12px;
+    padding:10px 14px;background:rgba(255,255,255,.04);border-radius:10px;
+    border-left:3px solid var(--teal);line-height:1.4}
+  .jig-drop{display:flex;flex-wrap:wrap;gap:7px;min-height:48px;
+    border:1px dashed rgba(255,255,255,.2);border-radius:14px;
+    padding:8px 10px;background:rgba(255,255,255,.03);margin-bottom:10px}
+  .jig-bank{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+  .jchunk{padding:8px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.09);cursor:pointer;font-size:.93rem;
+    transition:background .15s;user-select:none;color:var(--cream)}
+  .jchunk:hover:not(.placed){background:rgba(255,255,255,.16)}
+  .jchunk.placed{background:var(--pink);border-color:var(--pink);color:#fff}
+  .jchunk.correct{background:var(--teal);border-color:var(--teal);color:#fff}
+  .jchunk.wrong{background:#df8f8b;border-color:#df8f8b;color:#fff}
+
 </style>
 </head>
 <body>
@@ -213,16 +291,16 @@ select{color-scheme:dark;background-color:#294640}
       <p>Charlie →</p>
       <select id="charlieFeeling">
         <option value="">Choose one</option>
-        <option value="correct">secretly in love / nervous</option>
         <option value="wrong">angry / jealous</option>
         <option value="wrong">bored / tired</option>
+        <option value="correct">secretly in love / nervous</option>
       </select>
       <p style="margin-top:12px">Nick →</p>
       <select id="nickFeeling">
         <option value="">Choose one</option>
+        <option value="wrong">secretly in love too</option>
         <option value="correct">friendly / unaware of Charlie's feelings</option>
         <option value="wrong">mean / rude</option>
-        <option value="wrong">secretly in love too</option>
       </select>
       <button class="btn primary" onclick="checkFeelings()">Check</button>
       <div class="feedback" id="feelingsFb"></div>
@@ -305,6 +383,70 @@ select{color-scheme:dark;background-color:#294640}
       <textarea id="speechBubble" placeholder="I really like..."></textarea>
     </div>
   </div>
+</section>
+
+
+
+<section class="section">
+  <h2>9. Typing practice</h2>
+  <p style="color:#8aafa8;font-size:.9rem;margin-bottom:14px">Read the clue and type the correct English word. Press Enter or click Check.</p>
+  
+<div class="typing-wrap">
+  <div class="typing-counter" id="typ-counter-a1"></div>
+  <div class="typing-prompt" id="typ-prompt-a1"></div>
+  <div class="typing-hint" id="typ-hint-a1"></div>
+  <input class="typing-input" id="typ-inp-a1" type="text" placeholder="Type your answer here..." 
+    onkeydown="if(event.key==='Enter')typCheck_a1()">
+  <div class="typing-fb" id="typ-fb-a1"></div>
+</div>
+<div class="cw-btns">
+  <button class="btn primary" onclick="typCheck_a1()">Check</button>
+  <button class="btn secondary" onclick="typInit_a1()">↺ New question</button>
+</div>
+
+</section>
+
+
+<section class="section">
+  <h2>Anagram</h2>
+  <p style="color:var(--soft);font-size:.9rem;margin-bottom:14px">Click the letters to build the English word. The Norwegian translation is your clue!</p>
+  <div style="text-align:center;font-size:2rem;margin-bottom:4px" id="anag-icon-a1"></div>
+  <div class="anagram-no" id="anag-no-a1"></div>
+  <div class="anagram-answer" id="anag-ans-a1"></div>
+  <div class="anagram-tiles" id="anag-bank-a1"></div>
+  <p class="feedback" id="anag-fb-a1" style="text-align:center;min-height:22px"></p>
+  <div style="display:flex;gap:10px;justify-content:center;margin-top:4px">
+    <button class="btn secondary" onclick="anagIdx_a1=(anagIdx_a1+1)%anagrams_a1.length;anagRender_a1()">Next word →</button>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Emotion slider</h2>
+  <p style="color:var(--soft);font-size:.9rem;margin-bottom:14px">Read the scene. Drag the slider to show how the character feels, then write one sentence explaining your choice.</p>
+  <p class="small" style="text-align:right;margin-bottom:8px" id="emo-counter-a1"></p>
+  <div class="emo-scene">
+    <div class="emo-scene-text" id="emo-scene-a1"></div>
+    <p style="font-size:.85rem;font-weight:600;color:var(--soft);margin-bottom:8px" id="emo-char-a1"></p>
+    <div class="emo-row">
+      <span class="emo-label" id="emo-left-a1"></span>
+      <input class="emo-slider" id="emo-sl-a1" type="range" min="0" max="100" value="50"
+        oninput="emoUpdateVal_a1(this.value)">
+      <span class="emo-label right" id="emo-right-a1"></span>
+    </div>
+    <div class="emo-val" id="emo-val-a1"></div>
+    <textarea class="emo-explain" id="emo-explain-a1" placeholder="I think the character feels ... because ..." rows="2"></textarea>
+  </div>
+  <div class="emo-nav">
+    <p class="feedback" id="emo-fb-a1" style="margin:0"></p>
+    <button class="btn primary" onclick="emoSave_a1()">Save &amp; next →</button>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Jigsaw sentence</h2>
+  <p style="color:var(--soft);font-size:.9rem;margin-bottom:14px">Click the chunks to build the sentence in the correct order. Click a placed chunk to move it back.</p>
+  <div id="jig-container-a1"></div>
+  
 </section>
 
 <section class="section">
@@ -408,7 +550,15 @@ function checkChoice(el,isCorrect,fbId){
   checked++; updateScores();
 }
 
-function saveChoice(key,val){savedChoices[key]=val;checked++;updateScores();}
+function saveChoice(key,val){
+  savedChoices[key]=val;
+  checked++;updateScores();
+  // Highlight selected button
+  document.querySelectorAll('[onclick*="saveChoice(\''+key+'\'"]').forEach(el=>{
+    el.classList.remove('correct');
+  });
+  event.currentTarget.classList.add('correct');
+}
 
 function resetMemory(){
   const grid = document.getElementById("memoryGrid");
@@ -546,7 +696,322 @@ function downloadPDF(){
 
 window.addEventListener("DOMContentLoaded",()=>{
   buildVocab(); resetMemory(); buildSequence(); buildEmoji(); updateScores();
+  typInit_a1();
+  anagInit_a1(); emoInit_a1(); jigInit_a1();
 });
+
+function cwNav(lvl,e){
+  const inp=e.target;
+  const r=+inp.dataset.r,c=+inp.dataset.c;
+  function gi(rr,cc){return document.querySelector(`#cw-${lvl}-grid input[data-r="${rr}"][data-c="${cc}"]`);}
+  if(e.key==='Backspace'&&!inp.value){const p=gi(r,c-1)||gi(r-1,c);if(p){p.focus();p.value='';}}
+  if(e.key==='ArrowRight'){const n=gi(r,c+1);if(n)n.focus();}
+  if(e.key==='ArrowLeft'){const n=gi(r,c-1);if(n)n.focus();}
+  if(e.key==='ArrowDown'){const n=gi(r+1,c);if(n)n.focus();}
+  if(e.key==='ArrowUp'){const n=gi(r-1,c);if(n)n.focus();}
+  if(e.key==='Enter'){e.preventDefault();}
+}
+function cwCheck(lvl){
+  const inputs=document.querySelectorAll(`#cw-${lvl}-grid input`);
+  let ok=0,total=inputs.length;
+  inputs.forEach(inp=>{
+    inp.classList.remove('cw-correct','cw-wrong');
+    if(inp.value){
+      if(inp.value.toUpperCase()===inp.dataset.answer){inp.classList.add('cw-correct');ok++;}
+      else inp.classList.add('cw-wrong');
+    }
+  });
+  const fb=document.getElementById(`cw-${lvl}-fb`);
+  if(ok===total)fb.textContent='🎉 All correct!';
+  else fb.textContent=`${ok}/${total} correct. Keep going!`;
+  checked++;updateScores();
+}
+function cwReset(lvl){
+  document.querySelectorAll(`#cw-${lvl}-grid input`).forEach(i=>{i.value='';i.classList.remove('cw-correct','cw-wrong');});
+  document.getElementById(`cw-${lvl}-fb`).textContent='';
+}
+
+
+const typingData_a1 = [
+  {prompt:"What does Charlie keep hidden from others?", answer:"secret", hint:"Se på ordlisten – noe du ikke forteller andre"},
+  {prompt:"How does Charlie feel when he sees Nick?", answer:"happy", hint:"Et positiv følelsesord fra ordlisten"},
+  {prompt:"Type the English word for 'nervøs'", answer:"nervous", hint:"7 bokstaver"},
+  {prompt:"Charlie has a ______ on Nick.", answer:"crush", hint:"5 bokstaver – se ordlisten"},
+  {prompt:"Type the word that means 'bli rød i ansiktet'", answer:"blush", hint:"5 bokstaver"},
+  {prompt:"They like to ______ ______ at school. (henge sammen)", answer:"hang out", hint:"2 ord"},
+  {prompt:"What does Charlie do when he sees Nick? (smile)", answer:"smile", hint:"5 bokstaver"},
+  {prompt:"Charlie wants to spend time ______ with Nick.", answer:"together", hint:"8 bokstaver"},
+];
+let typIdx_a1=0, typScore_a1=0;
+function typInit_a1(){typIdx_a1=0;typScore_a1=0;typRender_a1();}
+function typRender_a1(){
+  const t=typingData_a1[typIdx_a1];
+  document.getElementById('typ-prompt-a1').textContent=t.prompt;
+  document.getElementById('typ-hint-a1').textContent='Hint: '+t.hint;
+  document.getElementById('typ-counter-a1').textContent=(typIdx_a1+1)+' / '+typingData_a1.length;
+  const inp=document.getElementById('typ-inp-a1');
+  inp.value='';inp.className='typing-input';
+  document.getElementById('typ-fb-a1').textContent='';
+  inp.focus();
+}
+function typCheck_a1(){
+  const inp=document.getElementById('typ-inp-a1');
+  const val=inp.value.trim().toLowerCase();
+  const correct=typingData_a1[typIdx_a1].answer.toLowerCase();
+  const fb=document.getElementById('typ-fb-a1');
+  if(val===correct){
+    inp.className='typing-input t-correct';
+    fb.textContent='✅ Correct!';
+    typScore_a1++;
+    checked++; updateScores();
+    setTimeout(()=>{typIdx_a1=(typIdx_a1+1)%typingData_a1.length;typRender_a1();},900);
+  } else {
+    inp.className='typing-input t-wrong';
+    fb.textContent='❌ Try again. Answer: '+typingData_a1[typIdx_a1].answer;
+  }
+}
+
+
+// ── ANAGRAM A1 ────────────────────────────────────────────
+const anagrams_a1 = [{word:"CRUSH",no:"forelskelse",icon:"💕"},
+  {word:"HEART",no:"hjerte",icon:"❤️"},
+  {word:"SECRET",no:"hemmelighet",icon:"🤫"},
+  {word:"BLUSH",no:"bli rød i ansiktet",icon:"😊"},
+  {word:"SMILE",no:"smile",icon:"😄"},
+  {word:"HAPPY",no:"glad",icon:"😊"},
+  {word:"NERVOUS",no:"nervøs",icon:"😰"},
+  {word:"THINK",no:"tenke",icon:"💭"}];
+let anagIdx_a1=0, anagPlaced_a1=[], anagBank_a1=[];
+function anagInit_a1(){
+  anagIdx_a1=0; anagRender_a1();
+}
+function anagShuffle_a1(arr){return[...arr].sort(()=>Math.random()-.5);}
+function anagRender_a1(){
+  const w=anagrams_a1[anagIdx_a1];
+  document.getElementById('anag-icon-a1').textContent=w.icon;
+  document.getElementById('anag-no-a1').textContent='Norsk: '+w.no;
+  document.getElementById('anag-fb-a1').textContent='';
+  const letters=anagShuffle_a1(w.word.split(''));
+  anagBank_a1=[...letters]; anagPlaced_a1=[];
+  renderAnagTiles_a1();
+}
+function renderAnagTiles_a1(){
+  const bank=document.getElementById('anag-bank-a1');
+  const ans=document.getElementById('anag-ans-a1');
+  bank.innerHTML=''; ans.innerHTML='';
+  anagBank_a1.forEach((l,i)=>{
+    const t=document.createElement('div');
+    t.className='atile';t.textContent=l;
+    t.onclick=()=>anagMove_a1(i,'bank');
+    bank.appendChild(t);
+  });
+  anagPlaced_a1.forEach((l,i)=>{
+    const t=document.createElement('div');
+    t.className='atile placed';t.textContent=l;
+    t.onclick=()=>anagMove_a1(i,'ans');
+    ans.appendChild(t);
+  });
+}
+function anagMove_a1(idx,from){
+  if(from==='bank'){
+    anagPlaced_a1.push(anagBank_a1.splice(idx,1)[0]);
+  } else {
+    anagBank_a1.push(anagPlaced_a1.splice(idx,1)[0]);
+  }
+  renderAnagTiles_a1();
+  if(anagPlaced_a1.length===anagrams_a1[anagIdx_a1].word.length) anagCheck_a1();
+}
+function anagCheck_a1(){
+  const answer=anagrams_a1[anagIdx_a1].word;
+  const attempt=anagPlaced_a1.join('');
+  const fb=document.getElementById('anag-fb-a1');
+  const tiles=document.querySelectorAll('#anag-ans-a1 .atile');
+  if(attempt===answer){
+    tiles.forEach(t=>{t.classList.remove('placed');t.classList.add('correct');});
+    fb.textContent='🎉 Correct!';
+    checked++;updateScores();
+    setTimeout(()=>{
+      anagIdx_a1=(anagIdx_a1+1)%anagrams_a1.length;
+      anagRender_a1();
+    },1000);
+  } else {
+    tiles.forEach(t=>{t.classList.remove('placed');t.classList.add('wrong');});
+    fb.textContent='❌ Not quite – try again!';
+    setTimeout(()=>{
+      anagPlaced_a1=[];
+      anagBank_a1=anagShuffle_a1(anagrams_a1[anagIdx_a1].word.split(''));
+      renderAnagTiles_a1();
+      document.getElementById('anag-fb-a1').textContent='';
+    },800);
+  }
+}
+
+// ── EMOTION SLIDER A1 ────────────────────────────────────────────
+const emoScenes_a1 = [{scene:'Charlie sees Nick in the hallway. Nick smiles at him.',charLabel:'Charlie',leftLabel:'😰 nervous',rightLabel:'happy 😊'},
+  {scene:'Charlie has to keep his feelings secret from everyone.',charLabel:'Charlie',leftLabel:'😔 sad',rightLabel:'calm 😌'},
+  {scene:'Nick and Charlie are hanging out together after school.',charLabel:'Charlie',leftLabel:'😰 worried',rightLabel:'happy 😊'}];
+let emoIdx_a1=0;
+function emoInit_a1(){emoIdx_a1=0;emoRender_a1();}
+function emoRender_a1(){
+  const s=emoScenes_a1[emoIdx_a1];
+  document.getElementById('emo-scene-a1').textContent=s.scene;
+  document.getElementById('emo-left-a1').textContent=s.leftLabel;
+  document.getElementById('emo-right-a1').textContent=s.rightLabel;
+  document.getElementById('emo-char-a1').textContent=s.charLabel+':';
+  const sl=document.getElementById('emo-sl-a1');
+  sl.value=50; emoUpdateVal_a1(50);
+  document.getElementById('emo-explain-a1').value='';
+  document.getElementById('emo-fb-a1').textContent='';
+  document.getElementById('emo-counter-a1').textContent=(emoIdx_a1+1)+' / '+emoScenes_a1.length;
+}
+function emoUpdateVal_a1(v){
+  const labels=['very '+emoScenes_a1[emoIdx_a1].leftLabel.replace(/[😰😔🙁😬🤔]/g,'').trim(),
+                'mostly '+emoScenes_a1[emoIdx_a1].leftLabel.replace(/[😰😔🙁😬🤔]/g,'').trim(),
+                'a mix of both','mostly '+emoScenes_a1[emoIdx_a1].rightLabel.replace(/[😊😄😌😐💕]/g,'').trim(),
+                'very '+emoScenes_a1[emoIdx_a1].rightLabel.replace(/[😊😄😌😐💕]/g,'').trim()];
+  const idx=Math.min(4,Math.floor(v/21));
+  document.getElementById('emo-val-a1').textContent=labels[idx]||labels[2];
+}
+function emoSave_a1(){
+  const explanation=document.getElementById('emo-explain-a1').value.trim();
+  if(!explanation){document.getElementById('emo-fb-a1').textContent='Write a short explanation first!';return;}
+  document.getElementById('emo-fb-a1').textContent='✅ Saved!';
+  checked++;updateScores();
+  setTimeout(()=>{
+    emoIdx_a1=(emoIdx_a1+1)%emoScenes_a1.length;
+    emoRender_a1();
+  },800);
+}
+
+// ── JIGSAW A1 ────────────────────────────────────────────
+const jigSentences_a1 = [{chunks:["Charlie has","a big crush","on Nick."],answer:["Charlie has","a big crush","on Nick."],scene:'Charlie thinks about Nick all the time.'},
+  {chunks:["Nick smiles","and Charlie","starts to blush."],answer:["Nick smiles","and Charlie","starts to blush."],scene:'Nick is friendly to Charlie in class.'},
+  {chunks:["Charlie keeps","his feelings","a secret."],answer:["Charlie keeps","his feelings","a secret."],scene:'Charlie does not tell anyone how he feels.'},
+  {chunks:["Charlie's heart","beats faster","when Nick is near."],answer:["Charlie's heart","beats faster","when Nick is near."],scene:'Charlie is nervous around Nick.'},
+  {chunks:["Nick is kind","and talks","to Charlie."],answer:["Nick is kind","and talks","to Charlie."],scene:'Nick is friendly and nice to Charlie.'},
+  {chunks:["Charlie feels","nervous and happy","at the same time."],answer:["Charlie feels","nervous and happy","at the same time."],scene:'Charlie has mixed feelings when Nick is around.'},
+  {chunks:["Charlie smiles","when Nick","says his name."],answer:["Charlie smiles","when Nick","says his name."],scene:'Small things make Charlie happy.'},
+  {chunks:["It is hard","to keep","a secret."],answer:["It is hard","to keep","a secret."],scene:'Charlie finds it difficult not to tell anyone.'}];
+let jigIdx_a1=0, jigCompleted_a1=new Set();
+function jigInit_a1(){jigIdx_a1=0;jigCompleted_a1=new Set();jigRender_a1();}
+function jigShuffle_a1(arr){return[...arr].sort(()=>Math.random()-.5);}
+function jigRender_a1(){
+  const container=document.getElementById('jig-container-a1');
+  if(!container)return;
+  container.innerHTML='';
+  jigSentences_a1.forEach((s,idx)=>{
+    const wrap=document.createElement('div');
+    wrap.style.cssText='margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:20px';
+
+    if(jigCompleted_a1.has(idx)){
+      const doneDiv=document.createElement('div');
+      doneDiv.style.cssText='background:rgba(46,125,114,.15);border:1px solid rgba(46,125,114,.35);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px';
+      doneDiv.innerHTML='<span style="font-size:1.2rem">✅</span><span style="font-size:.95rem;color:#a8d8d0">'+s.answer.join(' ')+'</span>';
+      wrap.appendChild(doneDiv);
+      container.appendChild(wrap);
+      return;
+    }
+    if(idx>jigIdx_a1){
+      const lockDiv=document.createElement('div');
+      lockDiv.style.cssText='background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.1);border-radius:14px;padding:12px 16px;color:rgba(255,255,255,.25);font-size:.9rem;font-style:italic';
+      lockDiv.textContent='🔒 Sentence '+(idx+1)+' – unlocks after you complete the previous one';
+      wrap.appendChild(lockDiv);
+      container.appendChild(wrap);
+      return;
+    }
+    const num=document.createElement('div');
+    num.style.cssText='font-size:.8rem;color:var(--soft);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em';
+    num.textContent='Sentence '+(idx+1)+' of '+jigSentences_a1.length;
+    wrap.appendChild(num);
+    const scene=document.createElement('div');
+    scene.className='jig-scene';
+    scene.textContent=s.scene;
+    wrap.appendChild(scene);
+    const drop=document.createElement('div');
+    drop.className='jig-drop';
+    drop.id='jig-drop-a1-'+idx;
+    wrap.appendChild(drop);
+    const bank=document.createElement('div');
+    bank.className='jig-bank';
+    bank.id='jig-bank-a1-'+idx;
+    wrap.appendChild(bank);
+    const btnRow=document.createElement('div');
+    btnRow.style.cssText='display:flex;gap:10px;margin-top:6px';
+    const checkBtn=document.createElement('button');
+    checkBtn.className='btn primary';
+    checkBtn.textContent='✓ Check';
+    checkBtn.onclick=()=>jigCheck_a1(idx);
+    const resetBtn=document.createElement('button');
+    resetBtn.className='btn secondary';
+    resetBtn.textContent='↺ Reset';
+    resetBtn.onclick=()=>jigResetOne_a1(idx);
+    btnRow.appendChild(checkBtn);btnRow.appendChild(resetBtn);
+    wrap.appendChild(btnRow);
+    const fb=document.createElement('div');
+    fb.className='feedback';
+    fb.id='jig-fb-a1-'+idx;
+    fb.style.marginTop='8px';
+    wrap.appendChild(fb);
+    container.appendChild(wrap);
+    jigPopulateBank_a1(idx);
+  });
+}
+function jigPopulateBank_a1(idx){
+  const bank=document.getElementById('jig-bank-a1-'+idx);
+  if(!bank)return;
+  bank.innerHTML='';
+  jigShuffle_a1([...jigSentences_a1[idx].chunks]).forEach(ch=>{
+    const t=document.createElement('div');
+    t.className='jchunk';t.textContent=ch;
+    t.onclick=()=>jigMoveChunk_a1(idx,t,'bank');
+    bank.appendChild(t);
+  });
+}
+function jigMoveChunk_a1(idx,tok,from){
+  const bank=document.getElementById('jig-bank-a1-'+idx);
+  const drop=document.getElementById('jig-drop-a1-'+idx);
+  tok.classList.remove('placed','correct','wrong');
+  if(from==='bank'){drop.appendChild(tok);tok.classList.add('placed');tok.onclick=()=>jigMoveChunk_a1(idx,tok,'drop');}
+  else{bank.appendChild(tok);tok.onclick=()=>jigMoveChunk_a1(idx,tok,'bank');}
+}
+function jigCheck_a1(idx){
+  const drop=document.getElementById('jig-drop-a1-'+idx);
+  const fb=document.getElementById('jig-fb-a1-'+idx);
+  const placed=[...drop.querySelectorAll('.jchunk')].map(t=>t.textContent);
+  const answer=jigSentences_a1[idx].answer;
+  if(placed.length!==answer.length){fb.textContent='Place all chunks first!';return;}
+  const correct=placed.every((ch,i)=>ch===answer[i]);
+  [...drop.querySelectorAll('.jchunk')].forEach((t,i)=>{
+    t.classList.remove('placed');
+    t.classList.add(placed[i]===answer[i]?'correct':'wrong');
+  });
+  if(correct){
+    fb.textContent='🎉 Correct!';
+    jigCompleted_a1.add(idx);
+    checked++;updateScores();
+    const next=idx+1;
+    if(next<=jigSentences_a1.length){
+      jigIdx_a1=next;
+      setTimeout(()=>jigRender_a1(),700);
+    }
+  } else {
+    fb.textContent='❌ Not quite – try again!';
+  }
+}
+function jigResetOne_a1(idx){
+  const drop=document.getElementById('jig-drop-a1-'+idx);
+  if(!drop)return;
+  const bank=document.getElementById('jig-bank-a1-'+idx);
+  [...drop.querySelectorAll('.jchunk')].forEach(t=>{
+    t.classList.remove('placed','correct','wrong');
+    t.onclick=()=>jigMoveChunk_a1(idx,t,'bank');
+    bank.appendChild(t);
+  });
+  const fb=document.getElementById('jig-fb-a1-'+idx);
+  if(fb)fb.textContent='';
+}
+
+
 </script>
 </body>
 </html>
