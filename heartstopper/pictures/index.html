@@ -117,10 +117,14 @@
   .starter.a1s { border-left-color: var(--a1); }
   .starter.b1s { border-left-color: var(--b1); color: #c5aeed; }
 
-  textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(42,157,143,0.25); border-radius: 8px; color: var(--text); font-family: 'Nunito', sans-serif; font-size: 0.9rem; padding: 0.75rem; resize: vertical; min-height: 90px; margin-top: 0.4rem; transition: border-color 0.2s; }
+  textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(42,157,143,0.25); border-radius: 8px; color: var(--text); font-family: 'Nunito', sans-serif; font-size: 0.9rem; padding: 0.75rem; resize: none; min-height: 90px; margin-top: 0.4rem; transition: border-color 0.2s; overflow: hidden; box-sizing: border-box; }
   textarea:focus { outline: none; border-color: var(--teal); }
   textarea.a1t:focus { border-color: var(--a1); }
   textarea.b1t:focus { border-color: var(--b1); }
+
+  @media print {
+    textarea { height: auto !important; min-height: 0 !important; overflow: visible !important; resize: none; }
+  }
 
   .emoji-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
   .emoji-btn { background: var(--dark); border: 2px solid rgba(42,157,143,0.2); border-radius: 10px; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 1.2rem; transition: all 0.15s; color: var(--text); }
@@ -169,9 +173,29 @@
     opacity: 0.8;
   }
 
+  .btn-print-level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem auto 0.5rem;
+    padding: 0.65rem 1.8rem;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    border: none;
+    background: var(--teal-dark);
+    color: #fff;
+    transition: background 0.2s;
+  }
+  .btn-print-level:hover { background: var(--teal); }
+
   @media print {
-    .lang-bar, .level-tabs, .actions-bar, .hero { display: none; }
-    .level-panel { display: block !important; }
+    .lang-bar, .level-tabs, .actions-bar, .hero, .btn-print-level { display: none !important; }
+    .level-panel { display: none !important; }
+    .level-panel.active { display: block !important; }
     body { background: #fff; color: #111; }
     .section-card { background: #f5f5f5; }
     textarea { border: 1px solid #ccc; background: #fff; color: #111; min-height: 80px; }
@@ -212,12 +236,6 @@
 
 <div class="main">
 
-  <div class="actions-bar">
-    <button class="btn btn-print" onclick="window.print()">&#128424; Print / Save</button>
-    <button class="btn btn-clear" onclick="clearAll()">&#128465; Clear answers</button>
-    <span style="color:var(--muted);font-size:0.8rem;" id="save-hint">Your answers are saved automatically in this browser.</span>
-  </div>
-
   <div class="level-tabs">
     <button class="level-btn a1 active" onclick="setLevel('a1')">&#9898; A1 &ndash; Beginner</button>
     <button class="level-btn a2" onclick="setLevel('a2')">&#9898; A2 &ndash; Elementary</button>
@@ -239,12 +257,12 @@
 
       <div class="question-block">
         <div class="question-label" id="a1-q1a">1. Is this a party? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans1" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans1',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans1" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans1',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="a1-q1b">2. Are there many people? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans2" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans2',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans2" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans2',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -252,7 +270,7 @@
         <div class="word-box">
           <span class="word-chip a1c" data-key="dancing" data-tip="">dancing</span><span class="word-chip a1c" data-key="sleeping" data-tip="">sleeping</span><span class="word-chip a1c" data-key="eating" data-tip="">eating</span><span class="word-chip a1c" data-key="running" data-tip="">running</span>
         </div>
-        <textarea class="a1t" id="a1_ans3" placeholder="The people are ___" style="min-height:52px;" oninput="save('a1_ans3',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans3" placeholder="The people are ___" style="min-height:52px;" oninput="save('a1_ans3',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -268,7 +286,7 @@
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings')">&#128552;<span class="emoji-label">scared</span></button>
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings')">&#129300;<span class="emoji-label">confused</span></button>
         </div>
-        <textarea class="a1t" id="a1_ans4" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans4',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans4" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans4',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -277,7 +295,7 @@
 
       <div class="question-block">
         <div class="question-label" id="a1-q3a">5. Do you like parties? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans6" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans6',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans6" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans6',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -286,7 +304,7 @@
           <span class="word-chip a1c" data-key="happy" data-tip="">happy</span><span class="word-chip a1c" data-key="nervous" data-tip="">nervous</span><span class="word-chip a1c" data-key="scared" data-tip="">scared</span><span class="word-chip a1c" data-key="good" data-tip="">good</span>
         </div>
         <div class="starter a1s">I feel ___</div>
-        <textarea class="a1t" id="a1_ans7" placeholder="I feel ___" style="min-height:52px;" oninput="save('a1_ans7',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans7" placeholder="I feel ___" style="min-height:52px;" oninput="save('a1_ans7',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -308,12 +326,12 @@
 
       <div class="question-block">
         <div class="question-label" id="a1-p218-q1a">7. Is Charlie alone? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans8" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans8',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans8" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans8',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="a1-p218-q1b">8. Is Charlie happy? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans9" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans9',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans9" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans9',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -324,7 +342,7 @@
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings218')">&#128543;<span class="emoji-label">worried</span></button>
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings218')">&#128567;<span class="emoji-label">nervous</span></button>
         </div>
-        <textarea class="a1t" id="a1_ans10" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans10',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans10" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans10',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -338,7 +356,7 @@
         </div>
         <div class="starter a1s">Picture 1: ___</div>
         <div class="starter a1s">Picture 2: ___</div>
-        <textarea class="a1t" id="a1_ans11" placeholder="Write here..." style="min-height:52px;" oninput="save('a1_ans11',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans11" placeholder="Write here..." style="min-height:52px;" oninput="save('a1_ans11',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -360,12 +378,12 @@
 
       <div class="question-block">
         <div class="question-label" id="a1-p263-q1a">11. Is Charlie alone? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans12" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans12',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans12" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans12',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="a1-p263-q1b">12. Is Charlie crying? <span style="color:var(--a1);font-weight:700;">Yes &#9989; &nbsp; No &#10060;</span></div>
-        <textarea class="a1t" id="a1_ans13" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans13',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans13" placeholder="Yes / No" style="min-height:52px;" oninput="save('a1_ans13',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -374,7 +392,7 @@
           <span class="word-chip a1c" data-key="happy" data-tip="">happy</span><span class="word-chip a1c" data-key="sad" data-tip="">sad</span><span class="word-chip a1c" data-key="scared" data-tip="">scared</span><span class="word-chip a1c" data-key="angry" data-tip="">angry</span>
         </div>
         <div class="starter a1s">Charlie feels ___</div>
-        <textarea class="a1t" id="a1_ans14" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans14',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans14" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans14',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -389,7 +407,7 @@
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings263')">&#128567;<span class="emoji-label">scared</span></button>
           <button class="emoji-btn" onclick="pickEmoji(this,'a1-feelings263')">&#128543;<span class="emoji-label">worried</span></button>
         </div>
-        <textarea class="a1t" id="a1_ans15" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans15',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans15" placeholder="Charlie feels ___" style="min-height:52px;" oninput="save('a1_ans15',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -398,9 +416,11 @@
           <span class="word-chip a1c" data-key="It's OK." data-tip="">It's OK.</span><span class="word-chip a1c" data-key="Don't worry." data-tip="">Don't worry.</span><span class="word-chip a1c" data-key="Talk to Nick." data-tip="">Talk to Nick.</span>
         </div>
         <div class="starter a1s">I say: "___"</div>
-        <textarea class="a1t" id="a1_ans16" placeholder='I say: "___"' style="min-height:52px;" oninput="save('a1_ans16',this.value)"></textarea>
+        <textarea class="a1t" id="a1_ans16" placeholder='I say: "___"' style="min-height:52px;" oninput="save('a1_ans16',this.value); autoResize(this)"></textarea>
       </div>
     </div>
+
+    <button class="btn-print-level" onclick="window.print()">&#128424; Print / Save as PDF</button>
   </div>
 
   <!-- A2 -->
@@ -423,7 +443,7 @@
         </div>
         <div class="starter">I can see ___</div>
         <div class="starter">Charlie is ___</div>
-        <textarea id="a2_ans1" placeholder="Write 1-2 sentences..." oninput="save('a2_ans1',this.value)"></textarea>
+        <textarea id="a2_ans1" placeholder="Write 1-2 sentences..." oninput="save('a2_ans1',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -432,7 +452,7 @@
           <span class="word-chip" data-key="loud" data-tip="">loud</span><span class="word-chip" data-key="quiet" data-tip="">quiet</span><span class="word-chip" data-key="busy" data-tip="">busy</span><span class="word-chip" data-key="exciting" data-tip="">exciting</span><span class="word-chip" data-key="big" data-tip="">big</span>
         </div>
         <div class="starter">I think this place is ___</div>
-        <textarea id="a2_ans2" placeholder="Write 1 sentence..." oninput="save('a2_ans2',this.value)"></textarea>
+        <textarea id="a2_ans2" placeholder="Write 1 sentence..." oninput="save('a2_ans2',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -445,13 +465,13 @@
           <span class="word-chip" data-key="nervous" data-tip="">nervous</span><span class="word-chip" data-key="worried" data-tip="">worried</span><span class="word-chip" data-key="alone" data-tip="">alone</span><span class="word-chip" data-key="confused" data-tip="">confused</span><span class="word-chip" data-key="scared" data-tip="">scared</span><span class="word-chip" data-key="happy" data-tip="">happy</span>
         </div>
         <div class="starter">I think Charlie feels ___</div>
-        <textarea id="a2_ans3" placeholder="Write 1-2 sentences..." oninput="save('a2_ans3',this.value)"></textarea>
+        <textarea id="a2_ans3" placeholder="Write 1-2 sentences..." oninput="save('a2_ans3',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="a2-q2b">4. Who do you think Charlie is looking for?</div>
         <div class="starter">I think Charlie is looking for ___</div>
-        <textarea id="a2_ans4" placeholder="Write 1 sentence..." oninput="save('a2_ans4',this.value)"></textarea>
+        <textarea id="a2_ans4" placeholder="Write 1 sentence..." oninput="save('a2_ans4',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -465,7 +485,7 @@
         </div>
         <div class="starter">Yes, once I felt ___ because ___</div>
         <div class="starter">No, but I think it feels ___</div>
-        <textarea id="a2_ans5" placeholder="Write 1-2 sentences..." oninput="save('a2_ans5',this.value)"></textarea>
+        <textarea id="a2_ans5" placeholder="Write 1-2 sentences..." oninput="save('a2_ans5',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -474,7 +494,7 @@
           <span class="word-chip" data-key="Don't worry." data-tip="">Don't worry.</span><span class="word-chip" data-key="I am here." data-tip="">I am here.</span><span class="word-chip" data-key="Let's find Nick." data-tip="">Let's find Nick.</span><span class="word-chip" data-key="Come with me." data-tip="">Come with me.</span>
         </div>
         <div class="starter">I would say: "___"</div>
-        <textarea id="a2_ans6" placeholder="Write 1-2 sentences..." oninput="save('a2_ans6',this.value)"></textarea>
+        <textarea id="a2_ans6" placeholder="Write 1-2 sentences..." oninput="save('a2_ans6',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -500,7 +520,7 @@
         </div>
         <div class="starter">Charlie is ___</div>
         <div class="starter">He looks ___</div>
-        <textarea id="a2_ans7" placeholder="Write 1-2 sentences..." oninput="save('a2_ans7',this.value)"></textarea>
+        <textarea id="a2_ans7" placeholder="Write 1-2 sentences..." oninput="save('a2_ans7',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -509,7 +529,7 @@
           <span class="word-chip" data-key="left out" data-tip="">left out</span><span class="word-chip" data-key="lonely" data-tip="">lonely</span><span class="word-chip" data-key="sad" data-tip="">sad</span><span class="word-chip" data-key="ignored" data-tip="">ignored</span>
         </div>
         <div class="starter">Charlie feels ___</div>
-        <textarea id="a2_ans8" placeholder="Write 1-2 sentences..." oninput="save('a2_ans8',this.value)"></textarea>
+        <textarea id="a2_ans8" placeholder="Write 1-2 sentences..." oninput="save('a2_ans8',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -523,7 +543,7 @@
         </div>
         <div class="starter">In picture 1, Charlie ___</div>
         <div class="starter">In picture 2, he ___</div>
-        <textarea id="a2_ans9" placeholder="Write 1-2 sentences..." oninput="save('a2_ans9',this.value)"></textarea>
+        <textarea id="a2_ans9" placeholder="Write 1-2 sentences..." oninput="save('a2_ans9',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -550,7 +570,7 @@
         </div>
         <div class="starter">Charlie is ___</div>
         <div class="starter">He looks ___</div>
-        <textarea id="a2_ans10" placeholder="Write 1-2 sentences..." oninput="save('a2_ans10',this.value)"></textarea>
+        <textarea id="a2_ans10" placeholder="Write 1-2 sentences..." oninput="save('a2_ans10',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -559,7 +579,7 @@
           <span class="word-chip" data-key="Nick is angry" data-tip="">Nick is angry</span><span class="word-chip" data-key="Nick will not come back" data-tip="">Nick will not come back</span><span class="word-chip" data-key="the friendship is over" data-tip="">the friendship is over</span><span class="word-chip" data-key="he made a mistake" data-tip="">he made a mistake</span>
         </div>
         <div class="starter">I think Charlie is afraid that ___</div>
-        <textarea id="a2_ans11" placeholder="Write 1-2 sentences..." oninput="save('a2_ans11',this.value)"></textarea>
+        <textarea id="a2_ans11" placeholder="Write 1-2 sentences..." oninput="save('a2_ans11',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -574,7 +594,7 @@
         <div class="starter">In picture 1, Charlie feels ___</div>
         <div class="starter">In picture 2, he feels ___</div>
         <div class="starter">In picture 3, he feels ___</div>
-        <textarea id="a2_ans12" placeholder="Write 1-2 sentences..." oninput="save('a2_ans12',this.value)"></textarea>
+        <textarea id="a2_ans12" placeholder="Write 1-2 sentences..." oninput="save('a2_ans12',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -584,9 +604,11 @@
         </div>
         <div class="starter">Once, I ___</div>
         <div class="starter">I have never felt this, but I think ___</div>
-        <textarea id="a2_ans13" placeholder="Write 1-2 sentences..." oninput="save('a2_ans13',this.value)"></textarea>
+        <textarea id="a2_ans13" placeholder="Write 1-2 sentences..." oninput="save('a2_ans13',this.value); autoResize(this)"></textarea>
       </div>
     </div>
+
+    <button class="btn-print-level" onclick="window.print()">&#128424; Print / Save as PDF</button>
   </div>
 
   <!-- B1 -->
@@ -609,7 +631,7 @@
         <div class="question-label" id="b1-q1a">1. The artist uses close-up panels of Charlie's face and then a wide shot of the crowded hall. What effect does this choice create for the reader?</div>
         <div class="starter b1s">The contrast between the close-up and the wide shot shows ___</div>
         <div class="starter b1s">This technique makes the reader feel ___</div>
-        <textarea class="b1t" id="b1_ans1" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans1',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans1" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans1',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -617,7 +639,7 @@
         <div class="starter b1s">The musical notes suggest ___</div>
         <div class="starter b1s">The "?" bubble shows that Charlie ___</div>
         <div class="starter b1s">The "..." bubble tells us that ___</div>
-        <textarea class="b1t" id="b1_ans2" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans2',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans2" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans2',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -629,7 +651,7 @@
         <div class="starter b1s">Based on the image, it seems that Charlie ___</div>
         <div class="starter b1s">We can see this because ___</div>
         <div class="starter b1s">This connects to the theme of ___</div>
-        <textarea class="b1t" id="b1_ans3" placeholder="Write 4-5 sentences..." style="min-height:120px;" oninput="save('b1_ans3',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans3" placeholder="Write 4-5 sentences..." style="min-height:120px;" oninput="save('b1_ans3',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -639,7 +661,7 @@
         </div>
         <div class="starter b1s">It is possible to feel lonely in a crowd because ___</div>
         <div class="starter b1s">Heartstopper shows that belonging means ___</div>
-        <textarea class="b1t" id="b1_ans4" placeholder="Write 4-5 sentences..." style="min-height:120px;" oninput="save('b1_ans4',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans4" placeholder="Write 4-5 sentences..." style="min-height:120px;" oninput="save('b1_ans4',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -651,7 +673,7 @@
         <div class="starter b1s">I remember a time when I felt ___</div>
         <div class="starter b1s">What helped me was ___</div>
         <div class="starter b1s">Looking back, I think ___</div>
-        <textarea class="b1t" id="b1_ans5" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans5',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans5" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans5',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -659,7 +681,7 @@
         <div class="starter b1s">Reading about Charlie can help readers because ___</div>
         <div class="starter b1s">When we see our own feelings in a story, ___</div>
         <div class="starter b1s">I think representation in books is important because ___</div>
-        <textarea class="b1t" id="b1_ans6" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans6',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans6" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans6',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -692,14 +714,14 @@
         <div class="starter b1s">As Charlie gets smaller in each panel, the reader understands that ___</div>
         <div class="starter b1s">The growing grey space around him represents ___</div>
         <div class="starter b1s">This is an effective technique because ___</div>
-        <textarea class="b1t" id="b1_ans7" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans7',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans7" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans7',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="b1-p218-q1b">8. In the second panel of page 218, two other characters are laughing and talking (the "!" bubbles) while Charlie stands nearby. Why does the artist include this contrast? What does it add to the scene?</div>
         <div class="starter b1s">By showing others enjoying themselves while Charlie is alone, the artist ___</div>
         <div class="starter b1s">This contrast highlights the idea that ___</div>
-        <textarea class="b1t" id="b1_ans8" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans8',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans8" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans8',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -714,14 +736,14 @@
         <div class="starter b1s">While page 210 shows ___, page 218 reveals ___</div>
         <div class="starter b1s">Together, the two pages suggest that being surrounded by people ___</div>
         <div class="starter b1s">Alice Oseman uses this contrast to show ___</div>
-        <textarea class="b1t" id="b1_ans9" placeholder="Write 4-5 sentences..." style="min-height:130px;" oninput="save('b1_ans9',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans9" placeholder="Write 4-5 sentences..." style="min-height:130px;" oninput="save('b1_ans9',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
         <div class="question-label" id="b1-p218-q2b">10. Graphic novels tell stories through images as much as through words. What can a picture show that words alone cannot? Use examples from these two pages to support your answer.</div>
         <div class="starter b1s">Images can communicate ___ in a way that words cannot, for example ___</div>
         <div class="starter b1s">On page 218, the shrinking figure says more than any sentence could because ___</div>
-        <textarea class="b1t" id="b1_ans10" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans10',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans10" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans10',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -754,7 +776,7 @@
         <div class="starter b1s">The black panel after "I'm sorry" represents ___</div>
         <div class="starter b1s">Nick leaving without a word is more painful than an angry response because ___</div>
         <div class="starter b1s">For Charlie, not knowing how Nick feels means ___</div>
-        <textarea class="b1t" id="b1_ans11" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans11',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans11" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans11',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -762,7 +784,7 @@
         <div class="starter b1s">The first "I'm sorry" (on p.262) is directed at ___ because ___</div>
         <div class="starter b1s">The second "I'm sorry" (on p.263), said alone in the dark, suggests ___</div>
         <div class="starter b1s">By repeating it across two pages, the author shows that ___</div>
-        <textarea class="b1t" id="b1_ans12" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans12',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans12" placeholder="Write 3-4 sentences..." style="min-height:110px;" oninput="save('b1_ans12',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -777,7 +799,7 @@
         <div class="starter b1s">Across the three pages, Charlie moves from ___ to ___</div>
         <div class="starter b1s">The title "The Kiss" is ironic because instead of resolution, the chapter ends with ___</div>
         <div class="starter b1s">The black panel as the final image suggests ___</div>
-        <textarea class="b1t" id="b1_ans13" placeholder="Write 5-6 sentences..." style="min-height:140px;" oninput="save('b1_ans13',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans13" placeholder="Write 5-6 sentences..." style="min-height:140px;" oninput="save('b1_ans13',this.value); autoResize(this)"></textarea>
       </div>
 
       <div class="question-block">
@@ -785,7 +807,7 @@
         <div class="starter b1s">Charlie's situation shows that being honest about your feelings can ___</div>
         <div class="starter b1s">The silence Nick leaves behind is worse than a clear answer because ___</div>
         <div class="starter b1s">Stories like Heartstopper matter because they show young readers that ___</div>
-        <textarea class="b1t" id="b1_ans14" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans14',this.value)"></textarea>
+        <textarea class="b1t" id="b1_ans14" placeholder="Write a paragraph (5-6 sentences)..." style="min-height:140px;" oninput="save('b1_ans14',this.value); autoResize(this)"></textarea>
       </div>
     </div>
 
@@ -793,6 +815,8 @@
       <div class="section-title" style="margin-bottom:0.5rem;">&#128483; <span id="b1-speaking3-title">Final discussion</span></div>
       <p id="b1-speaking3-text" style="font-size:0.9rem;color:var(--muted);">Reflect on: <em>"Charlie said sorry for something he didn't do wrong. Why do we sometimes feel like we have to apologise for who we are or what we feel? What would it take for Charlie — or anyone — to stop doing that?"</em></p>
     </div>
+
+    <button class="btn-print-level" onclick="window.print()">&#128424; Print / Save as PDF</button>
   </div>
 
 </div>
@@ -1316,10 +1340,18 @@ function pickEmoji(btn, groupId) {
 
 function save(key, val) { localStorage.setItem('hs3_' + key, val); }
 
+function autoResize(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = ta.scrollHeight + 'px';
+}
+
 function loadSaved() {
   document.querySelectorAll('textarea').forEach(ta => {
     const saved = localStorage.getItem('hs3_' + ta.id);
-    if (saved) ta.value = saved;
+    if (saved) {
+      ta.value = saved;
+      autoResize(ta);
+    }
   });
 }
 
@@ -1333,9 +1365,8 @@ function clearAll() {
 
 window.addEventListener('DOMContentLoaded', () => {
   loadSaved();
-  const savedLang = localStorage.getItem('hs3_lang') || 'en';
-  document.getElementById('langSelect').value = savedLang;
-  setLang(savedLang);
+  document.getElementById('langSelect').value = 'en';
+  setLang('en');
   const savedLevel = localStorage.getItem('hs3_level') || 'a1';
   setLevel(savedLevel);
 });
